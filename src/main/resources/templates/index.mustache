@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>Video Conferencing using RTCMultiConnection</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+
+<h1>
+    기복이와 함께하는 화상회의
+</h1>
+
+<section class="make-center">
+    <div>
+        <label><input type="checkbox" id="record-entire-conference">녹화</label>
+        <span id="recording-status" style="display: none;"></span>
+        <button id="btn-stop-recording" style="display: none;">Stop Recording</button>
+        <br><br>
+
+        <input type="text" id="room-id" value="abcdef" autocorrect=off autocapitalize=off size=20>
+        <br>
+        <br>
+        <button id="open-room">방 생성</button>
+        <button id="join-room">방 참여</button>
+        <button id="open-or-join-room">없는 코드면 생성 있는 코드면 참가</button>
+    </div>
+
+    <div id="videos-container" style="margin: 20px 0;"></div>
+
+    <div id="room-urls" style="text-align: center;display: none;background: #F1EDED;margin: 15px -10px;border: 1px solid rgb(189, 189, 189);border-left: 0;border-right: 0;"></div>
+</section>
+
+<script src="https://rtcmulticonnection.herokuapp.com/dist/RTCMultiConnection.min.js"></script>
+<script src="node_modules/webrtc-adapter/out/adapter.js"></script>
+<script src="https://rtcmulticonnection.herokuapp.com/socket.io/socket.io.js"></script>
+
+<link rel="stylesheet" href="css/getHTMLMediaElement.css">
+<script src="js/getHTMLMediaElement.js"></script>
+
+<script src="node_modules/recordrtc/RecordRTC.js"></script>
+<script src="js/meeting.js"></script>
+
+<!-- <footer>
+    <small id="send-message"></small>
+</footer> -->
+
+<script src="https://www.webrtc-experiment.com/common.js"></script>
+</body>
+
+</html>

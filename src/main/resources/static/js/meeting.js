@@ -4,6 +4,7 @@
 
 document.getElementById('open-room').onclick = function() {
     disableInputButtons();
+    btnMic.style.display = 'inline-block';
     connection.open(document.getElementById('room-id').value, function(isRoomOpened, roomid, error) {
         if (isRoomOpened === true) {
             showRoomURL(connection.sessionid);
@@ -238,6 +239,8 @@ connection.onstream = function(event) {
 var recordingStatus = document.getElementById('recording-status');
 var chkRecordConference = document.getElementById('record-entire-conference');
 var btnStopRecording = document.getElementById('btn-stop-recording');
+var btnMic = document.getElementById('btn-mic');
+
 btnStopRecording.onclick = function() {
     var recorder = connection.recorder;
     if (!recorder) return alert('No recorder found.');

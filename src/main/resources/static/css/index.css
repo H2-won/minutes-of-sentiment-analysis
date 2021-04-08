@@ -141,6 +141,10 @@ button:active {
     top: 1px;
 }
 
+#btn-mic {
+    display: none;
+}
+
 button[disabled],
 input[disabled] {
     background: transparent!important;

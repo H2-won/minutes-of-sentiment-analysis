@@ -300,15 +300,15 @@ function disableInputButtons(enable) {
 // ......................Handling Room-ID................
 // ......................................................
 
-function showRoomURL(roomid) {
-    var roomHashURL = '#' + roomid;
-    var roomQueryStringURL = '?roomid=' + roomid;
-
-    var roomURLsDiv = document.getElementById('room-urls');
-    roomURLsDiv.innerHTML = html;
-
-    roomURLsDiv.style.display = 'block';
-}
+// function showRoomURL(roomid) {
+//     var roomHashURL = '#' + roomid;
+//     var roomQueryStringURL = '?roomid=' + roomid;
+//
+//     var roomURLsDiv = document.getElementById('room-urls');
+//     roomURLsDiv.innerHTML = html;
+//
+//     roomURLsDiv.style.display = 'block';
+// }
 
 (function() {
     var params = {},

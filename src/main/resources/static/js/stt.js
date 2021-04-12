@@ -100,47 +100,7 @@ $(function () {
 
         $btnMic.className = 'off';
     };
-
-    /**
-     * 명령어 처리
-     * @param string
-     */
-    function fireCommand(string) {
-        if (string.endsWith('레드')) {
-            $resultWrap.className = 'red';
-        } else if (string.endsWith('블루')) {
-            $resultWrap.className = 'blue';
-        } else if (string.endsWith('그린')) {
-            $resultWrap.className = 'green';
-        } else if (string.endsWith('옐로우')) {
-            $resultWrap.className = 'yellow';
-        } else if (string.endsWith('오렌지')) {
-            $resultWrap.className = 'orange';
-        } else if (string.endsWith('그레이')) {
-            $resultWrap.className = 'grey';
-        } else if (string.endsWith('골드')) {
-            $resultWrap.className = 'gold';
-        } else if (string.endsWith('화이트')) {
-            $resultWrap.className = 'white';
-        } else if (string.endsWith('블랙')) {
-            $resultWrap.className = 'black';
-        } else if (string.endsWith('알람') || string.endsWith('알 람')) {
-            alert('알람');
-        } else if (string.endsWith('노래 켜') || string.endsWith('음악 켜')) {
-            $audio.play();
-            $iconMusic.classList.add('visible');
-        } else if (string.endsWith('노래 꺼') || string.endsWith('음악 꺼')) {
-            $audio.pause();
-            $iconMusic.classList.remove('visible');
-        } else if (string.endsWith('볼륨 업') || string.endsWith('볼륨업')) {
-            $audio.volume += 0.2;
-        } else if (string.endsWith('볼륨 다운') || string.endsWith('볼륨다운')) {
-            $audio.volume -= 0.2;
-        } else if (string.endsWith('스피치') || string.endsWith('말해줘') || string.endsWith('말 해 줘')) {
-            textToSpeech($('#final_span').text() || '전 음성 인식된 글자를 읽습니다.');
-        }
-    }
-
+    
     /**
      * 개행 처리
      * @param {string} s

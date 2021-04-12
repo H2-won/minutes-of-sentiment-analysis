@@ -16,10 +16,7 @@ $(function () {
 
     const recognition = new webkitSpeechRecognition();
     const language = 'ko-KR';
-    const $audio = document.querySelector('#audio');
     const $btnMic = document.querySelector('#btn-mic');
-    const $resultWrap = document.querySelector('#result');
-    const $iconMusic = document.querySelector('#icon-music');
 
     let isRecognizing = false;
     let ignoreEndProcess = false;
@@ -100,7 +97,7 @@ $(function () {
 
         $btnMic.className = 'off';
     };
-    
+
     /**
      * 개행 처리
      * @param {string} s
@@ -143,18 +140,6 @@ $(function () {
      */
     function textToSpeech(text) {
         console.log('textToSpeech', arguments);
-
-        // speechSynthesis options
-        // const u = new SpeechSynthesisUtterance();
-        // u.text = 'Hello world';
-        // u.lang = 'en-US';
-        // u.rate = 1.2;
-        // u.onend = function(event) {
-        //   log('Finished in ' + event.elapsedTime + ' seconds.');
-        // };
-        // speechSynthesis.speak(u);
-
-        // simple version
         speechSynthesis.speak(new SpeechSynthesisUtterance(text));
     }
 
@@ -162,14 +147,6 @@ $(function () {
      * 초기 바인딩
      */
     function initialize() {
-        // const $btnTTS = document.querySelector('#btn-tts');
-        // const defaultMsg = '전 음성 인식된 글자를 읽습니다.';
-
-        // $btnTTS.addEventListener('click', () => {
-        //   const text = final_span.innerText || defaultMsg;
-        //   textToSpeech(text);
-        // });
-
         $btnMic.addEventListener('click', start);
     }
 

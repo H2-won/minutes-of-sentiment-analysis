@@ -4,6 +4,7 @@ import ButtonWrap from '../components/main/ButtonWrap';
 import GrayBackground from '../components/main/GrayBackground';
 import Logo from '../components/main/Logo';
 import MainImage from '../components/main/MainImage';
+import Modal from './Modal';
 
 const Container = styled.div`
   width: 100vw;
@@ -23,6 +24,7 @@ function MainPageContainer() {
       <ButtonWrap />
       <MainImage />
       <GrayBackground />
+      <Modal title="회의 생성" okBtnText="회의 생성" />
     </Container>
   );
 }

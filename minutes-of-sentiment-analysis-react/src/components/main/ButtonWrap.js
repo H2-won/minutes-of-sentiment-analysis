@@ -43,13 +43,13 @@ function ButtonWrap() {
   return (
     <Wrapper>
       <Button>
-        <i class="far fa-plus-square"></i>회의 생성
+        <i className="far fa-plus-square"></i>회의 생성
       </Button>
       <Button>
-        <i class="fas fa-sign-in-alt"></i>회의 참가
+        <i className="fas fa-sign-in-alt"></i>회의 참가
       </Button>
       <Button>
-        <i class="fas fa-list"></i>회의록 리스트
+        <i className="fas fa-list"></i>회의록 리스트
       </Button>
     </Wrapper>
   );

@@ -1,17 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import palette from '../lib/styles/palette';
-
-const Background = styled.div`
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(0, 0, 0, 0.25);
-  width: 100vw;
-  height: 100vh;
-  z-index: 20;
-`;
+import palette from '../../lib/styles/palette';
 
 const Container = styled.div`
   position: relative;
@@ -48,7 +37,7 @@ const CloseBtn = styled.div`
   cursor: pointer;
 `;
 
-const BtnContainer = styled.div`
+const BtnWrapper = styled.div`
   display: flex;
   margin-top: 40px;
 `;
@@ -63,15 +52,6 @@ const OkBtn = styled.button`
   align-items: center;
   justify-content: center;
   border-radius: 2px;
-
-  ${(props) =>
-    props.color === 'red'
-      ? css`
-          background: ${palette.red};
-        `
-      : css`
-          background: ${palette.orange1};
-        `}
 `;
 
 const CancleBtn = styled.button`
@@ -87,27 +67,19 @@ const CancleBtn = styled.button`
   margin-left: 32px;
 `;
 
-function Modal({
-  title = '제목',
-  // Content,
-  okBtnText = '확인',
-  okBtnColor = 'orange',
-}) {
+function ProduceConferenceModal({ ModalOff, args }) {
   return (
-    <Background>
-      <Container>
-        <Title>{title}</Title>
-        {/* <Content /> */}
-        <BtnContainer>
-          <OkBtn color={okBtnColor}>{okBtnText}</OkBtn>
-          <CancleBtn>취소</CancleBtn>
-        </BtnContainer>
-        <CloseBtn>
-          <img src="/icons/closeBtn.png" alt="" />
-        </CloseBtn>
-      </Container>
-    </Background>
+    <Container>
+      <Title>회의 생성</Title>
+      <BtnWrapper>
+        <OkBtn>회의 시작</OkBtn>
+        <CancleBtn onClick={ModalOff}>취소</CancleBtn>
+      </BtnWrapper>
+      <CloseBtn onClick={ModalOff}>
+        <img src="/icons/closeBtn.png" alt="" />
+      </CloseBtn>
+    </Container>
   );
 }
 
-export default Modal;
+export default ProduceConferenceModal;

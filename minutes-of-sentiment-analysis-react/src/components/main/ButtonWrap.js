@@ -1,6 +1,10 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
+import { openModal } from '../../modules/modal';
+import EnterConferenceModal from '../modal/EnterConferenceModal';
+import ProduceConferenceModal from '../modal/ProduceConferenceModal';
 
 const Wrapper = styled.div`
   display: flex;
@@ -40,12 +44,20 @@ const Button = styled.div`
 `;
 
 function ButtonWrap() {
+  const dispatch = useDispatch();
+  const onClickProduce = () => {
+    dispatch(openModal('PRODUCE', ProduceConferenceModal, {}));
+  };
+  const onClickEnter = () => {
+    dispatch(openModal('PRODUCE', EnterConferenceModal, {}));
+  };
+
   return (
     <Wrapper>
-      <Button>
+      <Button onClick={() => onClickProduce()}>
         <i className="far fa-plus-square"></i>회의 생성
       </Button>
-      <Button>
+      <Button onClick={() => onClickEnter()}>
         <i className="fas fa-sign-in-alt"></i>회의 참가
       </Button>
       <Button>

@@ -1,217 +1,168 @@
-/*!
- *
- * WebRTC Lab
- * @author dodortus (codejs.co.kr / dodortus@gmail.com)
- *
+const firebaseConfig = {
+    apiKey: "AIzaSyCAPq36ZvGSEcdGX9OXEmrMlh_Fd2h_1CA",
+    authDomain: "emotional-minutes.firebaseapp.com",
+    databaseURL: "https://emotional-minutes-default-rtdb.firebaseio.com",
+    projectId: "emotional-minutes",
+    storageBucket: "emotional-minutes.appspot.com",
+    messagingSenderId: "16714778368",
+    appId: "1:16714778368:web:f4d9f21b223a7b9878d5e5",
+    measurementId: "G-H3H5BEWXPY"
+};
+
+const yourId = Math.floor(Math.random() * 1000000000);
+firebase.initializeApp(firebaseConfig);
+const database = firebase.database().ref();
+
+const FIRST_CHAR = /\S/;
+const TWO_LINE = /\n\n/g;
+const ONE_LINE = /\n/g;
+
+const recognition = new webkitSpeechRecognition();
+const language = 'ko-KR';
+const $btnMic = document.querySelector('#btn-mic');
+const btnOpenRoom = document.querySelector('#open-room');
+const btnJoinRoom = document.querySelector('#join-room');
+const btnOpenOrJoinRoom = document.querySelector('#open-or-join-room');
+
+let isRecognizing = false;
+let ignoreEndProcess = false;
+let finalTranscript = '';
+
+recognition.continuous = true;
+recognition.interimResults = true;
+
+/**
+ * 음성 인식 시작 처리
  */
-$(function () {
-    if (typeof webkitSpeechRecognition !== 'function') {
-        alert('크롬에서만 동작 합니다.');
+recognition.onstart = function () {
+    console.log('onstart', arguments);
+    isRecognizing = true;
+    $btnMic.className = 'on';
+};
+
+/**
+ * 음성 인식 종료 처리
+ */
+recognition.onend = function () {
+    console.log('onend', arguments);
+    isRecognizing = false;
+
+    if (ignoreEndProcess) {
         return false;
     }
 
-    const FIRST_CHAR = /\S/;
-    const TWO_LINE = /\n\n/g;
-    const ONE_LINE = /\n/g;
+    // DO end process
+    $btnMic.className = 'off';
+    if (!finalTranscript) {
+        console.log('empty finalTranscript');
+        return false;
+    }
+};
 
-    const recognition = new webkitSpeechRecognition();
-    const language = 'ko-KR';
-    const $audio = document.querySelector('#audio');
-    const $btnMic = document.querySelector('#btn-mic');
-    const $resultWrap = document.querySelector('#result');
-    const $iconMusic = document.querySelector('#icon-music');
+/**
+ * 음성 인식 결과 처리
+ */
+recognition.onresult = function (event) {
+    console.log('onresult', event);
 
-    let isRecognizing = false;
-    let ignoreEndProcess = false;
-    let finalTranscript = '';
+    let interimTranscript = '';
+    if (typeof event.results === 'undefined') {
+        recognition.onend = null;
+        recognition.stop();
+        return;
+    }
 
-    recognition.continuous = true;
-    recognition.interimResults = true;
+    for (let i = event.resultIndex; i < event.results.length; ++i) {
+        const transcript = event.results[i][0].transcript;
 
-    /**
-     * 음성 인식 시작 처리
-     */
-    recognition.onstart = function () {
-        console.log('onstart', arguments);
-        isRecognizing = true;
-        $btnMic.className = 'on';
-    };
-
-    /**
-     * 음성 인식 종료 처리
-     */
-    recognition.onend = function () {
-        console.log('onend', arguments);
-        isRecognizing = false;
-
-        if (ignoreEndProcess) {
-            return false;
-        }
-
-        // DO end process
-        $btnMic.className = 'off';
-        if (!finalTranscript) {
-            console.log('empty finalTranscript');
-            return false;
-        }
-    };
-
-    /**
-     * 음성 인식 결과 처리
-     */
-    recognition.onresult = function (event) {
-        console.log('onresult', event);
-
-        let interimTranscript = '';
-        if (typeof event.results === 'undefined') {
-            recognition.onend = null;
-            recognition.stop();
-            return;
-        }
-
-        for (let i = event.resultIndex; i < event.results.length; ++i) {
-            const transcript = event.results[i][0].transcript;
-
-            if (event.results[i].isFinal) {
-                finalTranscript += transcript;
-            } else {
-                interimTranscript += transcript;
-            }
-        }
-
-        finalTranscript = capitalize(finalTranscript);
-        final_span.innerHTML = linebreak(finalTranscript);
-        interim_span.innerHTML = linebreak(interimTranscript);
-
-        console.log('finalTranscript', finalTranscript);
-        console.log('interimTranscript', interimTranscript);
-        fireCommand(interimTranscript);
-    };
-
-    /**
-     * 음성 인식 에러 처리
-     */
-    recognition.onerror = function (event) {
-        console.log('onerror', event);
-
-        if (event.error.match(/no-speech|audio-capture|not-allowed/)) {
-            ignoreEndProcess = true;
-        }
-
-        $btnMic.className = 'off';
-    };
-
-    /**
-     * 명령어 처리
-     * @param string
-     */
-    function fireCommand(string) {
-        if (string.endsWith('레드')) {
-            $resultWrap.className = 'red';
-        } else if (string.endsWith('블루')) {
-            $resultWrap.className = 'blue';
-        } else if (string.endsWith('그린')) {
-            $resultWrap.className = 'green';
-        } else if (string.endsWith('옐로우')) {
-            $resultWrap.className = 'yellow';
-        } else if (string.endsWith('오렌지')) {
-            $resultWrap.className = 'orange';
-        } else if (string.endsWith('그레이')) {
-            $resultWrap.className = 'grey';
-        } else if (string.endsWith('골드')) {
-            $resultWrap.className = 'gold';
-        } else if (string.endsWith('화이트')) {
-            $resultWrap.className = 'white';
-        } else if (string.endsWith('블랙')) {
-            $resultWrap.className = 'black';
-        } else if (string.endsWith('알람') || string.endsWith('알 람')) {
-            alert('알람');
-        } else if (string.endsWith('노래 켜') || string.endsWith('음악 켜')) {
-            $audio.play();
-            $iconMusic.classList.add('visible');
-        } else if (string.endsWith('노래 꺼') || string.endsWith('음악 꺼')) {
-            $audio.pause();
-            $iconMusic.classList.remove('visible');
-        } else if (string.endsWith('볼륨 업') || string.endsWith('볼륨업')) {
-            $audio.volume += 0.2;
-        } else if (string.endsWith('볼륨 다운') || string.endsWith('볼륨다운')) {
-            $audio.volume -= 0.2;
-        } else if (string.endsWith('스피치') || string.endsWith('말해줘') || string.endsWith('말 해 줘')) {
-            textToSpeech($('#final_span').text() || '전 음성 인식된 글자를 읽습니다.');
+        if (event.results[i].isFinal) {
+            finalTranscript += transcript;
+            // 발화가 끝나면 데이터베이스에 저장
+            let msg = database.push({
+                sender: yourId,
+                message: transcript
+            });
+            msg.remove();
+        } else {
+            interimTranscript += transcript;
         }
     }
 
-    /**
-     * 개행 처리
-     * @param {string} s
-     */
-    function linebreak(s) {
-        return s.replace(TWO_LINE, '<p></p>').replace(ONE_LINE, '<br>');
+    finalTranscript = capitalize(finalTranscript);
+};
+
+function readMessage(data) {
+    console.log(data.val().sender)
+    console.log(data.val().message)
+}
+
+database.on('child_added', readMessage);
+
+/**
+ * 음성 인식 에러 처리
+ */
+recognition.onerror = function (event) {
+    console.log('onerror', event);
+
+    if (event.error.match(/no-speech|audio-capture|not-allowed/)) {
+        ignoreEndProcess = true;
     }
 
-    /**
-     * 첫문자를 대문자로 변환
-     * @param {string} s
-     */
-    function capitalize(s) {
-        return s.replace(FIRST_CHAR, function (m) {
-            return m.toUpperCase();
-        });
+    $btnMic.className = 'off';
+};
+
+/**
+ * 개행 처리
+ * @param {string} s
+ */
+function linebreak(s) {
+    return s.replace(TWO_LINE, '<p></p>').replace(ONE_LINE, '<br>');
+}
+
+/**
+ * 첫문자를 대문자로 변환
+ * @param {string} s
+ */
+function capitalize(s) {
+    return s.replace(FIRST_CHAR, function (m) {
+        return m.toUpperCase();
+    });
+}
+
+/**
+ * 음성 인식 트리거
+ */
+function start() {
+    if (isRecognizing) {
+        recognition.stop();
+        return;
     }
+    recognition.lang = language;
+    recognition.start();
+    console.log('start recognition');
+    ignoreEndProcess = false;
 
-    /**
-     * 음성 인식 트리거
-     */
-    function start() {
-        if (isRecognizing) {
-            recognition.stop();
-            return;
-        }
-        recognition.lang = language;
-        recognition.start();
-        console.log('start recognition');
-        ignoreEndProcess = false;
+    finalTranscript = '';
+    final_span.innerHTML = '';
+    interim_span.innerHTML = '';
+}
 
-        finalTranscript = '';
-        final_span.innerHTML = '';
-        interim_span.innerHTML = '';
-    }
+/**
+ * 문자를 음성으로 읽어 줍니다.
+ * 지원: 크롬, 사파리, 오페라, 엣지
+ */
+function textToSpeech(text) {
+    console.log('textToSpeech', arguments);
+    speechSynthesis.speak(new SpeechSynthesisUtterance(text));
+}
 
-    /**
-     * 문자를 음성으로 읽어 줍니다.
-     * 지원: 크롬, 사파리, 오페라, 엣지
-     */
-    function textToSpeech(text) {
-        console.log('textToSpeech', arguments);
+/**
+ * 초기 바인딩
+ */
+function initialize() {
+    btnOpenRoom.addEventListener('click', start);
+    btnJoinRoom.addEventListener('click', start);
+    btnOpenOrJoinRoom.addEventListener('click', start);
+}
 
-        // speechSynthesis options
-        // const u = new SpeechSynthesisUtterance();
-        // u.text = 'Hello world';
-        // u.lang = 'en-US';
-        // u.rate = 1.2;
-        // u.onend = function(event) {
-        //   log('Finished in ' + event.elapsedTime + ' seconds.');
-        // };
-        // speechSynthesis.speak(u);
-
-        // simple version
-        speechSynthesis.speak(new SpeechSynthesisUtterance(text));
-    }
-
-    /**
-     * 초기 바인딩
-     */
-    function initialize() {
-        // const $btnTTS = document.querySelector('#btn-tts');
-        // const defaultMsg = '전 음성 인식된 글자를 읽습니다.';
-
-        // $btnTTS.addEventListener('click', () => {
-        //   const text = final_span.innerText || defaultMsg;
-        //   textToSpeech(text);
-        // });
-
-        $btnMic.addEventListener('click', start);
-    }
-
-    initialize();
-});
+initialize();

@@ -7,7 +7,7 @@ document.getElementById('open-room').onclick = function() {
     btnMic.style.display = 'inline-block';
     connection.open(document.getElementById('room-id').value, function(isRoomOpened, roomid, error) {
         if (isRoomOpened === true) {
-            showRoomURL(connection.sessionid);
+            // showRoomURL(connection.sessionid);
         } else {
             disableInputButtons(true);
             if (error === 'Room not available') {

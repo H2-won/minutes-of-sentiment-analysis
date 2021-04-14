@@ -77,6 +77,7 @@ recognition.onresult = function (event) {
 
         if (event.results[i].isFinal) {
             finalTranscript += transcript;
+            // 발화가 끝나면 데이터베이스에 저장
             let msg = database.push({
                 sender: yourId,
                 message: transcript

@@ -1,5 +1,6 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 import { openModal } from '../../modules/modal';
@@ -40,16 +41,31 @@ const Button = styled.div`
     color: ${palette.white};
     background: ${palette.orange1};
     cursor: pointer;
+
+    a {
+      color: ${palette.white};
+    }
+  }
+
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-decoration: none;
+    width: 100%;
+    height: 100%;
+    color: ${palette.orange1};
   }
 `;
 
 function ButtonWrap() {
   const dispatch = useDispatch();
   const onClickProduce = () => {
-    dispatch(openModal('PRODUCE', ProduceConferenceModal, {}));
+    dispatch(openModal('PRODUCE_CONFERENCE', ProduceConferenceModal, {}));
   };
   const onClickEnter = () => {
-    dispatch(openModal('PRODUCE', EnterConferenceModal, {}));
+    dispatch(openModal('ENTER_CONFERENCE', EnterConferenceModal, {}));
   };
 
   return (
@@ -61,7 +77,9 @@ function ButtonWrap() {
         <i className="fas fa-sign-in-alt"></i>회의 참가
       </Button>
       <Button>
-        <i className="fas fa-list"></i>회의록 리스트
+        <Link to="/minuteslist">
+          <i className="fas fa-list"></i>회의록 리스트
+        </Link>
       </Button>
     </Wrapper>
   );

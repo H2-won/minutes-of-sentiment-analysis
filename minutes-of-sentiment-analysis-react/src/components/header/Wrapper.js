@@ -11,7 +11,7 @@ const Container = styled.div`
   justify-content: space-between;
   align-items: center;
   z-index: 10;
-  padding: 0 75px;
+  padding: 0 110px;
   border-bottom: 0.5px solid ${palette.gray2};
   background: ${palette.white};
 `;

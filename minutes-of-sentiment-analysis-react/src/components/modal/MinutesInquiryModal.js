@@ -67,13 +67,12 @@ const CancleBtn = styled.button`
   margin-left: 32px;
 `;
 
-function EnterConferenceModal({ ModalOff, args }) {
+function MinutesInquiryModal({ ModalOff, args }) {
   return (
     <Container>
-      <Title>회의 참가</Title>
-
+      <Title>회의록 조회</Title>
       <BtnWrapper>
-        <OkBtn>회의 참가</OkBtn>
+        <OkBtn>조회</OkBtn>
         <CancleBtn onClick={ModalOff}>취소</CancleBtn>
       </BtnWrapper>
       <CloseBtn onClick={ModalOff}>
@@ -83,4 +82,4 @@ function EnterConferenceModal({ ModalOff, args }) {
   );
 }
 
-export default EnterConferenceModal;
+export default MinutesInquiryModal;

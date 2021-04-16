@@ -197,3 +197,8 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+.firebaserc
+firebase.json
+functions
+application-oauth.properties

@@ -6,7 +6,6 @@ document.getElementById('open-room').onclick = function() {
     disableInputButtons();
     connection.open(document.getElementById('room-id').value, function(isRoomOpened, roomid, error) {
         if (isRoomOpened === true) {
-            // showRoomURL(connection.sessionid);
         } else {
             disableInputButtons(true);
             if (error === 'Room not available') {
@@ -172,7 +171,6 @@ connection.onstream = function(event) {
         video.setAttribute('autoplay', true);
         video.setAttribute('playsinline', true);
     }
-
     if (event.type === 'local') {
         video.volume = 0;
         try {
@@ -190,20 +188,13 @@ connection.onstream = function(event) {
         width: width,
         showOnMouseEnter: false
     });
-
     connection.videosContainer.appendChild(mediaElement);
-
     setTimeout(function() {
         mediaElement.media.play();
     }, 5000);
-
     mediaElement.id = event.streamid;
-
     // to keep room-id in cache
     localStorage.setItem(connection.socketMessageEvent, connection.sessionid);
-
-    chkRecordConference.parentNode.style.display = 'none';
-
     if (event.type === 'local') {
         connection.socket.on('disconnect', function() {
             if (!connection.getAllParticipants().length) {
@@ -230,8 +221,6 @@ connection.onstream = function(event) {
 
     const recognition = new webkitSpeechRecognition();
     const language = 'ko-KR';
-    const $btnMic = document.querySelector('#btn-mic');
-
     let isRecognizing = false;
     let ignoreEndProcess = false;
     let finalTranscript = '';
@@ -245,9 +234,7 @@ connection.onstream = function(event) {
     recognition.onstart = function () {
         console.log('onstart', arguments);
         isRecognizing = true;
-        $btnMic.className = 'on';
     };
-
     /**
      * 음성 인식 종료 처리
      */
@@ -260,7 +247,6 @@ connection.onstream = function(event) {
         }
 
         // DO end process
-        $btnMic.className = 'off';
         if (!finalTranscript) {
             console.log('empty finalTranscript');
             return false;
@@ -294,7 +280,6 @@ connection.onstream = function(event) {
             }
 
             connection.recorder.streams.push(event.stream);
-            recordingStatus.innerHTML = 'Recording ' + connection.recorder.streams.length + ' streams';
         }
         // 발화 녹음 테스트 끝
 
@@ -326,9 +311,6 @@ connection.onstream = function(event) {
 
                     checkRecord = false;
                     connection.recorder = null;
-                    btnStopRecording.style.display = 'none';
-                    recordingStatus.style.display = 'none';
-                    chkRecordConference.parentNode.style.display = 'inline-block';
                 });
                 // 발화 녹음 테스트 끝
             } else {
@@ -365,11 +347,6 @@ connection.onstream = function(event) {
     start();
     // -------------------------------------------------- //
 };
-
-var recordingStatus = document.getElementById('recording-status');
-var chkRecordConference = document.getElementById('record-entire-conference');
-var btnStopRecording = document.getElementById('btn-stop-recording');
-var btnMic = document.getElementById('btn-mic');
 
 connection.onstreamended = function(event) {
     var mediaElement = document.getElementById(event.streamid);
@@ -410,16 +387,6 @@ function disableInputButtons(enable) {
 // ......................................................
 // ......................Handling Room-ID................
 // ......................................................
-
-// function showRoomURL(roomid) {
-//     var roomHashURL = '#' + roomid;
-//     var roomQueryStringURL = '?roomid=' + roomid;
-//
-//     var roomURLsDiv = document.getElementById('room-urls');
-//     roomURLsDiv.innerHTML = html;
-//
-//     roomURLsDiv.style.display = 'block';
-// }
 
 (function() {
     var params = {},

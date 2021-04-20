@@ -4,7 +4,7 @@
 
 document.getElementById('open-room').onclick = function() {
     disableInputButtons();
-    connection.open(document.getElementById('room-id').value, function(isRoomOpened, roomid, error) {
+    connection.open(document.getElementById('room-id').value, function (isRoomOpened, roomid, error) {
         if (isRoomOpened === true) {
         } else {
             disableInputButtons(true);
@@ -17,9 +17,9 @@ document.getElementById('open-room').onclick = function() {
     });
 };
 
-document.getElementById('join-room').onclick = function() {
+document.getElementById('join-room').onclick = function () {
     disableInputButtons();
-    connection.join(document.getElementById('room-id').value, function(isJoinedRoom, roomid, error) {
+    connection.join(document.getElementById('room-id').value, function (isJoinedRoom, roomid, error) {
         if (error) {
             disableInputButtons(true);
             if (error === 'Room not available') {
@@ -31,9 +31,9 @@ document.getElementById('join-room').onclick = function() {
     });
 };
 
-document.getElementById('open-or-join-room').onclick = function() {
+document.getElementById('open-or-join-room').onclick = function () {
     disableInputButtons();
-    connection.openOrJoin(document.getElementById('room-id').value, function(isRoomExist, roomid, error) {
+    connection.openOrJoin(document.getElementById('room-id').value, function (isRoomExist, roomid, error) {
         if (error) {
             disableInputButtons(true);
             alert(error);
@@ -100,7 +100,7 @@ connection.mediaConstraints = {
 
 var CodecsHandler = connection.CodecsHandler;
 
-connection.processSdp = function(sdp) {
+connection.processSdp = function (sdp) {
     var codecs = 'vp8';
 
     if (codecs.length) {
@@ -149,7 +149,7 @@ connection.iceServers = [{
 }];
 
 connection.videosContainer = document.getElementById('videos-container');
-connection.onstream = function(event) {
+connection.onstream = function (event) {
     const connectionInfo = event.stream;
 
     var existing = document.getElementById(event.streamid);
@@ -189,14 +189,14 @@ connection.onstream = function(event) {
         showOnMouseEnter: false
     });
     connection.videosContainer.appendChild(mediaElement);
-    setTimeout(function() {
+    setTimeout(function () {
         mediaElement.media.play();
     }, 5000);
     mediaElement.id = event.streamid;
     // to keep room-id in cache
     localStorage.setItem(connection.socketMessageEvent, connection.sessionid);
     if (event.type === 'local') {
-        connection.socket.on('disconnect', function() {
+        connection.socket.on('disconnect', function () {
             if (!connection.getAllParticipants().length) {
                 location.reload();
             }
@@ -348,14 +348,14 @@ connection.onstream = function(event) {
     // -------------------------------------------------- //
 };
 
-connection.onstreamended = function(event) {
+connection.onstreamended = function (event) {
     var mediaElement = document.getElementById(event.streamid);
     if (mediaElement) {
         mediaElement.parentNode.removeChild(mediaElement);
     }
 };
 
-connection.onMediaError = function(e) {
+connection.onMediaError = function (e) {
     if (e.message === 'Concurrent mic process limit.') {
         if (DetectRTC.audioInputDevices.length <= 1) {
             alert('Please select external microphone. Check github issue number 483.');
@@ -388,13 +388,14 @@ function disableInputButtons(enable) {
 // ......................Handling Room-ID................
 // ......................................................
 
-(function() {
+(function () {
     var params = {},
         r = /([^&=]+)=?([^&]*)/g;
 
     function d(s) {
         return decodeURIComponent(s.replace(/\+/g, ' '));
     }
+
     var match, search = window.location.search;
     while (match = r.exec(search.substring(1)))
         params[d(match[1])] = d(match[2]);
@@ -410,7 +411,7 @@ if (localStorage.getItem(connection.socketMessageEvent)) {
 
 var txtRoomId = document.getElementById('room-id');
 txtRoomId.value = roomid;
-txtRoomId.onkeyup = txtRoomId.oninput = txtRoomId.onpaste = function() {
+txtRoomId.onkeyup = txtRoomId.oninput = txtRoomId.onpaste = function () {
     localStorage.setItem(connection.socketMessageEvent, document.getElementById('room-id').value);
 };
 
@@ -430,7 +431,7 @@ if (roomid && roomid.length) {
 
     // auto-join-room
     (function reCheckRoomPresence() {
-        connection.checkPresence(roomid, function(isRoomExist) {
+        connection.checkPresence(roomid, function (isRoomExist) {
             if (isRoomExist) {
                 connection.join(roomid);
                 return;

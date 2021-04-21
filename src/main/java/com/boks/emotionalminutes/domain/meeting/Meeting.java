@@ -1,4 +1,4 @@
-package com.boks.emotionalminutes.domain;
+package com.boks.emotionalminutes.domain.meeting;
 
 import com.boks.emotionalminutes.domain.user.User;
 import lombok.Getter;

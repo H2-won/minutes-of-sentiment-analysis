@@ -1,9 +1,8 @@
-package com.boks.emotionalminutes.domain;
+package com.boks.emotionalminutes.domain.participation;
 
+import com.boks.emotionalminutes.domain.meeting.Meeting;
 import com.boks.emotionalminutes.domain.user.User;
-import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 

@@ -17,6 +17,6 @@ public class Participation {
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "meeting_id")
+    @JoinColumn(name = "meeting_code")
     private Meeting meeting;
 }

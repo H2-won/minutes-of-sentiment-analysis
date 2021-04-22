@@ -11,12 +11,14 @@ import java.util.Date;
 @Getter
 public class Meeting {
     @Id
+    @Column(name = "code")
     private String code;
 
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
 
+    @Column(name = "name")
     private String name;
 
     @Column(name = "created_date")

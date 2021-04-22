@@ -1,9 +1,9 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import palette from '../../lib/styles/palette';
-import { openModal } from '../../modules/modal';
-import MinutesInquiryModal from '../modal/MinutesInquiryModal';
+import palette from '../../../lib/styles/palette';
+import { openModal } from '../../../modules/modal';
+import MinutesInquiryModal from '../../modal/MinutesInquiryModal';
 
 const Button = styled.button`
   width: 200px;

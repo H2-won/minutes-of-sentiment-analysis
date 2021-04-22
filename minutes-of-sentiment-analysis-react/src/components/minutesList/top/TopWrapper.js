@@ -2,13 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
+  position: relative;
+  width: 100%;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  margin-top: 10rem;
 `;
 
-function MinutesListWrapper({ children }) {
+function TopWrapper({ children }) {
   return <Container>{children}</Container>;
 }
 
-export default MinutesListWrapper;
+export default TopWrapper;

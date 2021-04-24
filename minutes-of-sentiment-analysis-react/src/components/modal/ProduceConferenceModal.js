@@ -13,6 +13,7 @@ const ContentWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-top: 1rem;
 
   .subTitle {
     font-size: 18px;
@@ -40,7 +41,7 @@ const ContentWrapper = styled.div`
   }
 
   & + & {
-    margin-top: 0.75rem;
+    margin-top: 1.5rem;
   }
 `;
 

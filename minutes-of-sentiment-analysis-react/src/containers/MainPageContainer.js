@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import ButtonWrap from '../components/main/ButtonWrap';
 import GrayBackground from '../components/main/GrayBackground';
 import Logo from '../components/main/Logo';
 import MainImage from '../components/main/MainImage';
-import EnterConferenceModal from '../components/modal/EnterConferenceModal';
-// import Modal from './Modal';
 
 const Container = styled.div`
   width: 100vw;

@@ -13,20 +13,13 @@ const ContentWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 1rem;
+  margin: 2.5rem 0 1rem;
 
   .subTitle {
     font-size: 18px;
     font-weight: bold;
     color: ${palette.black};
     margin-right: 2rem;
-  }
-
-  div {
-    width: 360px;
-    padding: 0.75rem;
-    font-size: 18px;
-    color: ${palette.gray4};
   }
 
   input {
@@ -41,27 +34,23 @@ const ContentWrapper = styled.div`
   }
 
   & + & {
-    margin-top: 1.5rem;
+    margin-top: 0.75rem;
   }
 `;
 
-function ProduceConferenceModal() {
+function MinutesInquiryModal() {
   return (
     <Container>
       <ContentWrapper>
         <span className="subTitle">회의 코드</span>
-        <div>ABC2f1d5k7G</div>
-      </ContentWrapper>
-      <ContentWrapper>
-        <span className="subTitle">회의 제목</span>
-        <input type="text" maxLength="24" />
+        <input type="text" />
       </ContentWrapper>
       <ContentWrapper>
         <span className="subTitle">비밀번호</span>
-        <input type="password" maxLength="24" />
+        <input type="password" />
       </ContentWrapper>
     </Container>
   );
 }
 
-export default ProduceConferenceModal;
+export default MinutesInquiryModal;

@@ -1,11 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Logo from '../components/header/Logo';
 import Wrapper from '../components/header/Wrapper';
 
 function Header() {
   return (
     <Wrapper>
-      <Logo />
+      <Link to="/main">
+        <Logo />
+      </Link>
     </Wrapper>
   );
 }

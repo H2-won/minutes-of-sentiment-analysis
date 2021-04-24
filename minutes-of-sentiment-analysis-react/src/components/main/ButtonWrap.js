@@ -62,10 +62,22 @@ const Button = styled.div`
 function ButtonWrap() {
   const dispatch = useDispatch();
   const onClickProduce = () => {
-    dispatch(openModal('PRODUCE_CONFERENCE', ProduceConferenceModal, {}));
+    dispatch(
+      openModal('PRODUCE_CONFERENCE', ProduceConferenceModal, {
+        title: '회의 생성',
+        okBtnText: '회의 시작',
+        okBtnBackgroundColor: 'orange',
+      }),
+    );
   };
   const onClickEnter = () => {
-    dispatch(openModal('ENTER_CONFERENCE', EnterConferenceModal, {}));
+    dispatch(
+      openModal('ENTER_CONFERENCE', EnterConferenceModal, {
+        title: '회의 참가',
+        okBtnText: '회의 입장',
+        okBtnBackgroundColor: 'orange',
+      }),
+    );
   };
 
   return (

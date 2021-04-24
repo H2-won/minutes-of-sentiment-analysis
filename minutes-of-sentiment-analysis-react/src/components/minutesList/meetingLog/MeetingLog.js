@@ -4,13 +4,13 @@ import palette from '../../../lib/styles/palette';
 
 const Container = styled.div`
   position: relative;
-  min-width: 480px;
+  min-width: 520px;
   min-height: 180px;
   padding: 20px;
   border-radius: 4px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
   background: ${palette.white};
-  margin: 2rem;
+  margin: 2rem 3rem;
   cursor: pointer;
   transition: 0.3s all;
 

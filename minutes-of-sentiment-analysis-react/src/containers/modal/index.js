@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 // modules
 import { closeModal } from '../../modules/modal';
+import ModalBasicForm from '../../components/modal/ModalBasicForm';
 
 const ModalBackground = styled.div`
   position: fixed;
@@ -25,15 +26,15 @@ const Modal = () => {
   const onCloseModal = (id) => dispatch(closeModal(id));
 
   const ModalList = modalList.map((modal) => {
-    const Content = modal['elem'];
     return (
-      <Content
+      <ModalBasicForm
         key={modal['id']}
         ModalOff={() => {
           onCloseModal(modal['id']);
         }}
+        Content={modal['elem']}
         args={modal['args']}
-      />
+      ></ModalBasicForm>
     );
   });
 

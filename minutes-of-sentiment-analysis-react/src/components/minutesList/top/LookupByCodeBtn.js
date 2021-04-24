@@ -21,7 +21,13 @@ const Button = styled.button`
 function LookupByCodeBtn() {
   const dispatch = useDispatch();
   const onClickLookup = () => {
-    dispatch(openModal('MINUTES_INQUIRY', MinutesInquiryModal, {}));
+    dispatch(
+      openModal('MINUTES_INQUIRY', MinutesInquiryModal, {
+        title: '회의록 조회',
+        okBtnText: '조회',
+        okBtnBackgroundColor: 'orange',
+      }),
+    );
   };
   return <Button onClick={() => onClickLookup()}>회의 코드로 조회</Button>;
 }

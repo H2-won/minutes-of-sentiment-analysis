@@ -4,81 +4,43 @@ import palette from '../../lib/styles/palette';
 
 const Container = styled.div`
   position: relative;
-  background: ${palette.white};
-  border: ${palette.gray2};
-  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.2);
-  border-radius: 4px;
-  z-index: 21;
-  min-width: 420px;
-  min-height: 160px;
+  margin-top: 2rem;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 40px;
 `;
 
-const Title = styled.h2`
-  font-size: 2rem;
-  color: ${palette.black};
-  font-weight: bold;
-  margin-top: 2rem;
-`;
-
-const CloseBtn = styled.div`
-  position: absolute;
+const ContentWrapper = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
-  top: 10px;
-  right: 10px;
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
+  justify-content: space-between;
+  margin: 2.5rem 0 0.5rem;
+
+  .subTitle {
+    font-size: 18px;
+    font-weight: bold;
+    color: ${palette.black};
+    margin-right: 2rem;
+  }
+
+  input {
+    height: 36px;
+    width: 360px;
+    font-size: 18px;
+    color: ${palette.gray4};
+    border: 0.5px solid ${palette.gray2};
+    padding: 0.75rem;
+    display: flex;
+    align-items: center;
+  }
 `;
 
-const BtnWrapper = styled.div`
-  display: flex;
-  margin-top: 40px;
-`;
-
-const OkBtn = styled.button`
-  width: 140px;
-  height: 60px;
-  background: ${palette.orange1};
-  color: ${palette.white};
-  font-size: 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 2px;
-`;
-
-const CancleBtn = styled.button`
-  width: 140px;
-  height: 60px;
-  background: ${palette.gray2};
-  color: ${palette.white};
-  font-size: 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 2px;
-  margin-left: 32px;
-`;
-
-function EnterConferenceModal({ ModalOff, args }) {
+function EnterConferenceModal() {
   return (
     <Container>
-      <Title>회의 참가</Title>
-
-      <BtnWrapper>
-        <OkBtn>회의 참가</OkBtn>
-        <CancleBtn onClick={ModalOff}>취소</CancleBtn>
-      </BtnWrapper>
-      <CloseBtn onClick={ModalOff}>
-        <img src="/icons/closeBtn.png" alt="" />
-      </CloseBtn>
+      <ContentWrapper>
+        <span className="subTitle">회의 코드</span>
+        <input type="text" />
+      </ContentWrapper>
     </Container>
   );
 }

@@ -18,6 +18,10 @@ a{
   text-decoration: none;
 }
 
+a:visited, a:focus{
+  color: #3D3D3D;
+}
+
 button{
   border: none;
   cursor: pointer;

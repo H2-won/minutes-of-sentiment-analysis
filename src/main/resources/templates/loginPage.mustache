@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>Video Conferencing using RTCMultiConnection</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+</head>
+
+<body>
+
+<h1>
+    로그인 테스트
+</h1>
+
+{{#userName}}
+    Logged in as: <span id="user">{{userName}}</span>
+    <a href="/logout" role="button">Logout</a>
+{{/userName}}
+{{^userName}}
+    <a href="/oauth2/authorization/google" role="button">Google Login</a>
+{{/userName}}
+
+</body>
+
+</html>

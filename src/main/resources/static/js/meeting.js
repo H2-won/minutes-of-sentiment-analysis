@@ -4,10 +4,8 @@
 
 document.getElementById('open-room').onclick = function() {
     disableInputButtons();
-    btnMic.style.display = 'inline-block';
-    connection.open(document.getElementById('room-id').value, function(isRoomOpened, roomid, error) {
+    connection.open(document.getElementById('room-id').value, function (isRoomOpened, roomid, error) {
         if (isRoomOpened === true) {
-            // showRoomURL(connection.sessionid);
         } else {
             disableInputButtons(true);
             if (error === 'Room not available') {
@@ -19,9 +17,9 @@ document.getElementById('open-room').onclick = function() {
     });
 };
 
-document.getElementById('join-room').onclick = function() {
+document.getElementById('join-room').onclick = function () {
     disableInputButtons();
-    connection.join(document.getElementById('room-id').value, function(isJoinedRoom, roomid, error) {
+    connection.join(document.getElementById('room-id').value, function (isJoinedRoom, roomid, error) {
         if (error) {
             disableInputButtons(true);
             if (error === 'Room not available') {
@@ -33,9 +31,9 @@ document.getElementById('join-room').onclick = function() {
     });
 };
 
-document.getElementById('open-or-join-room').onclick = function() {
+document.getElementById('open-or-join-room').onclick = function () {
     disableInputButtons();
-    connection.openOrJoin(document.getElementById('room-id').value, function(isRoomExist, roomid, error) {
+    connection.openOrJoin(document.getElementById('room-id').value, function (isRoomExist, roomid, error) {
         if (error) {
             disableInputButtons(true);
             alert(error);
@@ -102,7 +100,7 @@ connection.mediaConstraints = {
 
 var CodecsHandler = connection.CodecsHandler;
 
-connection.processSdp = function(sdp) {
+connection.processSdp = function (sdp) {
     var codecs = 'vp8';
 
     if (codecs.length) {
@@ -151,7 +149,9 @@ connection.iceServers = [{
 }];
 
 connection.videosContainer = document.getElementById('videos-container');
-connection.onstream = function(event) {
+connection.onstream = function (event) {
+    const connectionInfo = event.stream;
+
     var existing = document.getElementById(event.streamid);
     if (existing && existing.parentNode) {
         existing.parentNode.removeChild(existing);
@@ -171,7 +171,6 @@ connection.onstream = function(event) {
         video.setAttribute('autoplay', true);
         video.setAttribute('playsinline', true);
     }
-
     if (event.type === 'local') {
         video.volume = 0;
         try {
@@ -189,80 +188,174 @@ connection.onstream = function(event) {
         width: width,
         showOnMouseEnter: false
     });
-
     connection.videosContainer.appendChild(mediaElement);
-
-    setTimeout(function() {
+    setTimeout(function () {
         mediaElement.media.play();
     }, 5000);
-
     mediaElement.id = event.streamid;
-
     // to keep room-id in cache
     localStorage.setItem(connection.socketMessageEvent, connection.sessionid);
-
-    chkRecordConference.parentNode.style.display = 'none';
-
-    if (chkRecordConference.checked === true) {
-        btnStopRecording.style.display = 'inline-block';
-        recordingStatus.style.display = 'inline-block';
-
-        var recorder = connection.recorder;
-        if (!recorder) {
-            recorder = RecordRTC([event.stream], {
-                // type: 'video'
-                type: 'audio'
-            });
-            recorder.startRecording();
-            connection.recorder = recorder;
-        } else {
-            recorder.getInternalRecorder().addStreams([event.stream]);
-        }
-
-        if (!connection.recorder.streams) {
-            connection.recorder.streams = [];
-        }
-
-        connection.recorder.streams.push(event.stream);
-        recordingStatus.innerHTML = 'Recording ' + connection.recorder.streams.length + ' streams';
-    }
-
     if (event.type === 'local') {
-        connection.socket.on('disconnect', function() {
+        connection.socket.on('disconnect', function () {
             if (!connection.getAllParticipants().length) {
                 location.reload();
             }
         });
     }
+
+    // -------------------------------------------------- //
+    const firebaseConfig = {
+        apiKey: "AIzaSyCAPq36ZvGSEcdGX9OXEmrMlh_Fd2h_1CA",
+        authDomain: "emotional-minutes.firebaseapp.com",
+        databaseURL: "https://emotional-minutes-default-rtdb.firebaseio.com",
+        projectId: "emotional-minutes",
+        storageBucket: "emotional-minutes.appspot.com",
+        messagingSenderId: "16714778368",
+        appId: "1:16714778368:web:f4d9f21b223a7b9878d5e5",
+        measurementId: "G-H3H5BEWXPY"
+    };
+
+    const yourId = Math.floor(Math.random() * 1000000000);
+    firebase.initializeApp(firebaseConfig);
+    const database = firebase.database().ref();
+
+    const recognition = new webkitSpeechRecognition();
+    const language = 'ko-KR';
+    let isRecognizing = false;
+    let ignoreEndProcess = false;
+    let finalTranscript = '';
+
+    recognition.continuous = true;
+    recognition.interimResults = true;
+
+    /**
+     * 음성 인식 시작 처리
+     */
+    recognition.onstart = function () {
+        console.log('onstart', arguments);
+        isRecognizing = true;
+    };
+    /**
+     * 음성 인식 종료 처리
+     */
+    recognition.onend = function () {
+        console.log('onend', arguments);
+        isRecognizing = false;
+
+        if (ignoreEndProcess) {
+            return false;
+        }
+
+        // DO end process
+        if (!finalTranscript) {
+            console.log('empty finalTranscript');
+            return false;
+        }
+    };
+
+    /**
+     * 음성 인식 결과 처리
+     */
+    let checkRecord = false;
+    recognition.onresult = function (event) {
+        console.log('onresult', event);
+
+        // 발화 녹음 테스트 시작
+        if (!checkRecord) {
+            checkRecord = true
+
+            var recorder = connection.recorder;
+            if (!recorder) {
+                recorder = RecordRTC([connectionInfo], {
+                    type: 'audio'
+                });
+                recorder.startRecording();
+                connection.recorder = recorder;
+            } else {
+                recorder.getInternalRecorder().addStreams([connectionInfo]);
+            }
+
+            if (!connection.recorder.streams) {
+                connection.recorder.streams = [];
+            }
+
+            connection.recorder.streams.push(event.stream);
+        }
+        // 발화 녹음 테스트 끝
+
+        let interimTranscript = '';
+        if (typeof event.results === 'undefined') {
+            recognition.onend = null;
+            recognition.stop();
+            return;
+        }
+
+        for (let i = event.resultIndex; i < event.results.length; ++i) {
+            const transcript = event.results[i][0].transcript;
+
+            if (event.results[i].isFinal) {
+                finalTranscript += transcript;
+                // 발화가 끝나면 데이터베이스에 저장
+                let msg = database.push({
+                    sender: yourId,
+                    message: transcript
+                });
+                msg.remove();
+
+                // 발화 녹음 테스트 시작
+                var recorder = connection.recorder;
+                if (!recorder) return alert('No recorder found.');
+                recorder.stopRecording(function () {
+                    var blob = recorder.getBlob();
+                    invokeSaveAsDialog(blob);
+
+                    checkRecord = false;
+                    connection.recorder = null;
+                });
+                // 발화 녹음 테스트 끝
+            } else {
+                interimTranscript += transcript;
+            }
+        }
+    };
+
+    function readMessage(data) {
+        console.log(data.val().sender)
+        console.log(data.val().message)
+    }
+
+    database.on('child_added', readMessage);
+
+    /**
+     * 음성 인식 트리거
+     */
+    function start() {
+        if (isRecognizing) {
+            recognition.stop();
+            return;
+        }
+        recognition.lang = language;
+        recognition.start();
+        console.log('start recognition');
+        ignoreEndProcess = false;
+
+        finalTranscript = '';
+        final_span.innerHTML = '';
+        interim_span.innerHTML = '';
+    }
+
+    start();
+    // -------------------------------------------------- //
 };
 
-var recordingStatus = document.getElementById('recording-status');
-var chkRecordConference = document.getElementById('record-entire-conference');
-var btnStopRecording = document.getElementById('btn-stop-recording');
-var btnMic = document.getElementById('btn-mic');
-
-btnStopRecording.onclick = function() {
-    var recorder = connection.recorder;
-    if (!recorder) return alert('No recorder found.');
-    recorder.stopRecording(function() {
-        var blob = recorder.getBlob();
-        invokeSaveAsDialog(blob);
-
-        connection.recorder = null;
-        btnStopRecording.style.display = 'none';
-        recordingStatus.style.display = 'none';
-        chkRecordConference.parentNode.style.display = 'inline-block';
-    });
-};
-
-connection.onstreamended = function(event) {
+connection.onstreamended = function (event) {
     var mediaElement = document.getElementById(event.streamid);
     if (mediaElement) {
         mediaElement.parentNode.removeChild(mediaElement);
     }
 };
 
-connection.onMediaError = function(e) {
+connection.onMediaError = function (e) {
     if (e.message === 'Concurrent mic process limit.') {
         if (DetectRTC.audioInputDevices.length <= 1) {
             alert('Please select external microphone. Check github issue number 483.');
@@ -285,11 +378,6 @@ connection.onMediaError = function(e) {
 function disableInputButtons(enable) {
     document.getElementById('room-id').onkeyup();
 
-    // document.getElementById('open-or-join-room').disabled = !enable;
-    // document.getElementById('open-room').disabled = !enable;
-    // document.getElementById('join-room').disabled = !enable;
-    // document.getElementById('room-id').disabled = !enable;
-
     document.getElementById('open-or-join-room').style.display = "none";
     document.getElementById('open-room').style.display = "none";
     document.getElementById('join-room').style.display = "none";
@@ -300,23 +388,14 @@ function disableInputButtons(enable) {
 // ......................Handling Room-ID................
 // ......................................................
 
-// function showRoomURL(roomid) {
-//     var roomHashURL = '#' + roomid;
-//     var roomQueryStringURL = '?roomid=' + roomid;
-//
-//     var roomURLsDiv = document.getElementById('room-urls');
-//     roomURLsDiv.innerHTML = html;
-//
-//     roomURLsDiv.style.display = 'block';
-// }
-
-(function() {
+(function () {
     var params = {},
         r = /([^&=]+)=?([^&]*)/g;
 
     function d(s) {
         return decodeURIComponent(s.replace(/\+/g, ' '));
     }
+
     var match, search = window.location.search;
     while (match = r.exec(search.substring(1)))
         params[d(match[1])] = d(match[2]);
@@ -332,7 +411,7 @@ if (localStorage.getItem(connection.socketMessageEvent)) {
 
 var txtRoomId = document.getElementById('room-id');
 txtRoomId.value = roomid;
-txtRoomId.onkeyup = txtRoomId.oninput = txtRoomId.onpaste = function() {
+txtRoomId.onkeyup = txtRoomId.oninput = txtRoomId.onpaste = function () {
     localStorage.setItem(connection.socketMessageEvent, document.getElementById('room-id').value);
 };
 
@@ -352,7 +431,7 @@ if (roomid && roomid.length) {
 
     // auto-join-room
     (function reCheckRoomPresence() {
-        connection.checkPresence(roomid, function(isRoomExist) {
+        connection.checkPresence(roomid, function (isRoomExist) {
             if (isRoomExist) {
                 connection.join(roomid);
                 return;

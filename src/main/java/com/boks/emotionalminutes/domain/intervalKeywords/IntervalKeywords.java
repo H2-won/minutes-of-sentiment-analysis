@@ -8,8 +8,8 @@ import javax.persistence.*;
 @Entity
 @Getter
 public class IntervalKeywords {
-    @Id
-    @Column(name = "id")
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
     private Long id;
 
     @OneToOne(fetch = FetchType.LAZY)

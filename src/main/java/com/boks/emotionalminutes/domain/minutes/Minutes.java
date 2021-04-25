@@ -8,8 +8,8 @@ import javax.persistence.*;
 @Entity
 @Getter
 public class Minutes {
-    @Id
-    @Column(name = "id")
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
     // 설계서에 pk는 Int 인데 Long 으로 되어있는 것 확인 요망
     private Long id;
 
@@ -17,7 +17,7 @@ public class Minutes {
     @JoinColumn(name = "meeting_code")
     private Meeting meeting;
 
-    @Column(name = "password")
+    @Column
     private String password;
 
     @Column(name = "voice_file_link")

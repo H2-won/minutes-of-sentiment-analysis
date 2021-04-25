@@ -2,6 +2,8 @@ package com.boks.emotionalminutes.service;
 
 import com.boks.emotionalminutes.domain.meeting.Meeting;
 import com.boks.emotionalminutes.domain.meeting.MeetingRepository;
+import com.boks.emotionalminutes.domain.participation.Participation;
+import com.boks.emotionalminutes.domain.participation.ParticipationRepository;
 import com.boks.emotionalminutes.domain.user.User;
 import com.boks.emotionalminutes.domain.user.UserRepository;
 import org.assertj.core.api.Assertions;
@@ -27,6 +29,9 @@ public class MeetingServiceTest {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    ParticipationRepository participationRepository;
+
 //    @AfterEach
 //    public void cleanup() {
 //        meetingRepository.deleteAll();
@@ -49,6 +54,7 @@ public class MeetingServiceTest {
 
         //then
         Meeting meeting = meetingRepository.findById(code).get();
+        System.out.println(participationRepository.count());
 
         assertThat(meeting.getName()).isEqualTo(name);
         assertThat(meeting.getUser().getId()).isEqualTo(userId);

@@ -3,6 +3,7 @@ package com.boks.emotionalminutes.service;
 import com.boks.emotionalminutes.domain.meeting.Meeting;
 import com.boks.emotionalminutes.domain.meeting.MeetingRepository;
 import com.boks.emotionalminutes.domain.participation.Participation;
+import com.boks.emotionalminutes.domain.participation.ParticipationRepository;
 import com.boks.emotionalminutes.domain.user.User;
 import com.boks.emotionalminutes.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,7 @@ import java.util.Optional;
 public class MeetingService {
     private final MeetingRepository meetingRepository;
     private final UserRepository userRepository;
+    private final ParticipationRepository participationRepository;
 
     @Transactional
     public Meeting create(String code, Long userId, String name) {
@@ -37,6 +39,9 @@ public class MeetingService {
                 .meeting(meeting)
                 .build();
 
-        return meetingRepository.save(meeting);
+        meetingRepository.save(meeting);
+        participationRepository.save(participation);
+
+        return meeting;
     }
 }

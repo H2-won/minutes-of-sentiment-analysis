@@ -8,23 +8,23 @@ import javax.persistence.*;
 @Entity
 @Getter
 public class TotalEmotions {
-    @Id
-    @Column(name = "id")
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
     private Long id;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "minutes_id")
     private Minutes minutes;
 
-    @Column(name = "happy")
+    @Column
     private float happy;
 
-    @Column(name = "emotionless")
+    @Column
     private float emotionless;
 
-    @Column(name = "sad")
+    @Column
     private float sad;
 
-    @Column(name = "angry")
+    @Column
     private float angry;
 }

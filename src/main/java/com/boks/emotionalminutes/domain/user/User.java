@@ -1,10 +1,14 @@
 package com.boks.emotionalminutes.domain.user;
 
+import com.boks.emotionalminutes.domain.bookmark.Bookmark;
+import com.boks.emotionalminutes.domain.participation.Participation;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -19,6 +23,12 @@ public class User {
 
     @Column
     private String email;
+
+    @OneToMany(mappedBy = "user")
+    private List<Participation> participation = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<Bookmark> bookmarks = new ArrayList<>();
 
     @Builder
     public User(String name, String email) {

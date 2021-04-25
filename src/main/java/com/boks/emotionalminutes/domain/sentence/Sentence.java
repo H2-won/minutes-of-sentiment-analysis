@@ -10,8 +10,8 @@ import java.sql.Time;
 @Entity
 @Getter
 public class Sentence {
-    @Id
-    @Column(name = "id")
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
     private Long id;
 
     // 이게 맞나?
@@ -23,12 +23,12 @@ public class Sentence {
     @JoinColumn(name = "minutes_id")
     private Minutes minutes;
 
-    @Column(name = "content")
+    @Column
     private String content;
 
-    @Column(name = "emotion")
+    @Column
     private String emotion;
 
     @Column(name = "created_time")
-    private Time created_time;
+    private Time createdTime;
 }

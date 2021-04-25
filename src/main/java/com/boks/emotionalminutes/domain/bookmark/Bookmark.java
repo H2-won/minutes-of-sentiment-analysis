@@ -9,8 +9,8 @@ import javax.persistence.*;
 @Entity
 @Getter
 public class Bookmark {
-    @Id
-    @Column(name = "id")
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
     private Long id;
 
     // 한명의 유저에 여러개 북마크가 있으니 북마크(Many) to 유저(one)
@@ -26,6 +26,6 @@ public class Bookmark {
     @JoinColumn(name = "sentence_id")
     private Sentence sentence;
 
-    @Column(name = "memo")
+    @Column
     private String memo;
 }

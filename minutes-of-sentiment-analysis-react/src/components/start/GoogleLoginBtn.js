@@ -1,25 +1,37 @@
 import React from 'react';
 import styled from 'styled-components';
-import palette from '../../lib/styles/palette';
 import { Link } from 'react-router-dom';
+// import palette from '../../lib/styles/palette';
 
-const Btn = styled.div`
-  width: 200px;
-  height: 60px;
-  color: ${palette.white};
-  background: ${palette.orange1};
+const GoogleSigninBtn = styled.img`
   border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-  font-weight: bold;
+  width: 305.6px;
+  height: 73.6px;
+  transition: 0.2s all;
 `;
 
 function GoogleLoginBtn() {
   return (
     <Link to="/main">
-      <Btn>구글 로그인</Btn>
+      <GoogleSigninBtn
+        src="/images/btn_google_signin_light_normal_web@2x.png"
+        onMouseOver={(e) => {
+          e.currentTarget.src =
+            '/images/btn_google_signin_light_focus_web@2x.png';
+        }}
+        onMouseOut={(e) => {
+          e.currentTarget.src =
+            '/images/btn_google_signin_light_normal_web@2x.png';
+        }}
+        onMouseDown={(e) => {
+          e.currentTarget.src =
+            '/images/btn_google_signin_light_pressed_web@2x.png';
+        }}
+        onMouseUp={(e) => {
+          e.currentTarget.src =
+            '/images/btn_google_signin_light_normal_web@2x.png';
+        }}
+      />
     </Link>
   );
 }

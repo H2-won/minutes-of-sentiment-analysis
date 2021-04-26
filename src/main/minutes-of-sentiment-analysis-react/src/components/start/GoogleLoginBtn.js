@@ -1,7 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-// import palette from '../../lib/styles/palette';
 
 const GoogleSigninBtn = styled.img`
   border-radius: 8px;
@@ -12,7 +10,7 @@ const GoogleSigninBtn = styled.img`
 
 function GoogleLoginBtn() {
   return (
-    <Link to="/main">
+    <a href={'/oauth2/authorization/google'} role={'button'}>
       <GoogleSigninBtn
         src="/images/btn_google_signin_light_normal_web@2x.png"
         onMouseOver={(e) => {
@@ -32,7 +30,7 @@ function GoogleLoginBtn() {
             '/images/btn_google_signin_light_normal_web@2x.png';
         }}
       />
-    </Link>
+    </a>
   );
 }
 

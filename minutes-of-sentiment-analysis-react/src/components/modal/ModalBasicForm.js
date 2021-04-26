@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 
 const Container = styled.div`
@@ -36,52 +36,11 @@ const CloseBtn = styled.div`
   cursor: pointer;
 `;
 
-const BtnWrapper = styled.div`
-  display: flex;
-  margin-top: 40px;
-`;
-
-const OkBtn = styled.button`
-  width: 140px;
-  height: 60px;
-  background: ${({ color }) =>
-    color === 'orange'
-      ? css`
-          ${palette.orange1}
-        `
-      : css`
-          ${palette.red}
-        `};
-  color: ${palette.white};
-  font-size: 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 2px;
-`;
-
-const CancleBtn = styled.button`
-  width: 140px;
-  height: 60px;
-  background: ${palette.gray2};
-  color: ${palette.white};
-  font-size: 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 2px;
-  margin-left: 32px;
-`;
-
 function ModalBasicForm({ ModalOff, Content, args }) {
   return (
     <Container>
       <Title>{args.title}</Title>
-      {<Content />}
-      <BtnWrapper>
-        <OkBtn color={args.okBtnBackgroundColor}>{args.okBtnText}</OkBtn>
-        <CancleBtn onClick={ModalOff}>취소</CancleBtn>
-      </BtnWrapper>
+      {<Content ModalOff={ModalOff} args={args} />}
       <CloseBtn onClick={ModalOff}>
         <img src="/icons/closeBtn.png" alt="" />
       </CloseBtn>

@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import palette from '../../lib/styles/palette';
 
 const Container = styled.div`
@@ -45,7 +45,45 @@ const ContentWrapper = styled.div`
   }
 `;
 
-function ProduceConferenceModal() {
+const BtnWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+`;
+
+const OkBtn = styled.button`
+  width: 140px;
+  height: 60px;
+  background: ${({ color }) =>
+    color === 'orange'
+      ? css`
+          ${palette.orange1}
+        `
+      : css`
+          ${palette.red}
+        `};
+  color: ${palette.white};
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+`;
+
+const CancleBtn = styled.button`
+  width: 140px;
+  height: 60px;
+  background: ${palette.gray2};
+  color: ${palette.white};
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+  margin-left: 32px;
+`;
+
+function ProduceConferenceModal({ ModalOff, args }) {
   return (
     <Container>
       <ContentWrapper>
@@ -60,6 +98,10 @@ function ProduceConferenceModal() {
         <span className="subTitle">비밀번호</span>
         <input type="password" maxLength="24" />
       </ContentWrapper>
+      <BtnWrapper>
+        <OkBtn color={args.okBtnBackgroundColor}>{args.okBtnText}</OkBtn>
+        <CancleBtn onClick={ModalOff}>취소</CancleBtn>
+      </BtnWrapper>
     </Container>
   );
 }

@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import BottomLayout from '../components/meeting/BottomLayout';
+import MeetingLayout from '../components/meeting/MeetingLayout';
 import palette from '../lib/styles/palette';
 
 const Container = styled.div`
@@ -7,12 +9,19 @@ const Container = styled.div`
   height: 100vh;
   background: ${palette.white};
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 `;
 
 function MeetingRoomContainer() {
-  return <Container>sdasdsa</Container>;
+  return (
+    <Container>
+      <MeetingLayout />
+      <BottomLayout />
+    </Container>
+  );
 }
 
 export default MeetingRoomContainer;

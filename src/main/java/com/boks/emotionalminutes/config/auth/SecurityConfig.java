@@ -17,7 +17,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable().headers().frameOptions().disable()
                 .and().antMatcher("/**")
                 .authorizeRequests()
-                .antMatchers("/", "/loginPage", "/h2-console/**", "/favicon.ico", "/css/**", "/js/**", "/node_modules").permitAll()
+                //.antMatchers("/", "/loginPage", "/h2-console/**", "/favicon.ico", "/css/**", "/js/**", "/node_modules").permitAll()
+                .antMatchers("/**").permitAll()
                 .anyRequest().authenticated()
                 .and().logout().logoutSuccessUrl("/loginPage")
                 .and().oauth2Login().userInfoEndpoint().userService(customOAuth2UserService);

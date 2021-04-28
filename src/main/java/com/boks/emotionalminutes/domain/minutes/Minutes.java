@@ -1,10 +1,13 @@
 package com.boks.emotionalminutes.domain.minutes;
 
 import com.boks.emotionalminutes.domain.meeting.Meeting;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+@NoArgsConstructor
 @Entity
 @Getter
 public class Minutes {
@@ -22,4 +25,11 @@ public class Minutes {
 
     @Column(name = "voice_file_link")
     private String voiceFileLink;
+
+    @Builder
+    public Minutes (Meeting meeting, String password, String voiceFileLink) {
+        this.meeting = meeting;
+        this.password = password;
+        this.voiceFileLink = voiceFileLink;
+    }
 }

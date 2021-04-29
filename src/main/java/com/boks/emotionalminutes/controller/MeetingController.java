@@ -13,10 +13,10 @@ public class MeetingController {
 
     MeetingService meetingService;
 
-    @PostMapping("/meeting/create")
-    public Meeting createMeeting(@RequestParam("code") String code,
+    @PostMapping("/api/meeting")
+    public Meeting save(@RequestParam("code") String code,
                                  @RequestParam("userId") Long userId,
                                  @RequestParam("name") String name) {
-        return meetingService.create(code, userId, name);
+        return meetingService.save(code, userId, name);
     }
 }

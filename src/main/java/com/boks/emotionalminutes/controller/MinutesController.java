@@ -14,9 +14,9 @@ public class MinutesController {
     private final MinutesService minutesService;
 
     @PostMapping("/api/minutes")
-    public Minutes createMinutes(@RequestParam("meeting_code") Meeting meeting,
+    public Minutes save(@RequestParam("meeting_code") Meeting meeting,
                                  @RequestParam("password") String password,
                                  @RequestParam("voice_file_link") String voiceFileLink) {
-        return minutesService.create(meeting, password, voiceFileLink);
+        return minutesService.save(meeting, password, voiceFileLink);
     }
 }

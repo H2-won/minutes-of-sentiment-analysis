@@ -1,10 +1,13 @@
 package com.boks.emotionalminutes.domain.totalEmotions;
 
 import com.boks.emotionalminutes.domain.minutes.Minutes;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+@NoArgsConstructor
 @Entity
 @Getter
 public class TotalEmotions {
@@ -27,4 +30,13 @@ public class TotalEmotions {
 
     @Column
     private float angry;
+
+    @Builder
+    public TotalEmotions(Minutes minutes, float happy, float emotionless, float sad, float angry) {
+        this.minutes = minutes;
+        this.happy = happy;
+        this.emotionless = emotionless;
+        this.sad = sad;
+        this.angry = angry;
+    }
 }

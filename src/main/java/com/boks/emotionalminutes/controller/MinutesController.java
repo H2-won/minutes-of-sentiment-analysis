@@ -15,8 +15,9 @@ public class MinutesController {
 
     @PostMapping("/api/minutes")
     public Minutes save(@RequestParam("meeting_code") Meeting meeting,
-                                 @RequestParam("password") String password,
-                                 @RequestParam("voice_file_link") String voiceFileLink) {
+                        @RequestParam("password") String password,
+                        @RequestParam("voice_file_link") String voiceFileLink) {
+
         return minutesService.save(meeting, password, voiceFileLink);
     }
 }

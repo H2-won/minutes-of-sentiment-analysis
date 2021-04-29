@@ -14,7 +14,7 @@ public class MinutesService {
     private final MinutesRepository minutesRepository;
 
     @Transactional
-    public Minutes create(Meeting meeting, String password, String voiceFileLink) {
+    public Minutes save(Meeting meeting, String password, String voiceFileLink) {
         Minutes minutes = Minutes.builder()
                 .meeting(meeting)
                 .password(password)

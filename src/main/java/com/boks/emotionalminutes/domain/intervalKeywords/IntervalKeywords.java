@@ -1,14 +1,18 @@
 package com.boks.emotionalminutes.domain.intervalKeywords;
 
 import com.boks.emotionalminutes.domain.minutes.Minutes;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+@NoArgsConstructor
 @Entity
 @Getter
 public class IntervalKeywords {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Long id;
 
@@ -30,4 +34,15 @@ public class IntervalKeywords {
 
     @Column(name = "interval5_keywords")
     private String interval5Keywords;
+
+    @Builder
+    public IntervalKeywords(Minutes minutes, String interval1Keywords, String interval2Keywords,
+                            String interval3Keywords, String interval4Keywords, String interval5Keywords) {
+        this.minutes = minutes;
+        this.interval1Keywords = interval1Keywords;
+        this.interval2Keywords = interval2Keywords;
+        this.interval3Keywords = interval3Keywords;
+        this.interval4Keywords = interval4Keywords;
+        this.interval5Keywords = interval5Keywords;
+    }
 }

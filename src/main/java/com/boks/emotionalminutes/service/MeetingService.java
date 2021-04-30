@@ -21,7 +21,7 @@ public class MeetingService {
     private final ParticipationRepository participationRepository;
 
     @Transactional
-    public Meeting create(String code, Long userId, String name) {
+    public Meeting save(String code, Long userId, String name) {
         Optional<Meeting> m = meetingRepository.findById(code);
         User user = userRepository.findById(userId).get();
 

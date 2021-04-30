@@ -2,6 +2,7 @@ package com.boks.emotionalminutes.domain.user;
 
 import com.boks.emotionalminutes.domain.bookmark.Bookmark;
 import com.boks.emotionalminutes.domain.participation.Participation;
+import com.boks.emotionalminutes.domain.sentence.Sentence;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,6 +30,9 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Bookmark> bookmarks = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<Sentence> sentences = new ArrayList<>();
 
     @Builder
     public User(String name, String email) {

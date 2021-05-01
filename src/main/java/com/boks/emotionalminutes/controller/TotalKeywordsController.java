@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class TotalKeywordsController {
     private final TotalKeywordsService totalKeywordsService;
 
-    @PostMapping("/api/totalkeywords")
+    @PostMapping("/api/total-keywords")
     public TotalKeywords save(@RequestParam("minutes") Minutes minutes,
                               @RequestParam("main_keyword1") String mainKeywords1,
                               @RequestParam("main_keyword2") String mainKeywords2,

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class IntervalKeywordsController {
     private final IntervalKeywordService intervalKeywordService;
 
-    @PostMapping("/api/intervalkeywords")
+    @PostMapping("/api/interval-keywords")
     public IntervalKeywords save(@RequestParam("minutes") Minutes minutes,
                                  @RequestParam("interval1_keywords") String interval1Keywords,
                                  @RequestParam("interval2_keywords") String interval2Keywords,

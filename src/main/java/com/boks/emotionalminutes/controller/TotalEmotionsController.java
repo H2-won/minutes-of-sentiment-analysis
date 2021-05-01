@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class TotalEmotionsController {
     private final TotalEmotionsService totalEmotionsService;
 
-    @PostMapping("/api/totalemotions")
+    @PostMapping("/api/total-emotions")
     public TotalEmotions save(@RequestBody TotalEmotionsRequestDto requestDto) {
         return totalEmotionsService.save(requestDto);
     }

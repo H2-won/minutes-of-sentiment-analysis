@@ -48,10 +48,16 @@ const CancleBtn = styled.button`
 `;
 
 function StopRecodingModal({ ModalOff, args }) {
+  const onStopRecoding = () => {
+    args.setRecodeState('end');
+    ModalOff();
+  };
   return (
     <Container>
       <BtnWrapper>
-        <OkBtn color={args.okBtnBackgroundColor}>{args.okBtnText}</OkBtn>
+        <OkBtn color={args.okBtnBackgroundColor} onClick={onStopRecoding}>
+          {args.okBtnText}
+        </OkBtn>
         <CancleBtn onClick={ModalOff}>취소</CancleBtn>
       </BtnWrapper>
     </Container>

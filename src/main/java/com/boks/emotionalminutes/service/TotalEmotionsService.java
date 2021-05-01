@@ -1,11 +1,12 @@
 package com.boks.emotionalminutes.service;
 
-import com.boks.emotionalminutes.domain.minutes.Minutes;
 import com.boks.emotionalminutes.domain.totalEmotions.TotalEmotions;
 import com.boks.emotionalminutes.domain.totalEmotions.TotalEmotionsRepository;
+import com.boks.emotionalminutes.web.dto.totalEmotions.TotalEmotionsRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -14,17 +15,7 @@ public class TotalEmotionsService {
     private final TotalEmotionsRepository totalEmotionsRepository;
 
     @Transactional
-    public TotalEmotions save(Minutes minutes, float happy, float emotionless, float sad, float angry) {
-        TotalEmotions totalEmotions = TotalEmotions.builder()
-                .minutes(minutes)
-                .happy(happy)
-                .emotionless(emotionless)
-                .sad(sad)
-                .angry(angry)
-                .build();
-
-        totalEmotionsRepository.save(totalEmotions);
-        return totalEmotions;
+    public TotalEmotions save(@RequestBody TotalEmotionsRequestDto requestDto) {
+        return totalEmotionsRepository.save(requestDto.toEntity());
     }
-
 }

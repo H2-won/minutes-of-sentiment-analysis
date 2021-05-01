@@ -1,11 +1,11 @@
 package com.boks.emotionalminutes.controller;
 
-import com.boks.emotionalminutes.domain.minutes.Minutes;
 import com.boks.emotionalminutes.domain.totalEmotions.TotalEmotions;
 import com.boks.emotionalminutes.service.TotalEmotionsService;
+import com.boks.emotionalminutes.web.dto.totalEmotions.TotalEmotionsRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
@@ -14,12 +14,7 @@ public class TotalEmotionsController {
     private final TotalEmotionsService totalEmotionsService;
 
     @PostMapping("/api/totalemotions")
-    public TotalEmotions save(@RequestParam("minutes") Minutes minutes,
-                              @RequestParam("happy") float happy,
-                              @RequestParam("emotionless") float emotionless,
-                              @RequestParam("sad") float sad,
-                              @RequestParam("angry") float angry) {
-
-        return totalEmotionsService.save(minutes, happy, emotionless, sad, angry);
+    public TotalEmotions save(@RequestBody TotalEmotionsRequestDto requestDto) {
+        return totalEmotionsService.save(requestDto);
     }
 }

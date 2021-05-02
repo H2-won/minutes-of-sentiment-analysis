@@ -6,7 +6,7 @@ import palette from '../lib/styles/palette';
 
 const Container = styled.div`
   width: 100vw;
-  height: 100vh;
+  flex-grow: 1;
   background: ${palette.white};
   display: flex;
   flex-direction: column;

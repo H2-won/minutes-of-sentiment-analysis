@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import palette from '../../lib/styles/palette';
 import EndMeetingBtn from './buttons/EndMeetingBtn';
 import MuteToggleBtn from './buttons/MuteToggleBtn';
-import RecodingBtn from './buttons/RecodingBtn';
+import RecordingBtn from './buttons/RecordingBtn';
 import VideoToggleBtn from './buttons/VideoToggleBtn';
 
 const Container = styled.div`
@@ -11,10 +12,12 @@ const Container = styled.div`
   align-items: center;
   width: 100%;
   height: 10%;
+
+  border-top: 0.5px solid ${palette.gray2};
 `;
 
 const MainBtnsWrapper = styled.div`
-  width: 70%;
+  width: 72.5%;
   display: flex;
   justify-content: center;
   button + button {
@@ -22,8 +25,8 @@ const MainBtnsWrapper = styled.div`
   }
 `;
 
-const RecodingBtnWrapper = styled.div`
-  width: 30%;
+const RecordingBtnWrapper = styled.div`
+  width: 27.5%;
   display: flex;
   justify-content: center;
 `;
@@ -36,9 +39,9 @@ function BottomLayout() {
         <VideoToggleBtn />
         <EndMeetingBtn />
       </MainBtnsWrapper>
-      <RecodingBtnWrapper>
-        <RecodingBtn />
-      </RecodingBtnWrapper>
+      <RecordingBtnWrapper>
+        <RecordingBtn />
+      </RecordingBtnWrapper>
     </Container>
   );
 }

@@ -47,15 +47,15 @@ const CancleBtn = styled.button`
   margin-left: 32px;
 `;
 
-function StopRecodingModal({ ModalOff, args }) {
-  const onStopRecoding = () => {
-    args.setRecodeState('end');
+function StopRecordingModal({ ModalOff, args }) {
+  const onStopRecording = () => {
+    args.setRecordState('end');
     ModalOff();
   };
   return (
     <Container>
       <BtnWrapper>
-        <OkBtn color={args.okBtnBackgroundColor} onClick={onStopRecoding}>
+        <OkBtn color={args.okBtnBackgroundColor} onClick={onStopRecording}>
           {args.okBtnText}
         </OkBtn>
         <CancleBtn onClick={ModalOff}>취소</CancleBtn>
@@ -64,4 +64,4 @@ function StopRecodingModal({ ModalOff, args }) {
   );
 }
 
-export default StopRecodingModal;
+export default StopRecordingModal;

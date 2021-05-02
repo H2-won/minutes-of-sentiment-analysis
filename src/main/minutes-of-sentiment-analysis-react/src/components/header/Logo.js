@@ -4,6 +4,7 @@ import styled from 'styled-components';
 const Content = styled.span`
   font-size: 20px;
   font-weight: bold;
+  margin-left: 110px;
 `;
 
 function Logo() {

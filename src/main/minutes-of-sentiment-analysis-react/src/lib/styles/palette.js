@@ -12,6 +12,9 @@ const palette = {
   orange2: '#FFF9F5',
 
   red: '#FE3737',
+  red2: '#FFC9C9',
+  yellow: '#FFEC99',
+  skyblue: '#A5D8FF',
 };
 
 export default palette;

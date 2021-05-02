@@ -3,8 +3,8 @@ import { useDispatch } from 'react-redux';
 import styled, { css } from 'styled-components';
 import palette from '../../../lib/styles/palette';
 import { openModal } from '../../../modules/modal';
-import StartRecodingModal from '../../modal/StartRecodingModal';
-import StopRecodingModal from '../../modal/StopRecodingModal';
+import StartRecordingModal from '../../modal/StartRecordingModal';
+import StopRecordingModal from '../../modal/StopRecordingModal';
 
 const Button = styled.button`
   width: 180px;
@@ -14,7 +14,7 @@ const Button = styled.button`
       ? css`
           background: ${palette.orange1};
         `
-      : state === 'recoding'
+      : state === 'recording'
       ? css`
           background: ${palette.red};
         `
@@ -31,33 +31,34 @@ const Button = styled.button`
   }
 `;
 
-function RecodingBtn() {
-  const [recodeState, setRecodeState] = useState('default');
+function RecordingBtn() {
+  const [recordState, setRecordState] = useState('default');
   const dispatch = useDispatch();
-  const onClickRecoding = () => {
-    if (recodeState === 'default') {
+  const onClickRecording = () => {
+    if (recordState === 'default') {
       dispatch(
-        openModal('START_RECODING', StartRecodingModal, {
+        openModal('START_RECORDING', StartRecordingModal, {
           title: '기록을 시작하시겠습니까?',
           okBtnText: '기록 시작',
           okBtnBackgroundColor: 'orange',
-          setRecodeState,
+          setRecordState,
         }),
       );
-    } else if (recodeState === 'recoding') {
+    } else if (recordState === 'recording') {
       dispatch(
-        openModal('STOP_RECODING', StopRecodingModal, {
+        openModal('STOP_RECORDING', StopRecordingModal, {
           title: '기록을 종료하시겠습니까?',
           okBtnText: '기록 종료',
           okBtnBackgroundColor: 'red',
-          setRecodeState,
+          setRecordState,
         }),
       );
     }
   };
+
   return (
-    <Button onClick={onClickRecoding} state={recodeState}>
-      {recodeState === 'default' ? (
+    <Button onClick={onClickRecording} state={recordState}>
+      {recordState === 'default' ? (
         <>
           <i className="fas fa-video"></i>기록 시작
         </>
@@ -70,4 +71,4 @@ function RecodingBtn() {
   );
 }
 
-export default RecodingBtn;
+export default RecordingBtn;

@@ -7,6 +7,10 @@ import com.boks.emotionalminutes.web.dto.minutes.MinutesResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 @RequiredArgsConstructor
 @RestController
 public class MinutesController {
@@ -15,6 +19,11 @@ public class MinutesController {
     @PostMapping("/api/minutes")
     public Minutes save(@RequestBody MinutesRequestDto requestDto) {
         return minutesService.save(requestDto);
+    }
+
+    @PutMapping("/api/minutes/{id}")
+    public Minutes update(@PathVariable Long id) throws ParseException {
+        return minutesService.update(id);
     }
 
     @GetMapping("/api/minutes/{id}")

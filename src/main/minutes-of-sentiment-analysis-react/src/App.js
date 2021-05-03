@@ -8,6 +8,7 @@ import MeetingRoomPage from './pages/MeetingRoomPage';
 
 import Header from './containers/Header';
 import Modal from './containers/modal/index';
+import MeetingLogPage from './pages/MeetingLogPage';
 
 const AppLayout = styled.div`
   position: relative;
@@ -26,6 +27,7 @@ function App() {
           <Route path="/main" component={MainPage} />
           <Route path="/minuteslist" component={MinutesListPage} />
           <Route path="/meeting" component={MeetingRoomPage} />
+          <Route path="/meetinglog" component={MeetingLogPage} />
           <Route
             render={({ location }) => (
               <div>

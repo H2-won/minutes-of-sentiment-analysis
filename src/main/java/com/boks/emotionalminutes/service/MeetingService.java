@@ -36,12 +36,12 @@ public class MeetingService {
         for (int i = 0; i < tmp.length; i++) {
             int div = (int) Math.floor(Math.random() * 3);
 
-            if (div == 0) { // 0이면 숫자로
+            if (div == 0) {
                 tmp[i] = (char) (Math.random() * 10 + '0');
-            } else if (div == 1) { //1이면 알파벳 대문자
-                tmp[i] = (char) (Math.random() * 26 + 'A');
-            } else {
+            } else if (div == 1) {
                 tmp[i] = (char) (Math.random() * 26 + 'a');
+            } else {
+                tmp[i] = (char) (Math.random() * 26 + 'A');
             }
         }
         return new String(tmp);

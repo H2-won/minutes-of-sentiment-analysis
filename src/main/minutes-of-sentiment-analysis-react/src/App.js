@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import StartPage from './pages/StartPage';
 import MainPage from './pages/MainPage';
@@ -8,6 +9,14 @@ import OAuth2RedirectHandler from './handlers/OAuth2RedirectHandler';
 
 import Header from './containers/Header';
 import Modal from './containers/modal/index';
+import MeetingLogPage from './pages/MeetingLogPage';
+
+const AppLayout = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+`;
 
 function App() {
   return (
@@ -18,7 +27,11 @@ function App() {
         <Route path="/main" component={MainPage} />
         <Route path="/minuteslist" component={MinutesListPage} />
         <Route path="/meeting" component={MeetingRoomPage} />
-        <Route path="/oauth2/redirect" component={OAuth2RedirectHandler}></Route>
+        <Route path="/meetinglog" component={MeetingLogPage} />
+        <Route
+          path="/oauth2/redirect"
+          component={OAuth2RedirectHandler}
+        ></Route>
         <Route
           render={({ location }) => (
             <div>

@@ -22,6 +22,7 @@ const Title = styled.h2`
   font-size: 2rem;
   color: ${palette.black};
   font-weight: bold;
+  margin-top: 2rem;
 `;
 
 const CloseBtn = styled.div`

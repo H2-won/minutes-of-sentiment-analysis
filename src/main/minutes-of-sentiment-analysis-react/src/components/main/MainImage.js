@@ -12,7 +12,7 @@ const Image = styled.img`
 `;
 
 function MainImage() {
-  return <Image src="/images/mainImg.jpg" />;
+  return <Image src="/images/mainImg_compression.jpg" />;
 }
 
 export default MainImage;

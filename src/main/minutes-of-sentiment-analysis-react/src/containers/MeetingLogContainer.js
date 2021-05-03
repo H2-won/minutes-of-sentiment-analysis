@@ -1,27 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
-import BottomLayout from '../components/meeting/BottomLayout';
-import MeetingLayout from '../components/meeting/MeetingLayout';
+import Navigation from '../components/meetingLog/navigation/Navigation';
 import palette from '../lib/styles/palette';
 
 const Container = styled.div`
   width: 100vw;
   flex-grow: 1;
-  background: ${palette.white};
+  background: ${palette.gray1};
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   overflow: hidden;
 `;
 
-function MeetingRoomContainer() {
+function MeetingLogContainer() {
   return (
     <Container>
-      <MeetingLayout />
-      <BottomLayout />
+      <Navigation></Navigation>
     </Container>
   );
 }
 
-export default MeetingRoomContainer;
+export default MeetingLogContainer;

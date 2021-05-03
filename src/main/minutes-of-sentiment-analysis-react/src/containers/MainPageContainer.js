@@ -7,7 +7,7 @@ import MainImage from '../components/main/MainImage';
 
 const Container = styled.div`
   width: 100vw;
-  height: 100vh;
+  flex-grow: 1;
   position: relative;
   display: flex;
   justify-content: center;

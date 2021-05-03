@@ -21,26 +21,28 @@ const AppLayout = styled.div`
 function App() {
   return (
     <BrowserRouter>
-      <Header />
-      <Switch>
-        <Route path="/" component={StartPage} exact />
-        <Route path="/main" component={MainPage} />
-        <Route path="/minuteslist" component={MinutesListPage} />
-        <Route path="/meeting" component={MeetingRoomPage} />
-        <Route path="/meetinglog" component={MeetingLogPage} />
-        <Route
-          path="/oauth2/redirect"
-          component={OAuth2RedirectHandler}
-        ></Route>
-        <Route
-          render={({ location }) => (
-            <div>
-              <h2>Page 404.</h2>
-              <p>{location.pathname}</p>
-            </div>
-          )}
-        />
-      </Switch>
+      <AppLayout>
+        <Header />
+        <Switch>
+          <Route path="/" component={StartPage} exact />
+          <Route path="/main" component={MainPage} />
+          <Route path="/minuteslist" component={MinutesListPage} />
+          <Route path="/meeting" component={MeetingRoomPage} />
+          <Route path="/meetinglog" component={MeetingLogPage} />
+          <Route
+            path="/oauth2/redirect"
+            component={OAuth2RedirectHandler}
+          ></Route>
+          <Route
+            render={({ location }) => (
+              <div>
+                <h2>Page 404.</h2>
+                <p>{location.pathname}</p>
+              </div>
+            )}
+          />
+        </Switch>
+      </AppLayout>
       <Modal />
     </BrowserRouter>
   );

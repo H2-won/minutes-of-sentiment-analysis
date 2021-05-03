@@ -18,9 +18,12 @@ public class MeetingService {
 
     @Transactional
     public Meeting save(MeetingRequestDto requestDto) {
-        while (meetingRepository.findById(requestDto.getCode()).isEmpty()) {
+        while (true) {
             requestDto.setCode(getRandomCode(10));
-            meetingRepository.save(requestDto.toEntity());
+            if (meetingRepository.findById(requestDto.getCode()).isEmpty()) {
+                meetingRepository.save(requestDto.toEntity());
+                break;
+            }
         }
 
         Participation participation = Participation.builder()

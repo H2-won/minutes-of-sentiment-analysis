@@ -7,7 +7,10 @@ import com.boks.emotionalminutes.web.dto.minutes.MinutesResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -16,7 +19,7 @@ public class MinutesService {
     private final MinutesRepository minutesRepository;
 
     @Transactional
-    public Minutes save(@RequestBody MinutesRequestDto requestDto) {
+    public Minutes save(MinutesRequestDto requestDto) {
         return minutesRepository.save(requestDto.toEntity());
     }
 
@@ -24,5 +27,21 @@ public class MinutesService {
         Minutes entity = minutesRepository.findById(id).orElseThrow(() ->
                 new IllegalArgumentException("해당 회의록이 없습니다"));
         return new MinutesResponseDto(entity);
+    }
+
+    @Transactional
+    public Minutes update(Long id) throws ParseException {
+        Minutes minutes = minutesRepository.findById(id)
+                .orElseThrow();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = format.parse(minutes.getCreatedDate());
+        Date now = new Date();
+        long secs = (now.getTime() - date.getTime())/(1000);
+        String hour = String.valueOf(secs/(60*60));
+        String min = String.valueOf(secs%(60*60)/60);
+        String sec = String.valueOf(secs%60);
+        String progressTime = hour+":"+min+":"+sec;
+        minutes.update(progressTime);
+        return minutes;
     }
 }

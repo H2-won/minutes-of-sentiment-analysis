@@ -43,10 +43,22 @@ public class Minutes {
     @OneToOne(mappedBy = "minutes")
     private TotalKeywords totalKeywords;
 
+    @Column(name = "created_date")
+    private String createdDate;
+
+    @Column(name = "progress_time")
+    private String progressTime;
+
     @Builder
-    public Minutes (Meeting meeting, String password, String voiceFileLink) {
+    public Minutes (Meeting meeting, String password, String voiceFileLink, String createdDate, String progressTime) {
         this.meeting = meeting;
         this.password = password;
         this.voiceFileLink = voiceFileLink;
+        this.createdDate = createdDate;
+        this.progressTime = progressTime;
+    }
+
+    public void update (String progressTime) {
+        this.progressTime = progressTime;
     }
 }

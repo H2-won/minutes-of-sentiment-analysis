@@ -4,6 +4,7 @@ import com.boks.emotionalminutes.domain.intervalKeywords.IntervalKeywords;
 import com.boks.emotionalminutes.domain.meeting.Meeting;
 import com.boks.emotionalminutes.domain.sentence.Sentence;
 import com.boks.emotionalminutes.domain.totalEmotions.TotalEmotions;
+import com.boks.emotionalminutes.domain.totalKeywords.TotalKeywords;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +19,6 @@ import java.util.List;
 public class Minutes {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    // 설계서에 pk는 Int 인데 Long 으로 되어있는 것 확인 요망
     private Long id;
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -39,6 +39,9 @@ public class Minutes {
 
     @OneToOne(mappedBy = "minutes")
     private TotalEmotions totalEmotions;
+
+    @OneToOne(mappedBy = "minutes")
+    private TotalKeywords totalKeywords;
 
     @Builder
     public Minutes (Meeting meeting, String password, String voiceFileLink) {

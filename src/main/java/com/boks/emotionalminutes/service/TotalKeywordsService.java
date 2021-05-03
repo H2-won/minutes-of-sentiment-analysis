@@ -6,7 +6,6 @@ import com.boks.emotionalminutes.web.dto.totalKeywords.TotalKeywordsRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -15,7 +14,7 @@ public class TotalKeywordsService {
     private final TotalKeywordsRepository totalKeywordsRepository;
 
     @Transactional
-    public TotalKeywords save(@RequestBody TotalKeywordsRequestDto requestDto) {
+    public TotalKeywords save(TotalKeywordsRequestDto requestDto) {
         return totalKeywordsRepository.save(requestDto.toEntity());
     }
 }

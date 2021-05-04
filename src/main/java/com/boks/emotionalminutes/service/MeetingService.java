@@ -18,20 +18,17 @@ public class MeetingService {
 
     @Transactional
     public Meeting save(MeetingRequestDto requestDto) {
-        while (true) {
+        do {
             requestDto.setCode(getRandomCode(10));
-            if (meetingRepository.findById(requestDto.getCode()).isEmpty()) {
-                meetingRepository.save(requestDto.toEntity());
-                break;
-            }
-        }
+        } while (meetingRepository.findById(requestDto.getCode()).isPresent());
 
         Participation participation = Participation.builder()
                 .user(requestDto.getUser())
                 .meeting(requestDto.toEntity())
                 .build();
         participationRepository.save(participation);
-        return requestDto.toEntity();
+
+        return meetingRepository.save(requestDto.toEntity());
     }
 
     public static String getRandomCode(int size) {

@@ -6,6 +6,7 @@ import palette from '../../lib/styles/palette';
 import { openModal } from '../../modules/modal';
 import EnterConferenceModal from '../modal/EnterConferenceModal';
 import ProduceConferenceModal from '../modal/ProduceConferenceModal';
+// import { connection } from '../../meeting';
 
 const Wrapper = styled.div`
   display: flex;
@@ -62,6 +63,7 @@ const Button = styled.div`
 function ButtonWrap() {
   const dispatch = useDispatch();
   const onClickProduce = () => {
+    // connection.open();
     dispatch(
       openModal('PRODUCE_CONFERENCE', ProduceConferenceModal, {
         title: '회의 생성',

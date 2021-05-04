@@ -87,10 +87,6 @@ function ProduceConferenceModal({ ModalOff, args }) {
   return (
     <Container>
       <ContentWrapper>
-        <span className="subTitle">회의 코드</span>
-        <div>ABC2f1d5k7G</div>
-      </ContentWrapper>
-      <ContentWrapper>
         <span className="subTitle">회의 제목</span>
         <input type="text" maxLength="24" />
       </ContentWrapper>

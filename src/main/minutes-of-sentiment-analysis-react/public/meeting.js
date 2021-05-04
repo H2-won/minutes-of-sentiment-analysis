@@ -1,45 +1,48 @@
+// import
+
 // ......................................................
 // .......................UI Code........................
 // ......................................................
-document.getElementById("open-room").onclick = function () {
+
+document.getElementById('open-room').onclick = function () {
   disableInputButtons();
   connection.open(
-    document.getElementById("room-id").value,
+    document.getElementById('room-id').value,
     function (isRoomOpened, roomid, error) {
       if (isRoomOpened === true) {
       } else {
         disableInputButtons(true);
-        if (error === "Room not available") {
-          alert("이미 존재하는 방입니다. 새로운 방을 만들거나 참가하세요!");
+        if (error === 'Room not available') {
+          alert('이미 존재하는 방입니다. 새로운 방을 만들거나 참가하세요!');
           return;
         }
         alert(error);
       }
-    }
+    },
   );
 };
 
-document.getElementById("join-room").onclick = function () {
+document.getElementById('join-room').onclick = function () {
   disableInputButtons();
   connection.join(
-    document.getElementById("room-id").value,
+    document.getElementById('room-id').value,
     function (isJoinedRoom, roomid, error) {
       if (error) {
         disableInputButtons(true);
-        if (error === "Room not available") {
-          alert("존재하지 않는 방입니다. 새로운 방을 만들거나 참가하세요!");
+        if (error === 'Room not available') {
+          alert('존재하지 않는 방입니다. 새로운 방을 만들거나 참가하세요!');
           return;
         }
         alert(error);
       }
-    }
+    },
   );
 };
 
-document.getElementById("open-or-join-room").onclick = function () {
+document.getElementById('open-or-join-room').onclick = function () {
   disableInputButtons();
   connection.openOrJoin(
-    document.getElementById("room-id").value,
+    document.getElementById('room-id').value,
     function (isRoomExist, roomid, error) {
       if (error) {
         disableInputButtons(true);
@@ -48,7 +51,7 @@ document.getElementById("open-or-join-room").onclick = function () {
         // if room doesn't exist, it means that current user will create the room
         showRoomURL(roomid);
       }
-    }
+    },
   );
 };
 
@@ -57,8 +60,8 @@ document.getElementById("open-or-join-room").onclick = function () {
 // ......................................................
 
 var connection = new RTCMultiConnection();
-connection.socketURL = "https://rtcmulticonnection.herokuapp.com:443/";
-connection.socketMessageEvent = "video-conference-demo";
+connection.socketURL = 'https://rtcmulticonnection.herokuapp.com:443/';
+connection.socketMessageEvent = 'video-conference-demo';
 connection.session = {
   audio: true,
   video: true,
@@ -74,10 +77,10 @@ connection.sdpConstraints.mandatory = {
 // STAR_FIX_VIDEO_AUTO_PAUSE_ISSUES
 // via: https://github.com/muaz-khan/RTCMultiConnection/issues/778#issuecomment-524853468
 var bitrates = 512;
-var resolutions = "Ultra-HD";
+var resolutions = 'Ultra-HD';
 var videoConstraints = {};
 
-if (resolutions == "HD") {
+if (resolutions == 'HD') {
   videoConstraints = {
     width: {
       ideal: 1280,
@@ -89,7 +92,7 @@ if (resolutions == "HD") {
   };
 }
 
-if (resolutions == "Ultra-HD") {
+if (resolutions == 'Ultra-HD') {
   videoConstraints = {
     width: {
       ideal: 1920,
@@ -109,13 +112,13 @@ connection.mediaConstraints = {
 var CodecsHandler = connection.CodecsHandler;
 
 connection.processSdp = function (sdp) {
-  var codecs = "vp8";
+  var codecs = 'vp8';
 
   if (codecs.length) {
     sdp = CodecsHandler.preferCodec(sdp, codecs.toLowerCase());
   }
 
-  if (resolutions == "HD") {
+  if (resolutions == 'HD') {
     sdp = CodecsHandler.setApplicationSpecificBandwidth(sdp, {
       audio: 128,
       video: bitrates,
@@ -128,7 +131,7 @@ connection.processSdp = function (sdp) {
     });
   }
 
-  if (resolutions == "Ultra-HD") {
+  if (resolutions == 'Ultra-HD') {
     sdp = CodecsHandler.setApplicationSpecificBandwidth(sdp, {
       audio: 128,
       video: bitrates,
@@ -150,15 +153,15 @@ connection.processSdp = function (sdp) {
 connection.iceServers = [
   {
     urls: [
-      "stun:stun.l.google.com:19302",
-      "stun:stun1.l.google.com:19302",
-      "stun:stun2.l.google.com:19302",
-      "stun:stun.l.google.com:19302?transport=udp",
+      'stun:stun.l.google.com:19302',
+      'stun:stun1.l.google.com:19302',
+      'stun:stun2.l.google.com:19302',
+      'stun:stun.l.google.com:19302?transport=udp',
     ],
   },
 ];
 
-connection.videosContainer = document.getElementById("videos-container");
+connection.videosContainer = document.getElementById('videos-container');
 connection.onstream = function (event) {
   const connectionInfo = event.stream;
 
@@ -167,26 +170,26 @@ connection.onstream = function (event) {
     existing.parentNode.removeChild(existing);
   }
 
-  event.mediaElement.removeAttribute("src");
-  event.mediaElement.removeAttribute("srcObject");
+  event.mediaElement.removeAttribute('src');
+  event.mediaElement.removeAttribute('srcObject');
   event.mediaElement.muted = true;
   event.mediaElement.volume = 0;
 
-  var video = document.createElement("video");
+  var video = document.createElement('video');
 
   try {
-    video.setAttributeNode(document.createAttribute("autoplay"));
-    video.setAttributeNode(document.createAttribute("playsinline"));
+    video.setAttributeNode(document.createAttribute('autoplay'));
+    video.setAttributeNode(document.createAttribute('playsinline'));
   } catch (e) {
-    video.setAttribute("autoplay", true);
-    video.setAttribute("playsinline", true);
+    video.setAttribute('autoplay', true);
+    video.setAttribute('playsinline', true);
   }
-  if (event.type === "local") {
+  if (event.type === 'local') {
     video.volume = 0;
     try {
-      video.setAttributeNode(document.createAttribute("muted"));
+      video.setAttributeNode(document.createAttribute('muted'));
     } catch (e) {
-      video.setAttribute("muted", true);
+      video.setAttribute('muted', true);
     }
   }
   video.srcObject = event.stream;
@@ -194,7 +197,7 @@ connection.onstream = function (event) {
   var width = parseInt(connection.videosContainer.clientWidth / 3) - 20;
   var mediaElement = getHTMLMediaElement(video, {
     title: event.userid,
-    buttons: ["full-screen"],
+    buttons: ['full-screen'],
     width: width,
     showOnMouseEnter: false,
   });
@@ -205,8 +208,8 @@ connection.onstream = function (event) {
   mediaElement.id = event.streamid;
   // to keep room-id in cache
   localStorage.setItem(connection.socketMessageEvent, connection.sessionid);
-  if (event.type === "local") {
-    connection.socket.on("disconnect", function () {
+  if (event.type === 'local') {
+    connection.socket.on('disconnect', function () {
       if (!connection.getAllParticipants().length) {
         location.reload();
       }
@@ -215,14 +218,14 @@ connection.onstream = function (event) {
 
   // -------------------------------------------------- //
   const firebaseConfig = {
-    apiKey: "AIzaSyCAPq36ZvGSEcdGX9OXEmrMlh_Fd2h_1CA",
-    authDomain: "emotional-minutes.firebaseapp.com",
-    databaseURL: "https://emotional-minutes-default-rtdb.firebaseio.com",
-    projectId: "emotional-minutes",
-    storageBucket: "emotional-minutes.appspot.com",
-    messagingSenderId: "16714778368",
-    appId: "1:16714778368:web:f4d9f21b223a7b9878d5e5",
-    measurementId: "G-H3H5BEWXPY",
+    apiKey: 'AIzaSyCAPq36ZvGSEcdGX9OXEmrMlh_Fd2h_1CA',
+    authDomain: 'emotional-minutes.firebaseapp.com',
+    databaseURL: 'https://emotional-minutes-default-rtdb.firebaseio.com',
+    projectId: 'emotional-minutes',
+    storageBucket: 'emotional-minutes.appspot.com',
+    messagingSenderId: '16714778368',
+    appId: '1:16714778368:web:f4d9f21b223a7b9878d5e5',
+    measurementId: 'G-H3H5BEWXPY',
   };
 
   const yourId = Math.floor(Math.random() * 1000000000);
@@ -230,10 +233,10 @@ connection.onstream = function (event) {
   const database = firebase.database().ref();
 
   const recognition = new webkitSpeechRecognition();
-  const language = "ko-KR";
+  const language = 'ko-KR';
   let isRecognizing = false;
   let ignoreEndProcess = false;
-  let finalTranscript = "";
+  let finalTranscript = '';
 
   recognition.continuous = true;
   recognition.interimResults = true;
@@ -242,14 +245,14 @@ connection.onstream = function (event) {
    * 음성 인식 시작 처리
    */
   recognition.onstart = function () {
-    console.log("onstart", arguments);
+    console.log('onstart', arguments);
     isRecognizing = true;
   };
   /**
    * 음성 인식 종료 처리
    */
   recognition.onend = function () {
-    console.log("onend", arguments);
+    console.log('onend', arguments);
     isRecognizing = false;
 
     if (ignoreEndProcess) {
@@ -258,7 +261,7 @@ connection.onstream = function (event) {
 
     // DO end process
     if (!finalTranscript) {
-      console.log("empty finalTranscript");
+      console.log('empty finalTranscript');
       return false;
     }
   };
@@ -268,7 +271,7 @@ connection.onstream = function (event) {
    */
   let checkRecord = false;
   recognition.onresult = function (event) {
-    console.log("onresult", event);
+    console.log('onresult', event);
 
     // 발화 녹음 테스트 시작
     if (!checkRecord) {
@@ -277,7 +280,7 @@ connection.onstream = function (event) {
       var recorder = connection.recorder;
       if (!recorder) {
         recorder = RecordRTC([connectionInfo], {
-          type: "audio",
+          type: 'audio',
         });
         recorder.startRecording();
         connection.recorder = recorder;
@@ -293,8 +296,8 @@ connection.onstream = function (event) {
     }
     // 발화 녹음 테스트 끝
 
-    let interimTranscript = "";
-    if (typeof event.results === "undefined") {
+    let interimTranscript = '';
+    if (typeof event.results === 'undefined') {
       recognition.onend = null;
       recognition.stop();
       return;
@@ -314,7 +317,7 @@ connection.onstream = function (event) {
 
         // 발화 녹음 테스트 시작
         var recorder = connection.recorder;
-        if (!recorder) return alert("No recorder found.");
+        if (!recorder) return alert('No recorder found.');
         recorder.stopRecording(function () {
           var blob = recorder.getBlob();
           invokeSaveAsDialog(blob);
@@ -334,7 +337,7 @@ connection.onstream = function (event) {
     console.log(data.val().message);
   }
 
-  database.on("child_added", readMessage);
+  database.on('child_added', readMessage);
 
   /**
    * 음성 인식 트리거
@@ -346,12 +349,12 @@ connection.onstream = function (event) {
     }
     recognition.lang = language;
     recognition.start();
-    console.log("start recognition");
+    console.log('start recognition');
     ignoreEndProcess = false;
 
-    finalTranscript = "";
-    final_span.innerHTML = "";
-    interim_span.innerHTML = "";
+    finalTranscript = '';
+    final_span.innerHTML = '';
+    interim_span.innerHTML = '';
   }
 
   start();
@@ -366,10 +369,10 @@ connection.onstreamended = function (event) {
 };
 
 connection.onMediaError = function (e) {
-  if (e.message === "Concurrent mic process limit.") {
+  if (e.message === 'Concurrent mic process limit.') {
     if (DetectRTC.audioInputDevices.length <= 1) {
       alert(
-        "Please select external microphone. Check github issue number 483."
+        'Please select external microphone. Check github issue number 483.',
       );
       return;
     }
@@ -388,12 +391,12 @@ connection.onMediaError = function (e) {
 // ..................................
 
 function disableInputButtons(enable) {
-  document.getElementById("room-id").onkeyup();
+  document.getElementById('room-id').onkeyup();
 
-  document.getElementById("open-or-join-room").style.display = "none";
-  document.getElementById("open-room").style.display = "none";
-  document.getElementById("join-room").style.display = "none";
-  document.getElementById("room-id").style.display = "none";
+  document.getElementById('open-or-join-room').style.display = 'none';
+  document.getElementById('open-room').style.display = 'none';
+  document.getElementById('join-room').style.display = 'none';
+  document.getElementById('room-id').style.display = 'none';
 }
 
 // ......................................................
@@ -405,7 +408,7 @@ function disableInputButtons(enable) {
     r = /([^&=]+)=?([^&]*)/g;
 
   function d(s) {
-    return decodeURIComponent(s.replace(/\+/g, " "));
+    return decodeURIComponent(s.replace(/\+/g, ' '));
   }
 
   var match,
@@ -415,25 +418,25 @@ function disableInputButtons(enable) {
   window.params = params;
 })();
 
-var roomid = "";
+var roomid = '';
 if (localStorage.getItem(connection.socketMessageEvent)) {
   roomid = localStorage.getItem(connection.socketMessageEvent);
 } else {
   roomid = connection.token();
 }
 
-var txtRoomId = document.getElementById("room-id");
+var txtRoomId = document.getElementById('room-id');
 txtRoomId.value = roomid;
 txtRoomId.onkeyup = txtRoomId.oninput = txtRoomId.onpaste = function () {
   localStorage.setItem(
     connection.socketMessageEvent,
-    document.getElementById("room-id").value
+    document.getElementById('room-id').value,
   );
 };
 
-var hashString = location.hash.replace("#", "");
-if (hashString.length && hashString.indexOf("comment-") == 0) {
-  hashString = "";
+var hashString = location.hash.replace('#', '');
+if (hashString.length && hashString.indexOf('comment-') == 0) {
+  hashString = '';
 }
 
 var roomid = params.roomid;
@@ -442,7 +445,7 @@ if (!roomid && hashString.length) {
 }
 
 if (roomid && roomid.length) {
-  document.getElementById("room-id").value = roomid;
+  document.getElementById('room-id').value = roomid;
   localStorage.setItem(connection.socketMessageEvent, roomid);
 
   // auto-join-room
@@ -463,8 +466,8 @@ if (roomid && roomid.length) {
 // detect 2G
 if (
   navigator.connection &&
-  navigator.connection.type === "cellular" &&
+  navigator.connection.type === 'cellular' &&
   navigator.connection.downlinkMax <= 0.115
 ) {
-  alert("2G is not supported. Please use a better internet service.");
+  alert('2G is not supported. Please use a better internet service.');
 }

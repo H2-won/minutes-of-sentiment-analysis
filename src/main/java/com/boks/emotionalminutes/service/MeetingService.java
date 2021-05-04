@@ -22,6 +22,7 @@ public class MeetingService {
         do {
             requestDto.setCode(getRandomCode(10));
         } while (meetingRepository.findById(requestDto.getCode()).isPresent());
+        meetingRepository.save(requestDto.toEntity());
 
         Participation participation = Participation.builder()
                 .user(requestDto.getUser())
@@ -29,7 +30,7 @@ public class MeetingService {
                 .build();
         participationRepository.save(participation);
 
-        return meetingRepository.save(requestDto.toEntity());
+        return requestDto.toEntity();
     }
 
     public MeetingResponseDto findByCode(String code) {

@@ -7,9 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -26,12 +24,6 @@ public class Meeting {
 
     @Column
     private String name;
-
-    @Column(name = "created_date")
-    private Date createdDate;
-
-    @Column(name = "progress_time")
-    private Time progressTime;
 
     @OneToMany(mappedBy = "meeting")
     private List<Participation> participation = new ArrayList<>();

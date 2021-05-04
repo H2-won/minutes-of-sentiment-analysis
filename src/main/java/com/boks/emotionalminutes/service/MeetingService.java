@@ -31,7 +31,7 @@ public class MeetingService {
         return meetingRepository.save(requestDto.toEntity());
     }
 
-    public static String getRandomCode(int size) {
+    private String getRandomCode(int size) {
         char[] tmp = new char[size];
         for (int i = 0; i < tmp.length; i++) {
             int div = (int) Math.floor(Math.random() * 3);

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 public class MeetingController {
-    MeetingService meetingService;
+    private final MeetingService meetingService;
 
     @PostMapping("/api/meeting")
     public Meeting save(@RequestBody MeetingRequestDto requestDto) {

@@ -5,6 +5,7 @@ import com.boks.emotionalminutes.domain.meeting.MeetingRepository;
 import com.boks.emotionalminutes.domain.participation.Participation;
 import com.boks.emotionalminutes.domain.participation.ParticipationRepository;
 import com.boks.emotionalminutes.web.dto.meeting.MeetingRequestDto;
+import com.boks.emotionalminutes.web.dto.meeting.MeetingResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +30,12 @@ public class MeetingService {
         participationRepository.save(participation);
 
         return meetingRepository.save(requestDto.toEntity());
+    }
+
+    public MeetingResponseDto findByCode(String code) {
+        Meeting entity = meetingRepository.findById(code).orElseThrow(() ->
+                new IllegalArgumentException("해당 회의가 존재하지 않습니다"));
+        return new MeetingResponseDto(entity);
     }
 
     private String getRandomCode(int size) {

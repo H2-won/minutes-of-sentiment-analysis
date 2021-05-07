@@ -7,6 +7,7 @@ import Title from './Title';
 
 const Container = styled.div`
   position: relative;
+  background: ${palette.white};
   width: 27.5%;
   height: 100%;
   border-left: 0.5px solid ${palette.gray2};

@@ -61,7 +61,7 @@ function MeetingLayout() {
   // };
 
   // scriptInsert();
-  const connection = new RTCMultiConnection();
+  // const connection = new RTCMultiConnection();
 
   return (
     <Container>

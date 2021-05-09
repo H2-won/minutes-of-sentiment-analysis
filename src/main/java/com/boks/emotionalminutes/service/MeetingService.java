@@ -20,7 +20,7 @@ public class MeetingService {
     @Transactional
     public Meeting save(MeetingRequestDto requestDto) {
         do {
-            requestDto.setCode(getRandomCode(10));
+            requestDto.setCode(setRandomCode(10));
         } while (meetingRepository.findById(requestDto.getCode()).isPresent());
         meetingRepository.save(requestDto.toEntity());
 
@@ -39,7 +39,7 @@ public class MeetingService {
         return new MeetingResponseDto(entity);
     }
 
-    private String getRandomCode(int size) {
+    private String setRandomCode(int size) {
         char[] tmp = new char[size];
         for (int i = 0; i < tmp.length; i++) {
             int div = (int) Math.floor(Math.random() * 3);

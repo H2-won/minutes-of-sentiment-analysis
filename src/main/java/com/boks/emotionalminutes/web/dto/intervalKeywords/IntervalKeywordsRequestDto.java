@@ -8,14 +8,14 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class IntervalKeywordsRequestDto {
-    private Minutes minutes;
+    private Long minutesId;
     private String interval1Keywords;
     private String interval2Keywords;
     private String interval3Keywords;
     private String interval4Keywords;
     private String interval5Keywords;
 
-    public IntervalKeywords toEntity() {
+    public IntervalKeywords toEntity(Minutes minutes) {
         return IntervalKeywords.builder()
                 .minutes(minutes)
                 .interval1Keywords(interval1Keywords)

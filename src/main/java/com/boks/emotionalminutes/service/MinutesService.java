@@ -37,18 +37,15 @@ public class MinutesService {
 
     @Transactional
     public Long save(MinutesRequestDto requestDto) {
-        Minutes minutes = Minutes.builder()
-                .meeting(meetingRepository.findById(requestDto.getMeetingId()).get())
-                .password(requestDto.getPassword())
-                .voiceFileLink(requestDto.getVoiceFileLink())
-                .createdDate(new Date()).build();
-        return minutesRepository.save(minutes).getId();
+        Meeting meeting = meetingRepository.findById(requestDto.getMeetingCode())
+                .orElseThrow(() -> new IllegalArgumentException("해당 회의가 없습니다. code=" + requestDto.getMeetingCode()));
+        return minutesRepository.save(requestDto.toEntity(meeting)).getId();
     }
 
     @Transactional(readOnly = true)
     public List<MinutesListResponseDto> findAllDesc(Long userId) {
         List<MinutesListResponseDto> dtos = new ArrayList<MinutesListResponseDto>();
-        User user = userRepository.findById(userId).get();
+        User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("해당 회원 없습니다. id=" + userId));
         user.getParticipation().stream()
                 .map(Participation::getMeeting)
                 .forEach(meeting -> {
@@ -65,13 +62,15 @@ public class MinutesService {
         return dtos;
     }
 
+    @Transactional(readOnly = true)
     public MinutesResponseDto findById(Long id) {
-        Minutes entity = minutesRepository.findById(id).orElseThrow(() ->
-                new IllegalArgumentException("해당 회의록이 없습니다"));
+        Minutes entity = minutesRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 회의록이 없습니다. id=" + id));
         Meeting meeting = entity.getMeeting();
         return new MinutesResponseDto(entity, meeting);
     }
 
+    @Transactional(readOnly = true)
     public MinutesResponseDto findByMeetingCodeAndPassword(String code, String password) {
         Optional<Minutes> minutes = minutesRepository.findByMeetingCode(code);
         if (minutes.isEmpty()) return null;
@@ -81,13 +80,17 @@ public class MinutesService {
         return new MinutesResponseDto(entity, meeting);
     }
 
+    @Transactional(readOnly = true)
     public String getVoiceFileLink(Long id) {
-        return minutesRepository.findById(id).get().getVoiceFileLink();
+        return minutesRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 회의록 없습니다. id=" + id))
+                .getVoiceFileLink();
     }
 
     @Transactional
     public Long update(Long id) throws ParseException {
-        Minutes minutes = minutesRepository.findById(id).get();
+        Minutes minutes = minutesRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 회의록이 없습니다. id=" + id));
         Date now = new Date();
         int totalSec = (int) ((now.getTime() - minutes.getCreatedDate().getTime())/(1000));
         int hour = totalSec/(60*60);

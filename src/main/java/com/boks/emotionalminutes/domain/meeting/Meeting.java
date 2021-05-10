@@ -31,12 +31,6 @@ public class Meeting {
     @Column
     private String name;
 
-    @Column(name = "created_date")
-    private Date createdDate;
-
-    @Column(name = "progress_time")
-    private Time progressTime;
-
     @OneToMany(mappedBy = "meeting")
     private List<Participation> participation = new ArrayList<>();
 

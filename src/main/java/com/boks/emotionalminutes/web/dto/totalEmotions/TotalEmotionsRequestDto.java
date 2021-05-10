@@ -1,6 +1,6 @@
 package com.boks.emotionalminutes.web.dto.totalEmotions;
 
-import com.boks.emotionalminutes.domain.minutes.Minutes;
+import com.boks.emotionalminutes.domain.minutes.MinutesRepository;
 import com.boks.emotionalminutes.domain.totalEmotions.TotalEmotions;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,7 +8,9 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class TotalEmotionsRequestDto {
-    private Minutes minutes;
+    private MinutesRepository minutesRepository;
+
+    private Long minutesId;
     private float happy;
     private float emotionless;
     private float sad;
@@ -16,7 +18,7 @@ public class TotalEmotionsRequestDto {
 
     public TotalEmotions toEntity() {
         return TotalEmotions.builder()
-                .minutes(minutes)
+                .minutes(minutesRepository.findById(minutesId).get())
                 .happy(happy)
                 .emotionless(emotionless)
                 .sad(sad)

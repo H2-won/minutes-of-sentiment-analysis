@@ -15,7 +15,7 @@ public class ParticipationController {
     private final ParticipationService participationService;
 
     @PostMapping("/api/participation")
-    public Participation save(@RequestParam("user_id") User user,
+    public Long save(@RequestParam("user_id") User user,
                               @RequestParam("meeting_id")Meeting meeting) {
 
         return participationService.save(user, meeting);

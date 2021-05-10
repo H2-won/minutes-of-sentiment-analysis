@@ -4,6 +4,7 @@ import com.boks.emotionalminutes.domain.meeting.Meeting;
 import com.boks.emotionalminutes.domain.meeting.MeetingRepository;
 import com.boks.emotionalminutes.domain.participation.Participation;
 import com.boks.emotionalminutes.domain.participation.ParticipationRepository;
+import com.boks.emotionalminutes.domain.user.User;
 import com.boks.emotionalminutes.domain.user.UserRepository;
 import com.boks.emotionalminutes.web.dto.meeting.MeetingRequestDto;
 import com.boks.emotionalminutes.web.dto.meeting.MeetingResponseDto;
@@ -20,19 +21,21 @@ public class MeetingService {
     private final ParticipationRepository participationRepository;
 
     @Transactional
-    public Meeting save(MeetingRequestDto requestDto) {
+    public String save(MeetingRequestDto requestDto) {
         do {
             requestDto.setCode(setRandomCode(10));
         } while (meetingRepository.findById(requestDto.getCode()).isPresent());
-        meetingRepository.save(requestDto.toEntity());
+        User user = userRepository.findById(requestDto.getUserId()).get();
+
+        Meeting meeting = meetingRepository.save(requestDto.toEntity(user));
 
         Participation participation = Participation.builder()
                 .user(userRepository.findById(requestDto.getUserId()).get())
-                .meeting(requestDto.toEntity())
+                .meeting(requestDto.toEntity(user))
                 .build();
         participationRepository.save(participation);
 
-        return requestDto.toEntity();
+        return meeting.getCode();
     }
 
     public MeetingResponseDto findByCode(String code) {

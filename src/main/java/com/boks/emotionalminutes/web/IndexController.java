@@ -12,15 +12,19 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpSession;
 
 @RequiredArgsConstructor
-@RestController
+@Controller
 public class IndexController {
 
     private final HttpSession httpSession;
-
 //    @GetMapping("/")
 //    public String index() {
-//        return "index";
+//        return "index2";
 //    }
+
+    @GetMapping("/test/go/main")
+    public String index() {
+        return "index2";
+    }
 
     @GetMapping("/main")
     public SessionUser loginPage(Model model) {

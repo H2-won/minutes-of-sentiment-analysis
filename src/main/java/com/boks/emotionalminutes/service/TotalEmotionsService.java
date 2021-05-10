@@ -1,6 +1,5 @@
 package com.boks.emotionalminutes.service;
 
-import com.boks.emotionalminutes.domain.totalEmotions.TotalEmotions;
 import com.boks.emotionalminutes.domain.totalEmotions.TotalEmotionsRepository;
 import com.boks.emotionalminutes.web.dto.totalEmotions.TotalEmotionsRequestDto;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +13,7 @@ public class TotalEmotionsService {
     private final TotalEmotionsRepository totalEmotionsRepository;
 
     @Transactional
-    public TotalEmotions save(TotalEmotionsRequestDto requestDto) {
-        return totalEmotionsRepository.save(requestDto.toEntity());
+    public Long save(TotalEmotionsRequestDto requestDto) {
+        return totalEmotionsRepository.save(requestDto.toEntity()).getId();
     }
 }

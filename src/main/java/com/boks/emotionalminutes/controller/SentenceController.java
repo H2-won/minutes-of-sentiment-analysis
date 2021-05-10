@@ -1,6 +1,5 @@
 package com.boks.emotionalminutes.controller;
 
-import com.boks.emotionalminutes.domain.sentence.Sentence;
 import com.boks.emotionalminutes.service.SentenceService;
 import com.boks.emotionalminutes.web.dto.sentence.SentenceRequestDto;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +13,7 @@ public class SentenceController {
     private final SentenceService sentenceService;
 
     @PostMapping("/api/sentence")
-    public Sentence save(@RequestBody SentenceRequestDto sentenceRequestDto) {
+    public Long save(@RequestBody SentenceRequestDto sentenceRequestDto) {
         return sentenceService.save(sentenceRequestDto);
     }
 }

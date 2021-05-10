@@ -14,7 +14,7 @@ public class SentenceService {
     private final SentenceRepository sentenceRepository;
 
     @Transactional
-    public Sentence save(SentenceRequestDto sentenceRequestDto) {
-        return sentenceRepository.save(sentenceRequestDto.toEntity());
+    public Long save(SentenceRequestDto sentenceRequestDto) {
+        return sentenceRepository.save(sentenceRequestDto.toEntity()).getId();
     }
 }

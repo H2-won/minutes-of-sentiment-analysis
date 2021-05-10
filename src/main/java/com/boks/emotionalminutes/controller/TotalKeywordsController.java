@@ -14,7 +14,7 @@ public class TotalKeywordsController {
     private final TotalKeywordsService totalKeywordsService;
 
     @PostMapping("/api/total-keywords")
-    public TotalKeywords save(@RequestBody TotalKeywordsRequestDto requestDto) {
+    public Long save(@RequestBody TotalKeywordsRequestDto requestDto) {
         return totalKeywordsService.save(requestDto);
     }
 }

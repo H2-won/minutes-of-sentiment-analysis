@@ -16,13 +16,13 @@ public class ParticipationService {
     private final ParticipationRepository participationRepository;
 
     @Transactional
-    public Participation save(User user, Meeting meeting) {
+    public Long save(User user, Meeting meeting) {
         Participation participation = Participation.builder()
                 .user(user)
                 .meeting(meeting)
                 .build();
 
         participationRepository.save(participation);
-        return participation;
+        return participation.getId();
     }
 }

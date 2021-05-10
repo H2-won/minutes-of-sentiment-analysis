@@ -34,3 +34,7 @@ input{
 p, h2{
   margin: 0;
 }
+
+video{
+  width:50%;
+}

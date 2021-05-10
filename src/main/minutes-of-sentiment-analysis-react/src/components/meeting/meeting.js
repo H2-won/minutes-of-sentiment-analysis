@@ -1,14 +1,17 @@
 // ......................................................
 // .......................UI Code........................
 // ......................................................
+
 document.getElementById('open-room').onclick = function () {
   // disableInputButtons();
+  if (!window.location.href == '/meeting') window.location.replace('/meeting');
+
   connection.open(
     document.getElementById('room-id').value,
     function (isRoomOpened, roomid, error) {
       if (isRoomOpened === true) {
       } else {
-        disableInputButtons(true);
+        // disableInputButtons(true);
         if (error === 'Room not available') {
           alert('이미 존재하는 방입니다. 새로운 방을 만들거나 참가하세요!');
           return;

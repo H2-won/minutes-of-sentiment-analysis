@@ -5,6 +5,7 @@ import Record from '../components/meeting/record/Record';
 import RecordWrapper from '../components/meeting/record/RecordWrapper';
 import Title from '../components/meeting/record/Title';
 import Navigation from '../components/meetingLog/navigation/Navigation';
+import Audio from '../components/meetingLog/record/Audio';
 import palette from '../lib/styles/palette';
 
 const Container = styled.div`
@@ -22,6 +23,7 @@ function MeetingLogContainer() {
     <Container>
       <Navigation></Navigation>
       <RecordWrapper>
+        <Audio />
         <Title />
         <ConferenceCode />
         <Record />

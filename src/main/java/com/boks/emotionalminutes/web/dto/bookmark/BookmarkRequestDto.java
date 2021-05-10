@@ -14,11 +14,11 @@ public class BookmarkRequestDto {
     private Long sentenceId;
     private String memo;
 
-//    public Bookmark toEntity() {
-//        return Bookmark.builder()
-//                .user(user)
-//                .sentence(sentence)
-//                .memo(memo)
-//                .build();
-//    }
+    public Bookmark toEntity(User user, Sentence sentence) {
+        return Bookmark.builder()
+                .user(user)
+                .sentence(sentence)
+                .memo(memo)
+                .build();
+    }
 }

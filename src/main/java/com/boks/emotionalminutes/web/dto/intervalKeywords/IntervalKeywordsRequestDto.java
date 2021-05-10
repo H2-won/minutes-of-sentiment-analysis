@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class IntervalKeywordsRequestDto {
-    private Long minutesId;
     private String interval1Keywords;
     private String interval2Keywords;
     private String interval3Keywords;

@@ -4,6 +4,7 @@ import com.boks.emotionalminutes.domain.meeting.Meeting;
 import com.boks.emotionalminutes.domain.meeting.MeetingRepository;
 import com.boks.emotionalminutes.domain.participation.Participation;
 import com.boks.emotionalminutes.domain.participation.ParticipationRepository;
+import com.boks.emotionalminutes.domain.user.UserRepository;
 import com.boks.emotionalminutes.web.dto.meeting.MeetingRequestDto;
 import com.boks.emotionalminutes.web.dto.meeting.MeetingResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class MeetingService {
+    private final UserRepository userRepository;
     private final MeetingRepository meetingRepository;
     private final ParticipationRepository participationRepository;
 
@@ -25,7 +27,7 @@ public class MeetingService {
         meetingRepository.save(requestDto.toEntity());
 
         Participation participation = Participation.builder()
-                .user(requestDto.getUser())
+                .user(userRepository.findById(requestDto.getUserId()).get())
                 .meeting(requestDto.toEntity())
                 .build();
         participationRepository.save(participation);

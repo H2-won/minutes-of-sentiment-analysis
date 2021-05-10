@@ -1,5 +1,6 @@
 package com.boks.emotionalminutes.domain.sentence;
 
+import com.boks.emotionalminutes.domain.bookmark.Bookmark;
 import com.boks.emotionalminutes.domain.minutes.Minutes;
 import com.boks.emotionalminutes.domain.user.User;
 import lombok.Builder;
@@ -26,6 +27,9 @@ public class Sentence {
     @JoinColumn(name = "minutes_id")
     private Minutes minutes;
 
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "sentence")
+    private Bookmark bookmark;
+
     @Column
     private String content;
 
@@ -45,5 +49,9 @@ public class Sentence {
 
         user.getSentences().add(this);
         minutes.getSentences().add(this);
+    }
+
+    public void setBookmark(Bookmark bookmark) {
+        this.bookmark = bookmark;
     }
 }

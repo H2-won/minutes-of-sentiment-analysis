@@ -33,6 +33,11 @@ public class Bookmark {
         this.user = user;
         this.sentence = sentence;
         this.memo = memo;
-        user.getBookmarks().add(this);
+        user.addBookmark(this);
+        sentence.setBookmark(this);
+    }
+
+    public void setMemo(String memo) {
+        this.memo = memo;
     }
 }

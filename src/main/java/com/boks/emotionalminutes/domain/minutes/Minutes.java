@@ -10,7 +10,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @NoArgsConstructor
@@ -34,31 +36,31 @@ public class Minutes {
     @OneToMany(mappedBy = "minutes")
     private List<Sentence> sentences = new ArrayList<>();
 
-    @OneToOne(mappedBy = "minutes")
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "minutes")
     private IntervalKeywords intervalKeywords;
 
-    @OneToOne(mappedBy = "minutes")
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "minutes")
     private TotalEmotions totalEmotions;
 
-    @OneToOne(mappedBy = "minutes")
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "minutes")
     private TotalKeywords totalKeywords;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_date")
-    private String createdDate;
+    private Date createdDate;
 
     @Column(name = "progress_time")
-    private String progressTime;
+    private LocalTime progressTime;
 
     @Builder
-    public Minutes (Meeting meeting, String password, String voiceFileLink, String createdDate, String progressTime) {
+    public Minutes (Meeting meeting, String password, String voiceFileLink, Date createdDate) {
         this.meeting = meeting;
         this.password = password;
         this.voiceFileLink = voiceFileLink;
         this.createdDate = createdDate;
-        this.progressTime = progressTime;
     }
 
-    public void update (String progressTime) {
+    public void update (LocalTime progressTime) {
         this.progressTime = progressTime;
     }
 }

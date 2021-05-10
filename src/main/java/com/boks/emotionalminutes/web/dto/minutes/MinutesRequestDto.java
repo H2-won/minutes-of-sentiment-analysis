@@ -11,19 +11,17 @@ import java.util.Date;
 @Getter
 @NoArgsConstructor
 public class MinutesRequestDto {
-    private Meeting meeting;
+    private Long meetingId;
     private String password;
     private String voiceFileLink;
 
-    public Minutes toEntity() {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date date = new Date();
-        String createdDate = format.format(date);
-        return Minutes.builder()
-                .meeting(meeting)
-                .password(password)
-                .voiceFileLink(voiceFileLink)
-                .createdDate(createdDate)
-                .build();
-    }
+//    public Minutes toEntity() {
+//        Date now = new Date();
+//        return Minutes.builder()
+//                .meeting(meeting)
+//                .password(password)
+//                .voiceFileLink(voiceFileLink)
+//                .createdDate(now)
+//                .build();
+//    }
 }

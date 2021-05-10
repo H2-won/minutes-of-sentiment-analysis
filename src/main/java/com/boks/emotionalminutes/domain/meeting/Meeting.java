@@ -1,5 +1,6 @@
 package com.boks.emotionalminutes.domain.meeting;
 
+import com.boks.emotionalminutes.domain.minutes.Minutes;
 import com.boks.emotionalminutes.domain.participation.Participation;
 import com.boks.emotionalminutes.domain.user.User;
 import lombok.Builder;
@@ -18,9 +19,12 @@ public class Meeting {
     @Column
     private String code;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "meeting")
+    private Minutes minutes;
 
     @Column
     private String name;

@@ -4,7 +4,9 @@ import com.boks.emotionalminutes.domain.meeting.Meeting;
 import com.boks.emotionalminutes.domain.meeting.MeetingRepository;
 import com.boks.emotionalminutes.domain.participation.Participation;
 import com.boks.emotionalminutes.domain.participation.ParticipationRepository;
+import com.boks.emotionalminutes.domain.user.UserRepository;
 import com.boks.emotionalminutes.web.dto.meeting.MeetingRequestDto;
+import com.boks.emotionalminutes.web.dto.meeting.MeetingResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,25 +15,33 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class MeetingService {
+    private final UserRepository userRepository;
     private final MeetingRepository meetingRepository;
     private final ParticipationRepository participationRepository;
 
     @Transactional
     public Meeting save(MeetingRequestDto requestDto) {
-        while (meetingRepository.findById(requestDto.getCode()).isEmpty()) {
-            requestDto.setCode(getRandomCode(10));
-            meetingRepository.save(requestDto.toEntity());
-        }
+        do {
+            requestDto.setCode(setRandomCode(10));
+        } while (meetingRepository.findById(requestDto.getCode()).isPresent());
+        meetingRepository.save(requestDto.toEntity());
 
         Participation participation = Participation.builder()
-                .user(requestDto.getUser())
+                .user(userRepository.findById(requestDto.getUserId()).get())
                 .meeting(requestDto.toEntity())
                 .build();
         participationRepository.save(participation);
+
         return requestDto.toEntity();
     }
 
-    public static String getRandomCode(int size) {
+    public MeetingResponseDto findByCode(String code) {
+        Meeting entity = meetingRepository.findById(code).orElseThrow(() ->
+                new IllegalArgumentException("해당 회의가 존재하지 않습니다"));
+        return new MeetingResponseDto(entity);
+    }
+
+    private String setRandomCode(int size) {
         char[] tmp = new char[size];
         for (int i = 0; i < tmp.length; i++) {
             int div = (int) Math.floor(Math.random() * 3);

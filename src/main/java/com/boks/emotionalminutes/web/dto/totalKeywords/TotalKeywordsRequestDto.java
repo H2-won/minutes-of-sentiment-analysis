@@ -1,6 +1,7 @@
 package com.boks.emotionalminutes.web.dto.totalKeywords;
 
 import com.boks.emotionalminutes.domain.minutes.Minutes;
+import com.boks.emotionalminutes.domain.minutes.MinutesRepository;
 import com.boks.emotionalminutes.domain.totalKeywords.TotalKeywords;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,7 +9,9 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class TotalKeywordsRequestDto {
-    private Minutes minutes;
+    private MinutesRepository minutesRepository;
+
+    private Long minutesId;
     private String mainKeyword1;
     private String mainKeyword2;
     private String mainKeyword3;
@@ -17,7 +20,7 @@ public class TotalKeywordsRequestDto {
 
     public TotalKeywords toEntity() {
         return TotalKeywords.builder()
-                .minutes(minutes)
+                .minutes(minutesRepository.findById(minutesId).get())
                 .mainKeyword1(mainKeyword1)
                 .mainKeyword2(mainKeyword2)
                 .mainKeyword3(mainKeyword3)

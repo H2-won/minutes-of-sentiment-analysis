@@ -18,7 +18,7 @@ import java.util.List;
 public class MinutesController {
     private final MinutesService minutesService;
 
-    @GetMapping("/api/user/{id}")
+    @GetMapping("/api/user/{id}/minutes")
     public List<MinutesListResponseDto> findAll(@PathVariable Long id) {
         return minutesService.findAllDesc(id);
     }

@@ -2,7 +2,9 @@ package com.boks.emotionalminutes.service;
 
 import com.boks.emotionalminutes.domain.bookmark.Bookmark;
 import com.boks.emotionalminutes.domain.bookmark.BookmarkRepository;
+import com.boks.emotionalminutes.domain.sentence.Sentence;
 import com.boks.emotionalminutes.domain.sentence.SentenceRepository;
+import com.boks.emotionalminutes.domain.user.User;
 import com.boks.emotionalminutes.domain.user.UserRepository;
 import com.boks.emotionalminutes.web.dto.bookmark.BookmarkRequestDto;
 import com.boks.emotionalminutes.web.dto.bookmark.BookmarkResponseDto;
@@ -26,9 +28,11 @@ public class BookmarkService {
 
     @Transactional
     public Long save(BookmarkRequestDto requestDto) {
+        User user = userRepository.findById(requestDto.getUserId()).get();
+        Sentence sentence = sentenceRepository.findById(requestDto.getSentenceId()).get();
         Bookmark bookmark = Bookmark.builder()
-                .user(userRepository.findById(requestDto.getUserId()).get())
-                .sentence(sentenceRepository.findById(requestDto.getSentenceId()).get())
+                .user(user)
+                .sentence(sentence)
                 .memo(requestDto.getMemo())
                 .build();
         return bookmarkRepository.save(bookmark).getId();

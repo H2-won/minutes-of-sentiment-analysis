@@ -40,6 +40,18 @@ public class User {
         this.email = email;
     }
 
+    public void addBookmark(Bookmark bookmark) {
+        this.getBookmarks().add(bookmark);
+    }
+
+    public void addParticipation(Participation participation) {
+        this.getParticipation().add(participation);
+    }
+
+    public void addSentence(Sentence sentence) {
+        this.getSentences().add(sentence);
+    }
+
     public User update(String name) {
         this.name = name;
 

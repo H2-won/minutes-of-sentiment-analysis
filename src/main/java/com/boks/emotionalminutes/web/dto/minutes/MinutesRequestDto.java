@@ -11,7 +11,7 @@ import java.util.Date;
 @Getter
 @NoArgsConstructor
 public class MinutesRequestDto {
-    private Long meetingId;
+    private String meetingId;
     private String password;
     private String voiceFileLink;
 

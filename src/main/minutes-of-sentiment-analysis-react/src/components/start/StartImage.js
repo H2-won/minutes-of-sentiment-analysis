@@ -8,7 +8,7 @@ const Image = styled.img`
 `;
 
 function StartImage() {
-  return <Image src="/images/startImg.jpg" />;
+  return <Image src="/images/startImg_compression.jpg" />;
 }
 
 export default StartImage;

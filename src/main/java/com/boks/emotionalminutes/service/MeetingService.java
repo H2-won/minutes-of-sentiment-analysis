@@ -30,8 +30,8 @@ public class MeetingService {
         Meeting meeting = meetingRepository.save(requestDto.toEntity(user));
 
         Participation participation = Participation.builder()
-                .user(userRepository.findById(requestDto.getUserId()).get())
-                .meeting(requestDto.toEntity(user))
+                .user(user)
+                .meeting(meeting)
                 .build();
         participationRepository.save(participation);
 

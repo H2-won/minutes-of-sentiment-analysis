@@ -44,5 +44,6 @@ public class IntervalKeywords {
         this.interval3Keywords = interval3Keywords;
         this.interval4Keywords = interval4Keywords;
         this.interval5Keywords = interval5Keywords;
+        minutes.setIntervalKeywords(this);
     }
 }

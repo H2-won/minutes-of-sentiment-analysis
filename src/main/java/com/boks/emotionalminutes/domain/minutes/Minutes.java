@@ -58,9 +58,26 @@ public class Minutes {
         this.password = password;
         this.voiceFileLink = voiceFileLink;
         this.createdDate = createdDate;
+        meeting.setMinutes(this);
     }
 
     public void update (LocalTime progressTime) {
         this.progressTime = progressTime;
+    }
+
+    public void setIntervalKeywords (IntervalKeywords intervalKeywords) {
+        this.intervalKeywords = intervalKeywords;
+    }
+
+    public void setTotalKeywords (TotalKeywords totalKeywords) {
+        this.totalKeywords = totalKeywords;
+    }
+
+    public void setTotalEmotions (TotalEmotions totalEmotions) {
+        this.totalEmotions = totalEmotions;
+    }
+
+    public void addSentence(Sentence sentence) {
+        this.getSentences().add(sentence);
     }
 }

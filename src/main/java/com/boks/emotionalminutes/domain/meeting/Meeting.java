@@ -38,4 +38,12 @@ public class Meeting {
         this.user = user;
         this.name = name;
     }
+
+    public void setMinutes(Minutes minutes) {
+        this.minutes = minutes;
+    }
+
+    public void addParticipation(Participation participation) {
+        this.getParticipation().add(participation);
+    }
 }

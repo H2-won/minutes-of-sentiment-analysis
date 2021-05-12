@@ -18,7 +18,8 @@ public class TotalEmotionsService {
 
     @Transactional
     public Long save(TotalEmotionsRequestDto requestDto) {
-        return totalEmotionsRepository.save(requestDto.toEntity()).getId();
+        Minutes minutes = minutesRepository.findById(requestDto.getMinutesId()).get();
+        return totalEmotionsRepository.save(requestDto.toEntity(minutes)).getId();
     }
 
     public TotalEmotionsResponseDto findByMinutesId(Long minutesId) {

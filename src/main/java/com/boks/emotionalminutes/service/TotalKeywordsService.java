@@ -22,8 +22,8 @@ public class TotalKeywordsService {
         return totalKeywordsRepository.save(requestDto.toEntity(minutes)).getId();
     }
 
-    public TotalKeywordsResponseDto findByMinutesId(Long minutesId) {
-        Minutes minutes = minutesRepository.findById(minutesId).get();
+    public TotalKeywordsResponseDto findByMinutesId(Long id) {
+        Minutes minutes = minutesRepository.findById(id).get();
         return new TotalKeywordsResponseDto(minutes.getTotalKeywords());
     }
 }

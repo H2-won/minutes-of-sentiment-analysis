@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
-@Setter
 @NoArgsConstructor
 public class MeetingRequestDto {
     private String code;
@@ -20,5 +19,9 @@ public class MeetingRequestDto {
                 .user(user)
                 .name(name)
                 .build();
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }

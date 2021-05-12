@@ -18,7 +18,8 @@ public class TotalKeywordsService {
 
     @Transactional
     public Long save(TotalKeywordsRequestDto requestDto) {
-        return totalKeywordsRepository.save(requestDto.toEntity()).getId();
+        Minutes minutes = minutesRepository.findById(requestDto.getMinutesId()).get();
+        return totalKeywordsRepository.save(requestDto.toEntity(minutes)).getId();
     }
 
     public TotalKeywordsResponseDto findByMinutesId(Long minutesId) {

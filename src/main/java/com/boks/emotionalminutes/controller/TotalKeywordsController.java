@@ -1,12 +1,10 @@
 package com.boks.emotionalminutes.controller;
 
-import com.boks.emotionalminutes.domain.totalKeywords.TotalKeywords;
 import com.boks.emotionalminutes.service.TotalKeywordsService;
 import com.boks.emotionalminutes.web.dto.totalKeywords.TotalKeywordsRequestDto;
+import com.boks.emotionalminutes.web.dto.totalKeywords.TotalKeywordsResponseDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -16,5 +14,10 @@ public class TotalKeywordsController {
     @PostMapping("/api/total-keywords")
     public Long save(@RequestBody TotalKeywordsRequestDto requestDto) {
         return totalKeywordsService.save(requestDto);
+    }
+
+    @GetMapping("/api/total-keywords/{minutesId}")
+    public TotalKeywordsResponseDto findById(@PathVariable Long minutesId) {
+        return totalKeywordsService.findById(minutesId);
     }
 }

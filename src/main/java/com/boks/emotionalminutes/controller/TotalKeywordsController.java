@@ -17,7 +17,7 @@ public class TotalKeywordsController {
     }
 
     @GetMapping("/api/minutes/{id}/total-keywords")
-    public TotalKeywordsResponseDto findByMinutesId(@PathVariable Long minutesId) {
-        return totalKeywordsService.findByMinutesId(minutesId);
+    public TotalKeywordsResponseDto findByMinutesId(@PathVariable Long id) {
+        return totalKeywordsService.findByMinutesId(id);
     }
 }

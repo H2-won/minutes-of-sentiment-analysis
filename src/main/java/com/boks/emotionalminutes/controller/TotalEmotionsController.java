@@ -16,8 +16,8 @@ public class TotalEmotionsController {
         return totalEmotionsService.save(requestDto);
     }
 
-    @GetMapping("/api/total-emotions/{minutesId}")
-    public TotalEmotionsResponseDto findByMinutesId(@PathVariable Long minutesId) {
-        return totalEmotionsService.findByMinutesId(minutesId);
+    @GetMapping("/api/minutes/{id}/total-emotions")
+    public TotalEmotionsResponseDto findByMinutesId(@PathVariable Long id) {
+        return totalEmotionsService.findByMinutesId(id);
     }
 }

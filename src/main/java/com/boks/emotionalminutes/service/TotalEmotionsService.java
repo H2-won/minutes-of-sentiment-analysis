@@ -22,8 +22,8 @@ public class TotalEmotionsService {
         return totalEmotionsRepository.save(requestDto.toEntity(minutes)).getId();
     }
 
-    public TotalEmotionsResponseDto findByMinutesId(Long minutesId) {
-        Minutes minutes = minutesRepository.findById(minutesId).get();
+    public TotalEmotionsResponseDto findByMinutesId(Long id) {
+        Minutes minutes = minutesRepository.findById(id).get();
         return new TotalEmotionsResponseDto(minutes.getTotalEmotions());
     }
 }

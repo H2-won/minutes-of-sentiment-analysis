@@ -1,7 +1,6 @@
 package com.boks.emotionalminutes.web.dto.sentence;
 
 import com.boks.emotionalminutes.domain.sentence.Sentence;
-import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 

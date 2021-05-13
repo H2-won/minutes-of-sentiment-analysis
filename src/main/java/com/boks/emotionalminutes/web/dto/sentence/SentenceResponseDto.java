@@ -9,12 +9,14 @@ import java.sql.Time;
 @Data
 @Getter
 public class SentenceResponseDto {
+    private Long id;
     private String userName;
     private String content;
     private String emotion;
     private Time createdTime;
 
     public SentenceResponseDto (Sentence entity) {
+        this.id = entity.getId();
         this.userName = entity.getUser().getName();
         this.content = entity.getContent();
         this.emotion = entity.getEmotion();

@@ -1,6 +1,5 @@
 package com.boks.emotionalminutes.controller;
 
-import com.boks.emotionalminutes.domain.sentence.Sentence;
 import com.boks.emotionalminutes.service.SentenceService;
 import com.boks.emotionalminutes.web.dto.sentence.SentenceRequestDto;
 import com.boks.emotionalminutes.web.dto.sentence.SentenceResponseDto;

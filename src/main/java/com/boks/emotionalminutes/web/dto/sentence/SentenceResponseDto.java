@@ -12,16 +12,12 @@ import java.sql.Time;
 @Getter
 public class SentenceResponseDto {
     private Long id;
-    private User user;
-    private Minutes minutes;
     private String content;
     private String emotion;
     private Time createdTime;
 
     public SentenceResponseDto (Sentence entity) {
         this.id = entity.getId();
-        this.user = entity.getUser();
-        this.minutes = entity.getMinutes();
         this.content = entity.getContent();
         this.emotion = entity.getEmotion();
         this.createdTime = entity.getCreatedTime();

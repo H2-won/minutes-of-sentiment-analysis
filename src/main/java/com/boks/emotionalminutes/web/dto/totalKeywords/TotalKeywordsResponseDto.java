@@ -9,7 +9,6 @@ import lombok.Getter;
 @Getter
 public class TotalKeywordsResponseDto {
     private Long id;
-    private Minutes minutes;
     private String mainKeyword1;
     private String mainKeyword2;
     private String mainKeyword3;
@@ -18,7 +17,6 @@ public class TotalKeywordsResponseDto {
 
     public TotalKeywordsResponseDto (TotalKeywords entity) {
         this.id = entity.getId();
-        this.minutes = entity.getMinutes();
         this.mainKeyword1 = entity.getMainKeyword1();
         this.mainKeyword2 = entity.getMainKeyword2();
         this.mainKeyword3 = entity.getMainKeyword3();

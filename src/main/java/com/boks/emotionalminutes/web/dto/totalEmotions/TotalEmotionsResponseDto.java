@@ -9,7 +9,6 @@ import lombok.Getter;
 @Getter
 public class TotalEmotionsResponseDto {
     private Long id;
-    private Minutes minutes;
     private float happy;
     private float emotionless;
     private float sad;
@@ -17,7 +16,6 @@ public class TotalEmotionsResponseDto {
 
     public TotalEmotionsResponseDto (TotalEmotions entity) {
         this.id = entity.getId();
-        this.minutes = entity.getMinutes();
         this.happy = entity.getHappy();
         this.emotionless = entity.getEmotionless();
         this.sad = entity.getSad();

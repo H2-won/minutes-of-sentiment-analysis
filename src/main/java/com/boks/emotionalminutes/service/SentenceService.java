@@ -2,13 +2,18 @@ package com.boks.emotionalminutes.service;
 
 import com.boks.emotionalminutes.domain.minutes.Minutes;
 import com.boks.emotionalminutes.domain.minutes.MinutesRepository;
+import com.boks.emotionalminutes.domain.sentence.Sentence;
 import com.boks.emotionalminutes.domain.sentence.SentenceRepository;
 import com.boks.emotionalminutes.domain.user.User;
 import com.boks.emotionalminutes.domain.user.UserRepository;
 import com.boks.emotionalminutes.web.dto.sentence.SentenceRequestDto;
+import com.boks.emotionalminutes.web.dto.sentence.SentenceResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -24,5 +29,18 @@ public class SentenceService {
         Minutes minutes = minutesRepository.findById(sentenceRequestDto.getMinutesId()).get();
 
         return sentenceRepository.save(sentenceRequestDto.toEntity(user, minutes)).getId();
+    }
+
+    @Transactional
+    public List<SentenceResponseDto> findById(Long id) {
+        Minutes minutes = minutesRepository.findById(id).get();
+        List<Sentence> sentences = minutes.getSentences();
+        List<SentenceResponseDto> sentenceResponseDtos = new ArrayList<>();
+
+        for (Sentence value : sentences) {
+            SentenceResponseDto responseDto = new SentenceResponseDto(value);
+            sentenceResponseDtos.add(responseDto);
+        }
+        return sentenceResponseDtos;
     }
 }

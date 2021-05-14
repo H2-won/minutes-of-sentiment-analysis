@@ -7,7 +7,6 @@ class ConnectionClass {
   constructor() {
     this.rtc = new RTCMultiConnection();
     this.rtc.socketURL = 'https://rtcmulticonnection.herokuapp.com:443/';
-    this.rtc.socketMessageEvent = 'video-conference-demo';
     this.rtc.session = {
       audio: true,
       video: true,

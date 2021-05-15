@@ -424,12 +424,15 @@ if (localStorage.getItem(connection.socketMessageEvent)) {
 
 var txtRoomId = document.getElementById('room-id');
 txtRoomId.value = roomid;
-txtRoomId.onkeyup = txtRoomId.oninput = txtRoomId.onpaste = function () {
-  localStorage.setItem(
-    connection.socketMessageEvent,
-    document.getElementById('room-id').value,
-  );
-};
+txtRoomId.onkeyup =
+  txtRoomId.oninput =
+  txtRoomId.onpaste =
+    function () {
+      localStorage.setItem(
+        connection.socketMessageEvent,
+        document.getElementById('room-id').value,
+      );
+    };
 
 var hashString = location.hash.replace('#', '');
 if (hashString.length && hashString.indexOf('comment-') == 0) {

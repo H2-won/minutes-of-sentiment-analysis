@@ -29,11 +29,10 @@ function getHTMLMediaElement(mediaElement, config) {
     if ('srcObject' in mediaElement) {
       mediaElement.srcObject = mediaStream;
     } else {
-      mediaElement[
-        !!navigator.mozGetUserMedia ? 'mozSrcObject' : 'src'
-      ] = !!navigator.mozGetUserMedia
-        ? mediaStream
-        : (window.URL || window.webkitURL).createObjectURL(mediaStream);
+      mediaElement[!!navigator.mozGetUserMedia ? 'mozSrcObject' : 'src'] =
+        !!navigator.mozGetUserMedia
+          ? mediaStream
+          : (window.URL || window.webkitURL).createObjectURL(mediaStream);
     }
   }
 
@@ -376,11 +375,12 @@ function getHTMLMediaElement(mediaElement, config) {
     config.showOnMouseEnter ||
     typeof config.showOnMouseEnter === 'undefined'
   ) {
-    mediaElementContainer.onmouseenter = mediaElementContainer.onmousedown = function () {
-      adjustControls();
-      mediaControls.style.opacity = 1;
-      volumeControl.style.opacity = 1;
-    };
+    mediaElementContainer.onmouseenter = mediaElementContainer.onmousedown =
+      function () {
+        adjustControls();
+        mediaControls.style.opacity = 1;
+        volumeControl.style.opacity = 1;
+      };
 
     mediaElementContainer.onmouseleave = function () {
       mediaControls.style.opacity = 0;
@@ -447,11 +447,10 @@ function getAudioElement(mediaElement, config) {
     if ('srcObject' in mediaElement) {
       mediaElement.mediaElement = mediaStream;
     } else {
-      mediaElement[
-        !!navigator.mozGetUserMedia ? 'mozSrcObject' : 'src'
-      ] = !!navigator.mozGetUserMedia
-        ? mediaStream
-        : (window.URL || window.webkitURL).createObjectURL(mediaStream);
+      mediaElement[!!navigator.mozGetUserMedia ? 'mozSrcObject' : 'src'] =
+        !!navigator.mozGetUserMedia
+          ? mediaStream
+          : (window.URL || window.webkitURL).createObjectURL(mediaStream);
     }
   }
 
@@ -602,10 +601,11 @@ function getAudioElement(mediaElement, config) {
     config.showOnMouseEnter ||
     typeof config.showOnMouseEnter === 'undefined'
   ) {
-    mediaElementContainer.onmouseenter = mediaElementContainer.onmousedown = function () {
-      adjustControls();
-      mediaControls.style.opacity = 1;
-    };
+    mediaElementContainer.onmouseenter = mediaElementContainer.onmousedown =
+      function () {
+        adjustControls();
+        mediaControls.style.opacity = 1;
+      };
 
     mediaElementContainer.onmouseleave = function () {
       mediaControls.style.opacity = 0;
@@ -640,3 +640,5 @@ function getAudioElement(mediaElement, config) {
 
   return mediaElementContainer;
 }
+
+console.log('asd');

@@ -24,6 +24,9 @@ public class MeetingService {
     public String save(MeetingRequestDto requestDto) {
         do {
             requestDto.setCode(setRandomCode(10));
+
+            // 테스트 위한 고정 코드 발급
+            requestDto.setCode("AAAAA");
         } while (meetingRepository.findById(requestDto.getCode()).isPresent());
         User user = userRepository.findById(requestDto.getUserId()).get();
 
@@ -44,6 +47,7 @@ public class MeetingService {
         return new MeetingResponseDto(entity);
     }
 
+    // 회의 랜덤 코드 발급 함수
     private String setRandomCode(int size) {
         char[] tmp = new char[size];
         for (int i = 0; i < tmp.length; i++) {

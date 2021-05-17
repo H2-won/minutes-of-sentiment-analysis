@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-// import { Helmet } from 'react-helmet';
 import StartPage from './pages/StartPage';
 import MainPage from './pages/MainPage';
 import MinutesListPage from './pages/MinutesListPage';
@@ -22,14 +21,6 @@ const AppLayout = styled.div`
 function App() {
   return (
     <BrowserRouter>
-      {/* <Helmet>
-        <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
-        <script src="https://rtcmulticonnection.herokuapp.com/dist/RTCMultiConnection.min.js"></script>
-        <script src="../node_modules/webrtc-adapter/out/adapter.js"></script>
-        <script src="https://rtcmulticonnection.herokuapp.com/socket.io/socket.io.js"></script>
-        <script type="text/javascript" src="getHTMLMediaElement.js"></script>
-        <script type="text/javascript" src="meeting.js"></script>
-      </Helmet> */}
       <AppLayout>
         <Header />
         <Switch>

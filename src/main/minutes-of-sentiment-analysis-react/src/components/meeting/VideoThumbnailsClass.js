@@ -10,7 +10,9 @@ class VideoThumbnailsClass {
   }
   findAndRemove(id) {
     if (this.thumbnailsArray.length) {
-      let indexToDelete = this.thumbnailsArray.findIndex(item => item.props.id === id);
+      let indexToDelete = this.thumbnailsArray.findIndex(
+        (item) => item.props.id === id
+      );
       if (indexToDelete > -1) {
         this.thumbnailsArray.splice(indexToDelete, 1);
       }

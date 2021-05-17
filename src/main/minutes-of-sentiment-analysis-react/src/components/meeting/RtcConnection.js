@@ -1,17 +1,17 @@
-import * as io from 'socket.io-client';
-import * as RTCMultiConnection from 'rtcmulticonnection/dist/RTCMultiConnection.min.js';
+import * as io from "socket.io-client";
+import * as RTCMultiConnection from "rtcmulticonnection/dist/RTCMultiConnection.min.js";
 
 window.io = io;
 
 class ConnectionClass {
   constructor() {
     this.rtc = new RTCMultiConnection();
-    this.rtc.socketURL = 'https://rtcmulticonnection.herokuapp.com:443/';
+    this.rtc.socketURL = "https://rtcmulticonnection.herokuapp.com:443/";
     this.rtc.session = {
       audio: true,
       video: true,
     };
-    this.rtc.codecs.video = 'H264';
+    this.rtc.codecs.video = "H264";
     this.rtc.autoCreateMediaElement = false;
 
     this.rtc.sdpConstraints.mandatory = {
@@ -21,7 +21,7 @@ class ConnectionClass {
 
     // add user data here
     const user = {
-      username: 'Test user' + (Math.random() * 10).toString().slice(2, 10),
+      username: "Test user" + (Math.random() * 10).toString().slice(2, 10),
     };
 
     // info about the user: name, email, etc
@@ -30,11 +30,11 @@ class ConnectionClass {
     };
 
     var bitrates = 512;
-    var resolutions = 'Ultra-HD';
+    var resolutions = "Ultra-HD";
     var videoConstraints = {};
     const CodecsHandler = this.rtc.CodecsHandler;
 
-    if (resolutions === 'HD') {
+    if (resolutions === "HD") {
       videoConstraints = {
         width: {
           ideal: 1280,
@@ -46,7 +46,7 @@ class ConnectionClass {
       };
     }
 
-    if (resolutions === 'Ultra-HD') {
+    if (resolutions === "Ultra-HD") {
       videoConstraints = {
         width: {
           ideal: 1920,
@@ -64,13 +64,13 @@ class ConnectionClass {
     };
 
     this.rtc.processSdp = function (sdp) {
-      var codecs = 'vp8';
+      var codecs = "vp8";
 
       if (codecs.length) {
         sdp = CodecsHandler.preferCodec(sdp, codecs.toLowerCase());
       }
 
-      if (resolutions === 'HD') {
+      if (resolutions === "HD") {
         sdp = CodecsHandler.setApplicationSpecificBandwidth(sdp, {
           audio: 128,
           video: bitrates,
@@ -83,7 +83,7 @@ class ConnectionClass {
         });
       }
 
-      if (resolutions === 'Ultra-HD') {
+      if (resolutions === "Ultra-HD") {
         sdp = CodecsHandler.setApplicationSpecificBandwidth(sdp, {
           audio: 128,
           video: bitrates,

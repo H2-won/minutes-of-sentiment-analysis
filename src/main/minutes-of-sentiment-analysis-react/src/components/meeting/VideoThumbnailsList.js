@@ -1,12 +1,12 @@
 import React from "react";
 
-const VideoThumbnailsList = props => {
+const VideoThumbnailsList = (props) => {
   console.log(props, "test props");
 
   return (
-    <div id='video-thumbnails'>
-      {props.videos.map(video => (
-        <div key={video.props.id} className='video-thumbnail'>
+    <div id="video-thumbnails">
+      {props.videos.map((video) => (
+        <div key={video.props.id} className="video-thumbnail">
           {video}
           <span>{video.props.username}</span>
         </div>
@@ -15,4 +15,4 @@ const VideoThumbnailsList = props => {
   );
 };
 
-export default VideoThumbnailsList;
+export default React.memo(VideoThumbnailsList);

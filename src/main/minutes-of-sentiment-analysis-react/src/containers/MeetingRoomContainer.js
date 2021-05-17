@@ -1,5 +1,4 @@
 import React from 'react';
-import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
 import BottomLayout from '../components/meeting/BottomLayout';
 import MeetingLayout from '../components/meeting/MeetingLayout';
@@ -19,11 +18,11 @@ const Container = styled.div`
 
 function MeetingRoomContainer() {
   return (
-    <Container>
-      <VideoContainer />
-      {/* <MeetingLayout />
-      <BottomLayout /> */}
-    </Container>
+    <VideoContainer />
+    // <Container>
+    //   <MeetingLayout />
+    //   <BottomLayout />
+    // </Container>
   );
 }
 

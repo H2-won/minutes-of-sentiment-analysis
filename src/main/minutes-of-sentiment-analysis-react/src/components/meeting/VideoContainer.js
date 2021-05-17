@@ -18,7 +18,7 @@ const VideoContainer = () => {
   const [recordFlag, setRecordFlag] = useState(0);
   // const databaseRef = firebase.database().ref();
   const databaseRef = firebaseDatabaseRef;
-  const storageRef = firebaseStorage.ref();
+  // const storageRef = firebaseStorage.ref();
   const userId = Math.floor(Math.random() * 1000000000);
 
   connection.iceServers = [
@@ -254,13 +254,6 @@ const VideoContainer = () => {
           function () {
             // 업로드 완료시
             console.log('업로드 완료');
-            // var storageRef = storage.ref();
-            //
-            // storageRef.child(storageUrl).getDownloadURL().then(function (url) {   // 저장된 파일의 http url 주소 받아오기
-            //     console.log('url은 이겁니다 : ', url);
-            // }).catch(function (error) {
-            //
-            // });
           },
         );
 

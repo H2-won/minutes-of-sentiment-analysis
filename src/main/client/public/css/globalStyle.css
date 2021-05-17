@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700;900&display=swap');
+
+*{
+  font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  outline: none;
+}
+
+html, body{
+  font-size: 12px;
+}
+
+body{
+  margin: 0;
+  padding: 0;
+}
+
+a{
+  text-decoration: none;
+}
+
+a:visited, a:focus{
+  color: #3D3D3D;
+}
+
+button{
+  border: none;
+  cursor: pointer;
+}
+
+input{
+  border:none;
+}
+
+p, h2{
+  margin: 0;
+}
+
+video{
+  width:50%;
+}

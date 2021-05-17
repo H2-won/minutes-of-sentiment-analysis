@@ -9,7 +9,6 @@ import lombok.Getter;
 @Getter
 public class IntervalKeywordsResponseDto {
     private final Long id;
-    private final Minutes minutes;
     private final String interval1Keywords;
     private final String interval2Keywords;
     private final String interval3Keywords;
@@ -18,7 +17,6 @@ public class IntervalKeywordsResponseDto {
 
     public IntervalKeywordsResponseDto (IntervalKeywords entity) {
         this.id = entity.getId();
-        this.minutes = entity.getMinutes();
         this.interval1Keywords = entity.getInterval1Keywords();
         this.interval2Keywords = entity.getInterval2Keywords();
         this.interval3Keywords = entity.getInterval3Keywords();

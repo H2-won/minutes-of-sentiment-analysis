@@ -8,14 +8,14 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class TotalKeywordsRequestDto {
-    private Minutes minutes;
+    private Long minutesId;
     private String mainKeyword1;
     private String mainKeyword2;
     private String mainKeyword3;
     private String mainKeyword4;
     private String mainKeyword5;
 
-    public TotalKeywords toEntity() {
+    public TotalKeywords toEntity(Minutes minutes) {
         return TotalKeywords.builder()
                 .minutes(minutes)
                 .mainKeyword1(mainKeyword1)

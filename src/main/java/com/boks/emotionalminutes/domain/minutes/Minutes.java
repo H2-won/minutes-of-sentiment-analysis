@@ -4,12 +4,15 @@ import com.boks.emotionalminutes.domain.intervalKeywords.IntervalKeywords;
 import com.boks.emotionalminutes.domain.meeting.Meeting;
 import com.boks.emotionalminutes.domain.sentence.Sentence;
 import com.boks.emotionalminutes.domain.totalEmotions.TotalEmotions;
+import com.boks.emotionalminutes.domain.totalKeywords.TotalKeywords;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @NoArgsConstructor
@@ -18,7 +21,6 @@ import java.util.List;
 public class Minutes {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    // 설계서에 pk는 Int 인데 Long 으로 되어있는 것 확인 요망
     private Long id;
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -34,16 +36,48 @@ public class Minutes {
     @OneToMany(mappedBy = "minutes")
     private List<Sentence> sentences = new ArrayList<>();
 
-    @OneToOne(mappedBy = "minutes")
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "minutes")
     private IntervalKeywords intervalKeywords;
 
-    @OneToOne(mappedBy = "minutes")
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "minutes")
     private TotalEmotions totalEmotions;
 
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "minutes")
+    private TotalKeywords totalKeywords;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created_date")
+    private Date createdDate;
+
+    @Column(name = "progress_time")
+    private LocalTime progressTime;
+
     @Builder
-    public Minutes (Meeting meeting, String password, String voiceFileLink) {
+    public Minutes (Meeting meeting, String password, String voiceFileLink, Date createdDate) {
         this.meeting = meeting;
         this.password = password;
         this.voiceFileLink = voiceFileLink;
+        this.createdDate = createdDate;
+        meeting.setMinutes(this);
+    }
+
+    public void update (LocalTime progressTime) {
+        this.progressTime = progressTime;
+    }
+
+    public void setIntervalKeywords (IntervalKeywords intervalKeywords) {
+        this.intervalKeywords = intervalKeywords;
+    }
+
+    public void setTotalKeywords (TotalKeywords totalKeywords) {
+        this.totalKeywords = totalKeywords;
+    }
+
+    public void setTotalEmotions (TotalEmotions totalEmotions) {
+        this.totalEmotions = totalEmotions;
+    }
+
+    public void addSentence(Sentence sentence) {
+        this.getSentences().add(sentence);
     }
 }

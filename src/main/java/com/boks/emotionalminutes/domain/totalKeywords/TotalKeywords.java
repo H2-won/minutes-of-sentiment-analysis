@@ -44,5 +44,6 @@ public class TotalKeywords {
         this.mainKeyword3 = mainKeyword3;
         this.mainKeyword4 = mainKeyword4;
         this.mainKeyword5 = mainKeyword5;
+        minutes.setTotalKeywords(this);
     }
 }

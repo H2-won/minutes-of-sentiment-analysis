@@ -15,14 +15,10 @@ public class UserResponseDto {
     private final Long id;
     private final String name;
     private final String email;
-    private final List<Participation> participation;
-    private final List<Bookmark> bookmarks;
 
     public UserResponseDto (User entity) {
         this.id = entity.getId();
         this.name = entity.getName();
         this.email = entity.getEmail();
-        this.participation = entity.getParticipation();
-        this.bookmarks = entity.getBookmarks();
     }
 }

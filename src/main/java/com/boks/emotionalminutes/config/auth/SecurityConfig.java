@@ -89,11 +89,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .formLogin().disable()
                 .httpBasic().disable()
-                .exceptionHandling().authenticationEntryPoint(new RestAuthenticationEntryPoint())
-                .and().headers().frameOptions().disable()
+                .headers().frameOptions().disable()
                 .and()
+                .exceptionHandling().authenticationEntryPoint(new RestAuthenticationEntryPoint())
+                .and().addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers("/",
+                        "/api/**",
                         "/error",
                         "/favicon.ico",
                         "/**/*.png",
@@ -103,7 +105,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.html",
                         "/**/*.css",
                         "/**/*.js",
-                        "/h2-console/**").permitAll()
+                        "/h2-console/**",
+                        "/*.json").permitAll()
                 .antMatchers("/auth/**", "/oauth2/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -120,6 +123,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         // Add our custom Token based authentication filter
         // UsernamePasswordAuthenticationFilter 앞에 custom 필터 추가!
-        http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+//        http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 }

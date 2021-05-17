@@ -11,13 +11,13 @@ import java.sql.Time;
 @Getter
 @NoArgsConstructor
 public class SentenceRequestDto {
-    private User user;
-    private Minutes minutes;
+    private Long userId;
+    private Long minutesId;
     private String content;
     private String emotion;
     private Time createdTime;
 
-    public Sentence toEntity() {
+    public Sentence toEntity(User user, Minutes minutes) {
         return Sentence.builder()
                 .user(user)
                 .minutes(minutes)

@@ -8,13 +8,14 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class TotalEmotionsRequestDto {
-    private Minutes minutes;
-    private float happy;
-    private float emotionless;
-    private float sad;
-    private float angry;
+    private Long minutesId;
 
-    public TotalEmotions toEntity() {
+//    private float happy;
+//    private float emotionless;
+//    private float sad;
+//    private float angry;
+
+/*    public TotalEmotions toEntity(Minutes minutes) {
         return TotalEmotions.builder()
                 .minutes(minutes)
                 .happy(happy)
@@ -22,5 +23,5 @@ public class TotalEmotionsRequestDto {
                 .sad(sad)
                 .angry(angry)
                 .build();
-    }
+    }*/
 }

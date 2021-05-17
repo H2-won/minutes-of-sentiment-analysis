@@ -3,25 +3,23 @@ package com.boks.emotionalminutes.controller;
 import com.boks.emotionalminutes.domain.intervalKeywords.IntervalKeywords;
 import com.boks.emotionalminutes.domain.minutes.Minutes;
 import com.boks.emotionalminutes.service.IntervalKeywordService;
+import com.boks.emotionalminutes.web.dto.intervalKeywords.IntervalKeywordsRequestDto;
+import com.boks.emotionalminutes.web.dto.intervalKeywords.IntervalKeywordsResponseDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
 public class IntervalKeywordsController {
     private final IntervalKeywordService intervalKeywordService;
 
-    @PostMapping("/api/interval-keywords")
-    public IntervalKeywords save(@RequestParam("minutes") Minutes minutes,
-                                 @RequestParam("interval1_keywords") String interval1Keywords,
-                                 @RequestParam("interval2_keywords") String interval2Keywords,
-                                 @RequestParam("interval3_keywords") String interval3Keywords,
-                                 @RequestParam("interval4_keywords") String interval4Keywords,
-                                 @RequestParam("interval5_keywords") String interval5Keywords) {
+    @PostMapping("/api/minutes/{id}/interval-keywords")
+    public Long save(@PathVariable Long id, @RequestBody IntervalKeywordsRequestDto requestDto) {
+        return intervalKeywordService.save(id, requestDto);
+    }
 
-        return intervalKeywordService.save(minutes, interval1Keywords, interval2Keywords, interval3Keywords,
-                interval4Keywords, interval5Keywords);
+    @GetMapping("/api/minutes/{id}/interval-keywords")
+    public IntervalKeywordsResponseDto find(@PathVariable Long id) {
+        return intervalKeywordService.findById(id);
     }
 }

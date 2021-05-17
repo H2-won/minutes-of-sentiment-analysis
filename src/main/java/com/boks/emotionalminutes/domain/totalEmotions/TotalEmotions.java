@@ -38,5 +38,6 @@ public class TotalEmotions {
         this.emotionless = emotionless;
         this.sad = sad;
         this.angry = angry;
+        minutes.setTotalEmotions(this);
     }
 }

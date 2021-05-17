@@ -4,19 +4,24 @@ import com.boks.emotionalminutes.domain.meeting.Meeting;
 import com.boks.emotionalminutes.domain.user.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @NoArgsConstructor
 public class MeetingRequestDto {
     private String code;
-    private User user;
+    private Long userId;
     private String name;
 
-    public Meeting toEntity() {
+    public Meeting toEntity(User user) {
         return Meeting.builder()
                 .code(code)
                 .user(user)
                 .name(name)
                 .build();
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }

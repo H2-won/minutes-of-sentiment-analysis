@@ -14,18 +14,10 @@ import java.util.List;
 @Getter
 public class MeetingResponseDto {
     private final String code;
-    private final User user;
     private final String name;
-    private final Date createdDate;
-    private final Time progressTime;
-    private final List<Participation> participation;
 
     public MeetingResponseDto (Meeting entity) {
         this.code = entity.getCode();
-        this.user = entity.getUser();
         this.name = entity.getName();
-        this.createdDate = entity.getCreatedDate();
-        this.progressTime = entity.getProgressTime();
-        this.participation = entity.getParticipation();
     }
 }

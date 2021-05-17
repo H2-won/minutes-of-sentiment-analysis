@@ -5,8 +5,9 @@ import com.boks.emotionalminutes.domain.sentence.Sentence;
 import com.boks.emotionalminutes.domain.user.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Getter
+@Getter @Setter
 @NoArgsConstructor
 public class BookmarkRequestDto {
     // 프론트에서 받아올 땐 유저 객체가 아니라 유저 아이디를 가져와야 하는데..

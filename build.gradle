@@ -31,6 +31,9 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    // 2021.05.18 Maria DB 연동
+    compileOnly("org.mariadb.jdbc:mariadb-java-client")
 }
 
 def webappDir = "$projectDir/src/main/minutes-of-sentiment-analysis-react"

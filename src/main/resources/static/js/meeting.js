@@ -17,6 +17,39 @@ document.getElementById("open-room").onclick = function () {
       }
     }
   );
+  fetch("/api/meeting", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      "code": "AAAAA",
+      "userId": 1,
+      "name": "캡스톤 디자인 회의",
+    })
+  })
+      .then(() => {
+        console.log("meeting 저장");
+      })
+      .then(() => {
+        fetch("/api/minutes", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            "meetingCode": "AAAAA",
+            "password": "12345",
+            "voiceFileLink": "",
+          })
+        })
+            .then(() => {
+              console.log("minutes 저장");
+            })
+      })
+      .catch(err => {
+        console.log(err);
+      })
 };
 
 document.getElementById("join-room").onclick = function () {
@@ -302,13 +335,15 @@ connection.onstream = function (event) {
 
     for (let i = event.resultIndex; i < event.results.length; ++i) {
       const transcript = event.results[i][0].transcript;
-
+      const now = new Date();
       if (event.results[i].isFinal) {
         finalTranscript += transcript;
         // 발화가 끝나면 데이터베이스에 저장
         let msg = database.push({
           sender: yourId,
-          message: transcript,
+          message: transcript + ".",
+          flag: 0,
+          time: now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds(),
         });
         msg.remove();
 
@@ -332,6 +367,23 @@ connection.onstream = function (event) {
   function readMessage(data) {
     console.log(data.val().sender);
     console.log(data.val().message);
+
+    const now = new Date();
+    fetch("/api/sentence", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId: 1,
+        minutesId: 1,
+        content: data.val().message,
+        emotion: "기쁨",
+        createdTime: now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds(),
+      }),
+    }).then(() => {
+      console.log("발화 저장 성공!");
+    })
   }
 
   database.on("child_added", readMessage);

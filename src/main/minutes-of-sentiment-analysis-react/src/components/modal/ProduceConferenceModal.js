@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import palette from '../../lib/styles/palette';
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
   position: relative;
@@ -87,10 +88,6 @@ function ProduceConferenceModal({ ModalOff, args }) {
   return (
     <Container>
       <ContentWrapper>
-        <span className="subTitle">회의 코드</span>
-        <div>ABC2f1d5k7G</div>
-      </ContentWrapper>
-      <ContentWrapper>
         <span className="subTitle">회의 제목</span>
         <input type="text" maxLength="24" />
       </ContentWrapper>
@@ -99,7 +96,11 @@ function ProduceConferenceModal({ ModalOff, args }) {
         <input type="password" maxLength="24" />
       </ContentWrapper>
       <BtnWrapper>
-        <OkBtn color={args.okBtnBackgroundColor}>{args.okBtnText}</OkBtn>
+        <Link to="/meeting">
+          <OkBtn color={args.okBtnBackgroundColor} onClick={ModalOff}>
+            {args.okBtnText}
+          </OkBtn>
+        </Link>
         <CancleBtn onClick={ModalOff}>취소</CancleBtn>
       </BtnWrapper>
     </Container>

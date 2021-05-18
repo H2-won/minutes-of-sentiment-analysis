@@ -29,6 +29,7 @@ function App() {
           <Route path="/minuteslist" component={MinutesListPage} />
           <Route path="/meeting" component={MeetingRoomPage} />
           <Route path="/meetinglog" component={MeetingLogPage} />
+          {/* <Route exact path="/room/:roomId" component={Room} /> */}
           <Route
             path="/oauth2/redirect"
             component={OAuth2RedirectHandler}

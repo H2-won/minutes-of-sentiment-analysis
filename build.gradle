@@ -36,7 +36,7 @@ dependencies {
     compileOnly("org.mariadb.jdbc:mariadb-java-client")
 }
 
-def webappDir = "$projectDir/src/main/minutes-of-sentiment-analysis-react"
+def webappDir = "$projectDir/src/main/client"
 
 sourceSets {
     main {

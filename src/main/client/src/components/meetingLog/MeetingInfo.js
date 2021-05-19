@@ -8,13 +8,12 @@ const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
   border-radius: 8px;
   border: 0.5px solid ${palette.gray2};
 
   div {
     width: 46%;
-    margin: 1.5rem 1rem;
+    margin: 1.5rem 2rem;
   }
 
   span {

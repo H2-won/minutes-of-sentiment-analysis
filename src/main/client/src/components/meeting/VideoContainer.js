@@ -1,20 +1,41 @@
-import React, { useEffect, useState } from "react";
-import connection from "./RtcConnection";
-import localVideoThumbnailsArr from "./VideoThumbnailsClass";
-import VideoThumbnailsList from "./VideoThumbnailsList";
-import Video from "../../Video";
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import connection from './RtcConnection';
+import localVideoThumbnailsArr from './VideoThumbnailsClass';
+import VideoThumbnailsList from './VideoThumbnailsList';
+import Video from '../../Video';
 import SpeechRecognition, {
   useSpeechRecognition,
-} from "react-speech-recognition";
+} from 'react-speech-recognition';
 
-import { firebaseDatabaseRef, firebaseStorage } from "../../firebase";
-import RecordRTC from "recordrtc";
-// import { Link } from "react-router-dom";
+import { firebaseDatabaseRef, firebaseStorage } from '../../firebase';
+import RecordRTC from 'recordrtc';
+import BottomLayout from './BottomLayout';
+
+const VideoWrapper = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  min-height: 0;
+  max-height: 35vh;
+`;
+
+const MainVideo = styled.div`
+  position: relative;
+  width: 40%;
+`;
+
+const MainUserId = styled.span`
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+`;
 
 const VideoContainer = () => {
   const [mainVideo, setMainVideo] = useState(null);
   const [videoThumbnailsArr, setVideoThumbnailsArr] = useState([]);
-  const [connectionInfo, setConnectionInfo] = useState("");
+  const [connectionInfo, setConnectionInfo] = useState('');
   const [recordFlag, setRecordFlag] = useState(0);
   // const databaseRef = firebase.database().ref();
   const databaseRef = firebaseDatabaseRef;
@@ -24,10 +45,10 @@ const VideoContainer = () => {
   connection.iceServers = [
     {
       urls: [
-        "stun:stun.l.google.com:19302",
-        "stun:stun1.l.google.com:19302",
-        "stun:stun2.l.google.com:19302",
-        "stun:stun.l.google.com:19302?transport=udp",
+        'stun:stun.l.google.com:19302',
+        'stun:stun1.l.google.com:19302',
+        'stun:stun2.l.google.com:19302',
+        'stun:stun.l.google.com:19302?transport=udp',
       ],
     },
   ];
@@ -36,26 +57,26 @@ const VideoContainer = () => {
     // var connectionInfo = event.stream;
     setConnectionInfo(event.stream);
 
-    console.log("ON STREAM TEST");
-    if (event.type === "local") {
+    console.log('ON STREAM TEST');
+    if (event.type === 'local') {
       console.log(
         localVideoThumbnailsArr.get(),
-        "ON STREAM - ADD LOCAL STREAM"
+        'ON STREAM - ADD LOCAL STREAM',
       );
 
       setMainVideo(event);
-    } else if (event.type === "remote") {
+    } else if (event.type === 'remote') {
       localVideoThumbnailsArr.addVideo(
         <Video
           srcObject={event.stream}
           keyvalue={event.streamid}
           id={event.streamid}
           username={event.extra.username}
-        />
+        />,
       );
       console.log(
         localVideoThumbnailsArr.get(),
-        "ON STREAM - ADD REMOTE STREAM"
+        'ON STREAM - ADD REMOTE STREAM',
       );
 
       setVideoThumbnailsArr([...localVideoThumbnailsArr.get()]);
@@ -66,20 +87,20 @@ const VideoContainer = () => {
       console.log(data.val().message);
     }
 
-    databaseRef.on("child_added", readMessage);
+    databaseRef.on('child_added', readMessage);
   };
 
   connection.onstreamended = (event) => {
-    console.log("ON STREAM END TEST", event);
-    if (event.type === "local") {
+    console.log('ON STREAM END TEST', event);
+    if (event.type === 'local') {
       setMainVideo(null);
       localVideoThumbnailsArr.set([]);
       setVideoThumbnailsArr([]);
-      console.log("LOCAL STREAM CLOSING. CLOSING ALL VIDEOS - TEST");
+      console.log('LOCAL STREAM CLOSING. CLOSING ALL VIDEOS - TEST');
 
       // --------------- recorder -----------------
       var recorder = connection.recorder;
-      if (!recorder) return alert("No recorder found.");
+      if (!recorder) return alert('No recorder found.');
       recorder.stopRecording(function () {
         var blob = recorder.getBlob();
         RecordRTC.invokeSaveAsDialog(blob);
@@ -90,9 +111,9 @@ const VideoContainer = () => {
       });
 
       // ------------ audio -------------
-      var audio = document.querySelector("audio");
+      var audio = document.querySelector('audio');
       function replaceAudio(src) {
-        var newAudio = document.createElement("audio");
+        var newAudio = document.createElement('audio');
         newAudio.controls = true;
         newAudio.autoplay = true;
 
@@ -101,19 +122,19 @@ const VideoContainer = () => {
         }
 
         var parentNode = audio.parentNode;
-        parentNode.innerHTML = "";
+        parentNode.innerHTML = '';
         parentNode.appendChild(newAudio);
 
         audio = newAudio;
       }
     }
 
-    if (event.type === "remote") {
+    if (event.type === 'remote') {
       localVideoThumbnailsArr.findAndRemove(event.streamid);
       setVideoThumbnailsArr([...localVideoThumbnailsArr.get()]);
       console.log(
         `REMOTE STREAM CLOSING. CLOSING REMOTE STREAM VIDEO - TEST`,
-        event
+        event,
       );
 
       notifyRemoteUserLeft(event.extra.username);
@@ -121,20 +142,20 @@ const VideoContainer = () => {
   };
 
   const notifyRemoteUserLeft = (name) => {
-    alert(name + " left.");
+    alert(name + ' left.');
   };
 
   const closeSocket = function () {
-    console.log("START CLOSE SOCKET TEST");
+    console.log('START CLOSE SOCKET TEST');
 
     connection.getAllParticipants().forEach(function (pid) {
-      console.log("TEST DISCONECT WITH PEERS", pid);
+      console.log('TEST DISCONECT WITH PEERS', pid);
       connection.disconnectWith(pid);
     });
 
     // stop all local cameras
     connection.attachStreams.forEach(function (localStream) {
-      console.log(localStream, "CLOSE LOCAL STREAM - TEST");
+      console.log(localStream, 'CLOSE LOCAL STREAM - TEST');
       localStream.stop();
     });
 
@@ -142,11 +163,11 @@ const VideoContainer = () => {
     // connection.closeSocket();
 
     SpeechRecognition.stopListening();
-    window.location.href = "/";
+    window.location.href = '/';
   };
 
   // room ID.
-  const staticId = "qweasd";
+  const staticId = 'qweasd';
 
   const openOrJoin = () => {
     connection.openOrJoin(staticId);
@@ -156,12 +177,12 @@ const VideoContainer = () => {
     connection.open(staticId, function (isRoomOpened, roomid, error) {
       if (isRoomOpened === true) {
       } else {
-        if (error === "Room not available") {
-          alert("이미 존재하는 방입니다. 새로운 방을 만들거나 참가하세요!");
+        if (error === 'Room not available') {
+          alert('이미 존재하는 방입니다. 새로운 방을 만들거나 참가하세요!');
           closeSocket();
           return;
         }
-        alert(error + "error log");
+        alert(error + 'error log');
       }
     });
   };
@@ -169,12 +190,12 @@ const VideoContainer = () => {
   const justJoin = () => {
     connection.join(staticId, function (isJoinedRoom, roomid, error) {
       if (error) {
-        if (error === "Room not available") {
-          alert("존재하지 않는 방입니다. 새로운 방을 만들거나 참가하세요!");
+        if (error === 'Room not available') {
+          alert('존재하지 않는 방입니다. 새로운 방을 만들거나 참가하세요!');
           closeSocket();
           return;
         }
-        alert(error + "error log");
+        alert(error + 'error log');
       }
     });
   };
@@ -189,13 +210,13 @@ const VideoContainer = () => {
   } = useSpeechRecognition();
 
   useEffect(() => {
-    if (interimTranscript !== "") {
-      console.log("Got interim result:", interimTranscript);
+    if (interimTranscript !== '') {
+      console.log('Got interim result:', interimTranscript);
 
       var recorder = connection.recorder;
       if (!recorder) {
         recorder = RecordRTC([connectionInfo], {
-          type: "audio",
+          type: 'audio',
         });
         recorder.startRecording();
         connection.recorder = recorder;
@@ -212,9 +233,9 @@ const VideoContainer = () => {
   }, [interimTranscript]);
 
   useEffect(() => {
-    if (finalTranscript !== "") {
+    if (finalTranscript !== '') {
       var recorder = connection.recorder;
-      if (!recorder) return alert("No recorder found.");
+      if (!recorder) return alert('No recorder found.');
       recorder.stopRecording(function () {
         var file = recorder.getBlob();
         // RecordRTC.invokeSaveAsDialog(blob);
@@ -222,20 +243,20 @@ const VideoContainer = () => {
         //   console.log("Uploaded a blob or file!");
         // });
         if (!file) {
-          throw "Blob object is required.";
+          throw 'Blob object is required.';
         }
 
         if (!file.type) {
           try {
-            file.type = "audio/wav;codecs=opus";
+            file.type = 'audio/wav;codecs=opus';
           } catch (e) {}
         }
 
         var fileFullName =
-          userId + "_" + Math.floor(Math.random() * 1000000000) + "." + "wav";
-        if (typeof navigator.msSaveOrOpenBlob !== "undefined") {
+          userId + '_' + Math.floor(Math.random() * 1000000000) + '.' + 'wav';
+        if (typeof navigator.msSaveOrOpenBlob !== 'undefined') {
           return navigator.msSaveOrOpenBlob(file, fileFullName);
-        } else if (typeof navigator.msSaveBlob !== "undefined") {
+        } else if (typeof navigator.msSaveBlob !== 'undefined') {
           return navigator.msSaveBlob(file, fileFullName);
         }
 
@@ -243,9 +264,9 @@ const VideoContainer = () => {
         var storageUpRef = storage.ref(fileFullName);
         var task = storageUpRef.put(file);
         task.on(
-          "state_changed",
+          'state_changed',
           function (snapshot) {
-            console.log("업로드 진행중"); // 업로드 진행시 호출
+            console.log('업로드 진행중'); // 업로드 진행시 호출
           },
           function (error) {
             // 업로드 중간에 에러 발생시 호출
@@ -253,8 +274,8 @@ const VideoContainer = () => {
           },
           function () {
             // 업로드 완료시
-            console.log("업로드 완료");
-          }
+            console.log('업로드 완료');
+          },
         );
 
         connection.recorder = null;
@@ -263,8 +284,8 @@ const VideoContainer = () => {
   }, [finalTranscript]);
 
   useEffect(() => {
-    if (finalTranscript !== "") {
-      console.log("Got final result:", finalTranscript);
+    if (finalTranscript !== '') {
+      console.log('Got final result:', finalTranscript);
       resetTranscript();
 
       var now = new Date();
@@ -272,8 +293,8 @@ const VideoContainer = () => {
       // let msg =
       databaseRef.push({
         sender: userId,
-        message: finalTranscript + ".",
-        time: now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds(),
+        message: finalTranscript + '.',
+        time: now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),
         flag: recordFlag,
       });
       // msg.remove();
@@ -282,14 +303,14 @@ const VideoContainer = () => {
 
   if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
     console.log(
-      "Your browser does not support speech recognition software! Try Chrome desktop, maybe?"
+      'Your browser does not support speech recognition software! Try Chrome desktop, maybe?',
     );
   }
 
   const StartSpeechRecognition = () => {
     SpeechRecognition.startListening({
       continuous: true,
-      language: "ko-KR",
+      language: 'ko-KR',
     });
     setRecordFlag(1);
   };
@@ -300,8 +321,8 @@ const VideoContainer = () => {
     const now = new Date();
     let msg = databaseRef.push({
       sender: userId,
-      message: finalTranscript + ".",
-      time: now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds(),
+      message: finalTranscript + '.',
+      time: now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),
       flag: recordFlag,
     });
     msg.remove();
@@ -311,18 +332,7 @@ const VideoContainer = () => {
     <div>
       <div>
         <div>
-          <span>listening: {listening ? "on" : "off"}</span>
-          <div>
-            <button type="button" onClick={resetTranscript}>
-              Reset
-            </button>
-            <button type="button" onClick={StartSpeechRecognition}>
-              Listen
-            </button>
-            <button type="button" onClick={SpeechRecognition.stopListening}>
-              Stop
-            </button>
-          </div>
+          <span>listening: {listening ? 'on' : 'off'}</span>
         </div>
         <div>
           <span>{transcript}</span>
@@ -332,20 +342,22 @@ const VideoContainer = () => {
         audio Test
         <audio controls autoPlay playsInline></audio>
       </div>
-      <div id="video-container">
-        <div id="main-video">
+      <VideoWrapper>
+        <MainVideo>
           {mainVideo && (
             <Video
               srcObject={mainVideo.stream}
               mainvideo="true"
+              id="muted"
+              muted
               keyvalue={mainVideo.streamid}
               username={mainVideo.extra.username}
             />
           )}
-          {mainVideo && mainVideo.extra.username}
-        </div>
+          <MainUserId>{mainVideo && mainVideo.extra.username}</MainUserId>
+        </MainVideo>
         <VideoThumbnailsList videos={videoThumbnailsArr} />
-      </div>
+      </VideoWrapper>
       <div className="action-buttons">
         {!mainVideo && (
           <button className="btn" onClick={() => openOrJoin()}>

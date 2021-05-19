@@ -1,10 +1,10 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect } from 'react';
 
 const Video = ({ srcObject, ...props }) => {
   const refVideo = useRef(null);
 
   useEffect(() => {
-    console.log(srcObject, props, "test all here");
+    console.log(srcObject, 'test all here');
 
     if (!refVideo.current) return;
     refVideo.current.srcObject = srcObject;
@@ -24,7 +24,8 @@ const Video = ({ srcObject, ...props }) => {
     }
   }, [srcObject]);
 
-  return <video ref={refVideo} {...props} key={props.keyvalue} muted />;
+  console.log('props log 보기 !! : ', props);
+  return <video ref={refVideo} {...props} key={props.keyvalue} />;
 };
 
 export default Video;

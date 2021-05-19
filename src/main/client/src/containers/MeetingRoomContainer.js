@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import BottomLayout from '../components/meeting/BottomLayout';
 import MeetingLayout from '../components/meeting/MeetingLayout';
-import VideoContainer from '../components/meeting/VideoContainer';
 import palette from '../lib/styles/palette';
 
 const Container = styled.div`
@@ -18,11 +17,10 @@ const Container = styled.div`
 
 function MeetingRoomContainer() {
   return (
-    <VideoContainer />
-    // <Container>
-    //   <MeetingLayout />
-    //   <BottomLayout />
-    // </Container>
+    <Container>
+      <MeetingLayout />
+      <BottomLayout />
+    </Container>
   );
 }
 

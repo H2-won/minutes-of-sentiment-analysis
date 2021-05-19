@@ -1,6 +1,7 @@
-import React from 'react';
-import styled from 'styled-components';
-import RecordWrapper from './record/RecordWrapper';
+import React from "react";
+import styled from "styled-components";
+import RecordWrapper from "./record/RecordWrapper";
+import VideoContainer from "./VideoContainer";
 
 const Container = styled.div`
   position: relative;
@@ -13,16 +14,14 @@ const UserVideosWrapper = styled.div`
   position: relative;
   width: 77.5%;
   height: 100%;
-
-  video {
-    width: 50%;
-  }
 `;
 
 function MeetingLayout() {
   return (
     <Container>
-      <UserVideosWrapper id="videos-container"></UserVideosWrapper>
+      <UserVideosWrapper id="videos-container">
+        <VideoContainer />
+      </UserVideosWrapper>
       <RecordWrapper />
     </Container>
   );

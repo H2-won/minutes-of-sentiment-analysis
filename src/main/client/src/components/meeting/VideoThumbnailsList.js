@@ -1,17 +1,29 @@
 import React from "react";
+import styled from "styled-components";
+
+const RemoteVideo = styled.div`
+  position: relative;
+  width: 40%;
+`;
+
+const RemoteUserId = styled.span`
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+`;
 
 const VideoThumbnailsList = (props) => {
   console.log(props, "test props");
 
   return (
-    <div id="video-thumbnails">
+    <>
       {props.videos.map((video) => (
-        <div key={video.props.id} className="video-thumbnail">
+        <RemoteVideo key={video.props.id} className="video-thumbnail">
           {video}
-          <span>{video.props.username}</span>
-        </div>
+          <RemoteUserId>{video.props.username}</RemoteUserId>
+        </RemoteVideo>
       ))}
-    </div>
+    </>
   );
 };
 

@@ -4,6 +4,8 @@ import ConferenceCode from '../components/meeting/record/ConferenceCode';
 import Record from '../components/meeting/record/Record';
 import RecordWrapper from '../components/meeting/record/RecordWrapper';
 import Title from '../components/meeting/record/Title';
+import Bookmark from '../components/meetingLog/content/Bookmark';
+import MeetingInfo from '../components/meetingLog/MeetingInfo';
 import Navigation from '../components/meetingLog/navigation/Navigation';
 import Audio from '../components/meetingLog/record/Audio';
 import palette from '../lib/styles/palette';
@@ -18,10 +20,19 @@ const Container = styled.div`
   overflow: hidden;
 `;
 
+const ContentWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 function MeetingLogContainer() {
   return (
     <Container>
       <Navigation></Navigation>
+      <ContentWrapper>
+        <MeetingInfo />
+        <Bookmark />
+      </ContentWrapper>
       <RecordWrapper>
         <Audio />
         <Title />

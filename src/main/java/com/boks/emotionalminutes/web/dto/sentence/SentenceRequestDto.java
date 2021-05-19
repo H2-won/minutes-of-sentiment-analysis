@@ -5,10 +5,11 @@ import com.boks.emotionalminutes.domain.sentence.Sentence;
 import com.boks.emotionalminutes.domain.user.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.sql.Time;
 
-@Getter
+@Getter @Setter
 @NoArgsConstructor
 public class SentenceRequestDto {
     private Long userId;

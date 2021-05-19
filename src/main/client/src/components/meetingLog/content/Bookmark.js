@@ -3,24 +3,32 @@ import styled from 'styled-components';
 import palette from '../../../lib/styles/palette';
 
 const Container = styled.div`
+  position: relative;
+  height: 100%;
   margin: 0 2rem;
   background: ${palette.white};
   border-radius: 8px;
   border: 0.5px solid ${palette.gray2};
+
   overflow: scroll;
   overflow-x: hidden;
   &::-webkit-scrollbar {
-    width: 1rem;
+    width: 0.5rem;
   }
   &::-webkit-scrollbar-thumb {
     border-radius: 4px;
-    background: ${palette.gray2};
+    background: ${palette.gray1};
   }
 
   h2 {
     font-size: 20px;
     margin: 2rem;
   }
+`;
+
+const ContentWrapper = styled.div`
+  position: relative;
+  margin-bottom: 2rem;
 `;
 
 const Content = styled.div`
@@ -122,6 +130,7 @@ function Bookmark() {
     4: false,
     5: false,
     6: false,
+    7: false,
   });
 
   const [bookmarkInfo, setBookmarkInfo] = useState([
@@ -167,40 +176,49 @@ function Bookmark() {
       time: '06:25',
       state: false,
     },
+    {
+      id: 7,
+      title: '회의 마지막',
+      host: '남기복',
+      time: '06:34',
+      state: false,
+    },
   ]);
 
   return (
     <Container>
       <h2>북마크</h2>
-      {bookmarkInfo.map(({ id, title, host, time, state }) => (
-        <Content key={id}>
-          <img src="/icons/ic_bookmark_24px.png" />
-          <span>{title}</span>
-          <button
-            onClick={() => {
-              setMenuState({ ...menuState, [id]: !menuState[id] });
-            }}
-          >
-            <img src="/icons/bookmark_option.png" />
-          </button>
-          <div className="info">
-            <span>{host}</span>
-            <span>{time}</span>
-          </div>
-          {menuState[id] && (
-            <Menu>
-              <div>
-                <img src="/icons/ic_bookmark_modify.png" />
-                <span>메모 수정</span>
-              </div>
-              <div>
-                <img src="/icons/ic_bookmark_delete.png" />
-                <span>삭제</span>
-              </div>
-            </Menu>
-          )}
-        </Content>
-      ))}
+      <ContentWrapper>
+        {bookmarkInfo.map(({ id, title, host, time, state }) => (
+          <Content key={id}>
+            <img src="/icons/ic_bookmark_24px.png" />
+            <span>{title}</span>
+            <button
+              onClick={() => {
+                setMenuState({ ...menuState, [id]: !menuState[id] });
+              }}
+            >
+              <img src="/icons/bookmark_option.png" />
+            </button>
+            <div className="info">
+              <span>{host}</span>
+              <span>{time}</span>
+            </div>
+            {menuState[id] && (
+              <Menu>
+                <div>
+                  <img src="/icons/ic_bookmark_modify.png" />
+                  <span>메모 수정</span>
+                </div>
+                <div>
+                  <img src="/icons/ic_bookmark_delete.png" />
+                  <span>삭제</span>
+                </div>
+              </Menu>
+            )}
+          </Content>
+        ))}
+      </ContentWrapper>
     </Container>
   );
 }

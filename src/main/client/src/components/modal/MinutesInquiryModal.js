@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 import palette from '../../lib/styles/palette';
 
@@ -77,18 +77,29 @@ const CancleBtn = styled.button`
 `;
 
 function MinutesInquiryModal({ ModalOff, args }) {
+  const [codeValue, setCodeValue] = useState('');
+  const onChange = (e) => {
+    setCodeValue(e.target.value);
+  };
+
+  const onClickLookup = () => {
+    window.location.href = `/meetinglog/${codeValue}`;
+  };
+
   return (
     <Container>
       <ContentWrapper>
         <span className="subTitle">회의 코드</span>
-        <input type="text" />
+        <input type="text" onChange={onChange} />
       </ContentWrapper>
       <ContentWrapper>
         <span className="subTitle">비밀번호</span>
         <input type="password" />
       </ContentWrapper>
       <BtnWrapper>
-        <OkBtn color={args.okBtnBackgroundColor}>{args.okBtnText}</OkBtn>
+        <OkBtn color={args.okBtnBackgroundColor} onClick={onClickLookup}>
+          {args.okBtnText}
+        </OkBtn>
         <CancleBtn onClick={ModalOff}>취소</CancleBtn>
       </BtnWrapper>
     </Container>

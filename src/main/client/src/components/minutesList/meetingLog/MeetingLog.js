@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import palette from '../../../lib/styles/palette';
 
 const Container = styled.div`
@@ -75,25 +76,27 @@ const UserImg = styled.img`
   transform: ${({ index }) => `translateX(calc(${-index} * 50%))`};
 `;
 
-function MeetingLogWrapper({ title, keywords, users, date }) {
+function MeetingLogWrapper({ title, keywords, users, date, code }) {
   return (
-    <Container>
-      <Title>{title}</Title>
-      <EnterBtnWrapper>
-        <i className="fas fa-chevron-right"></i>
-      </EnterBtnWrapper>
-      <KeywordsWrapper>
-        {keywords.map((keyword, index) => (
-          <Keyword key={index}>{keyword}</Keyword>
-        ))}
-      </KeywordsWrapper>
-      <Date>{date}</Date>
-      <UsersWrapper>
-        {users.map((user, index) => (
-          <UserImg key={index} src={`/images/${user}`} alt="" index={index} />
-        ))}
-      </UsersWrapper>
-    </Container>
+    <Link to={`/meetinglog/${code}`}>
+      <Container>
+        <Title>{title}</Title>
+        <EnterBtnWrapper>
+          <i className="fas fa-chevron-right"></i>
+        </EnterBtnWrapper>
+        <KeywordsWrapper>
+          {keywords.map((keyword, index) => (
+            <Keyword key={index}>{keyword}</Keyword>
+          ))}
+        </KeywordsWrapper>
+        <Date>{date}</Date>
+        <UsersWrapper>
+          {users.map((user, index) => (
+            <UserImg key={index} src={`/images/${user}`} alt="" index={index} />
+          ))}
+        </UsersWrapper>
+      </Container>
+    </Link>
   );
 }
 

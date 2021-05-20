@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import MeetingLog from './MeetingLog';
 
@@ -13,6 +13,18 @@ const Container = styled.div`
 `;
 
 function MinutesListLayout() {
+  const [minutesList, setMinutesList] = useState();
+  const getMinutesListAPI = () => {
+    fetch(`/api/user/${localStorage.getItem('userId')}/minutes`, {
+      method: 'GET',
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        setMinutesList(res);
+      })
+      .catch((err) => console.log(err));
+  };
+
   const meetingLogs = [
     {
       id: 1,

@@ -10,7 +10,7 @@ const GoogleSigninBtn = styled.img`
 
 function GoogleLoginBtn() {
   return (
-    <a href={'https://namkibok.shop:8080/oauth2/authorization/google?redirect_uri=https://namkibok.shop:3000/oauth2/redirect'} role={'button'}>
+    <a href={'http://ec2-3-34-172-246.ap-northeast-2.compute.amazonaws.com:8080/oauth2/authorization/google?redirect_uri=https://namkibok/shop:3000/oauth2/redirect'} role={'button'}>
       <GoogleSigninBtn
         src="/images/btn_google_signin_light_normal_web@2x.png"
         onMouseOver={(e) => {

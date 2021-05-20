@@ -20,6 +20,7 @@ function MinutesListLayout() {
       keywords: ['발표', '설계', '구조', '캡스톤', '디비'],
       date: '2021-04-22',
       users: ['profile1.jpg', 'profile2.jpg', 'profile3.jpg', 'profile4.jpg'],
+      code: 'qweasd',
     },
     {
       id: 2,
@@ -27,6 +28,7 @@ function MinutesListLayout() {
       keywords: ['발표', '설계', '구조', '캡스톤', '디비'],
       date: '2021-04-21',
       users: ['profile1.jpg', 'profile2.jpg', 'profile3.jpg', 'profile4.jpg'],
+      code: 'qweasd',
     },
     {
       id: 3,
@@ -34,6 +36,7 @@ function MinutesListLayout() {
       keywords: ['발표', '설계', '구조', '캡스톤', '디비'],
       date: '2021-04-19',
       users: ['profile1.jpg', 'profile2.jpg', 'profile3.jpg', 'profile4.jpg'],
+      code: 'qweasd',
     },
     {
       id: 4,
@@ -41,6 +44,7 @@ function MinutesListLayout() {
       keywords: ['발표', '설계', '구조', '캡스톤', '디비'],
       date: '2021-04-17',
       users: ['profile1.jpg', 'profile2.jpg', 'profile3.jpg', 'profile4.jpg'],
+      code: 'qweasd',
     },
     {
       id: 5,
@@ -48,6 +52,7 @@ function MinutesListLayout() {
       keywords: ['발표', '설계', '구조', '캡스톤', '디비'],
       date: '2021-03-29',
       users: ['profile1.jpg', 'profile2.jpg', 'profile3.jpg', 'profile4.jpg'],
+      code: 'qweasd',
     },
     {
       id: 6,
@@ -55,6 +60,7 @@ function MinutesListLayout() {
       keywords: ['발표', '설계', '구조', '캡스톤', '디비'],
       date: '2021-03-21',
       users: ['profile1.jpg', 'profile2.jpg', 'profile3.jpg', 'profile4.jpg'],
+      code: 'qweasd',
     },
     {
       id: 7,
@@ -62,6 +68,7 @@ function MinutesListLayout() {
       keywords: ['발표', '설계', '구조', '캡스톤', '디비'],
       date: '2021-03-21',
       users: ['profile1.jpg', 'profile2.jpg', 'profile3.jpg', 'profile4.jpg'],
+      code: 'qweasd',
     },
     {
       id: 8,
@@ -69,6 +76,7 @@ function MinutesListLayout() {
       keywords: ['발표', '설계', '구조', '캡스톤', '디비'],
       date: '2021-03-21',
       users: ['profile1.jpg', 'profile2.jpg', 'profile3.jpg', 'profile4.jpg'],
+      code: 'qweasd',
     },
     {
       id: 9,
@@ -76,6 +84,7 @@ function MinutesListLayout() {
       keywords: ['발표', '설계', '구조', '캡스톤', '디비'],
       date: '2021-03-21',
       users: ['profile1.jpg', 'profile2.jpg', 'profile3.jpg', 'profile4.jpg'],
+      code: 'qweasd',
     },
   ];
   return (
@@ -87,6 +96,7 @@ function MinutesListLayout() {
           keywords={meetingLog.keywords}
           users={meetingLog.users}
           date={meetingLog.date}
+          code={meetingLog.code}
         />
       ))}
     </Container>

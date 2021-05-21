@@ -39,6 +39,8 @@ public class MinutesService {
     public Long save(MinutesRequestDto requestDto) {
         Meeting meeting = meetingRepository.findById(requestDto.getMeetingCode())
                 .orElseThrow(() -> new IllegalArgumentException("해당 회의가 없습니다. code=" + requestDto.getMeetingCode()));
+        if (meeting.getMinutes() != null)
+            return null;
         return minutesRepository.save(requestDto.toEntity(meeting)).getId();
     }
 
@@ -83,7 +85,7 @@ public class MinutesService {
     @Transactional(readOnly = true)
     public String getVoiceFileLink(Long id) {
         return minutesRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 회의록 없습니다. id=" + id))
+                .orElseThrow(() -> new IllegalArgumentException("해당 회의록이 없습니다. id=" + id))
                 .getVoiceFileLink();
     }
 

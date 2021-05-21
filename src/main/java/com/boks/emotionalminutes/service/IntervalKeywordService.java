@@ -24,14 +24,14 @@ public class IntervalKeywordService {
     @Transactional
     public Long save(Long id, IntervalKeywordsRequestDto requestDto) {
         Minutes minutes = minutesRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 회의록이 없습니다. code=" + id));
+                .orElseThrow(() -> new IllegalArgumentException("해당 회의록이 없습니다. id=" + id));
         return intervalKeywordsRepository.save(requestDto.toEntity(minutes)).getId();
     }
 
     @Transactional
     public IntervalKeywordsResponseDto findById(Long minutesId) {
         Minutes minutes = minutesRepository.findById(minutesId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 회의록이 없습니다. code=" + minutesId));
+                .orElseThrow(() -> new IllegalArgumentException("해당 회의록이 없습니다. id=" + minutesId));
         return new IntervalKeywordsResponseDto(minutes.getIntervalKeywords());
     }
 }

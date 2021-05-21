@@ -4,23 +4,15 @@ import com.boks.emotionalminutes.config.auth.dto.OAuth2UserInfo;
 import com.boks.emotionalminutes.domain.user.User;
 import com.boks.emotionalminutes.domain.user.UserRepository;
 import com.boks.emotionalminutes.security.UserPrincipal;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
-import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
-import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
-import javax.servlet.http.HttpSession;
-import java.security.AuthProvider;
-import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
 
@@ -76,11 +68,12 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         return userRepository.save(User.builder()
                 .name(oAuth2UserInfo.getName())
                 .email(oAuth2UserInfo.getEmail())
+                .picture(oAuth2UserInfo.getImageUrl())
                 .build());
     }
 
     private User updateExistingUser(User existingUser, OAuth2UserInfo oAuth2UserInfo) {
-        existingUser.update(oAuth2UserInfo.getName());
+        existingUser.update(oAuth2UserInfo.getName(), oAuth2UserInfo.getImageUrl());
         return userRepository.save(existingUser);
     }
 

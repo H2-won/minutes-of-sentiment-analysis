@@ -101,12 +101,17 @@ function ProduceConferenceModal({ ModalOff, args }) {
   };
 
   const produceConferenceAPI = () => {
-    Meeting.produceConference(titleValue, pwValue, setConferenceCode);
+    Meeting.produceConference(
+      titleValue,
+      pwValue,
+      setConferenceCode,
+      connection,
+    );
   };
 
   const openMeetingRoom = () => {
     ModalOff();
-    produceConferenceAPI();
+    // produceConferenceAPI();
     connection.open(args.staticId, function (isRoomOpened, roomid, error) {
       if (isRoomOpened === true) {
       } else {

@@ -37,7 +37,6 @@ const VideoContainer = () => {
   const [videoThumbnailsArr, setVideoThumbnailsArr] = useState([]);
   const [connectionInfo, setConnectionInfo] = useState('');
   const [recordFlag, setRecordFlag] = useState(0);
-  // const databaseRef = firebase.database().ref();
   const databaseRef = firebaseDatabaseRef;
   // const storageRef = firebaseStorage.ref();
   const userId = Math.floor(Math.random() * 1000000000);
@@ -338,10 +337,10 @@ const VideoContainer = () => {
           <span>{transcript}</span>
         </div>
       </div>
-      <div>
+      {/* <div>
         audio Test
         <audio controls autoPlay playsInline></audio>
-      </div>
+      </div> */}
       <VideoWrapper>
         <MainVideo>
           {mainVideo && (

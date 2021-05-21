@@ -25,6 +25,9 @@ public class User {
     @Column
     private String email;
 
+    @Column
+    private String picture;
+
     @OneToMany(mappedBy = "user")
     private List<Participation> participation = new ArrayList<>();
 
@@ -35,9 +38,10 @@ public class User {
     private List<Sentence> sentences = new ArrayList<>();
 
     @Builder
-    public User(String name, String email) {
+    public User(String name, String email, String picture) {
         this.name = name;
         this.email = email;
+        this.picture = picture;
     }
 
     public void addBookmark(Bookmark bookmark) {
@@ -52,8 +56,9 @@ public class User {
         this.getSentences().add(sentence);
     }
 
-    public User update(String name) {
+    public User update(String name, String picture) {
         this.name = name;
+        this.picture = picture;
 
         return this;
     }

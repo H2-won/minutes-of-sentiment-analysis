@@ -37,21 +37,27 @@ public class BookmarkService {
 
     @Transactional
     public Long save(BookmarkRequestDto requestDto) {
-        User user = userRepository.findById(requestDto.getUserId()).get();
-        Sentence sentence = sentenceRepository.findById(requestDto.getSentenceId()).get();
+        User user = userRepository.findById(requestDto.getUserId())
+                .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다. id=" + requestDto.getUserId()));
+        Sentence sentence = sentenceRepository.findById(requestDto.getSentenceId())
+                .orElseThrow(() -> new IllegalArgumentException("해당 문장이 없습니다. id=" + requestDto.getSentenceId()));
+        if (sentence.getBookmark() != null)
+            return null;
         return bookmarkRepository.save(requestDto.toEntity(user, sentence)).getId();
     }
 
     @Transactional
     public Long update(Long id, String memo) {
-        Bookmark bookmark = bookmarkRepository.findById(id).get();
+        Bookmark bookmark = bookmarkRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 북마크가 없습니다. id=" + id));
         bookmark.setMemo(memo);
         return id;
     }
 
     @Transactional
     public void delete(Long id) {
-        Bookmark bookmark = bookmarkRepository.findById(id).get();
+        Bookmark bookmark = bookmarkRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 북마크가 없습니다. id=" + id));
         bookmark.getUser().getBookmarks().remove(bookmark);
         bookmark.getSentence().setBookmark(null);
         bookmarkRepository.deleteById(id);
@@ -59,7 +65,8 @@ public class BookmarkService {
 
     @Transactional
     public List<BookmarkListResponseDto> findAll(Long minutesId) {
-        Minutes minutes = minutesRepository.findById(minutesId).get();
+        Minutes minutes = minutesRepository.findById(minutesId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 회의록이 없습니다. minutesId=" + minutesId));
         List<BookmarkListResponseDto> dtos = new ArrayList<BookmarkListResponseDto>();
         minutes.getSentences().stream()
                 .map(Sentence::getBookmark)

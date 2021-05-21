@@ -18,12 +18,14 @@ public class TotalKeywordsService {
 
     @Transactional
     public Long save(TotalKeywordsRequestDto requestDto) {
-        Minutes minutes = minutesRepository.findById(requestDto.getMinutesId()).get();
+        Minutes minutes = minutesRepository.findById(requestDto.getMinutesId())
+                .orElseThrow(() -> new IllegalArgumentException("해당 회의록이 없습니다. id=" + requestDto.getMinutesId()));
         return totalKeywordsRepository.save(requestDto.toEntity(minutes)).getId();
     }
 
     public TotalKeywordsResponseDto findByMinutesId(Long id) {
-        Minutes minutes = minutesRepository.findById(id).get();
+        Minutes minutes = minutesRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 회의록이 없습니다. id=" + id));
         return new TotalKeywordsResponseDto(minutes.getTotalKeywords());
     }
 }

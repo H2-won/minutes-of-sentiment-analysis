@@ -1,6 +1,5 @@
 package com.boks.emotionalminutes.web;
 
-import com.boks.emotionalminutes.config.auth.dto.SessionUser;
 import com.boks.emotionalminutes.domain.user.User;
 import com.boks.emotionalminutes.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -36,19 +35,4 @@ public class IndexController {
 //    public String index() {
 //        return "index2";
 //    }
-
-    @GetMapping("/main")
-    public SessionUser loginPage(Model model) {
-        SessionUser user = (SessionUser) httpSession.getAttribute("user");
-        // if (user != null) {
-        // model.addAttribute("userName", user.getName());
-        // }
-        return user;
-    }
-
-    @GetMapping("/api/check")
-    public SessionUser check() {
-        User user = User.builder().name("방규빈").email("rbqls1057@naver.com").build();
-        return new SessionUser(user);
-    }
 }

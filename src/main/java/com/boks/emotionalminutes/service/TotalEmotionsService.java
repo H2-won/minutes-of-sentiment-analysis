@@ -22,7 +22,8 @@ public class TotalEmotionsService {
 
     @Transactional
     public Long save(TotalEmotionsRequestDto requestDto) {
-        Minutes minutes = minutesRepository.findById(requestDto.getMinutesId()).get();
+        Minutes minutes = minutesRepository.findById(requestDto.getMinutesId())
+                .orElseThrow(() -> new IllegalArgumentException("해당 회의록이 없습니다. id=" + requestDto.getMinutesId()));
 
         List<Sentence> sentences = minutes.getSentences();
         float total = sentences.size();
@@ -54,7 +55,8 @@ public class TotalEmotionsService {
     }
 
     public TotalEmotionsResponseDto findByMinutesId(Long id) {
-        Minutes minutes = minutesRepository.findById(id).get();
+        Minutes minutes = minutesRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 회의록이 없습니다. id=" + id));
         return new TotalEmotionsResponseDto(minutes.getTotalEmotions());
     }
 }

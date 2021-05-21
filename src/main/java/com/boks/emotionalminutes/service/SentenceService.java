@@ -25,15 +25,18 @@ public class SentenceService {
 
     @Transactional
     public Long save(SentenceRequestDto sentenceRequestDto) {
-        User user = userRepository.findById(sentenceRequestDto.getUserId()).get();
-        Minutes minutes = minutesRepository.findById(sentenceRequestDto.getMinutesId()).get();
+        User user = userRepository.findById(sentenceRequestDto.getUserId())
+                .orElseThrow(() -> new IllegalArgumentException("해당 발언자가 없습니다. id=" + sentenceRequestDto.getUserId()));
+        Minutes minutes = minutesRepository.findById(sentenceRequestDto.getMinutesId())
+                .orElseThrow(() -> new IllegalArgumentException("해당 회의록이 없습니다. id=" + sentenceRequestDto.getMinutesId()));
 
         return sentenceRepository.save(sentenceRequestDto.toEntity(user, minutes)).getId();
     }
 
     @Transactional
     public List<SentenceResponseDto> findById(Long id) {
-        Minutes minutes = minutesRepository.findById(id).get();
+        Minutes minutes = minutesRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 회의가 없습니다. id=" + id));
         List<Sentence> sentences = minutes.getSentences();
         List<SentenceResponseDto> sentenceResponseDtos = new ArrayList<>();
 

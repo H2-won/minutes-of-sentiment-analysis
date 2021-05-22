@@ -18,7 +18,6 @@ const VideoWrapper = styled.div`
   align-items: center;
   flex-wrap: wrap;
   min-height: 0;
-  max-height: 35vh;
 `;
 
 const MainVideo = styled.div`
@@ -328,37 +327,17 @@ const VideoContainer = () => {
   };
 
   const onToggleMicrophone = () => {
-    console.log('connectionInfo = ', connectionInfo);
-    console.log('getVideoTracks = ', connectionInfo.getVideoTracks());
-    console.log('getTracks = ', connectionInfo.getTracks());
-    console.log('getAudioTracks = ', connectionInfo.getAudioTracks());
-    // connectionInfo.getVideoTracks()[0].enabled =
-    //   !connectionInfo.getVideoTracks()[0].enabled;
-    // connectionInfo.getAudioTracks()[0].enabled =
-    //   connectionInfo.getAudioTracks()[0].enabled;
-    console.log('main connectionInfo = ', mainVideo);
-    console.log('main getVideoTracks = ', mainVideo.stream.getVideoTracks());
-    console.log('main getTracks = ', mainVideo.stream.getTracks());
     console.log('main getAudioTracks = ', mainVideo.stream.getAudioTracks());
-    // mainVideo.stream.getVideoTracks()[0].enabled =
-    //   !mainVideo.stream.getVideoTracks()[0].enabled;
+
     mainVideo.stream.getAudioTracks()[0].enabled =
       !mainVideo.stream.getAudioTracks()[0].enabled;
-    // mainVideo.stream.getVideoTracks()[0].muted =
-    //   !mainVideo.stream.getVideoTracks()[0].muted;
-    // mainVideo.stream.getAudioTracks()[0].muted =
-    //   !mainVideo.stream.getAudioTracks()[0].muted;
   };
 
   const onToggleVideo = () => {
-    console.log('main connectionInfo = ', mainVideo);
     console.log('main getVideoTracks = ', mainVideo.stream.getVideoTracks());
-    console.log('main getTracks = ', mainVideo.stream.getTracks());
-    console.log('main getAudioTracks = ', mainVideo.stream.getAudioTracks());
+
     mainVideo.stream.getVideoTracks()[0].enabled =
       !mainVideo.stream.getVideoTracks()[0].enabled;
-    // mainVideo.stream.getAudioTracks()[0].enabled =
-    //   !mainVideo.stream.getAudioTracks()[0].enabled;
   };
 
   return (
@@ -381,7 +360,6 @@ const VideoContainer = () => {
             <Video
               srcObject={mainVideo.stream}
               mainvideo="true"
-              id="muted"
               muted
               keyvalue={mainVideo.streamid}
               username={mainVideo.extra.username}

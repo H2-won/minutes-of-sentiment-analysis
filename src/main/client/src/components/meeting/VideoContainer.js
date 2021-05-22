@@ -9,7 +9,7 @@ import SpeechRecognition, {
 } from 'react-speech-recognition';
 
 import { firebaseDatabaseRef, firebaseStorage } from '../../firebase';
-import { gyubinFirebaseDatabaseRef} from "../../gyubinFirebase";
+import { gyubinFirebaseDatabaseRef } from '../../gyubinFirebase';
 import RecordRTC from 'recordrtc';
 import BottomLayout from './BottomLayout';
 
@@ -322,6 +322,14 @@ const VideoContainer = () => {
     //   language: 'ko-KR',
     // });
     setRecordFlag(1);
+    const now = new Date();
+    let msg = databaseRef.push({
+      sender: userId,
+      message: finalTranscript + '.',
+      time: now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),
+      flag: recordFlag,
+    });
+    msg.remove();
   };
 
   const StopSpeechRecognition = () => {

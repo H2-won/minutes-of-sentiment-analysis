@@ -8,7 +8,7 @@ import SpeechRecognition, {
   useSpeechRecognition,
 } from 'react-speech-recognition';
 
-import { firebaseDatabaseRef, firebaseStorage } from '../../firebase';
+import { firebaseDatabaseRef, firebaseStorage, gyubin } from '../../firebase';
 import RecordRTC from 'recordrtc';
 import BottomLayout from './BottomLayout';
 
@@ -37,7 +37,7 @@ const VideoContainer = () => {
   const [connectionInfo, setConnectionInfo] = useState('');
   const [recordFlag, setRecordFlag] = useState(0);
   const databaseRef = firebaseDatabaseRef;
-  const gyubinDatabaseRef = gyubinFirebaseDatabaseRef;
+  const gyubinDatabaseRef = gyubin;
   // const storageRef = firebaseStorage.ref();
   const userId = Math.floor(Math.random() * 1000000000);
 
@@ -88,14 +88,12 @@ const VideoContainer = () => {
     }
 
     function readMessage(data) {
-      if (data.val().type === "output") {
         console.log(data.val().sender);
         console.log(data.val().message);
         console.log(data.val().emotion);
-      }
     }
 
-    databaseRef.on('child_added', readMessage);
+    gyubinDatabaseRef.on('child_added', readMessage);
   };
 
   connection.onstreamended = (event) => {
@@ -302,7 +300,6 @@ const VideoContainer = () => {
 
       // let msg =
       databaseRef.push({
-        type: "input",
         sender: userId,
         message: finalTranscript + '.',
         time: now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),
@@ -325,7 +322,6 @@ const VideoContainer = () => {
     setRecordFlag(1);
     const now = new Date();
     databaseRef.push({
-      type: "input",
       sender: userId,
       message: finalTranscript + '.',
       time: now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),
@@ -338,7 +334,6 @@ const VideoContainer = () => {
     setRecordFlag(-1);
     const now = new Date();
     databaseRef.push({
-      type: "input",
       sender: userId,
       message: finalTranscript + '.',
       time: now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),

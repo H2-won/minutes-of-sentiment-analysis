@@ -15,7 +15,7 @@ import "firebase/storage";
 //   databaseURL: "https://emotional-minutes-7445b-default-rtdb.firebaseio.com",
 // };
 
-const firebaseConfig = {
+const firebaseConfig1 = {
   apiKey: "AIzaSyCAPq36ZvGSEcdGX9OXEmrMlh_Fd2h_1CA",
   authDomain: "emotional-minutes.firebaseapp.com",
   databaseURL: "https://emotional-minutes-default-rtdb.firebaseio.com",
@@ -26,14 +26,28 @@ const firebaseConfig = {
   measurementId: "G-H3H5BEWXPY",
 };
 
+const firebaseConfig2 = {
+  apiKey: "AIzaSyAdZrz9Nom8rRwkxgMLx7_DP-huFiI3HPE",
+  authDomain: "rtc-project-82fd0.firebaseapp.com",
+  databaseURL: "https://rtc-project-82fd0-default-rtdb.firebaseio.com",
+  projectId: "rtc-project-82fd0",
+  storageBucket: "rtc-project-82fd0.appspot.com",
+  messagingSenderId: "289053377480",
+  appId: "1:289053377480:web:b7ced6b083581973ecb6fd",
+  measurementId: "G-RJLHKWEVRY"
+}
+
 // firebaseConfig 정보로 firebase 시작
-firebase.initializeApp(firebaseConfig);
+const app1 = firebase.initializeApp(firebaseConfig1);
+const app2 = firebase.initializeApp(firebaseConfig2, 'app2');
 
 // firebase의 firestore 인스턴스를 변수에 저장
 // const firestore = firebase.firestore();
-const firebaseDatabaseRef = firebase.database().ref();
+const firebaseDatabaseRef = firebase.database(app1).ref();
 const firebaseStorage = firebase.storage();
+
+const gyubin = firebase.database(app2).ref();
 
 // 필요한 곳에서 사용할 수 있도록 내보내기
 // export default firebase;
-export { firebaseDatabaseRef, firebaseStorage };
+export { firebaseDatabaseRef, firebaseStorage, gyubin };

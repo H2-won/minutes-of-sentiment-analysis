@@ -54,14 +54,12 @@ const VideoContainer = () => {
 
   connection.onstream = function (event) {
     // 여기에 더미값 넣기
-    console.log("씨빨러마 이게 나오면 밑에 더미도 넣어 개새끼양");
     databaseRef.push({
       sender: 181818,
       message: "DUMMY",
       time: "18:18:18",
       flag: 2,
     });
-    console.log("지나갔어 씨ㅃ썌끼야");
     // var connectionInfo = event.stream;
     setConnectionInfo(event.stream);
 

@@ -36,8 +36,8 @@ function UserInfo() {
     email: '',
   });
 
-  const token = localStorage.getItem('access_token')
-    ? localStorage.getItem('access_token')
+  const token = localStorage.getItem('accessToken')
+    ? localStorage.getItem('accessToken')
     : null;
 
   console.log(token);

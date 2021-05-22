@@ -161,7 +161,7 @@ const VideoContainer = () => {
     // connection.closeSocket();
 
     SpeechRecognition.stopListening();
-    window.location.href = '/';
+    window.location.href = '/main';
   };
 
   // room ID.
@@ -230,72 +230,78 @@ const VideoContainer = () => {
     }
   }, [interimTranscript]);
 
+  // ---------- 말 끝날때마다 record 파일 firebase storage에 삽입 ----------
   useEffect(() => {
     if (finalTranscript !== '') {
       var recorder = connection.recorder;
       if (!recorder) return alert('No recorder found.');
       recorder.stopRecording(function () {
-        var file = recorder.getBlob();
-        // RecordRTC.invokeSaveAsDialog(blob);
-        // storageRef.put(blob).then(function (snapshot) {
-        //   console.log("Uploaded a blob or file!");
-        // });
-        if (!file) {
-          throw 'Blob object is required.';
+        if (recordFlag === 1) {
+          var file = recorder.getBlob();
+          // RecordRTC.invokeSaveAsDialog(blob);
+          // storageRef.put(blob).then(function (snapshot) {
+          //   console.log("Uploaded a blob or file!");
+          // });
+          if (!file) {
+            throw 'Blob object is required.';
+          }
+
+          if (!file.type) {
+            try {
+              file.type = 'audio/wav;codecs=opus';
+            } catch (e) {}
+          }
+
+          var fileFullName =
+            userId + '_' + Math.floor(Math.random() * 1000000000) + '.' + 'wav';
+          if (typeof navigator.msSaveOrOpenBlob !== 'undefined') {
+            return navigator.msSaveOrOpenBlob(file, fileFullName);
+          } else if (typeof navigator.msSaveBlob !== 'undefined') {
+            return navigator.msSaveBlob(file, fileFullName);
+          }
+
+          var storage = firebaseStorage;
+          var storageUpRef = storage.ref(fileFullName);
+          var task = storageUpRef.put(file);
+          task.on(
+            'state_changed',
+            function (snapshot) {
+              console.log('업로드 진행중'); // 업로드 진행시 호출
+            },
+            function (error) {
+              // 업로드 중간에 에러 발생시 호출
+              console.log(error);
+            },
+            function () {
+              // 업로드 완료시
+              console.log('업로드 완료');
+            },
+          );
+
+          connection.recorder = null;
         }
-
-        if (!file.type) {
-          try {
-            file.type = 'audio/wav;codecs=opus';
-          } catch (e) {}
-        }
-
-        var fileFullName =
-          userId + '_' + Math.floor(Math.random() * 1000000000) + '.' + 'wav';
-        if (typeof navigator.msSaveOrOpenBlob !== 'undefined') {
-          return navigator.msSaveOrOpenBlob(file, fileFullName);
-        } else if (typeof navigator.msSaveBlob !== 'undefined') {
-          return navigator.msSaveBlob(file, fileFullName);
-        }
-
-        var storage = firebaseStorage;
-        var storageUpRef = storage.ref(fileFullName);
-        var task = storageUpRef.put(file);
-        task.on(
-          'state_changed',
-          function (snapshot) {
-            console.log('업로드 진행중'); // 업로드 진행시 호출
-          },
-          function (error) {
-            // 업로드 중간에 에러 발생시 호출
-            console.log(error);
-          },
-          function () {
-            // 업로드 완료시
-            console.log('업로드 완료');
-          },
-        );
-
-        connection.recorder = null;
       });
     }
   }, [finalTranscript]);
 
+  // ---------- finalTranscript 말 끝날때마다 firebase database에 삽입 ----------
   useEffect(() => {
     if (finalTranscript !== '') {
       console.log('Got final result:', finalTranscript);
       resetTranscript();
+      if (recordFlag === 1) {
+        var now = new Date();
 
-      var now = new Date();
-
-      // let msg =
-      databaseRef.push({
-        sender: userId,
-        message: finalTranscript + '.',
-        time: now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),
-        flag: recordFlag,
-      });
-      // msg.remove();
+        // let msg =
+        databaseRef.push({
+          sender: userId,
+          message: finalTranscript + '.',
+          time:
+            now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),
+          flag: recordFlag,
+        });
+        // msg.remove();
+      }
     }
   }, [finalTranscript, resetTranscript, userId]);
 

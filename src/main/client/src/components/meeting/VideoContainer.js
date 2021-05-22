@@ -242,48 +242,47 @@ const VideoContainer = () => {
       var recorder = connection.recorder;
       if (!recorder) return alert('No recorder found.');
       recorder.stopRecording(function () {
-        if (recordFlag === 1) {
-          var file = recorder.getBlob();
-          // RecordRTC.invokeSaveAsDialog(blob);
-          // storageRef.put(blob).then(function (snapshot) {
-          //   console.log("Uploaded a blob or file!");
-          // });
-          if (!file) {
-            throw 'Blob object is required.';
-          }
-
-          if (!file.type) {
-            try {
-              file.type = 'audio/wav;codecs=opus';
-            } catch (e) {}
-          }
-
-          var fileFullName =
-            userId + '_' + Math.floor(Math.random() * 1000000000) + '.' + 'wav';
-          if (typeof navigator.msSaveOrOpenBlob !== 'undefined') {
-            return navigator.msSaveOrOpenBlob(file, fileFullName);
-          } else if (typeof navigator.msSaveBlob !== 'undefined') {
-            return navigator.msSaveBlob(file, fileFullName);
-          }
-
-          var storage = firebaseStorage;
-          var storageUpRef = storage.ref(fileFullName);
-          var task = storageUpRef.put(file);
-          task.on(
-            'state_changed',
-            function (snapshot) {
-              console.log('업로드 진행중'); // 업로드 진행시 호출
-            },
-            function (error) {
-              // 업로드 중간에 에러 발생시 호출
-              console.log(error);
-            },
-            function () {
-              // 업로드 완료시
-              console.log('업로드 완료');
-            },
-          );
+        var file = recorder.getBlob();
+        // RecordRTC.invokeSaveAsDialog(blob);
+        // storageRef.put(blob).then(function (snapshot) {
+        //   console.log("Uploaded a blob or file!");
+        // });
+        if (!file) {
+          throw 'Blob object is required.';
         }
+
+        if (!file.type) {
+          try {
+            file.type = 'audio/wav;codecs=opus';
+          } catch (e) {}
+        }
+
+        var fileFullName =
+          userId + '_' + Math.floor(Math.random() * 1000000000) + '.' + 'wav';
+        if (typeof navigator.msSaveOrOpenBlob !== 'undefined') {
+          return navigator.msSaveOrOpenBlob(file, fileFullName);
+        } else if (typeof navigator.msSaveBlob !== 'undefined') {
+          return navigator.msSaveBlob(file, fileFullName);
+        }
+
+        var storage = firebaseStorage;
+        var storageUpRef = storage.ref(fileFullName);
+        var task = storageUpRef.put(file);
+        task.on(
+          'state_changed',
+          function (snapshot) {
+            console.log('업로드 진행중'); // 업로드 진행시 호출
+          },
+          function (error) {
+            // 업로드 중간에 에러 발생시 호출
+            console.log(error);
+          },
+          function () {
+            // 업로드 완료시
+            console.log('업로드 완료');
+          },
+        );
+
         connection.recorder = null;
       });
     }
@@ -294,19 +293,17 @@ const VideoContainer = () => {
     if (finalTranscript !== '') {
       console.log('Got final result:', finalTranscript);
       resetTranscript();
-      if (recordFlag === 1) {
-        var now = new Date();
 
-        // let msg =
-        databaseRef.push({
-          sender: userId,
-          message: finalTranscript + '.',
-          time:
-            now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),
-          flag: recordFlag,
-        });
-        // msg.remove();
-      }
+      var now = new Date();
+
+      // let msg =
+      databaseRef.push({
+        sender: userId,
+        message: finalTranscript + '.',
+        time: now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),
+        flag: recordFlag,
+      });
+      // msg.remove();
     }
   }, [finalTranscript, resetTranscript, userId]);
 

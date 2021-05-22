@@ -182,7 +182,7 @@ const VideoContainer = () => {
     let msg = databaseRef.push({
       sender: 181818,
       message: "DUMMY",
-      time: now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),
+      time: "18:18:18",
       flag: 2,
     });
   };

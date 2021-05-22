@@ -88,6 +88,7 @@ const VideoContainer = () => {
     }
 
     function readMessage(data) {
+        console.log(data.val());
         console.log(data.val().sender);
         console.log(data.val().text);
         console.log(data.val().emotion);

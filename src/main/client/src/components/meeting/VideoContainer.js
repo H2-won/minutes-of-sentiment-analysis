@@ -56,8 +56,8 @@ const VideoContainer = () => {
     // 여기에 더미값 넣기
     databaseRef.push({
       sender: 181818,
-      message: "DUMMY",
-      time: "18:18:18",
+      message: 'NULL',
+      time: '18:18:18',
       flag: 2,
     });
     // var connectionInfo = event.stream;
@@ -95,10 +95,10 @@ const VideoContainer = () => {
     }
 
     function readMessage(data) {
-        console.log(data.val());
-        console.log(data.val().sender);
-        console.log(data.val().text);
-        console.log(data.val().emotion);
+      console.log(data.val());
+      console.log(data.val().sender);
+      console.log(data.val().text);
+      console.log(data.val().emotion);
     }
 
     gyubinDatabaseRef.on('child_added', readMessage);
@@ -304,7 +304,7 @@ const VideoContainer = () => {
 
       var now = new Date();
 
-      let msg = databaseRef.push({
+      databaseRef.push({
         sender: userId,
         message: finalTranscript + '.',
         time: now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),
@@ -338,7 +338,7 @@ const VideoContainer = () => {
     SpeechRecognition.stopListening();
     setRecordFlag(-1);
     const now = new Date();
-    const msg = databaseRef.push({
+    databaseRef.push({
       sender: userId,
       message: finalTranscript + '.',
       time: now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),
@@ -349,6 +349,15 @@ const VideoContainer = () => {
   const onToggleMicrophone = () => {
     console.log('main getAudioTracks = ', mainVideo.stream.getAudioTracks());
 
+    // 마이크 음소거시 STT 시작, 아니면 종료
+    if (!mainVideo.stream.getAudioTracks()[0].enabled) {
+      SpeechRecognition.startListening({
+        continuous: true,
+        language: 'ko-KR',
+      });
+    } else {
+      SpeechRecognition.stopListening();
+    }
     mainVideo.stream.getAudioTracks()[0].enabled =
       !mainVideo.stream.getAudioTracks()[0].enabled;
   };

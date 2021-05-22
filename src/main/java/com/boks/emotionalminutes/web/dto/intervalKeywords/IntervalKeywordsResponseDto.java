@@ -12,15 +12,11 @@ public class IntervalKeywordsResponseDto {
     private final String interval1Keywords;
     private final String interval2Keywords;
     private final String interval3Keywords;
-    private final String interval4Keywords;
-    private final String interval5Keywords;
 
     public IntervalKeywordsResponseDto (IntervalKeywords entity) {
         this.id = entity.getId();
         this.interval1Keywords = entity.getInterval1Keywords();
         this.interval2Keywords = entity.getInterval2Keywords();
         this.interval3Keywords = entity.getInterval3Keywords();
-        this.interval4Keywords = entity.getInterval4Keywords();
-        this.interval5Keywords = entity.getInterval5Keywords();
     }
 }

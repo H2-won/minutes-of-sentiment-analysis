@@ -29,21 +29,13 @@ public class IntervalKeywords {
     @Column(name = "interval3_keywords")
     private String interval3Keywords;
 
-    @Column(name = "interval4_keywords")
-    private String interval4Keywords;
-
-    @Column(name = "interval5_keywords")
-    private String interval5Keywords;
-
     @Builder
     public IntervalKeywords(Minutes minutes, String interval1Keywords, String interval2Keywords,
-                            String interval3Keywords, String interval4Keywords, String interval5Keywords) {
+                            String interval3Keywords) {
         this.minutes = minutes;
         this.interval1Keywords = interval1Keywords;
         this.interval2Keywords = interval2Keywords;
         this.interval3Keywords = interval3Keywords;
-        this.interval4Keywords = interval4Keywords;
-        this.interval5Keywords = interval5Keywords;
         minutes.setIntervalKeywords(this);
     }
 }

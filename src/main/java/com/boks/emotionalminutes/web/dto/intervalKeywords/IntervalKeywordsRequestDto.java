@@ -11,8 +11,6 @@ public class IntervalKeywordsRequestDto {
     private String interval1Keywords;
     private String interval2Keywords;
     private String interval3Keywords;
-    private String interval4Keywords;
-    private String interval5Keywords;
 
     public IntervalKeywords toEntity(Minutes minutes) {
         return IntervalKeywords.builder()
@@ -20,8 +18,6 @@ public class IntervalKeywordsRequestDto {
                 .interval1Keywords(interval1Keywords)
                 .interval2Keywords(interval2Keywords)
                 .interval3Keywords(interval3Keywords)
-                .interval4Keywords(interval4Keywords)
-                .interval5Keywords(interval5Keywords)
                 .build();
     }
 }

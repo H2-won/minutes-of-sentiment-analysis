@@ -18,7 +18,6 @@ const VideoWrapper = styled.div`
   align-items: center;
   flex-wrap: wrap;
   min-height: 0;
-  max-height: 35vh;
 `;
 
 const MainVideo = styled.div`
@@ -37,7 +36,6 @@ const VideoContainer = () => {
   const [videoThumbnailsArr, setVideoThumbnailsArr] = useState([]);
   const [connectionInfo, setConnectionInfo] = useState('');
   const [recordFlag, setRecordFlag] = useState(0);
-  // const databaseRef = firebase.database().ref();
   const databaseRef = firebaseDatabaseRef;
   // const storageRef = firebaseStorage.ref();
   const userId = Math.floor(Math.random() * 1000000000);
@@ -328,6 +326,20 @@ const VideoContainer = () => {
     msg.remove();
   };
 
+  const onToggleMicrophone = () => {
+    console.log('main getAudioTracks = ', mainVideo.stream.getAudioTracks());
+
+    mainVideo.stream.getAudioTracks()[0].enabled =
+      !mainVideo.stream.getAudioTracks()[0].enabled;
+  };
+
+  const onToggleVideo = () => {
+    console.log('main getVideoTracks = ', mainVideo.stream.getVideoTracks());
+
+    mainVideo.stream.getVideoTracks()[0].enabled =
+      !mainVideo.stream.getVideoTracks()[0].enabled;
+  };
+
   return (
     <div>
       <div>
@@ -338,17 +350,16 @@ const VideoContainer = () => {
           <span>{transcript}</span>
         </div>
       </div>
-      <div>
+      {/* <div>
         audio Test
         <audio controls autoPlay playsInline></audio>
-      </div>
+      </div> */}
       <VideoWrapper>
         <MainVideo>
           {mainVideo && (
             <Video
               srcObject={mainVideo.stream}
               mainvideo="true"
-              id="muted"
               muted
               keyvalue={mainVideo.streamid}
               username={mainVideo.extra.username}
@@ -387,6 +398,16 @@ const VideoContainer = () => {
         {mainVideo && (
           <button className="btn" onClick={StopSpeechRecognition}>
             기록 종료
+          </button>
+        )}
+        {mainVideo && (
+          <button className="btn" onClick={onToggleMicrophone}>
+            마이크 음소거
+          </button>
+        )}
+        {mainVideo && (
+          <button className="btn" onClick={onToggleVideo}>
+            비디오 중지
           </button>
         )}
       </div>

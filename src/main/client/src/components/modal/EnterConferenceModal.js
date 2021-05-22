@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import styled, { css } from "styled-components";
-import palette from "../../lib/styles/palette";
-import { Link } from "react-router-dom";
-import connection from "../meeting/RtcConnection";
+import React, { useState } from 'react';
+import styled, { css } from 'styled-components';
+import palette from '../../lib/styles/palette';
+import { Link } from 'react-router-dom';
+import connection from '../meeting/RtcConnection';
 
 const Container = styled.div`
   position: relative;
@@ -30,7 +30,7 @@ const ContentWrapper = styled.div`
     font-size: 18px;
     color: ${palette.gray4};
     border: 0.5px solid ${palette.gray2};
-    padding: 2rem 1rem;
+    padding: 1rem;
     display: flex;
     align-items: center;
   }
@@ -46,7 +46,7 @@ const OkBtn = styled.button`
   width: 140px;
   height: 60px;
   background: ${({ color }) =>
-    color === "orange"
+    color === 'orange'
       ? css`
           ${palette.orange1}
         `
@@ -75,7 +75,7 @@ const CancleBtn = styled.button`
 `;
 
 function EnterConferenceModal({ ModalOff, args }) {
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState('');
   const onChange = (e) => {
     setInputValue(e.target.value);
   };
@@ -84,12 +84,12 @@ function EnterConferenceModal({ ModalOff, args }) {
     ModalOff();
     connection.join(inputValue, function (isJoinedRoom, roomid, error) {
       if (error) {
-        if (error === "Room not available") {
-          alert("존재하지 않는 방입니다. 새로운 방을 만들거나 참가하세요!");
-          window.location.href = "/main";
+        if (error === 'Room not available') {
+          alert('존재하지 않는 방입니다. 새로운 방을 만들거나 참가하세요!');
+          window.location.href = '/main';
           return;
         }
-        alert(error + " error log");
+        alert(error + ' error log');
       }
     });
   };

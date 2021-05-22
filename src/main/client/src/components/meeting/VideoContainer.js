@@ -178,6 +178,13 @@ const VideoContainer = () => {
 
   const openOrJoin = () => {
     connection.openOrJoin(staticId);
+    // 여기에 더미값 넣기에
+    let msg = databaseRef.push({
+      sender: 181818,
+      message: "DUMMY",
+      time: now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),
+      flag: 2,
+    });
   };
 
   const justOpen = () => {

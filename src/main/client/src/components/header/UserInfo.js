@@ -29,7 +29,7 @@ const LogoutBtn = styled.button`
 `;
 
 function UserInfo() {
-  const [logged, setLogged] = useState(true);
+  const [logged, setLogged] = useState(false);
   const [userInfo, setUserInfo] = useState({
     id: 1,
     name: '방조임남',
@@ -42,6 +42,7 @@ function UserInfo() {
 
   useEffect(() => {
     if (token) {
+      console.log(token);
       Auth.getUserInfo(token, setLogged, setUserInfo);
     }
   }, [token]);

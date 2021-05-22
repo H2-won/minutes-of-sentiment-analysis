@@ -178,18 +178,18 @@ const VideoContainer = () => {
 
   const openOrJoin = () => {
     connection.openOrJoin(staticId);
-    // 여기에 더미값 넣기에
-    let msg = databaseRef.push({
-      sender: 181818,
-      message: "DUMMY",
-      time: "18:18:18",
-      flag: 2,
-    });
   };
 
   const justOpen = () => {
     connection.open(staticId, function (isRoomOpened, roomid, error) {
       if (isRoomOpened === true) {
+        // 여기에 더미값 넣기
+        let msg = databaseRef.push({
+          sender: 181818,
+          message: "DUMMY",
+          time: "18:18:18",
+          flag: 2,
+        });
       } else {
         if (error === 'Room not available') {
           alert('이미 존재하는 방입니다. 새로운 방을 만들거나 참가하세요!');

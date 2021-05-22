@@ -29,17 +29,22 @@ const LogoutBtn = styled.button`
 `;
 
 function UserInfo() {
-  const [token, setToken] = useState(null);
+  // const [token, setToken] = useState(null);
   const [logged, setLogged] = useState(false);
   const [userInfo, setUserInfo] = useState({
     id: 1,
     name: '방조임남',
     email: '',
   });
-  const getLocalToken = localStorage.getItem('accessToken');
-  if (getLocalToken) {
-    setToken(getLocalToken);
-  }
+  // const getLocalToken = localStorage.getItem('accessToken');
+  // if (getLocalToken) {
+  //   setToken(getLocalToken);
+  // }
+  const token = localStorage.getItem('accessToken')
+      ? localStorage.getItem('accessToken')
+      : null;
+
+  console.log(token);
 
   useEffect(() => {
     if (token) {

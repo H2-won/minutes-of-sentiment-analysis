@@ -9,7 +9,6 @@ import SpeechRecognition, {
 } from 'react-speech-recognition';
 
 import { firebaseDatabaseRef, firebaseStorage } from '../../firebase';
-import { gyubinFirebaseDatabaseRef } from '../../gyubinFirebase';
 import RecordRTC from 'recordrtc';
 import BottomLayout from './BottomLayout';
 
@@ -89,12 +88,14 @@ const VideoContainer = () => {
     }
 
     function readMessage(data) {
-      console.log(data.val().sender);
-      console.log(data.val().message);
-      console.log(data.val().emotion);
+      if (data.val().type === "output") {
+        console.log(data.val().sender);
+        console.log(data.val().message);
+        console.log(data.val().emotion);
+      }
     }
 
-    gyubinDatabaseRef.on('child_added', readMessage);
+    databaseRef.on('child_added', readMessage);
   };
 
   connection.onstreamended = (event) => {
@@ -301,12 +302,12 @@ const VideoContainer = () => {
 
       // let msg =
       databaseRef.push({
+        type: "input",
         sender: userId,
         message: finalTranscript + '.',
         time: now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),
         flag: recordFlag,
       });
-      // msg.remove();
     }
   }, [finalTranscript, resetTranscript, userId]);
 
@@ -323,26 +324,26 @@ const VideoContainer = () => {
     // });
     setRecordFlag(1);
     const now = new Date();
-    let msg = databaseRef.push({
+    databaseRef.push({
+      type: "input",
       sender: userId,
       message: finalTranscript + '.',
       time: now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),
       flag: recordFlag,
     });
-    msg.remove();
   };
 
   const StopSpeechRecognition = () => {
     SpeechRecognition.stopListening();
     setRecordFlag(-1);
     const now = new Date();
-    let msg = databaseRef.push({
+    databaseRef.push({
+      type: "input",
       sender: userId,
       message: finalTranscript + '.',
       time: now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),
       flag: recordFlag,
     });
-    msg.remove();
   };
 
   const onToggleMicrophone = () => {

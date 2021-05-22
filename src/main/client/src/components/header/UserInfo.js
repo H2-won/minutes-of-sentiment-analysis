@@ -40,6 +40,8 @@ function UserInfo() {
     ? localStorage.getItem('access_token')
     : null;
 
+  console.log(token);
+
   useEffect(() => {
     if (token) {
       Auth.getUserInfo(token, setLogged, setUserInfo);

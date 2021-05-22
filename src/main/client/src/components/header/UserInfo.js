@@ -29,22 +29,21 @@ const LogoutBtn = styled.button`
 `;
 
 function UserInfo() {
+  const [token, setToken] = useState(null);
   const [logged, setLogged] = useState(false);
   const [userInfo, setUserInfo] = useState({
     id: 1,
     name: '방조임남',
     email: '',
   });
-
-  const token = localStorage.getItem('accessToken')
-    ? localStorage.getItem('accessToken')
-    : null;
-
-  console.log(token);
+  const getLocalToken = localStorage.getItem('accessToken');
+  if (getLocalToken) {
+    setToken(getLocalToken);
+  }
 
   useEffect(() => {
     if (token) {
-      console.log(token);
+      console.log('token :', token);
       Auth.getUserInfo(token, setLogged, setUserInfo);
     }
   }, [token]);

@@ -36,19 +36,25 @@ function UserInfo() {
     name: '방조임남',
     email: '',
   });
+
   // const getLocalToken = localStorage.getItem('accessToken');
   // if (getLocalToken) {
   //   setToken(getLocalToken);
   // }
-  const token = localStorage.getItem('accessToken')
-      ? localStorage.getItem('accessToken')
-      : null;
-
-  console.log(token);
+  // const token = localStorage.getItem('accessToken')
+  //     ? localStorage.getItem('accessToken')
+  //     : null;
+  //
+  // console.log(token);
 
   useEffect(() => {
+    console.log('test!');
+    const token = localStorage.getItem('accessToken')
+        ? localStorage.getItem('accessToken')
+        : null;
+    console.log('just token', token);
     if (token) {
-      console.log('token :', token);
+      console.log('if문 token :', token);
       Auth.getUserInfo(token, setLogged, setUserInfo);
     }
   }, [token]);

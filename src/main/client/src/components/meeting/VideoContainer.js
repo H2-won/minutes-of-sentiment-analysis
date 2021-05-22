@@ -297,13 +297,13 @@ const VideoContainer = () => {
 
       var now = new Date();
 
-      // let msg =
-      databaseRef.push({
+      let msg = databaseRef.push({
         sender: userId,
         message: finalTranscript + '.',
         time: now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),
         flag: recordFlag,
       });
+      msg.remove();
     }
   }, [finalTranscript, resetTranscript, userId]);
 
@@ -320,24 +320,26 @@ const VideoContainer = () => {
     // });
     setRecordFlag(1);
     const now = new Date();
-    databaseRef.push({
+    const msg = databaseRef.push({
       sender: userId,
       message: finalTranscript + '.',
       time: now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),
       flag: recordFlag,
     });
+    msg.remove();
   };
 
   const StopSpeechRecognition = () => {
     SpeechRecognition.stopListening();
     setRecordFlag(-1);
     const now = new Date();
-    databaseRef.push({
+    const msg = databaseRef.push({
       sender: userId,
       message: finalTranscript + '.',
       time: now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),
       flag: recordFlag,
     });
+    msg.remove();
   };
 
   const onToggleMicrophone = () => {

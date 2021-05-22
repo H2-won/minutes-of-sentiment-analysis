@@ -4,16 +4,16 @@ import firebase from "firebase/app";
 import "firebase/database";
 import "firebase/storage";
 
-// const firebaseConfig = {
-//   apiKey: "AIzaSyCyNrJ0JYptlpHSm8iiE51t2p-IBXSCmeQ",
-//   authDomain: "emotional-minutes-7445b.firebaseapp.com",
-//   projectId: "emotional-minutes-7445b",
-//   storageBucket: "emotional-minutes-7445b.appspot.com",
-//   messagingSenderId: "188732266944",
-//   appId: "1:188732266944:web:ee9758c2cbba7019519025",
-//   measurementId: "G-4RKWPW0CWK",
-//   databaseURL: "https://emotional-minutes-7445b-default-rtdb.firebaseio.com",
-// };
+const firebaseConfig2 = {
+  apiKey: "AIzaSyCyNrJ0JYptlpHSm8iiE51t2p-IBXSCmeQ",
+  authDomain: "emotional-minutes-7445b.firebaseapp.com",
+  projectId: "emotional-minutes-7445b",
+  storageBucket: "emotional-minutes-7445b.appspot.com",
+  messagingSenderId: "188732266944",
+  appId: "1:188732266944:web:ee9758c2cbba7019519025",
+  measurementId: "G-4RKWPW0CWK",
+  databaseURL: "https://emotional-minutes-7445b-default-rtdb.firebaseio.com",
+};
 
 const firebaseConfig1 = {
   apiKey: "AIzaSyCAPq36ZvGSEcdGX9OXEmrMlh_Fd2h_1CA",
@@ -26,16 +26,16 @@ const firebaseConfig1 = {
   measurementId: "G-H3H5BEWXPY",
 };
 
-const firebaseConfig2 = {
-  apiKey: "AIzaSyAdZrz9Nom8rRwkxgMLx7_DP-huFiI3HPE",
-  authDomain: "rtc-project-82fd0.firebaseapp.com",
-  databaseURL: "https://rtc-project-82fd0-default-rtdb.firebaseio.com",
-  projectId: "rtc-project-82fd0",
-  storageBucket: "rtc-project-82fd0.appspot.com",
-  messagingSenderId: "289053377480",
-  appId: "1:289053377480:web:b7ced6b083581973ecb6fd",
-  measurementId: "G-RJLHKWEVRY"
-}
+// const firebaseConfig2 = {
+//   apiKey: "AIzaSyAdZrz9Nom8rRwkxgMLx7_DP-huFiI3HPE",
+//   authDomain: "rtc-project-82fd0.firebaseapp.com",
+//   databaseURL: "https://rtc-project-82fd0-default-rtdb.firebaseio.com",
+//   projectId: "rtc-project-82fd0",
+//   storageBucket: "rtc-project-82fd0.appspot.com",
+//   messagingSenderId: "289053377480",
+//   appId: "1:289053377480:web:b7ced6b083581973ecb6fd",
+//   measurementId: "G-RJLHKWEVRY"
+// }
 
 // firebaseConfig 정보로 firebase 시작
 const app1 = firebase.initializeApp(firebaseConfig1);

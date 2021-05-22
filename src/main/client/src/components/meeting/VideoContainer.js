@@ -217,8 +217,6 @@ const VideoContainer = () => {
 
   useEffect(() => {
     if (interimTranscript !== '') {
-      console.log('Got interim result:', interimTranscript);
-
       var recorder = connection.recorder;
       if (!recorder) {
         recorder = RecordRTC([connectionInfo], {

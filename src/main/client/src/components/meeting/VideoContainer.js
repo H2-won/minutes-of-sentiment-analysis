@@ -9,6 +9,7 @@ import SpeechRecognition, {
 } from 'react-speech-recognition';
 
 import { firebaseDatabaseRef, firebaseStorage } from '../../firebase';
+import { gyubinFirebaseDatabaseRef} from "../../gyubinFirebase";
 import RecordRTC from 'recordrtc';
 import BottomLayout from './BottomLayout';
 
@@ -37,6 +38,7 @@ const VideoContainer = () => {
   const [connectionInfo, setConnectionInfo] = useState('');
   const [recordFlag, setRecordFlag] = useState(0);
   const databaseRef = firebaseDatabaseRef;
+  const gyubinDatabaseRef = gyubinFirebaseDatabaseRef;
   // const storageRef = firebaseStorage.ref();
   const userId = Math.floor(Math.random() * 1000000000);
 
@@ -89,9 +91,10 @@ const VideoContainer = () => {
     function readMessage(data) {
       console.log(data.val().sender);
       console.log(data.val().message);
+      console.log(data.val().emotion);
     }
 
-    databaseRef.on('child_added', readMessage);
+    gyubinDatabaseRef.on('child_added', readMessage);
   };
 
   connection.onstreamended = (event) => {

@@ -37,6 +37,7 @@ function UserInfo() {
     email: '',
   });
 
+  let token;
   // const getLocalToken = localStorage.getItem('accessToken');
   // if (getLocalToken) {
   //   setToken(getLocalToken);
@@ -49,7 +50,7 @@ function UserInfo() {
 
   useEffect(() => {
     console.log('test!');
-    const token = localStorage.getItem('accessToken')
+    token = localStorage.getItem('accessToken')
         ? localStorage.getItem('accessToken')
         : null;
     console.log('just token', token);

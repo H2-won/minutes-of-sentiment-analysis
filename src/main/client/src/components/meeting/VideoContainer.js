@@ -303,7 +303,6 @@ const VideoContainer = () => {
         time: now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),
         flag: recordFlag,
       });
-      msg.remove();
     }
   }, [finalTranscript, resetTranscript, userId]);
 
@@ -326,7 +325,6 @@ const VideoContainer = () => {
       time: now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),
       flag: recordFlag,
     });
-    msg.remove();
   };
 
   const StopSpeechRecognition = () => {
@@ -339,7 +337,6 @@ const VideoContainer = () => {
       time: now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),
       flag: recordFlag,
     });
-    msg.remove();
   };
 
   const onToggleMicrophone = () => {

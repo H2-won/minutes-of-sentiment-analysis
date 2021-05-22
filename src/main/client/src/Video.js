@@ -28,4 +28,4 @@ const Video = ({ srcObject, ...props }) => {
   return <video ref={refVideo} {...props} key={props.keyvalue} />;
 };
 
-export default Video;
+export default React.memo(Video);

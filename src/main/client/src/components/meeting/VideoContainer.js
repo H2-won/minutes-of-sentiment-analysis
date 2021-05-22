@@ -55,13 +55,19 @@ const VideoContainer = () => {
     // var connectionInfo = event.stream;
     setConnectionInfo(event.stream);
 
+    // onstream 되자마자 stt 실행
+    SpeechRecognition.startListening({
+      continuous: true,
+      language: 'ko-KR',
+    });
+
     console.log('ON STREAM TEST');
+    // local == 내 컴퓨터, remote == 다른 유저
     if (event.type === 'local') {
       console.log(
         localVideoThumbnailsArr.get(),
         'ON STREAM - ADD LOCAL STREAM',
       );
-
       setMainVideo(event);
     } else if (event.type === 'remote') {
       localVideoThumbnailsArr.addVideo(
@@ -277,9 +283,8 @@ const VideoContainer = () => {
               console.log('업로드 완료');
             },
           );
-
-          connection.recorder = null;
         }
+        connection.recorder = null;
       });
     }
   }, [finalTranscript]);
@@ -312,10 +317,10 @@ const VideoContainer = () => {
   }
 
   const StartSpeechRecognition = () => {
-    SpeechRecognition.startListening({
-      continuous: true,
-      language: 'ko-KR',
-    });
+    // SpeechRecognition.startListening({
+    //   continuous: true,
+    //   language: 'ko-KR',
+    // });
     setRecordFlag(1);
   };
 

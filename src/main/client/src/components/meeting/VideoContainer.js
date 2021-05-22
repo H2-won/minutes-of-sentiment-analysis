@@ -77,6 +77,14 @@ const VideoContainer = () => {
         'ON STREAM - ADD LOCAL STREAM',
       );
       setMainVideo(event);
+      function readMessage(data) {
+        console.log(data.val());
+        console.log(data.val().sender);
+        console.log(data.val().text);
+        console.log(data.val().emotion);
+      }
+
+      gyubinDatabaseRef.on('child_added', readMessage);
     } else if (event.type === 'remote') {
       localVideoThumbnailsArr.addVideo(
         <Video
@@ -93,15 +101,6 @@ const VideoContainer = () => {
 
       setVideoThumbnailsArr([...localVideoThumbnailsArr.get()]);
     }
-
-    function readMessage(data) {
-      console.log(data.val());
-      console.log(data.val().sender);
-      console.log(data.val().text);
-      console.log(data.val().emotion);
-    }
-
-    gyubinDatabaseRef.on('child_added', readMessage);
   };
 
   connection.onstreamended = (event) => {
@@ -182,10 +181,6 @@ const VideoContainer = () => {
 
   // room ID.
   const staticId = 'qweasd';
-
-  const openOrJoin = () => {
-    connection.openOrJoin(staticId);
-  };
 
   const justOpen = () => {
     connection.open(staticId, function (isRoomOpened, roomid, error) {
@@ -326,7 +321,7 @@ const VideoContainer = () => {
     // });
     setRecordFlag(1);
     const now = new Date();
-    const msg = databaseRef.push({
+    databaseRef.push({
       sender: userId,
       message: finalTranscript + '.',
       time: now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),
@@ -349,7 +344,7 @@ const VideoContainer = () => {
   const onToggleMicrophone = () => {
     console.log('main getAudioTracks = ', mainVideo.stream.getAudioTracks());
 
-    // 마이크 음소거시 STT 시작, 아니면 종료
+    // 마이크 음소거 해제 -> STT 시작, 아니면 종료
     if (!mainVideo.stream.getAudioTracks()[0].enabled) {
       SpeechRecognition.startListening({
         continuous: true,
@@ -399,11 +394,6 @@ const VideoContainer = () => {
         <VideoThumbnailsList videos={videoThumbnailsArr} />
       </VideoWrapper>
       <div className="action-buttons">
-        {!mainVideo && (
-          <button className="btn" onClick={() => openOrJoin()}>
-            OpenOrJoin
-          </button>
-        )}
         {!mainVideo && (
           <button className="btn" onClick={() => justOpen()}>
             JustOpen

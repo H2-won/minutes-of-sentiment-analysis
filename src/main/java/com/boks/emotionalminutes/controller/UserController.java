@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
 @RequiredArgsConstructor
 public class UserController {
@@ -26,9 +28,9 @@ public class UserController {
     }
 
     @GetMapping("/api/user-info")
-    public UserResponseDto findByToken() {
-        UserPrincipal userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getDetails();
-        Long id = userPrincipal.getId();
+    public UserResponseDto findByToken(HttpServletRequest request) {
+        String jwt = request.getHeader("Authorization").substring(7);
+        Long id = tokenProvider.getUserIdFromToken(jwt);
         return userService.findById(id);
     }
 }

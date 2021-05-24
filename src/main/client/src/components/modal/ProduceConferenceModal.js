@@ -136,14 +136,14 @@ function ProduceConferenceModal({ ModalOff, args }) {
         <input type="password" maxLength="24" onChange={onPwChange} />
       </ContentWrapper>
       <BtnWrapper>
-        <Link to={`/meeting/${args.staticId}`}>
+        {/*<Link to={`/meeting/${args.staticId}`}>*/}
           <OkBtn
             color={args.okBtnBackgroundColor}
             onClick={() => openMeetingRoom()}
           >
             {args.okBtnText}
           </OkBtn>
-        </Link>
+        {/*</Link>*/}
         <CancleBtn onClick={ModalOff}>취소</CancleBtn>
       </BtnWrapper>
     </Container>

@@ -64,17 +64,19 @@ function Record() {
   const readMessage = (data) => {
     const getData = data.val();
     console.log('get data : ', getData);
-    const { getEmotion, getText } = getData;
-    console.log(getEmotion, getText);
+    // const { getEmotion, getText } = getData;
+    // console.log(getEmotion, getText);
     const now = new Date();
-    fetch('http://localhost:8080/api/sentence', {
+    const userId = localStorage.getItem('userId');
+    const userName = localStorage.getItem('userName');
+    fetch('/api/sentence', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        userId: 1,
-        minutesId: 1,
-        content: 'asd',
-        emotion: 'qwe',
+        userId: userId,
+        minutesId: userName,
+        content: getData.content,
+        emotion: getData.emotion,
         createdTime:
           now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),
       }),
@@ -82,7 +84,8 @@ function Record() {
       .then((res) => res.json())
       .then((res) => {
         console.log('response : ', res);
-        setRecordData((recordData) => [...recordData, getData]);
+        // setRecordData((recordData) => [...recordData, getData]);
+        setRecordData((recordData) => [...recordData, res]);
       })
       .catch((err) => console.log(err));
     console.log(recordData);

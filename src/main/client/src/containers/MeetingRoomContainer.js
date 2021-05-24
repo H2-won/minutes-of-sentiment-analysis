@@ -15,10 +15,10 @@ const Container = styled.div`
   overflow: hidden;
 `;
 
-function MeetingRoomContainer() {
+function MeetingRoomContainer({ match }) {
   return (
     <Container>
-      <MeetingLayout />
+      <MeetingLayout match={match} />
       <BottomLayout />
     </Container>
   );

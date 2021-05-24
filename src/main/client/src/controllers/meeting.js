@@ -6,11 +6,13 @@ export const produceConference = (title, pw, setConferenceCode, connection) => {
       userId: localStorage.getItem('userId'),
       code: '',
       name: title,
+      password: pw,
     }),
   })
+    .then((res) => res.json())
     .then((res) => {
-      setConferenceCode(res);
-      connection.open(res, function (isRoomOpened, roomid, error) {
+      setConferenceCode(res.code);
+      connection.open(res.code, function (isRoomOpened, roomid, error) {
         if (isRoomOpened === true) {
         } else {
           if (error === 'Room not available') {

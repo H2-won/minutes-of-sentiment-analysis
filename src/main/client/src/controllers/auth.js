@@ -16,6 +16,9 @@ export const getUserInfo = (token, setLogged, setUserInfo) => {
       console.log(res);
       setLogged(true);
       setUserInfo(res);
+      //  로컬에 로그인 유저 이름, 아이디 저장
+      localStorage.setItem('userId', res.userId);
+      localStorage.setItem('userName', res.name);
     })
     .catch((err) => {
       console.log(err);

@@ -111,18 +111,18 @@ function ProduceConferenceModal({ ModalOff, args }) {
 
   const openMeetingRoom = () => {
     ModalOff();
-    // produceConferenceAPI();
-    connection.open(args.staticId, function (isRoomOpened, roomid, error) {
-      if (isRoomOpened === true) {
-      } else {
-        if (error === 'Room not available') {
-          alert('이미 존재하는 방입니다. 새로운 방을 만들거나 참가하세요!');
-          window.location.href = '/main';
-          return;
-        }
-        alert(error + 'error log');
-      }
-    });
+    produceConferenceAPI();
+    // connection.open(args.staticId, function (isRoomOpened, roomid, error) {
+    //   if (isRoomOpened === true) {
+    //   } else {
+    //     if (error === 'Room not available') {
+    //       alert('이미 존재하는 방입니다. 새로운 방을 만들거나 참가하세요!');
+    //       window.location.href = '/main';
+    //       return;
+    //     }
+    //     alert(error + 'error log');
+    //   }
+    // });
   };
 
   return (

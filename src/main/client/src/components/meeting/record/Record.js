@@ -67,28 +67,32 @@ function Record() {
     // const { getEmotion, getText } = getData;
     // console.log(getEmotion, getText);
     const now = new Date();
-    const userId = localStorage.getItem('userId');
-    const userName = localStorage.getItem('userName');
-    fetch('/api/sentence', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + localStorage.getItem('accessToken') },
-      body: JSON.stringify({
-        userId: userId,
-        minutesId: userName,
-        content: getData.content,
-        emotion: getData.emotion,
-        createdTime:
-          now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),
-      }),
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log('response : ', res);
-        // setRecordData((recordData) => [...recordData, getData]);
-        setRecordData((recordData) => [...recordData, res]);
+    const localMinutesId = localStorage.getItem('minutesId');
+    if (localStorage.getItem('hostId') === localStorage.getItem('userId')) {
+      fetch('/api/sentence', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
+        },
+        body: JSON.stringify({
+          userId: getData.sender_id,
+          minutesId: localMinutesId,
+          content: getData.text,
+          emotion: getData.emotion,
+          createdTime:
+            now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),
+        }),
       })
-      .catch((err) => console.log(err));
-    console.log(recordData);
+        .then((res) => res.json())
+        .then((res) => {
+          console.log('response : ', res);
+          // setRecordData((recordData) => [...recordData, getData]);
+          setRecordData((recordData) => [...recordData, res]);
+        })
+        .catch((err) => console.log(err));
+      console.log(recordData);
+    }
   };
   useEffect(() => {
     gyubin.on('child_added', readMessage);

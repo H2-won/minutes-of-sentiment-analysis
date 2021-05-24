@@ -49,6 +49,23 @@ public class MeetingService {
         return new MeetingResponseDto(entity);
     }
 
+    @Transactional
+    public MeetingCodeAndHostIDResponseDto join(MeetingRequestDto requestDto) {
+        User user = userRepository.findById(requestDto.getUserId())
+                .orElseThrow(() -> new IllegalArgumentException("해당 개최자가 없습니다. id=" + requestDto.getUserId()));
+
+        Meeting meeting = meetingRepository.findById(requestDto.getCode())
+                .orElseThrow(() -> new IllegalArgumentException("해당 회의가 없습니다. id=" + requestDto.getUserId()));
+
+        Participation participation = Participation.builder()
+                .user(user)
+                .meeting(meeting)
+                .build();
+        participationRepository.save(participation);
+
+        return new MeetingCodeAndHostIDResponseDto(meeting);
+    }
+
     // 회의 랜덤 코드 발급 함수
     private String setRandomCode(int size) {
         char[] tmp = new char[size];

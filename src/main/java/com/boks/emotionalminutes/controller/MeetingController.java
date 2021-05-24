@@ -17,6 +17,11 @@ public class MeetingController {
         return meetingService.save(requestDto);
     }
 
+    @PostMapping("/api/meeting/join")
+    public MeetingCodeAndHostIDResponseDto join(@RequestBody MeetingRequestDto requestDto) {
+        return meetingService.join(requestDto);
+    }
+
     @GetMapping("/api/meeting/{code}")
     public MeetingResponseDto findByCode(@PathVariable String code) {
         return meetingService.findByCode(code);

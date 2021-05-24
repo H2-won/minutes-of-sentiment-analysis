@@ -14,7 +14,7 @@ export const produceConference = (title, pw, setConferenceCode, connection) => {
       password: pw,
     }),
   })
-    .then((res) => res.json())
+    // .then((res) => res.json())
     .then((res) => {
       console.log(res.code);
       window.location.href=`/meeting/${res.code}`;

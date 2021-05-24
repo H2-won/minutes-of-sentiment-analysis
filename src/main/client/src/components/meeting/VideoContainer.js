@@ -31,7 +31,7 @@ const MainUserId = styled.span`
   left: 10px;
 `;
 
-const VideoContainer = () => {
+const VideoContainer = ({ match }) => {
   const [mainVideo, setMainVideo] = useState(null);
   const [videoThumbnailsArr, setVideoThumbnailsArr] = useState([]);
   const [connectionInfo, setConnectionInfo] = useState('');
@@ -219,6 +219,21 @@ const VideoContainer = () => {
     resetTranscript,
     listening,
   } = useSpeechRecognition();
+
+  useEffect(() => {
+    const code = match.params.roomId;
+    connection.open(code, function (isRoomOpened, roomid, error) {
+      if (isRoomOpened === true) {
+      } else {
+        if (error === 'Room not available') {
+          alert('이미 존재하는 방입니다. 새로운 방을 만들거나 참가하세요!');
+          window.location.href = '/main';
+          return;
+        }
+        alert(error + 'error log');
+      }
+    });
+  }, []);
 
   useEffect(() => {
     if (interimTranscript !== '') {

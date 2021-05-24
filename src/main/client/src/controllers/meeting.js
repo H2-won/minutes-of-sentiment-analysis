@@ -3,8 +3,10 @@ export const produceConference = (title, pw, setConferenceCode, connection) => {
 
   fetch('/api/meeting', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json',
-    Authorization: 'Bearer ' + localStorage.getItem('accessToken')},
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
+    },
     body: JSON.stringify({
       userId: localStorage.getItem('userId'),
       code: '123',

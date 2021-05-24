@@ -4,7 +4,7 @@ export const produceConference = (title, pw, setConferenceCode, connection) => {
   fetch('/api/meeting', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      // 'Content-Type': 'application/json',
       Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
     },
     body: JSON.stringify({
@@ -14,13 +14,13 @@ export const produceConference = (title, pw, setConferenceCode, connection) => {
       password: pw,
     }),
   })
-    .then((res) => res.json())
+    // .then((res) => res.json())
     .then((res) => {
       console.log('res is :', res);
-      console.log(res.code);
+      // console.log(res.code);
       // window.location.href=`/meeting/${res.code}`;
-      setConferenceCode(res.code);
-      connection.open(res.code, function (isRoomOpened, roomid, error) {
+      setConferenceCode(res);
+      connection.open(res, function (isRoomOpened, roomid, error) {
         if (isRoomOpened === true) {
         } else {
           if (error === 'Room not available') {

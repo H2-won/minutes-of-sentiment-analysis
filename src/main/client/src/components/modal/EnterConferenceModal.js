@@ -103,14 +103,14 @@ function EnterConferenceModal({ ModalOff, args }) {
         <input type="text" onChange={onChange} />
       </ContentWrapper>
       <BtnWrapper>
-        <Link to={`/meeting/${inputValue}`}>
+        {/*<Link to={`/meeting/${inputValue}`}>*/}
           <OkBtn
             color={args.okBtnBackgroundColor}
             onClick={() => joinMeetingRoom()}
           >
             {args.okBtnText}
           </OkBtn>
-        </Link>
+        {/*</Link>*/}
         <CancleBtn onClick={ModalOff}>취소</CancleBtn>
       </BtnWrapper>
     </Container>

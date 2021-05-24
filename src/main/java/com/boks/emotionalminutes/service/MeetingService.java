@@ -14,6 +14,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -57,6 +59,10 @@ public class MeetingService {
 
         Meeting meeting = meetingRepository.findById(requestDto.getCode())
                 .orElseThrow(() -> new IllegalArgumentException("해당 회의가 없습니다. id=" + requestDto.getUserId()));
+
+        Optional<Participation> participationInfo = participationRepository.findByUserIdAndMeetingCode(user.getId(), meeting.getCode());
+        if (participationInfo.isPresent())
+            return meeting.getCode();
 
         Participation participation = Participation.builder()
                 .user(user)

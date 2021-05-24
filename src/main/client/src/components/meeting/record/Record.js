@@ -53,13 +53,7 @@ const Text = styled.div`
 `;
 
 function Record() {
-  const [recordData, setRecordData] = useState([
-    {
-      emotion: '감정 - 되라',
-      sender: '센더',
-      text: '되라',
-    },
-  ]);
+  const [recordData, setRecordData] = useState([]);
 
   const readMessage = (data) => {
     const getData = data.val();
@@ -86,12 +80,14 @@ function Record() {
       })
         .then((res) => res.json())
         .then((res) => {
-          console.log('response : ', res);
-          // setRecordData((recordData) => [...recordData, getData]);
-          setRecordData((recordData) => [...recordData, res]);
+          console.log('response sentence id : ', res);
+          getData.id = res;
+          setRecordData((recordData) => [...recordData, getData]);
+          // setRecordData([...recordData, getData]);
+          // setRecordData((recordData) => [...recordData, res]);
         })
         .catch((err) => console.log(err));
-      console.log(recordData);
+      console.log('change recordData : ', recordData);
     }
   };
   useEffect(() => {
@@ -101,9 +97,9 @@ function Record() {
   return (
     <Layout>
       {recordData.map((record, index) => (
-        <Wrapper key={index}>
-          <Name>{record.sender}</Name>
-          {/* <Time>{record.time}</Time> */}
+        <Wrapper id={record.id} key={index}>
+          <Name>{record.sender_name}</Name>
+          <Time>{record.time}</Time>
           <Text emotion={record.emotion}>{record.text}</Text>
         </Wrapper>
       ))}

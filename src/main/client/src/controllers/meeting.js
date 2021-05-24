@@ -18,9 +18,9 @@ export const produceConference = (title, pw, setConferenceCode, connection) => {
     .then((res) => {
       console.log('res is :', res);
       // console.log(res.code);
-      // window.location.href=`/meeting/${res.code}`;
-      setConferenceCode(res);
-      connection.open(res, function (isRoomOpened, roomid, error) {
+      window.location.href=`/meeting/${res.code}`;
+      setConferenceCode(res.code);
+      connection.open(res.code, function (isRoomOpened, roomid, error) {
         if (isRoomOpened === true) {
         } else {
           if (error === 'Room not available') {

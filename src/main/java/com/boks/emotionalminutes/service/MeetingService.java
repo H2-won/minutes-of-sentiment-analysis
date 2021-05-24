@@ -6,6 +6,7 @@ import com.boks.emotionalminutes.domain.participation.Participation;
 import com.boks.emotionalminutes.domain.participation.ParticipationRepository;
 import com.boks.emotionalminutes.domain.user.User;
 import com.boks.emotionalminutes.domain.user.UserRepository;
+import com.boks.emotionalminutes.web.dto.meeting.MeetingCodeAndHostIDResponseDto;
 import com.boks.emotionalminutes.web.dto.meeting.MeetingRequestDto;
 import com.boks.emotionalminutes.web.dto.meeting.MeetingResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +22,7 @@ public class MeetingService {
     private final ParticipationRepository participationRepository;
 
     @Transactional
-    public String save(MeetingRequestDto requestDto) {
+    public MeetingCodeAndHostIDResponseDto save(MeetingRequestDto requestDto) {
         do {
             requestDto.setCode(setRandomCode(10));
 
@@ -39,7 +40,7 @@ public class MeetingService {
                 .build();
         participationRepository.save(participation);
 
-        return meeting.getCode();
+        return new MeetingCodeAndHostIDResponseDto(meeting);
     }
 
     public MeetingResponseDto findByCode(String code) {

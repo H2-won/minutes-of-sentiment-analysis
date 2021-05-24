@@ -60,3 +60,44 @@ export const enterConference = (conferenceCode) => {
       console.log(err);
     });
 };
+
+export const startRecording = (conferenceCode) => {
+  fetch('/api/minutes', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
+    },
+    body: JSON.stringify({
+      meetingCode: conferenceCode,
+      voiceFileLink: '',
+    }),
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      console.log('res is :', res);
+      localStorage.setItem('minutesId', res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+export const stopRecording = (minutesId) => {
+  fetch(`/api/minutes/${minutesId}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
+    },
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      console.log('res is :', res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};

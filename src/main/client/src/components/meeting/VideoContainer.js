@@ -11,6 +11,7 @@ import SpeechRecognition, {
 import { firebaseDatabaseRef, firebaseStorage, gyubin } from '../../firebase';
 import RecordRTC from 'recordrtc';
 import BottomLayout from './BottomLayout';
+import { startRecording, stopRecording } from '../../controllers/meeting';
 
 const VideoWrapper = styled.div`
   display: flex;
@@ -361,6 +362,8 @@ const VideoContainer = ({ match }) => {
     const now = new Date();
     const userId = localStorage.getItem('userId');
     const userName = localStorage.getItem('userName');
+    const code = match.params.roomId;
+    startRecording(code);
     databaseRef.push({
       flag: recordFlag,
       senderId: userId,
@@ -376,6 +379,8 @@ const VideoContainer = ({ match }) => {
     const now = new Date();
     const userId = localStorage.getItem('userId');
     const userName = localStorage.getItem('userName');
+    const minutesId = localStorage.getItem('minutesId');
+    stopRecording(minutesId);
     databaseRef.push({
       flag: recordFlag,
       senderId: userId,

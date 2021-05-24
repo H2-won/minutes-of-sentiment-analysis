@@ -2,6 +2,7 @@ package com.boks.emotionalminutes.controller;
 
 import com.boks.emotionalminutes.service.MeetingService;
 import com.boks.emotionalminutes.web.dto.meeting.MeetingCodeAndHostIDResponseDto;
+import com.boks.emotionalminutes.web.dto.meeting.MeetingJoinRequestDto;
 import com.boks.emotionalminutes.web.dto.meeting.MeetingRequestDto;
 import com.boks.emotionalminutes.web.dto.meeting.MeetingResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,7 @@ public class MeetingController {
     }
 
     @PostMapping("/api/meeting/join")
-    public MeetingCodeAndHostIDResponseDto join(@RequestBody MeetingRequestDto requestDto) {
+    public String join(@RequestBody MeetingJoinRequestDto requestDto) {
         return meetingService.join(requestDto);
     }
 

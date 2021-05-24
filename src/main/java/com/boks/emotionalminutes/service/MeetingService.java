@@ -7,6 +7,7 @@ import com.boks.emotionalminutes.domain.participation.ParticipationRepository;
 import com.boks.emotionalminutes.domain.user.User;
 import com.boks.emotionalminutes.domain.user.UserRepository;
 import com.boks.emotionalminutes.web.dto.meeting.MeetingCodeAndHostIDResponseDto;
+import com.boks.emotionalminutes.web.dto.meeting.MeetingJoinRequestDto;
 import com.boks.emotionalminutes.web.dto.meeting.MeetingRequestDto;
 import com.boks.emotionalminutes.web.dto.meeting.MeetingResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -50,7 +51,7 @@ public class MeetingService {
     }
 
     @Transactional
-    public MeetingCodeAndHostIDResponseDto join(MeetingRequestDto requestDto) {
+    public String join(MeetingJoinRequestDto requestDto) {
         User user = userRepository.findById(requestDto.getUserId())
                 .orElseThrow(() -> new IllegalArgumentException("해당 개최자가 없습니다. id=" + requestDto.getUserId()));
 
@@ -63,7 +64,7 @@ public class MeetingService {
                 .build();
         participationRepository.save(participation);
 
-        return new MeetingCodeAndHostIDResponseDto(meeting);
+        return meeting.getCode();
     }
 
     // 회의 랜덤 코드 발급 함수

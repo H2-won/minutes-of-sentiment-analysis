@@ -176,7 +176,10 @@ const VideoContainer = ({ match }) => {
     });
 
     // last user will have to close the socket
-    if (hostState) connection.closeSocket();
+    if (hostState) {
+      console.log('host close!!!');
+      connection.closeSocket();
+    }
 
     SpeechRecognition.stopListening();
     window.location.href = '/main';
@@ -225,6 +228,7 @@ const VideoContainer = ({ match }) => {
     const open = window.location.search.split('=')[1];
     const code = match.params.roomId;
     if (open === 'true') {
+      console.log('meeting Open!!!');
       connection.open(code, function (isRoomOpened, roomid, error) {
         if (isRoomOpened === true) {
         } else {
@@ -239,6 +243,7 @@ const VideoContainer = ({ match }) => {
       if (localStorage.getItem('userId') === localStorage.getItem('hostId'))
         setHostState(true);
     } else {
+      console.log('meeting Join!!!');
       connection.join(code, function (isJoinedRoom, roomid, error) {
         if (error) {
           if (error === 'Room not available') {

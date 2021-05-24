@@ -13,12 +13,14 @@ public class MeetingRequestDto {
     private String code;
     private Long userId;
     private String name;
+    private String password;
 
     public Meeting toEntity(User user) {
         return Meeting.builder()
                 .code(code)
                 .user(user)
                 .name(name)
+                .password(password)
                 .build();
     }
 }

@@ -15,9 +15,11 @@ import java.util.List;
 public class MeetingResponseDto {
     private final String code;
     private final String name;
+    private final String password;
 
     public MeetingResponseDto (Meeting entity) {
         this.code = entity.getCode();
         this.name = entity.getName();
+        this.password = entity.getPassword();
     }
 }

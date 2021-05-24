@@ -29,14 +29,18 @@ public class Meeting {
     @Column
     private String name;
 
+    @Column
+    private String password;
+
     @OneToMany(mappedBy = "meeting")
     private List<Participation> participation = new ArrayList<>();
 
     @Builder
-    public Meeting(String code, User user, String name) {
+    public Meeting(String code, User user, String name, String password) {
         this.code = code;
         this.user = user;
         this.name = name;
+        this.password = password;
     }
 
     public void setMinutes(Minutes minutes) {

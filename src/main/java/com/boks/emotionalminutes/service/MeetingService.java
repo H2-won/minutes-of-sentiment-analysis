@@ -26,7 +26,7 @@ public class MeetingService {
             requestDto.setCode(setRandomCode(10));
 
             // 테스트 위한 고정 코드 발급
-            requestDto.setCode("AAAAA");
+//            requestDto.setCode("AAAAA");
         } while (meetingRepository.findById(requestDto.getCode()).isPresent());
         User user = userRepository.findById(requestDto.getUserId())
                 .orElseThrow(() -> new IllegalArgumentException("해당 개최자가 없습니다. id=" + requestDto.getUserId()));

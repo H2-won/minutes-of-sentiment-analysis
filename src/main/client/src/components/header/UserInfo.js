@@ -51,8 +51,8 @@ function UserInfo() {
   useEffect(() => {
     console.log('test!');
     token = localStorage.getItem('accessToken')
-        ? localStorage.getItem('accessToken')
-        : null;
+      ? localStorage.getItem('accessToken')
+      : null;
     console.log('just token', token);
     if (token) {
       console.log('if문 token :', token);

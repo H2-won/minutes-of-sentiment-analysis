@@ -77,14 +77,14 @@ const VideoContainer = () => {
         'ON STREAM - ADD LOCAL STREAM',
       );
       setMainVideo(event);
-      function readMessage(data) {
-        console.log(data.val());
-        console.log(data.val().sender);
-        console.log(data.val().text);
-        console.log(data.val().emotion);
-      }
+      // function readMessage(data) {
+      //   console.log(data.val());
+      //   console.log(data.val().sender);
+      //   console.log(data.val().text);
+      //   console.log(data.val().emotion);
+      // }
 
-      gyubinDatabaseRef.on('child_added', readMessage);
+      // gyubinDatabaseRef.on('child_added', readMessage);
     } else if (event.type === 'remote') {
       localVideoThumbnailsArr.addVideo(
         <Video

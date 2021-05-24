@@ -36,6 +36,7 @@ const VideoContainer = ({ match }) => {
   const [videoThumbnailsArr, setVideoThumbnailsArr] = useState([]);
   const [connectionInfo, setConnectionInfo] = useState('');
   const [recordFlag, setRecordFlag] = useState(0);
+  const [hostState, setHostState] = useState(false);
   const databaseRef = firebaseDatabaseRef;
   const gyubinDatabaseRef = gyubin;
   // const storageRef = firebaseStorage.ref();
@@ -160,7 +161,7 @@ const VideoContainer = ({ match }) => {
     alert(name + ' left.');
   };
 
-  const closeSocket = function () {
+  const closeSocket = () => {
     console.log('START CLOSE SOCKET TEST');
 
     connection.getAllParticipants().forEach(function (pid) {
@@ -175,7 +176,10 @@ const VideoContainer = ({ match }) => {
     });
 
     // last user will have to close the socket
-    // connection.closeSocket();
+    if (hostState) {
+      console.log('host close!!!');
+      connection.closeSocket();
+    }
 
     SpeechRecognition.stopListening();
     window.location.href = '/main';
@@ -221,18 +225,36 @@ const VideoContainer = ({ match }) => {
   } = useSpeechRecognition();
 
   useEffect(() => {
+    const open = window.location.search.split('=')[1];
     const code = match.params.roomId;
-    connection.open(code, function (isRoomOpened, roomid, error) {
-      if (isRoomOpened === true) {
-      } else {
-        if (error === 'Room not available') {
-          alert('이미 존재하는 방입니다. 새로운 방을 만들거나 참가하세요!');
-          window.location.href = '/main';
-          return;
+    if (open === 'true') {
+      console.log('meeting Open!!!');
+      connection.open(code, function (isRoomOpened, roomid, error) {
+        if (isRoomOpened === true) {
+        } else {
+          if (error === 'Room not available') {
+            alert('이미 존재하는 방입니다. 새로운 방을 만들거나 참가하세요!');
+            window.location.href = '/main';
+            return;
+          }
+          alert(error + 'error log');
         }
-        alert(error + 'error log');
-      }
-    });
+      });
+      if (localStorage.getItem('userId') === localStorage.getItem('hostId'))
+        setHostState(true);
+    } else {
+      console.log('meeting Join!!!');
+      connection.join(code, function (isJoinedRoom, roomid, error) {
+        if (error) {
+          if (error === 'Room not available') {
+            alert('존재하지 않는 방입니다. 새로운 방을 만들거나 참가하세요!');
+            window.location.href = '/main';
+            return;
+          }
+          alert(error + ' error log');
+        }
+      });
+    }
   }, []);
 
   useEffect(() => {
@@ -431,12 +453,12 @@ const VideoContainer = ({ match }) => {
             Close
           </button>
         )}
-        {mainVideo && (
+        {hostState && (
           <button className="btn" onClick={StartSpeechRecognition}>
             기록 시작
           </button>
         )}
-        {mainVideo && (
+        {hostState && (
           <button className="btn" onClick={StopSpeechRecognition}>
             기록 종료
           </button>

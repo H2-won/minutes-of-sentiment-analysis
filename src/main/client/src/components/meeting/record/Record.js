@@ -65,18 +65,19 @@ function Record() {
     const getData = data.val();
     console.log('get data : ', getData);
     const { getEmotion, getText } = getData;
+    console.log(getEmotion, getText);
     const now = new Date();
-    fetch('/api/sentence', {
+    fetch('http://localhost:8080/api/sentence', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: {
+      body: JSON.stringify({
         userId: 1,
         minutesId: 1,
-        content: getText,
-        emotion: getEmotion,
+        content: 'asd',
+        emotion: 'qwe',
         createdTime:
           now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),
-      },
+      }),
     })
       .then((res) => res.json())
       .then((res) => {

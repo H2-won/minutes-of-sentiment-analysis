@@ -54,11 +54,13 @@ const VideoContainer = () => {
 
   connection.onstream = function (event) {
     // 여기에 더미값 넣기
+    const now = new Date();
     databaseRef.push({
-      sender: 181818,
-      message: 'NULL',
-      time: '18:18:18',
       flag: 2,
+      senderId: 'testId',
+      senderName: '테스트',
+      message: 'NULL',
+      time: now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),
     });
     // var connectionInfo = event.stream;
     setConnectionInfo(event.stream);
@@ -298,12 +300,15 @@ const VideoContainer = () => {
       resetTranscript();
 
       var now = new Date();
+      const userId = localStorage.getItem('userId');
+      const userName = localStorage.getItem('userName');
 
       databaseRef.push({
-        sender: userId,
+        flag: recordFlag,
+        senderId: userId,
+        senderName: userName,
         message: finalTranscript + '.',
         time: now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),
-        flag: recordFlag,
       });
     }
   }, [finalTranscript, resetTranscript, userId]);
@@ -315,17 +320,16 @@ const VideoContainer = () => {
   }
 
   const StartSpeechRecognition = () => {
-    // SpeechRecognition.startListening({
-    //   continuous: true,
-    //   language: 'ko-KR',
-    // });
     setRecordFlag(1);
     const now = new Date();
+    const userId = localStorage.getItem('userId');
+    const userName = localStorage.getItem('userName');
     databaseRef.push({
-      sender: userId,
+      flag: recordFlag,
+      senderId: userId,
+      senderName: userName,
       message: finalTranscript + '.',
       time: now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),
-      flag: recordFlag,
     });
   };
 
@@ -333,11 +337,14 @@ const VideoContainer = () => {
     SpeechRecognition.stopListening();
     setRecordFlag(-1);
     const now = new Date();
+    const userId = localStorage.getItem('userId');
+    const userName = localStorage.getItem('userName');
     databaseRef.push({
-      sender: userId,
+      flag: recordFlag,
+      senderId: userId,
+      senderName: userName,
       message: finalTranscript + '.',
       time: now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),
-      flag: recordFlag,
     });
   };
 

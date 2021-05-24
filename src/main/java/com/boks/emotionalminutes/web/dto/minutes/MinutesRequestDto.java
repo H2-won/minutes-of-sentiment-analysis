@@ -14,14 +14,13 @@ import java.util.Date;
 @NoArgsConstructor
 public class MinutesRequestDto {
     private String meetingCode;
-    private String password;
     private String voiceFileLink;
 
     public Minutes toEntity(Meeting meeting) {
         Date now = new Date();
         return Minutes.builder()
                 .meeting(meeting)
-                .password(password)
+                .password(meeting.getPassword())
                 .voiceFileLink(voiceFileLink)
                 .createdDate(now)
                 .build();

@@ -16,6 +16,7 @@ export const produceConference = (title, pw, setConferenceCode, connection) => {
   })
     .then((res) => res.json())
     .then((res) => {
+      console.log(res.code);
       window.location.href=`/meeting/${res.code}`;
       setConferenceCode(res.code);
       connection.open(res.code, function (isRoomOpened, roomid, error) {

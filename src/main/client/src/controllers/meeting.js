@@ -18,7 +18,8 @@ export const produceConference = (title, pw, setConferenceCode, connection) => {
     .then((res) => {
       console.log('res is :', res);
       // console.log(res.code);
-      window.location.href=`/meeting/${res.code}`;
+      window.location.href = `/meeting/${res.code}?open=true`;
+      localStorage.setItem('hostId', res.hostId);
       setConferenceCode(res.code);
       connection.open(res.code, function (isRoomOpened, roomid, error) {
         if (isRoomOpened === true) {
@@ -31,6 +32,29 @@ export const produceConference = (title, pw, setConferenceCode, connection) => {
           alert(error + 'error log');
         }
       });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+export const enterConference = (conferenceCode) => {
+  fetch('/api/meeting/join', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
+    },
+    body: JSON.stringify({
+      userId: localStorage.getItem('userId'),
+      code: conferenceCode,
+    }),
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      console.log('res is :', res);
+      window.location.href = `/meeting/${res.code}?open=false`;
     })
     .catch((err) => {
       console.log(err);

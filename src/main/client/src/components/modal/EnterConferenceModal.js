@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 import palette from '../../lib/styles/palette';
 import { Link } from 'react-router-dom';
 import connection from '../meeting/RtcConnection';
+import { enterConference } from '../../controllers/meeting';
 
 const Container = styled.div`
   position: relative;
@@ -82,16 +83,17 @@ function EnterConferenceModal({ ModalOff, args }) {
 
   const joinMeetingRoom = () => {
     ModalOff();
-    connection.join(inputValue, function (isJoinedRoom, roomid, error) {
-      if (error) {
-        if (error === 'Room not available') {
-          alert('존재하지 않는 방입니다. 새로운 방을 만들거나 참가하세요!');
-          window.location.href = '/main';
-          return;
-        }
-        alert(error + ' error log');
-      }
-    });
+    enterConference(inputValue);
+    // connection.join(inputValue, function (isJoinedRoom, roomid, error) {
+    //   if (error) {
+    //     if (error === 'Room not available') {
+    //       alert('존재하지 않는 방입니다. 새로운 방을 만들거나 참가하세요!');
+    //       window.location.href = '/main';
+    //       return;
+    //     }
+    //     alert(error + ' error log');
+    //   }
+    // });
   };
 
   return (

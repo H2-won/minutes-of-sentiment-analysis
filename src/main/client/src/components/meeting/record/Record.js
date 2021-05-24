@@ -71,7 +71,7 @@ function Record() {
     const userName = localStorage.getItem('userName');
     fetch('/api/sentence', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'Authorization': localStorage.getItem('accessToken') },
       body: JSON.stringify({
         userId: userId,
         minutesId: userName,

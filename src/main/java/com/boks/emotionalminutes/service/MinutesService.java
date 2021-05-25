@@ -140,10 +140,11 @@ public class MinutesService {
         System.out.println("슬픔" + (sad / total));
 
         TotalEmotions entity = TotalEmotions.builder()
-                .happy(happy / total * 100)
-                .emotionless(emotionless / total * 100)
-                .angry(angry / total * 100)
-                .sad(sad / total * 100)
+                .happy((happy / total) * 100)
+                .emotionless((emotionless / total) * 100)
+                .angry((angry / total) * 100)
+                .sad((sad / total) * 100)
+                .minutes(minutes2)
                 .build();
         totalEmotionsRepository.save(entity);
 

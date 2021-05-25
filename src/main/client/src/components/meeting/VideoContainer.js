@@ -57,8 +57,10 @@ const VideoContainer = ({ match }) => {
   connection.onstream = function (event) {
     // 여기에 더미값 넣기
     const now = new Date();
+    const minutesId = localStorage.getItem('minutesId');
     databaseRef.push({
       flag: 2,
+      minutesId: minutesId,
       senderId: 'testId',
       senderName: '테스트',
       message: 'NULL',
@@ -340,9 +342,11 @@ const VideoContainer = ({ match }) => {
       var now = new Date();
       const userId = localStorage.getItem('userId');
       const userName = localStorage.getItem('userName');
+      const minutesId = localStorage.getItem('minutesId');
 
       databaseRef.push({
         flag: recordFlag,
+        minutesId: minutesId,
         senderId: userId,
         senderName: userName,
         message: finalTranscript + '.',
@@ -362,10 +366,12 @@ const VideoContainer = ({ match }) => {
     const now = new Date();
     const userId = localStorage.getItem('userId');
     const userName = localStorage.getItem('userName');
+    const minutesId = localStorage.getItem('minutesId');
     const code = match.params.roomId;
     startRecording(code);
     databaseRef.push({
       flag: recordFlag,
+      minutesId: minutesId,
       senderId: userId,
       senderName: userName,
       message: finalTranscript + '.',
@@ -383,6 +389,7 @@ const VideoContainer = ({ match }) => {
     stopRecording(minutesId);
     databaseRef.push({
       flag: recordFlag,
+      minutesId: minutesId,
       senderId: userId,
       senderName: userName,
       message: minutesId,

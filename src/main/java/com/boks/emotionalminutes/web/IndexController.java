@@ -20,14 +20,14 @@ public class IndexController {
 
      @GetMapping("/")
      public String index() {
-         if (!flag) {
-             User user = User.builder()
-                     .name("남기복")
-                     .email("nkb7714@naver.com")
-                     .build();
-             userRepository.save(user);
-             flag = true;
-         }
+//         if (!flag) {
+//             User user = User.builder()
+//                     .name("남기복")
+//                     .email("nkb7714@naver.com")
+//                     .build();
+//             userRepository.save(user);
+//             flag = true;
+//         }
      return "index2";
      }
 

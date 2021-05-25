@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import styled, { css } from "styled-components";
-import palette from "../../../lib/styles/palette";
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import styled, { css } from 'styled-components';
+import palette from '../../../lib/styles/palette';
 
 const Container = styled.div`
   height: 100%;
@@ -66,40 +66,38 @@ const Content = styled.div`
   }
 `;
 
-function Navigation() {
+function Navigation({ activeMenuState, setActiveMenuState }) {
   const topMenus = [
     {
       id: 0,
-      description: "한 눈에 보기",
+      description: '한 눈에 보기',
       icon: <i className="fas fa-eye"></i>,
     },
     {
       id: 1,
-      description: "북마크",
+      description: '북마크',
       icon: <i className="far fa-bookmark"></i>,
     },
     {
       id: 2,
-      description: "총 정리",
+      description: '총 정리',
       icon: <i className="fas fa-chart-pie"></i>,
     },
   ];
   const bottomMenus = [
     {
       id: 3,
-      description: "회의록 리스트",
+      description: '회의록 리스트',
       icon: <i className="fas fa-reply"></i>,
-      url: "/minuteslist",
+      url: '/minuteslist',
     },
     {
       id: 4,
-      description: "메인으로 가기",
+      description: '메인으로 가기',
       icon: <i className="fas fa-home"></i>,
-      url: "/main",
+      url: '/main',
     },
   ];
-
-  const [activeMenuState, setActiveMenuState] = useState(0);
 
   const onClickMenu = (e) => {
     const id = e.target.id;

@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import ConferenceCode from '../components/meeting/record/ConferenceCode';
 import Record from '../components/meeting/record/Record';
 import RecordWrapper from '../components/meeting/record/RecordWrapper';
 import Title from '../components/meeting/record/Title';
 import Bookmark from '../components/meetingLog/content/Bookmark';
+import GraphAndKeyword from '../components/meetingLog/content/GraphAndKeyword';
 import MeetingInfo from '../components/meetingLog/MeetingInfo';
 import Navigation from '../components/meetingLog/navigation/Navigation';
 import Audio from '../components/meetingLog/record/Audio';
@@ -28,12 +29,19 @@ const ContentWrapper = styled.div`
 `;
 
 function MeetingLogContainer() {
+  const [activeMenuState, setActiveMenuState] = useState(0);
+
   return (
     <Container>
-      <Navigation></Navigation>
+      <Navigation
+        activeMenuState={activeMenuState}
+        setActiveMenuState={setActiveMenuState}
+      ></Navigation>
       <ContentWrapper>
         <MeetingInfo />
-        <Bookmark />
+        {activeMenuState === 0 && <GraphAndKeyword />}
+        {activeMenuState === 1 && <Bookmark />}
+        {activeMenuState === 2 && <Bookmark />}
       </ContentWrapper>
       <RecordWrapper>
         <Audio />

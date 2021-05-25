@@ -100,28 +100,27 @@ public class MinutesService {
         Minutes minutes = minutesRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 회의록이 없습니다. id=" + id));
         Date now = new Date();
-        int totalSec = (int) ((now.getTime() - minutes.getCreatedDate().getTime())/(1000));
-        int hour = totalSec/(60*60);
-        int min = totalSec%(60*60)/60;
-        int sec = totalSec%60;
+        int totalSec = (int) ((now.getTime() - minutes.getCreatedDate().getTime()) / (1000));
+        int hour = totalSec / (60 * 60);
+        int min = totalSec % (60 * 60) / 60;
+        int sec = totalSec % 60;
         LocalTime progressTime = LocalTime.of(hour, min, sec);
         minutes.update(progressTime);
 
-        Minutes minutes2 = minutesRepository.findById(1L)
-                .orElseThrow(() -> new IllegalArgumentException("해당 회의록이 없습니다. id=" + id));
-        List<Sentence> sentences = minutes2.getSentences();
-        System.out.println("회의록(id = 1L) 의 문장 리스트를 가져왔습니다.");
+        List<Sentence> sentences = minutes.getSentences();
+        System.out.println("회의록(id = " + id + ") 의 문장 리스트를 가져왔습니다.");
         System.out.println("발화를 담은 리스트의 길이는 " + sentences.size() + " 입니다.");
         for (Sentence value : sentences) {
             System.out.println(value.getContent() + value.getEmotion());
         }
+
         float total = sentences.size();
         float happy = 0;
         float emotionless = 0;
         float angry = 0;
         float sad = 0;
 
-        for(Sentence value : sentences) {
+        for (Sentence value : sentences) {
             String emotion = value.getEmotion();
             if ("행복".equals(emotion)) {
                 happy += 1;
@@ -144,7 +143,7 @@ public class MinutesService {
                 .emotionless((emotionless / total) * 100)
                 .angry((angry / total) * 100)
                 .sad((sad / total) * 100)
-                .minutes(minutes2)
+                .minutes(minutes)
                 .build();
         totalEmotionsRepository.save(entity);
 

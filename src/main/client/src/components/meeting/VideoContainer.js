@@ -385,7 +385,7 @@ const VideoContainer = ({ match }) => {
       flag: recordFlag,
       senderId: userId,
       senderName: userName,
-      message: finalTranscript + '.',
+      message: minutesId,
       time: now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),
     });
   };

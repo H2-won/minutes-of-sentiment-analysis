@@ -70,10 +70,6 @@ public class MinutesService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 회의록이 없습니다. id=" + id));
         Meeting meeting = entity.getMeeting();
 
-        TotalEmotionsService totalEmotionsService = null;
-        assert false;
-        totalEmotionsService.save(1L);
-
         return new MinutesResponseDto(entity, meeting);
     }
 
@@ -105,6 +101,10 @@ public class MinutesService {
         int sec = totalSec%60;
         LocalTime progressTime = LocalTime.of(hour, min, sec);
         minutes.update(progressTime);
+
+        TotalEmotionsService totalEmotionsService = null;
+        assert false;
+        totalEmotionsService.save(1L);
         return id;
     }
 }

@@ -5,7 +5,7 @@ import palette from '../../lib/styles/palette';
 const Container = styled.div`
   position: relative;
   width: 100%;
-  height: 72px;
+  min-height: 72px;
   display: flex;
   justify-content: space-between;
   align-items: center;

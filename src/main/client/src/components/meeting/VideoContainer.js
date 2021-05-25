@@ -374,7 +374,7 @@ const VideoContainer = ({ match }) => {
       minutesId: minutesId,
       senderId: userId,
       senderName: userName,
-      message: finalTranscript + '.',
+      message: finalTranscript,
       time: now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),
     });
   };

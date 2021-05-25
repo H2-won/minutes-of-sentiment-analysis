@@ -69,6 +69,11 @@ public class MinutesService {
         Minutes entity = minutesRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 회의록이 없습니다. id=" + id));
         Meeting meeting = entity.getMeeting();
+
+        TotalEmotionsService totalEmotionsService = null;
+        assert false;
+        totalEmotionsService.save(1L);
+
         return new MinutesResponseDto(entity, meeting);
     }
 

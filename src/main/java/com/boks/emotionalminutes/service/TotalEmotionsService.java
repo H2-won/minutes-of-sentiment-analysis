@@ -21,9 +21,9 @@ public class TotalEmotionsService {
     private final MinutesRepository minutesRepository;
 
     @Transactional
-    public Long save(TotalEmotionsRequestDto requestDto) {
-        Minutes minutes = minutesRepository.findById(requestDto.getMinutesId())
-                .orElseThrow(() -> new IllegalArgumentException("해당 회의록이 없습니다. id=" + requestDto.getMinutesId()));
+    public Long save(Long id) {
+        Minutes minutes = minutesRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 회의록이 없습니다. id=" + id));
 
         List<Sentence> sentences = minutes.getSentences();
         float total = sentences.size();

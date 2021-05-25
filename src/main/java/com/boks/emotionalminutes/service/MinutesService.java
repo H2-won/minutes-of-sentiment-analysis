@@ -107,11 +107,13 @@ public class MinutesService {
         LocalTime progressTime = LocalTime.of(hour, min, sec);
         minutes.update(progressTime);
 
-        List<Sentence> sentences = minutes.getSentences();
-        System.out.println("회의록(id = " + id + ") 의 문장 리스트를 가져왔습니다.");
+        Minutes minutes2 = minutesRepository.findById(1L)
+                .orElseThrow(() -> new IllegalArgumentException("해당 회의록이 없습니다. id=" + id));
+        List<Sentence> sentences = minutes2.getSentences();
+        System.out.println("회의록(id = 1L) 의 문장 리스트를 가져왔습니다.");
         System.out.println("발화를 담은 리스트의 길이는 " + sentences.size() + " 입니다.");
         for (Sentence value : sentences) {
-            System.out.println(value.getContent());
+            System.out.println(value.getContent() + value.getEmotion());
         }
         float total = sentences.size();
         float happy = 0;
@@ -131,6 +133,11 @@ public class MinutesService {
                 sad += 1;
             }
         }
+
+        System.out.println("행복" + happy);
+        System.out.println("중립" + emotionless);
+        System.out.println("분노" + angry);
+        System.out.println("슬픔" + sad);
 
         TotalEmotions entity = TotalEmotions.builder()
                 .happy(happy / total * 100)

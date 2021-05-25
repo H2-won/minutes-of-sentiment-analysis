@@ -58,37 +58,34 @@ function Record() {
   const readMessage = (data) => {
     const getData = data.val();
     console.log('get data : ', getData);
-    // const { getEmotion, getText } = getData;
-    // console.log(getEmotion, getText);
-    const now = new Date();
-    const localMinutesId = localStorage.getItem('minutesId');
-    if (localStorage.getItem('hostId') === localStorage.getItem('userId')) {
-      fetch('/api/sentence', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
-        },
-        body: JSON.stringify({
-          userId: getData.sender_id,
-          minutesId: localMinutesId,
-          content: getData.text,
-          emotion: getData.emotion,
-          createdTime:
-            now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),
-        }),
-      })
-        .then((res) => res.json())
-        .then((res) => {
-          console.log('response sentence id : ', res);
-          getData.id = res;
-          setRecordData((recordData) => [...recordData, getData]);
-          // setRecordData([...recordData, getData]);
-          // setRecordData((recordData) => [...recordData, res]);
-        })
-        .catch((err) => console.log(err));
-      console.log('change recordData : ', recordData);
-    }
+
+    setRecordData((recordData) => [...recordData, getData]);
+
+    // fetch('/api/sentence', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
+    //   },
+    //   body: JSON.stringify({
+    //     userId: getData.sender_id,
+    //     minutesId: localMinutesId,
+    //     content: getData.text,
+    //     emotion: getData.emotion,
+    //     createdTime:
+    //       now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),
+    //   }),
+    // })
+    //   .then((res) => res.json())
+    //   .then((res) => {
+    //     console.log('response sentence id : ', res);
+    //     getData.id = res;
+
+    //     // setRecordData([...recordData, getData]);
+    //     // setRecordData((recordData) => [...recordData, res]);
+    //   })
+    //   .catch((err) => console.log(err));
+    console.log('change recordData : ', recordData);
   };
   useEffect(() => {
     gyubin.on('child_added', readMessage);

@@ -134,10 +134,10 @@ public class MinutesService {
             }
         }
 
-        System.out.println("행복" + happy);
-        System.out.println("중립" + emotionless);
-        System.out.println("분노" + angry);
-        System.out.println("슬픔" + sad);
+        System.out.println("행복" + (happy / total));
+        System.out.println("중립" + (emotionless / total));
+        System.out.println("분노" + (angry / total));
+        System.out.println("슬픔" + (sad / total));
 
         TotalEmotions entity = TotalEmotions.builder()
                 .happy(happy / total * 100)

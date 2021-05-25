@@ -26,6 +26,10 @@ public class TotalEmotionsService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 회의록이 없습니다. id=" + id));
 
         List<Sentence> sentences = minutes.getSentences();
+        System.out.println("회의록(id = " + id + ") 의 문장 리스트를 가져왔습니다.");
+        for (Sentence value : sentences) {
+            System.out.println(value.getContent());
+        }
         float total = sentences.size();
         float happy = 0;
         float emotionless = 0;

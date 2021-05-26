@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import palette from '../../../lib/styles/palette';
-// import {useAsync} from 'react-async';
 import { gyubin } from '../../../firebase';
+import { useDispatch } from 'react-redux';
+import AddBookmarkModal from '../../modal/AddBookmarkModal';
+import { openModal } from '../../../modules/modal';
 
 const Layout = styled.div`
   margin-top: 32px;
@@ -54,7 +56,7 @@ const Text = styled.div`
 `;
 
 const AddBookmarkBtn = styled.div`
-  z-index: 100;
+  z-index: 10;
   position: absolute;
   right: 30px;
   top: 40px;
@@ -73,41 +75,85 @@ const AddBookmarkBtn = styled.div`
   img {
     margin-right: 1rem;
   }
+
+  cursor: pointer;
 `;
 
 function Record() {
   const [recordData, setRecordData] = useState([]);
-  const [dataLength, setDataLength] = useState(0);
   const [addBtnState, setAddBtnState] = useState([]);
+  const dispatch = useDispatch();
+  const body = document.querySelector('body');
 
   const readMessage = (data) => {
     const getData = data.val();
-    console.log('get data : ', getData);
     setRecordData((recordData) => [...recordData, getData]);
-    console.log('recordData : ', recordData);
   };
 
   useEffect(() => {
     gyubin.on('child_added', readMessage);
-    // setDataLength(7);
   }, []);
 
   useEffect(() => {
-    console.log('change recordData : ', recordData);
-    setAddBtnState([false * dataLength]);
-    console.log(addBtnState);
-  }, [dataLength]);
+    if (recordData[0]) {
+      setAddBtnState((addBtnState) => [...addBtnState, false]);
+    }
+  }, [recordData]);
+
+  const onClickAddBookmark = (e) => {
+    const sentenceId = e.target.getAttribute('id');
+    dispatch(
+      openModal('ADD_BOOKMARK', AddBookmarkModal, {
+        title: '북마크 등록',
+        okBtnText: '등록',
+        okBtnBackgroundColor: 'orange',
+        id: sentenceId,
+      }),
+    );
+  };
+
+  const onCloseMenu = (e) => {
+    const openBookmarkMenu = document.querySelector('.addMenu');
+    if (
+      openBookmarkMenu &&
+      e.target !== openBookmarkMenu &&
+      e.target.parentNode !== openBookmarkMenu
+    ) {
+      setAddBtnState({
+        ...addBtnState,
+        [openBookmarkMenu.getAttribute('id')]: false,
+      });
+      body.removeEventListener('click', onCloseMenu);
+    }
+  };
+
+  const onContextMenu = (index) => {
+    setAddBtnState({ ...addBtnState, [index]: !addBtnState[index] });
+    body.addEventListener('click', onCloseMenu);
+  };
 
   return (
     <Layout>
       {recordData.map((record, index) => (
-        <Wrapper id={record.id} key={index}>
+        <Wrapper
+          id={record.sentence_id}
+          key={index}
+          onContextMenu={(e) => {
+            // console.log('addBtnState : ', addBtnState);
+            // console.log('recordData : ', recordData);
+            e.preventDefault();
+            onContextMenu(index);
+          }}
+        >
           <Name>{record.sender_name}</Name>
           <Time>{record.time}</Time>
           <Text emotion={record.emotion}>{record.text}</Text>
-
           {addBtnState[index] && (
-            <AddBookmarkBtn>
+            <AddBookmarkBtn
+              id={index + 1}
+              onClick={onClickAddBookmark}
+              className={'addMenu'}
+            >
               <img src="/icons/ic_bookmark_gray.png" />
               북마크 등록
             </AddBookmarkBtn>

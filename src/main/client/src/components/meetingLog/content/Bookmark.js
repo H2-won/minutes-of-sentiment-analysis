@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import palette from '../../../lib/styles/palette';
+import { openModal } from '../../../modules/modal';
+import DeleteBookmarkModal from '../../modal/DeleteBookmarkModal';
+import ModifyBookmarkModal from '../../modal/ModifyBookmarkModal';
 
 const Container = styled.div`
   position: relative;
@@ -123,6 +127,7 @@ const Menu = styled.div`
 `;
 
 function Bookmark() {
+  const dispatch = useDispatch();
   const [menuState, setMenuState] = useState({
     1: false,
     2: false,
@@ -185,6 +190,71 @@ function Bookmark() {
     },
   ]);
 
+  // useEffect(() => {
+  //   document.querySelector('body').addEventListener('click', (e) => {
+  //     const openBookmarkMenu = document.querySelector('.bookmarkMenu');
+
+  //     if (
+  //       openBookmarkMenu &&
+  //       e.target.parentNode !== openBookmarkMenu &&
+  //       e.target.parentNode.parentNode !== openBookmarkMenu
+  //     ) {
+  //       setMenuState({
+  //         ...menuState,
+  //         [openBookmarkMenu.getAttribute('id')]: false,
+  //       });
+  //     }
+  //   });
+  // }, []);
+  const body = document.querySelector('body');
+
+  const onCloseMenu = (e) => {
+    const openBookmarkMenu = document.querySelector('.bookmarkMenu');
+
+    if (
+      openBookmarkMenu &&
+      e.target.parentNode !== openBookmarkMenu &&
+      e.target.parentNode.parentNode !== openBookmarkMenu
+    ) {
+      setMenuState({
+        ...menuState,
+        [openBookmarkMenu.getAttribute('id')]: false,
+      });
+      body.removeEventListener('click', onCloseMenu);
+    }
+  };
+
+  const onClickMenuBtn = (id) => {
+    setMenuState({ ...menuState, [id]: !menuState[id] });
+    body.addEventListener('click', onCloseMenu);
+  };
+
+  const onClickModifyBookmark = (e) => {
+    const sentenceId = e.target.getAttribute('id');
+    dispatch(
+      openModal('MODIFY_BOOKMARK', ModifyBookmarkModal, {
+        title: '북마크 수정',
+        okBtnText: '수정하기',
+        okBtnBackgroundColor: 'orange',
+        id: sentenceId,
+        memo: document.querySelector('.bookmarkMenu').previousSibling
+          .previousSibling.previousSibling.textContent,
+      }),
+    );
+  };
+
+  const onClickDeleteBookmark = (e) => {
+    const sentenceId = e.target.getAttribute('id');
+    dispatch(
+      openModal('DELETE_BOOKMARK', DeleteBookmarkModal, {
+        title: '정말로 삭제하시겠습니까?',
+        okBtnText: '삭제하기',
+        okBtnBackgroundColor: 'orange',
+        id: sentenceId,
+      }),
+    );
+  };
+
   return (
     <Container>
       <h2>북마크</h2>
@@ -193,11 +263,7 @@ function Bookmark() {
           <Content key={id}>
             <img src="/icons/ic_bookmark_24px.png" />
             <span>{title}</span>
-            <button
-              onClick={() => {
-                setMenuState({ ...menuState, [id]: !menuState[id] });
-              }}
-            >
+            <button onClick={() => onClickMenuBtn(id)}>
               <img src="/icons/bookmark_option.png" />
             </button>
             <div className="info">
@@ -205,12 +271,12 @@ function Bookmark() {
               <span>{time}</span>
             </div>
             {menuState[id] && (
-              <Menu>
-                <div>
+              <Menu id={id} className={'bookmarkMenu'}>
+                <div onClick={onClickModifyBookmark}>
                   <img src="/icons/ic_bookmark_modify.png" />
                   <span>메모 수정</span>
                 </div>
-                <div>
+                <div onClick={onClickDeleteBookmark}>
                   <img src="/icons/ic_bookmark_delete.png" />
                   <span>삭제</span>
                 </div>

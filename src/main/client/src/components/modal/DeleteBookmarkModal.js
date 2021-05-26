@@ -1,9 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled, { css } from 'styled-components';
-import {
-  deleteBookmark,
-  registrationBookmark,
-} from '../../controllers/bookmark';
+import { deleteBookmark } from '../../controllers/bookmark';
 import palette from '../../lib/styles/palette';
 
 const Container = styled.div`

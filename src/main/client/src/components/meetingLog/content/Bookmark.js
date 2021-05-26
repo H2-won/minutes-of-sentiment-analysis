@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import palette from '../../../lib/styles/palette';
@@ -190,22 +190,6 @@ function Bookmark() {
     },
   ]);
 
-  // useEffect(() => {
-  //   document.querySelector('body').addEventListener('click', (e) => {
-  //     const openBookmarkMenu = document.querySelector('.bookmarkMenu');
-
-  //     if (
-  //       openBookmarkMenu &&
-  //       e.target.parentNode !== openBookmarkMenu &&
-  //       e.target.parentNode.parentNode !== openBookmarkMenu
-  //     ) {
-  //       setMenuState({
-  //         ...menuState,
-  //         [openBookmarkMenu.getAttribute('id')]: false,
-  //       });
-  //     }
-  //   });
-  // }, []);
   const body = document.querySelector('body');
 
   const onCloseMenu = (e) => {
@@ -261,10 +245,10 @@ function Bookmark() {
       <ContentWrapper>
         {bookmarkInfo.map(({ id, title, host, time, state }) => (
           <Content key={id}>
-            <img src="/icons/ic_bookmark_24px.png" />
+            <img src="/icons/ic_bookmark_24px.png" alt="" />
             <span>{title}</span>
             <button onClick={() => onClickMenuBtn(id)}>
-              <img src="/icons/bookmark_option.png" />
+              <img src="/icons/bookmark_option.png" alt="" />
             </button>
             <div className="info">
               <span>{host}</span>
@@ -273,11 +257,11 @@ function Bookmark() {
             {menuState[id] && (
               <Menu id={id} className={'bookmarkMenu'}>
                 <div onClick={onClickModifyBookmark}>
-                  <img src="/icons/ic_bookmark_modify.png" />
+                  <img src="/icons/ic_bookmark_modify.png" alt="" />
                   <span>메모 수정</span>
                 </div>
                 <div onClick={onClickDeleteBookmark}>
-                  <img src="/icons/ic_bookmark_delete.png" />
+                  <img src="/icons/ic_bookmark_delete.png" alt="" />
                   <span>삭제</span>
                 </div>
               </Menu>

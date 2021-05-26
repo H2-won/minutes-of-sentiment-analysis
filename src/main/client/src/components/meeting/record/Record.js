@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import palette from '../../../lib/styles/palette';
-import { gyubin } from '../../../firebase';
+import { HwfirebaseDatabaseRef } from '../../../firebase';
 import { useDispatch } from 'react-redux';
 import AddBookmarkModal from '../../modal/AddBookmarkModal';
 import { openModal } from '../../../modules/modal';
@@ -91,7 +91,7 @@ function Record() {
   };
 
   useEffect(() => {
-    gyubin.on('child_added', readMessage);
+    HwfirebaseDatabaseRef.on('child_added', readMessage);
   }, []);
 
   useEffect(() => {
@@ -154,7 +154,7 @@ function Record() {
               onClick={onClickAddBookmark}
               className={'addMenu'}
             >
-              <img src="/icons/ic_bookmark_gray.png" />
+              <img src="/icons/ic_bookmark_gray.png" alt="" />
               북마크 등록
             </AddBookmarkBtn>
           )}

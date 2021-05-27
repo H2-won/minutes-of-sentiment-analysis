@@ -101,7 +101,7 @@ function Record() {
   }, [recordData]);
 
   const onClickAddBookmark = (e) => {
-    const sentenceId = e.target.getAttribute('sentenceId');
+    const sentenceId = e.target.parentNode.getAttribute('id');
     dispatch(
       openModal('ADD_BOOKMARK', AddBookmarkModal, {
         title: '북마크 등록',
@@ -151,7 +151,6 @@ function Record() {
           {addBtnState[index] && (
             <AddBookmarkBtn
               id={index + 1}
-              sentenceId={record.sentenceId}
               onClick={onClickAddBookmark}
               className={'addMenu'}
             >

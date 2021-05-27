@@ -2891,6 +2891,13 @@ binary-extensions@^2.0.0:
   resolved "https://registry.npmjs.org/binary-extensions/-/binary-extensions-2.2.0.tgz"
   integrity sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA==
 
+bindings@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/bindings/-/bindings-1.5.0.tgz#10353c9e945334bc0511a6d90b38fbc7c9c504df"
+  integrity sha512-p2q/t/mhvuOj/UeLlV6566GD/guowlr0hHxClI0W9m7MWYkL1F0hLo+0Aexs9HSPCtR1SXQ0TD3MMKrXZajbiQ==
+  dependencies:
+    file-uri-to-path "1.0.0"
+
 blob@0.0.5:
   version "0.0.5"
   resolved "https://registry.npmjs.org/blob/-/blob-0.0.5.tgz"
@@ -3255,9 +3262,9 @@ caniuse-lite@^1.0.0, caniuse-lite@^1.0.30000981, caniuse-lite@^1.0.30001035, can
   resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001228.tgz"
   integrity sha512-QQmLOGJ3DEgokHbMSA8cj2a+geXqmnpyOFT0lhQV6P3/YOJvGDEwoedcwxEQ30gJIwIIunHIicunJ2rzK5gB2A==
 
-canvas-designer@^1.3.0:
+canvas-designer@latest:
   version "1.3.0"
-  resolved "https://registry.npmjs.org/canvas-designer/-/canvas-designer-1.3.0.tgz"
+  resolved "https://registry.yarnpkg.com/canvas-designer/-/canvas-designer-1.3.0.tgz#daf9d2b0e7ad5f2a13fd83b96945c6ca279a26cb"
   integrity sha512-LCOmIGgJAiPcJyo20Iyi/4xcfP+OS11TY6Vi0xli40MlbwNLwDZ/tF2ZPGlJQRmi5rkfqViLZXnHKKlQd94IfA==
 
 capture-exit@^2.0.0:
@@ -4241,9 +4248,9 @@ detect-port-alt@1.1.6:
     address "^1.0.1"
     debug "^2.6.0"
 
-detectrtc@^1.4.1:
+detectrtc@latest:
   version "1.4.1"
-  resolved "https://registry.npmjs.org/detectrtc/-/detectrtc-1.4.1.tgz"
+  resolved "https://registry.yarnpkg.com/detectrtc/-/detectrtc-1.4.1.tgz#05ed7df92597b265dad5b226f8d31f670deb0cd1"
   integrity sha512-lxvyNN6/dSnwoVj1VstVFHel7S0BTmkfv1+01IBEy42D20pue27eB/MfphUOQz78jJ7WcQJDo6ZybhgBlUDi0Q==
 
 diff-sequences@^24.9.0:
@@ -5092,9 +5099,9 @@ fb-watchman@^2.0.0:
   dependencies:
     bser "2.1.1"
 
-fbr@^2.0.8:
+fbr@latest:
   version "2.0.8"
-  resolved "https://registry.npmjs.org/fbr/-/fbr-2.0.8.tgz"
+  resolved "https://registry.yarnpkg.com/fbr/-/fbr-2.0.8.tgz#c50900a6ff9bd0294085c35584c633cfbcc6e19e"
   integrity sha512-/0wWNI4C/iaQ9ntmP2qSUTspMA6UqZ5FFSwyY8/BfVaq2e5k7AVY42czPApyfjviYMdyrotjfTtBpl+r5D92Cw==
 
 figgy-pudding@^3.5.1:
@@ -5123,6 +5130,11 @@ file-loader@4.3.0:
   dependencies:
     loader-utils "^1.2.3"
     schema-utils "^2.5.0"
+
+file-uri-to-path@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/file-uri-to-path/-/file-uri-to-path-1.0.0.tgz#553a7b8446ff6f684359c445f1e37a05dacc33dd"
+  integrity sha512-0Zt+s3L7Vf1biwWZ29aARiVYLx7iMGnEUl9x33fbB/j3jR81u/O2LbqK+Bm1CDSNDKVtJ/YjwY7TUd5SkeLQLw==
 
 filesize@6.0.1:
   version "6.0.1"
@@ -5464,9 +5476,9 @@ getpass@^0.1.1:
   dependencies:
     assert-plus "^1.0.0"
 
-getstats@^1.2.0:
+getstats@latest:
   version "1.2.0"
-  resolved "https://registry.npmjs.org/getstats/-/getstats-1.2.0.tgz"
+  resolved "https://registry.yarnpkg.com/getstats/-/getstats-1.2.0.tgz#1b104063f75e6b1f8178752877a2eed1c778e345"
   integrity sha512-fdvGnPIaevnfrmL1qB78SeaqW4Pnm2f8j8nhRiWUZS7N1p377fee0ie76PO4uGkIjiuig9hMv4MVhVVBSLGBjA==
 
 glob-parent@^3.1.0:
@@ -7666,15 +7678,20 @@ multicast-dns@^6.0.1:
     dns-packet "^1.3.1"
     thunky "^1.0.2"
 
-multistreamsmixer@^1.2.2:
+multistreamsmixer@latest:
   version "1.2.2"
-  resolved "https://registry.npmjs.org/multistreamsmixer/-/multistreamsmixer-1.2.2.tgz"
+  resolved "https://registry.yarnpkg.com/multistreamsmixer/-/multistreamsmixer-1.2.2.tgz#9a3c78a50301cfd3f3e881845acf8d41386ffcda"
   integrity sha512-5UGMODV/vDFLs8CaYEgFgo2sg+kI6hzXy4e02C8nvqfp7hfCikzAC65p+nNPVRqvBhtMoA2HwAz6qN8iMvoaoA==
 
 mute-stream@0.0.8:
   version "0.0.8"
   resolved "https://registry.npmjs.org/mute-stream/-/mute-stream-0.0.8.tgz"
   integrity sha512-nnbWWOkoWyUsTjKrhgD0dcz22mdkSnpYqbEjIm2nhwhuxlSkpywJmBo8h0ZqJdkp73mb90SssHkN4rsRaBAfAA==
+
+nan@^2.12.1:
+  version "2.14.2"
+  resolved "https://registry.yarnpkg.com/nan/-/nan-2.14.2.tgz#f5376400695168f4cc694ac9393d0c9585eeea19"
+  integrity sha512-M2ufzIiINKCuDfBSAUr1vWQ+vuVcA9kqx8JJUsbQi6yf1uGRyb7HfpdfUr5qLXf3B/t8dPvcjhKMmlfnP47EzQ==
 
 nanomatch@^1.2.9:
   version "1.2.13"
@@ -9639,6 +9656,11 @@ recordrtc@^5.6.2:
   resolved "https://registry.npmjs.org/recordrtc/-/recordrtc-5.6.2.tgz"
   integrity sha512-1QNKKNtl7+KcwD1lyOgP3ZlbiJ1d0HtXnypUy7yq49xEERxk31PHvE9RCciDrulPCY7WJ+oz0R9hpNxgsIurGQ==
 
+recordrtc@latest:
+  version "5.6.2"
+  resolved "https://registry.yarnpkg.com/recordrtc/-/recordrtc-5.6.2.tgz#48fc214b35084973ccce82c6251198b5742bc327"
+  integrity sha512-1QNKKNtl7+KcwD1lyOgP3ZlbiJ1d0HtXnypUy7yq49xEERxk31PHvE9RCciDrulPCY7WJ+oz0R9hpNxgsIurGQ==
+
 recursive-readdir@2.2.2:
   version "2.2.2"
   resolved "https://registry.npmjs.org/recursive-readdir/-/recursive-readdir-2.2.2.tgz"
@@ -9984,9 +10006,9 @@ rtcmulticonnection-react-js@0.0.2:
     socket.io latest
     webrtc-adapter latest
 
-rtcmulticonnection-server@^1.3.2:
+rtcmulticonnection-server@latest:
   version "1.3.2"
-  resolved "https://registry.npmjs.org/rtcmulticonnection-server/-/rtcmulticonnection-server-1.3.2.tgz"
+  resolved "https://registry.yarnpkg.com/rtcmulticonnection-server/-/rtcmulticonnection-server-1.3.2.tgz#fd37b2ee60b838f6f9390dce9a98b93ed6c8ba0f"
   integrity sha512-1frM5JAfzlamlPtPpBKlVXqanlKijQpS0a3dwFWYwlXi/Y77eLj9UxKbnIjAFqLAD/GmKRdlBIjU5rVa0mSkTg==
   dependencies:
     socket.io latest
@@ -10449,10 +10471,10 @@ socket.io@^2.3.0:
     socket.io-client "2.4.0"
     socket.io-parser "~3.4.0"
 
-socket.io@^4.1.1:
-  version "4.1.1"
-  resolved "https://registry.npmjs.org/socket.io/-/socket.io-4.1.1.tgz"
-  integrity sha512-YKPdhaYRGEXjP+VqoKlfOEPgDjm0aMq1YWonjHg4rBU1xJCmgceNh2XL1vO4czWupH+WX1+d9Wqb768h7BC5kw==
+socket.io@latest:
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/socket.io/-/socket.io-4.1.2.tgz#f90f9002a8d550efe2aa1d320deebb9a45b83233"
+  integrity sha512-xK0SD1C7hFrh9+bYoYCdVt+ncixkSLKtNLCax5aEy1o3r5PaO5yQhVb97exIe67cE7lAK+EpyMytXWTWmyZY8w==
   dependencies:
     "@types/cookie" "^0.4.0"
     "@types/cors" "^2.8.8"
@@ -11608,9 +11630,9 @@ webpack@4.42.0:
     watchpack "^1.6.0"
     webpack-sources "^1.4.1"
 
-webrtc-adapter@^8.0.0:
+webrtc-adapter@latest:
   version "8.0.0"
-  resolved "https://registry.npmjs.org/webrtc-adapter/-/webrtc-adapter-8.0.0.tgz"
+  resolved "https://registry.yarnpkg.com/webrtc-adapter/-/webrtc-adapter-8.0.0.tgz#b1bd88c02ad647d064dc20f29fb311dca01c2b15"
   integrity sha512-1U73dJB7xdXC3UmCHK3VuWU/bD1MBfYGgEPCXlBB/5QVQOzbi80UxBGvAvRt4Oocuwo5bzAD272kpkBd6f0HwA==
   dependencies:
     sdp "^3.0.2"

@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
+import { registrationBookmark } from '../../controllers/bookmark';
 import palette from '../../lib/styles/palette';
-import connection from '../meeting/RtcConnection';
-import SpeechRecognition from 'react-speech-recognition';
 
 const Container = styled.div`
   position: relative;
@@ -49,36 +48,50 @@ const CancleBtn = styled.button`
   margin-left: 32px;
 `;
 
-function EndMeetingModal({ ModalOff, args }) {
-  const closeSocket = () => {
-    console.log('START CLOSE SOCKET TEST');
+const ContentWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 2.5rem 0 1rem;
 
-    connection.getAllParticipants().forEach(function (pid) {
-      console.log('TEST DISCONECT WITH PEERS', pid);
-      connection.disconnectWith(pid);
-    });
+  .subTitle {
+    font-size: 18px;
+    font-weight: bold;
+    color: ${palette.black};
+    margin-right: 2rem;
+  }
 
-    // stop all local cameras
-    connection.attachStreams.forEach(function (localStream) {
-      console.log(localStream, 'CLOSE LOCAL STREAM - TEST');
-      localStream.stop();
-    });
+  input {
+    height: 36px;
+    width: 360px;
+    font-size: 18px;
+    color: ${palette.gray4};
+    border: 0.5px solid ${palette.gray2};
+    padding: 0.75rem;
+    display: flex;
+    align-items: center;
+  }
+`;
 
-    // last user will have to close the socket
-    // 로그인한 user id와 미팅을 만든 host id를 비교해서 host 여부 설정
-    if (localStorage.getItem('userId') === localStorage.getItem('hostId')) {
-      console.log('host close!!!');
-      connection.closeSocket();
-    }
+function AddBookmarkModal({ ModalOff, args }) {
+  const [inputValue, setInputValue] = useState('');
+  const onChange = (e) => {
+    setInputValue(e.target.value);
+  };
 
-    SpeechRecognition.stopListening();
-    window.location.href = '/main';
+  const AddBookmark = () => {
+    ModalOff();
+    registrationBookmark(localStorage.getItem('userId'), args.id, inputValue);
   };
 
   return (
     <Container>
+      <ContentWrapper>
+        <span className="subTitle">메모</span>
+        <input type="text" onChange={onChange} />
+      </ContentWrapper>
       <BtnWrapper>
-        <OkBtn color={args.okBtnBackgroundColor} onClick={closeSocket}>
+        <OkBtn color={args.okBtnBackgroundColor} onClick={AddBookmark}>
           {args.okBtnText}
         </OkBtn>
         <CancleBtn onClick={ModalOff}>취소</CancleBtn>
@@ -87,4 +100,4 @@ function EndMeetingModal({ ModalOff, args }) {
   );
 }
 
-export default EndMeetingModal;
+export default AddBookmarkModal;

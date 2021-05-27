@@ -8,10 +8,11 @@ import SpeechRecognition, {
   useSpeechRecognition,
 } from 'react-speech-recognition';
 
-import { firebaseDatabaseRef, firebaseStorage, gyubin } from '../../firebase';
+import { firebaseDatabaseRef, firebaseStorage } from '../../firebase';
 import RecordRTC from 'recordrtc';
-import BottomLayout from './BottomLayout';
 import { startRecording, stopRecording } from '../../controllers/meeting';
+import { useDispatch, useSelector } from 'react-redux';
+import { setMainVideo } from '../../modules/meeting';
 
 const VideoWrapper = styled.div`
   display: flex;
@@ -33,132 +34,14 @@ const MainUserId = styled.span`
 `;
 
 const VideoContainer = ({ match }) => {
-  const [mainVideo, setMainVideo] = useState(null);
+  const dispatch = useDispatch();
+  const mainVideo = useSelector((state) => state.meeting.mainVideo);
+  // const [mainVideo, setMainVideo] = useState(null);
   const [videoThumbnailsArr, setVideoThumbnailsArr] = useState([]);
   const [connectionInfo, setConnectionInfo] = useState('');
   const [recordFlag, setRecordFlag] = useState(0);
   const [hostState, setHostState] = useState(false);
   const databaseRef = firebaseDatabaseRef;
-  const gyubinDatabaseRef = gyubin;
-  // const storageRef = firebaseStorage.ref();
-  const userId = Math.floor(Math.random() * 1000000000);
-
-  connection.iceServers = [
-    {
-      urls: [
-        'stun:stun.l.google.com:19302',
-        'stun:stun1.l.google.com:19302',
-        'stun:stun2.l.google.com:19302',
-        'stun:stun.l.google.com:19302?transport=udp',
-      ],
-    },
-  ];
-
-  connection.onstream = function (event) {
-    // 여기에 더미값 넣기
-    const now = new Date();
-    const minutesId = localStorage.getItem('minutesId');
-    databaseRef.push({
-      flag: 2,
-      minutesId: minutesId,
-      senderId: 'testId',
-      senderName: '테스트',
-      message: 'NULL',
-      time: now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),
-    });
-    // var connectionInfo = event.stream;
-    setConnectionInfo(event.stream);
-
-    // onstream 되자마자 stt 실행
-    SpeechRecognition.startListening({
-      continuous: true,
-      language: 'ko-KR',
-    });
-
-    console.log('ON STREAM TEST');
-    // local == 내 컴퓨터, remote == 다른 유저
-    if (event.type === 'local') {
-      console.log(
-        localVideoThumbnailsArr.get(),
-        'ON STREAM - ADD LOCAL STREAM',
-      );
-      setMainVideo(event);
-      // function readMessage(data) {
-      //   console.log(data.val());
-      //   console.log(data.val().sender);
-      //   console.log(data.val().text);
-      //   console.log(data.val().emotion);
-      // }
-
-      // gyubinDatabaseRef.on('child_added', readMessage);
-    } else if (event.type === 'remote') {
-      localVideoThumbnailsArr.addVideo(
-        <Video
-          srcObject={event.stream}
-          keyvalue={event.streamid}
-          id={event.streamid}
-          username={event.extra.username}
-        />,
-      );
-      console.log(
-        localVideoThumbnailsArr.get(),
-        'ON STREAM - ADD REMOTE STREAM',
-      );
-
-      setVideoThumbnailsArr([...localVideoThumbnailsArr.get()]);
-    }
-  };
-
-  connection.onstreamended = (event) => {
-    console.log('ON STREAM END TEST', event);
-    if (event.type === 'local') {
-      setMainVideo(null);
-      localVideoThumbnailsArr.set([]);
-      setVideoThumbnailsArr([]);
-      console.log('LOCAL STREAM CLOSING. CLOSING ALL VIDEOS - TEST');
-
-      // --------------- recorder -----------------
-      var recorder = connection.recorder;
-      if (!recorder) return alert('No recorder found.');
-      recorder.stopRecording(function () {
-        var blob = recorder.getBlob();
-        RecordRTC.invokeSaveAsDialog(blob);
-        replaceAudio(URL.createObjectURL(blob));
-        console.log(blob);
-
-        connection.recorder = null;
-      });
-
-      // ------------ audio -------------
-      var audio = document.querySelector('audio');
-      function replaceAudio(src) {
-        var newAudio = document.createElement('audio');
-        newAudio.controls = true;
-        newAudio.autoplay = true;
-
-        if (src) {
-          newAudio.src = src;
-        }
-
-        var parentNode = audio.parentNode;
-        parentNode.innerHTML = '';
-        parentNode.appendChild(newAudio);
-
-        audio = newAudio;
-      }
-    }
-
-    if (event.type === 'remote') {
-      localVideoThumbnailsArr.findAndRemove(event.streamid);
-      setVideoThumbnailsArr([...localVideoThumbnailsArr.get()]);
-      console.log(
-        `REMOTE STREAM CLOSING. CLOSING REMOTE STREAM VIDEO - TEST`,
-        event,
-      );
-
-      notifyRemoteUserLeft(event.extra.username);
-    }
-  };
 
   const notifyRemoteUserLeft = (name) => {
     alert(name + ' left.');
@@ -228,10 +111,123 @@ const VideoContainer = ({ match }) => {
   } = useSpeechRecognition();
 
   useEffect(() => {
+    connection.iceServers = [
+      {
+        urls: [
+          'stun:stun.l.google.com:19302',
+          'stun:stun1.l.google.com:19302',
+          'stun:stun2.l.google.com:19302',
+          'stun:stun.l.google.com:19302?transport=udp',
+        ],
+      },
+    ];
+
+    connection.onstream = function (event) {
+      // 여기에 더미값 넣기
+      const now = new Date();
+      const minutesId = localStorage.getItem('minutesId');
+      databaseRef.push({
+        flag: 2,
+        minutesId: minutesId,
+        senderId: 'testId',
+        senderName: '테스트',
+        message: 'NULL',
+        time: now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),
+      });
+      setConnectionInfo(event.stream);
+
+      // onstream 되자마자 stt 실행
+      SpeechRecognition.startListening({
+        continuous: true,
+        language: 'ko-KR',
+      });
+
+      console.log('ON STREAM TEST');
+      // local == 내 컴퓨터, remote == 다른 유저
+      if (event.type === 'local') {
+        console.log(
+          localVideoThumbnailsArr.get(),
+          'ON STREAM - ADD LOCAL STREAM',
+        );
+        dispatch(setMainVideo(event));
+        // setMainVideo(event);
+      } else if (event.type === 'remote') {
+        localVideoThumbnailsArr.addVideo(
+          <Video
+            srcObject={event.stream}
+            keyvalue={event.streamid}
+            id={event.streamid}
+            username={event.extra.username}
+          />,
+        );
+        console.log(
+          localVideoThumbnailsArr.get(),
+          'ON STREAM - ADD REMOTE STREAM',
+        );
+
+        setVideoThumbnailsArr([...localVideoThumbnailsArr.get()]);
+      }
+    };
+
+    connection.onstreamended = (event) => {
+      console.log('ON STREAM END TEST', event);
+      if (event.type === 'local') {
+        // setMainVideo(null);
+        dispatch(setMainVideo(null));
+        localVideoThumbnailsArr.set([]);
+        setVideoThumbnailsArr([]);
+        console.log('LOCAL STREAM CLOSING. CLOSING ALL VIDEOS - TEST');
+
+        // --------------- recorder -----------------
+        var recorder = connection.recorder;
+        if (!recorder) return alert('No recorder found.');
+        recorder.stopRecording(function () {
+          var blob = recorder.getBlob();
+          RecordRTC.invokeSaveAsDialog(blob);
+          replaceAudio(URL.createObjectURL(blob));
+          console.log(blob);
+
+          connection.recorder = null;
+        });
+
+        // ------------ audio -------------
+        var audio = document.querySelector('audio');
+        function replaceAudio(src) {
+          var newAudio = document.createElement('audio');
+          newAudio.controls = true;
+          newAudio.autoplay = true;
+
+          if (src) {
+            newAudio.src = src;
+          }
+
+          var parentNode = audio.parentNode;
+          parentNode.innerHTML = '';
+          parentNode.appendChild(newAudio);
+
+          audio = newAudio;
+        }
+      }
+
+      if (event.type === 'remote') {
+        localVideoThumbnailsArr.findAndRemove(event.streamid);
+        setVideoThumbnailsArr([...localVideoThumbnailsArr.get()]);
+        console.log(
+          `REMOTE STREAM CLOSING. CLOSING REMOTE STREAM VIDEO - TEST`,
+          event,
+        );
+
+        notifyRemoteUserLeft(event.extra.username);
+      }
+    };
+
+    // URL queryString 가져오기
     const open = window.location.search.split('=')[1];
+    // URL 파라미터 가져오기
     const code = match.params.roomId;
+
     if (open === 'true') {
-      console.log('meeting Open!!!');
+      // Meeting Open
       connection.open(code, function (isRoomOpened, roomid, error) {
         if (isRoomOpened === true) {
         } else {
@@ -243,10 +239,12 @@ const VideoContainer = ({ match }) => {
           alert(error + 'error log');
         }
       });
+
+      // 로그인한 user id와 미팅을 만든 host id를 비교해서 host 여부 설정
       if (localStorage.getItem('userId') === localStorage.getItem('hostId'))
         setHostState(true);
     } else {
-      console.log('meeting Join!!!');
+      // Meeting Join
       connection.join(code, function (isJoinedRoom, roomid, error) {
         if (error) {
           if (error === 'Room not available') {
@@ -261,6 +259,7 @@ const VideoContainer = ({ match }) => {
   }, []);
 
   useEffect(() => {
+    // 말 시작 시 record 시작
     if (interimTranscript !== '') {
       var recorder = connection.recorder;
       if (!recorder) {
@@ -276,22 +275,18 @@ const VideoContainer = ({ match }) => {
       if (!connection.recorder.streams) {
         connection.recorder.streams = [];
       }
-
       // connection.recorder.streams.push(event.stream);
     }
   }, [interimTranscript]);
 
-  // ---------- 말 끝날때마다 record 파일 firebase storage에 삽입 ----------
   useEffect(() => {
+    // --- 말 끝날때마다 record 파일 firebase storage에 삽입 ---
     if (finalTranscript !== '') {
       var recorder = connection.recorder;
       if (!recorder) return alert('No recorder found.');
       recorder.stopRecording(function () {
         var file = recorder.getBlob();
-        // RecordRTC.invokeSaveAsDialog(blob);
-        // storageRef.put(blob).then(function (snapshot) {
-        //   console.log("Uploaded a blob or file!");
-        // });
+
         if (!file) {
           throw 'Blob object is required.';
         }
@@ -302,6 +297,7 @@ const VideoContainer = ({ match }) => {
           } catch (e) {}
         }
 
+        const userId = localStorage.getItem('userId');
         var fileFullName =
           userId + '_' + Math.floor(Math.random() * 1000000000) + '.' + 'wav';
         if (typeof navigator.msSaveOrOpenBlob !== 'undefined') {
@@ -333,8 +329,8 @@ const VideoContainer = ({ match }) => {
     }
   }, [finalTranscript]);
 
-  // ---------- finalTranscript 말 끝날때마다 firebase database에 삽입 ----------
   useEffect(() => {
+    // --- finalTranscript 말 끝날때마다 firebase database에 삽입 ---
     if (finalTranscript !== '') {
       console.log('Got final result:', finalTranscript);
       resetTranscript();
@@ -353,7 +349,7 @@ const VideoContainer = ({ match }) => {
         time: now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),
       });
     }
-  }, [finalTranscript, resetTranscript, userId]);
+  }, [finalTranscript, resetTranscript]);
 
   if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
     console.log(

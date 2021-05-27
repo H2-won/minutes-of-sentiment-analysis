@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 import palette from '../../lib/styles/palette';
-import { Link } from 'react-router-dom';
 import connection from '../meeting/RtcConnection';
 import * as Meeting from '../../controllers/meeting';
 
@@ -90,7 +89,6 @@ const CancleBtn = styled.button`
 function ProduceConferenceModal({ ModalOff, args }) {
   const [titleValue, setTitleValue] = useState('');
   const [pwValue, setPwValue] = useState('');
-  const [conferenceCode, setConferenceCode] = useState('');
 
   const onTitleChange = (e) => {
     setTitleValue(e.target.value);
@@ -101,28 +99,12 @@ function ProduceConferenceModal({ ModalOff, args }) {
   };
 
   const produceConferenceAPI = () => {
-    Meeting.produceConference(
-      titleValue,
-      pwValue,
-      setConferenceCode,
-      connection,
-    );
+    Meeting.produceConference(titleValue, pwValue, connection);
   };
 
   const openMeetingRoom = () => {
     ModalOff();
     produceConferenceAPI();
-    // connection.open(args.staticId, function (isRoomOpened, roomid, error) {
-    //   if (isRoomOpened === true) {
-    //   } else {
-    //     if (error === 'Room not available') {
-    //       alert('이미 존재하는 방입니다. 새로운 방을 만들거나 참가하세요!');
-    //       window.location.href = '/main';
-    //       return;
-    //     }
-    //     alert(error + 'error log');
-    //   }
-    // });
   };
 
   return (
@@ -136,14 +118,12 @@ function ProduceConferenceModal({ ModalOff, args }) {
         <input type="password" maxLength="24" onChange={onPwChange} />
       </ContentWrapper>
       <BtnWrapper>
-        {/*<Link to={`/meeting/${args.staticId}`}>*/}
-          <OkBtn
-            color={args.okBtnBackgroundColor}
-            onClick={() => openMeetingRoom()}
-          >
-            {args.okBtnText}
-          </OkBtn>
-        {/*</Link>*/}
+        <OkBtn
+          color={args.okBtnBackgroundColor}
+          onClick={() => openMeetingRoom()}
+        >
+          {args.okBtnText}
+        </OkBtn>
         <CancleBtn onClick={ModalOff}>취소</CancleBtn>
       </BtnWrapper>
     </Container>

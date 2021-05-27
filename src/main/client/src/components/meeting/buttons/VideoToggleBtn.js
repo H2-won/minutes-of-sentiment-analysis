@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 import palette from '../../../lib/styles/palette';
+import { setMainVideo } from '../../../modules/meeting';
 
 const Button = styled.button`
   width: 180px;
@@ -28,9 +30,22 @@ const Button = styled.button`
 
 function VideoToggleBtn() {
   const [videoState, setVideoState] = useState(true);
+  const dispatch = useDispatch();
+  const mainVideo = useSelector((state) => state.meeting.mainVideo);
+
   const onToggleVideo = () => {
     setVideoState(!videoState);
+
+    console.log('main getVideoTracks = ', mainVideo.stream.getVideoTracks());
+    // 비디오 트랙 toggle
+    mainVideo.stream.getVideoTracks()[0].enabled =
+      !mainVideo.stream.getVideoTracks()[0].enabled;
+
+    // videotrack 상태 변경되었으니 다시 메인 비디오 set
+    // 없어도 될수도 있으니 테스트 해보기
+    dispatch(setMainVideo(mainVideo));
   };
+
   return (
     <Button onClick={onToggleVideo} state={videoState}>
       {videoState ? (

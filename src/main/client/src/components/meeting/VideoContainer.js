@@ -11,6 +11,8 @@ import SpeechRecognition, {
 import { firebaseDatabaseRef, firebaseStorage } from '../../firebase';
 import RecordRTC from 'recordrtc';
 import { startRecording, stopRecording } from '../../controllers/meeting';
+import { useDispatch, useSelector } from 'react-redux';
+import { setMainVideo } from '../../modules/meeting';
 
 const VideoWrapper = styled.div`
   display: flex;
@@ -32,7 +34,9 @@ const MainUserId = styled.span`
 `;
 
 const VideoContainer = ({ match }) => {
-  const [mainVideo, setMainVideo] = useState(null);
+  const dispatch = useDispatch();
+  const mainVideo = useSelector((state) => state.meeting.mainVideo);
+  // const [mainVideo, setMainVideo] = useState(null);
   const [videoThumbnailsArr, setVideoThumbnailsArr] = useState([]);
   const [connectionInfo, setConnectionInfo] = useState('');
   const [recordFlag, setRecordFlag] = useState(0);
@@ -145,7 +149,8 @@ const VideoContainer = ({ match }) => {
           localVideoThumbnailsArr.get(),
           'ON STREAM - ADD LOCAL STREAM',
         );
-        setMainVideo(event);
+        dispatch(setMainVideo(event));
+        // setMainVideo(event);
       } else if (event.type === 'remote') {
         localVideoThumbnailsArr.addVideo(
           <Video
@@ -167,7 +172,8 @@ const VideoContainer = ({ match }) => {
     connection.onstreamended = (event) => {
       console.log('ON STREAM END TEST', event);
       if (event.type === 'local') {
-        setMainVideo(null);
+        // setMainVideo(null);
+        dispatch(setMainVideo(null));
         localVideoThumbnailsArr.set([]);
         setVideoThumbnailsArr([]);
         console.log('LOCAL STREAM CLOSING. CLOSING ALL VIDEOS - TEST');

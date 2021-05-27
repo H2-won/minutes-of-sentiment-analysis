@@ -1,4 +1,4 @@
-export const produceConference = (title, pw, connection) => {
+export const produceConference = (title, pw) => {
   console.log(title, pw, localStorage.getItem('accessToken'));
 
   fetch('/api/meeting', {

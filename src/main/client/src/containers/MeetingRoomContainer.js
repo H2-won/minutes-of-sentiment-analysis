@@ -19,7 +19,7 @@ function MeetingRoomContainer({ match }) {
   return (
     <Container>
       <MeetingLayout match={match} />
-      <BottomLayout />
+      <BottomLayout match={match} />
     </Container>
   );
 }

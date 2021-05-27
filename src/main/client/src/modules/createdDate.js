@@ -18,7 +18,7 @@ export const setCreatedDate = (date) => ({
 	InitialState
 */
 const initialState = {
-  date: null,
+  date: "2021-05-27T09:15:15.520Z",
 };
 
 /*

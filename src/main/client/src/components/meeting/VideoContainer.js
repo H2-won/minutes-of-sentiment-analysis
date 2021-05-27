@@ -301,8 +301,12 @@ const VideoContainer = ({ match }) => {
         // const userId = localStorage.getItem('userId');
         // const userId = Math.floor(Math.random() * 1000000000);
         var fileFullName =
-            voiceFileId + '_' + Math.floor(Math.random() * 1000000000) + '.' + 'wav';
-        setVoiceFileId(voiceFileId-1);
+          voiceFileId +
+          '_' +
+          Math.floor(Math.random() * 1000000000) +
+          '.' +
+          'wav';
+        setVoiceFileId(voiceFileId - 1);
         if (typeof navigator.msSaveOrOpenBlob !== 'undefined') {
           return navigator.msSaveOrOpenBlob(file, fileFullName);
         } else if (typeof navigator.msSaveBlob !== 'undefined') {
@@ -333,12 +337,17 @@ const VideoContainer = ({ match }) => {
   }, [finalTranscript]);
 
   useEffect(() => {
+    const createdDate = useSelector((state) => state.createdDate.date);
     // --- finalTranscript 말 끝날때마다 firebase database에 삽입 ---
     if (finalTranscript !== '') {
       console.log('Got final result:', finalTranscript);
       resetTranscript();
 
       var now = new Date();
+      const hours = parseInt((now - createdDate) / 1000 / 3600);
+      const minutes = parseInt(((now - createdDate) / 1000 / 60) % 60);
+      const seconds = parseInt(((now - createdDate) / 1000) % 60);
+
       const userId = localStorage.getItem('userId');
       const userName = localStorage.getItem('userName');
       const minutesId = localStorage.getItem('minutesId');
@@ -349,7 +358,7 @@ const VideoContainer = ({ match }) => {
         senderId: userId,
         senderName: userName,
         message: finalTranscript + '.',
-        time: now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),
+        time: hours + ':' + minutes + ':' + seconds,
       });
     }
   }, [finalTranscript, resetTranscript]);

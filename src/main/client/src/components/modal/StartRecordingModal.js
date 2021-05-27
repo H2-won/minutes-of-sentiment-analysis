@@ -4,6 +4,7 @@ import { startRecording } from '../../controllers/meeting';
 import { firebaseDatabaseRef } from '../../firebase';
 import palette from '../../lib/styles/palette';
 import SpeechRecognition from 'react-speech-recognition';
+import { useDispatch } from 'react-redux';
 
 const Container = styled.div`
   position: relative;
@@ -51,12 +52,16 @@ const CancleBtn = styled.button`
 `;
 
 function StartRecordingModal({ ModalOff, args }) {
+  const dispatch = useDispatch();
+
   const onStartRecording = () => {
     // style 변경을 위한 setRecordState
     args.setRecordState('recording');
 
     // 기록 시작
-    const now = new Date();
+    const createdDate = new Date();
+    dispatch(setCreatedDate(createdDate));
+
     const userId = localStorage.getItem('userId');
     const userName = localStorage.getItem('userName');
     const minutesId = localStorage.getItem('minutesId');
@@ -68,7 +73,7 @@ function StartRecordingModal({ ModalOff, args }) {
       senderId: userId,
       senderName: userName,
       message: '',
-      time: now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),
+      time: '00:00:00',
     });
 
     // modal 닫기

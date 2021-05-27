@@ -6,10 +6,7 @@ import com.boks.emotionalminutes.domain.participation.Participation;
 import com.boks.emotionalminutes.domain.participation.ParticipationRepository;
 import com.boks.emotionalminutes.domain.user.User;
 import com.boks.emotionalminutes.domain.user.UserRepository;
-import com.boks.emotionalminutes.web.dto.meeting.MeetingCodeAndHostIDResponseDto;
-import com.boks.emotionalminutes.web.dto.meeting.MeetingJoinRequestDto;
-import com.boks.emotionalminutes.web.dto.meeting.MeetingRequestDto;
-import com.boks.emotionalminutes.web.dto.meeting.MeetingResponseDto;
+import com.boks.emotionalminutes.web.dto.meeting.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,29 +50,23 @@ public class MeetingService {
     }
 
     @Transactional
-    public String join(MeetingJoinRequestDto requestDto) {
+    public MeetingJoinResponseDto join(MeetingJoinRequestDto requestDto) {
         User user = userRepository.findById(requestDto.getUserId())
                 .orElseThrow(() -> new IllegalArgumentException("해당 개최자가 없습니다. id=" + requestDto.getUserId()));
 
         Meeting meeting = meetingRepository.findById(requestDto.getCode())
                 .orElseThrow(() -> new IllegalArgumentException("해당 회의가 없습니다. id=" + requestDto.getUserId()));
 
-        System.out.println("user와 meeting = " + user.getId() + meeting.getCode());
         Optional<Participation> participationInfo = participationRepository.findByUserIdAndMeetingCode(user.getId(), meeting.getCode());
-        if (participationInfo.isPresent()) {
-            System.out.println(participationInfo.get().getId());
-            return meeting.getCode();
-        }
-        else {
+        if (participationInfo.isEmpty()) {
             Participation participation = participationRepository.save(
                     Participation.builder()
                             .user(user)
                             .meeting(meeting)
                             .build());
-            System.out.println(participation.getId());
         }
 
-        return meeting.getCode();
+        return new MeetingJoinResponseDto(meeting);
     }
 
     // 회의 랜덤 코드 발급 함수

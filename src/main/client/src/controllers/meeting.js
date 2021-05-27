@@ -41,7 +41,8 @@ export const enterConference = (conferenceCode) => {
     .then((res) => res.json())
     .then((res) => {
       console.log('res is :', res);
-      window.location.href = `/meeting/${res}?open=false`;
+      localStorage.setItem('minutesId', res.minutesId);
+      window.location.href = `/meeting/${res.meetingCode}?open=false`;
     })
     .catch((err) => {
       console.log(err);
@@ -64,7 +65,6 @@ export const startRecording = (conferenceCode) => {
     .then((res) => res.json())
     .then((res) => {
       console.log('res is :', res);
-      localStorage.setItem('minutesId', res);
     })
     .catch((err) => {
       console.log(err);

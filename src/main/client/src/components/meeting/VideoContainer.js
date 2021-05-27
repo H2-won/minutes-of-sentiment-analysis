@@ -358,7 +358,7 @@ const VideoContainer = ({ match }) => {
         senderId: userId,
         senderName: userName,
         message: finalTranscript + '.',
-        time: hours + ':' + minutes + ':' + seconds,
+        time: hours.padStart(2,'0') + ':' + minutes.padStart(2,'0') + ':' + seconds.padStart(2,'0'),
       });
     }
   }, [finalTranscript, resetTranscript]);

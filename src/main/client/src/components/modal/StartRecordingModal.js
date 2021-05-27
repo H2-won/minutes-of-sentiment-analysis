@@ -61,6 +61,7 @@ function StartRecordingModal({ ModalOff, args }) {
 
     // 기록 시작
     const createdDate = new Date();
+    const now = new Date();
     dispatch(setCreatedDate(createdDate));
 
     const userId = localStorage.getItem('userId');
@@ -74,7 +75,8 @@ function StartRecordingModal({ ModalOff, args }) {
       senderId: userId,
       senderName: userName,
       message: '',
-      time: '00:00:00',
+      // time: '00:00:00',
+      time: now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),
     });
 
     // modal 닫기

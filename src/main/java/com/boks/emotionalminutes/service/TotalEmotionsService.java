@@ -38,11 +38,11 @@ public class TotalEmotionsService {
 
         for(Sentence value : sentences) {
             String emotion = value.getEmotion();
-            if ("행복".equals(emotion)) {
+            if ("기쁨".equals(emotion)) {
                 happy += 1;
             } else if ("중립".equals(emotion)) {
                 emotionless += 1;
-            } else if ("분노".equals(emotion)) {
+            } else if ("화남".equals(emotion)) {
                 angry += 1;
             } else if ("슬픔".equals(emotion)) {
                 sad += 1;

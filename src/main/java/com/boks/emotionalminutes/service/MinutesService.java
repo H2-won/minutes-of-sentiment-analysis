@@ -122,20 +122,20 @@ public class MinutesService {
 
         for (Sentence value : sentences) {
             String emotion = value.getEmotion();
-            if ("행복".equals(emotion)) {
+            if ("기쁨".equals(emotion)) {
                 happy += 1;
             } else if ("중립".equals(emotion)) {
                 emotionless += 1;
-            } else if ("분노".equals(emotion)) {
+            } else if ("화남".equals(emotion)) {
                 angry += 1;
             } else if ("슬픔".equals(emotion)) {
                 sad += 1;
             }
         }
 
-        System.out.println("행복" + (happy / total) * 100);
+        System.out.println("기쁨" + (happy / total) * 100);
         System.out.println("중립" + (emotionless / total) * 100);
-        System.out.println("분노" + (angry / total) * 100);
+        System.out.println("화남" + (angry / total) * 100);
         System.out.println("슬픔" + (sad / total) * 100);
 
         TotalEmotions entity = TotalEmotions.builder()

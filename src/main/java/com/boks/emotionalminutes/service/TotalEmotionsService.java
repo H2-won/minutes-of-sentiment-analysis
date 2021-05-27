@@ -21,11 +21,15 @@ public class TotalEmotionsService {
     private final MinutesRepository minutesRepository;
 
     @Transactional
-    public Long save(TotalEmotionsRequestDto requestDto) {
-        Minutes minutes = minutesRepository.findById(requestDto.getMinutesId())
-                .orElseThrow(() -> new IllegalArgumentException("해당 회의록이 없습니다. id=" + requestDto.getMinutesId()));
+    public Long save(Long id) {
+        Minutes minutes = minutesRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 회의록이 없습니다. id=" + id));
 
         List<Sentence> sentences = minutes.getSentences();
+        System.out.println("회의록(id = " + id + ") 의 문장 리스트를 가져왔습니다.");
+        for (Sentence value : sentences) {
+            System.out.println(value.getContent());
+        }
         float total = sentences.size();
         float happy = 0;
         float emotionless = 0;
@@ -36,7 +40,7 @@ public class TotalEmotionsService {
             String emotion = value.getEmotion();
             if ("기쁨".equals(emotion)) {
                 happy += 1;
-            } else if ("무감정".equals(emotion)) {
+            } else if ("중립".equals(emotion)) {
                 emotionless += 1;
             } else if ("화남".equals(emotion)) {
                 angry += 1;

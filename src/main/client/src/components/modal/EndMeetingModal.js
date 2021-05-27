@@ -51,6 +51,13 @@ const CancleBtn = styled.button`
 
 function EndMeetingModal({ ModalOff, args }) {
   const closeSocket = () => {
+    // last user will have to close the socket
+    // 로그인한 user id와 미팅을 만든 host id를 비교해서 host 여부 설정
+    if (localStorage.getItem('userId') === localStorage.getItem('hostId')) {
+      console.log('host close!!!');
+      connection.closeSocket();
+    }
+
     console.log('START CLOSE SOCKET TEST');
 
     connection.getAllParticipants().forEach(function (pid) {
@@ -63,13 +70,6 @@ function EndMeetingModal({ ModalOff, args }) {
       console.log(localStream, 'CLOSE LOCAL STREAM - TEST');
       localStream.stop();
     });
-
-    // last user will have to close the socket
-    // 로그인한 user id와 미팅을 만든 host id를 비교해서 host 여부 설정
-    if (localStorage.getItem('userId') === localStorage.getItem('hostId')) {
-      console.log('host close!!!');
-      connection.closeSocket();
-    }
 
     SpeechRecognition.stopListening();
     window.location.href = '/main';

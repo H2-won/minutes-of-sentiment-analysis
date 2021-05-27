@@ -11,10 +11,11 @@ import org.springframework.web.bind.annotation.*;
 public class TotalEmotionsController {
     private final TotalEmotionsService totalEmotionsService;
 
-    @PostMapping("/api/total-emotions")
-    public Long save(@RequestBody TotalEmotionsRequestDto requestDto) {
-        return totalEmotionsService.save(requestDto);
-    }
+    // 2021.05.25 사용하지 않는 API
+//    @PostMapping("/api/total-emotions")
+//    public Long save(@RequestBody TotalEmotionsRequestDto requestDto) {
+//        return totalEmotionsService.save(requestDto);
+//    }
 
     @GetMapping("/api/minutes/{id}/total-emotions")
     public TotalEmotionsResponseDto findByMinutesId(@PathVariable Long id) {

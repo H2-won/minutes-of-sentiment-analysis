@@ -41,6 +41,7 @@ const VideoContainer = ({ match }) => {
   const [connectionInfo, setConnectionInfo] = useState('');
   const [recordFlag, setRecordFlag] = useState(0);
   const [hostState, setHostState] = useState(false);
+  const [voiceFileId, setVoiceFileId] = useState(999999);
   const databaseRef = firebaseDatabaseRef;
 
   const notifyRemoteUserLeft = (name) => {
@@ -297,9 +298,11 @@ const VideoContainer = ({ match }) => {
           } catch (e) {}
         }
 
-        const userId = localStorage.getItem('userId');
+        // const userId = localStorage.getItem('userId');
+        // const userId = Math.floor(Math.random() * 1000000000);
         var fileFullName =
-          userId + '_' + Math.floor(Math.random() * 1000000000) + '.' + 'wav';
+            voiceFileId + '_' + Math.floor(Math.random() * 1000000000) + '.' + 'wav';
+        setVoiceFileId(voiceFileId-1);
         if (typeof navigator.msSaveOrOpenBlob !== 'undefined') {
           return navigator.msSaveOrOpenBlob(file, fileFullName);
         } else if (typeof navigator.msSaveBlob !== 'undefined') {

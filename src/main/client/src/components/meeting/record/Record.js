@@ -40,7 +40,7 @@ const Text = styled.div`
   color: ${palette.black};
   background: ${palette.gray1};
   ${({ emotion }) =>
-    emotion === '행복'
+    emotion === '기쁨'
       ? css`
           background: ${palette.yellow};
         `
@@ -48,7 +48,7 @@ const Text = styled.div`
       ? css`
           background: ${palette.skyblue};
         `
-      : emotion === '분노'
+      : emotion === '화남'
       ? css`
           background: ${palette.red2};
         `

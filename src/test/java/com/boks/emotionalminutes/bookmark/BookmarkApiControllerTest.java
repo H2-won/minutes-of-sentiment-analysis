@@ -85,7 +85,7 @@
 //         sentenceRequestDto.setUserId(user.getId());
 //         sentenceRequestDto.setMinutesId(minutesId);
 //         sentenceRequestDto.setContent("반갑습니다.");
-//         sentenceRequestDto.setEmotion("행복");
+//         sentenceRequestDto.setEmotion("기쁨");
 //         sentenceRequestDto.setCreatedTime(Time.valueOf(LocalTime.of(0, 0, 15)));
 //         sentenceId2 = sentenceService.save(sentenceRequestDto);
 

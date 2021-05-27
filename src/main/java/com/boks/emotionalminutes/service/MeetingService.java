@@ -60,12 +60,20 @@ public class MeetingService {
         Meeting meeting = meetingRepository.findById(requestDto.getCode())
                 .orElseThrow(() -> new IllegalArgumentException("해당 회의가 없습니다. id=" + requestDto.getUserId()));
 
-        Participation participationInfo = participationRepository.findByUserIdAndMeetingCode(user.getId(), meeting.getCode())
-                .orElse(participationRepository.save(
-                        Participation.builder()
-                        .user(user)
-                        .meeting(meeting)
-                        .build()));
+        System.out.println("user와 meeting = " + user.getId() + meeting.getCode());
+        Optional<Participation> participationInfo = participationRepository.findByUserIdAndMeetingCode(user.getId(), meeting.getCode());
+        if (participationInfo.isPresent()) {
+            System.out.println(participationInfo.get().getId());
+            return meeting.getCode();
+        }
+        else {
+            Participation participation = participationRepository.save(
+                    Participation.builder()
+                            .user(user)
+                            .meeting(meeting)
+                            .build());
+            System.out.println(participation.getId());
+        }
 
         return meeting.getCode();
     }

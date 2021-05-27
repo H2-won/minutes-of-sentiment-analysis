@@ -103,8 +103,8 @@ function ProduceConferenceModal({ ModalOff, args }) {
   };
 
   const openMeetingRoom = () => {
-    ModalOff();
     produceConferenceAPI();
+    ModalOff();
   };
 
   return (

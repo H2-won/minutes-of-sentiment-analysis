@@ -43,6 +43,7 @@ const VideoContainer = ({ match }) => {
   const [hostState, setHostState] = useState(false);
   const [voiceFileId, setVoiceFileId] = useState(999999);
   const databaseRef = firebaseDatabaseRef;
+  const createdDate = useSelector((state) => state.createdDate.date);
 
   const notifyRemoteUserLeft = (name) => {
     alert(name + ' left.');
@@ -301,8 +302,12 @@ const VideoContainer = ({ match }) => {
         // const userId = localStorage.getItem('userId');
         // const userId = Math.floor(Math.random() * 1000000000);
         var fileFullName =
-            voiceFileId + '_' + Math.floor(Math.random() * 1000000000) + '.' + 'wav';
-        setVoiceFileId(voiceFileId-1);
+          voiceFileId +
+          '_' +
+          Math.floor(Math.random() * 1000000000) +
+          '.' +
+          'wav';
+        setVoiceFileId(voiceFileId - 1);
         if (typeof navigator.msSaveOrOpenBlob !== 'undefined') {
           return navigator.msSaveOrOpenBlob(file, fileFullName);
         } else if (typeof navigator.msSaveBlob !== 'undefined') {
@@ -339,6 +344,10 @@ const VideoContainer = ({ match }) => {
       resetTranscript();
 
       var now = new Date();
+      const hours = parseInt((now - createdDate) / 1000 / 3600);
+      const minutes = parseInt(((now - createdDate) / 1000 / 60) % 60);
+      const seconds = parseInt(((now - createdDate) / 1000) % 60);
+
       const userId = localStorage.getItem('userId');
       const userName = localStorage.getItem('userName');
       const minutesId = localStorage.getItem('minutesId');
@@ -349,7 +358,7 @@ const VideoContainer = ({ match }) => {
         senderId: userId,
         senderName: userName,
         message: finalTranscript + '.',
-        time: now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),
+        time: hours + ':' + minutes + ':' + seconds,
       });
     }
   }, [finalTranscript, resetTranscript]);
@@ -359,65 +368,6 @@ const VideoContainer = ({ match }) => {
       'Your browser does not support speech recognition software! Try Chrome desktop, maybe?',
     );
   }
-
-  const StartSpeechRecognition = () => {
-    setRecordFlag(1);
-    const now = new Date();
-    const userId = localStorage.getItem('userId');
-    const userName = localStorage.getItem('userName');
-    const minutesId = localStorage.getItem('minutesId');
-    const code = match.params.roomId;
-    startRecording(code);
-    databaseRef.push({
-      flag: recordFlag,
-      minutesId: minutesId,
-      senderId: userId,
-      senderName: userName,
-      message: finalTranscript,
-      time: now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),
-    });
-  };
-
-  const StopSpeechRecognition = () => {
-    SpeechRecognition.stopListening();
-    setRecordFlag(-1);
-    const now = new Date();
-    const userId = localStorage.getItem('userId');
-    const userName = localStorage.getItem('userName');
-    const minutesId = localStorage.getItem('minutesId');
-    stopRecording(minutesId);
-    databaseRef.push({
-      flag: recordFlag,
-      minutesId: minutesId,
-      senderId: userId,
-      senderName: userName,
-      message: minutesId,
-      time: now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),
-    });
-  };
-
-  const onToggleMicrophone = () => {
-    console.log('main getAudioTracks = ', mainVideo.stream.getAudioTracks());
-
-    // 마이크 음소거 해제 -> STT 시작, 아니면 종료
-    if (!mainVideo.stream.getAudioTracks()[0].enabled) {
-      SpeechRecognition.startListening({
-        continuous: true,
-        language: 'ko-KR',
-      });
-    } else {
-      SpeechRecognition.stopListening();
-    }
-    mainVideo.stream.getAudioTracks()[0].enabled =
-      !mainVideo.stream.getAudioTracks()[0].enabled;
-  };
-
-  const onToggleVideo = () => {
-    console.log('main getVideoTracks = ', mainVideo.stream.getVideoTracks());
-
-    mainVideo.stream.getVideoTracks()[0].enabled =
-      !mainVideo.stream.getVideoTracks()[0].enabled;
-  };
 
   return (
     <div>
@@ -429,10 +379,6 @@ const VideoContainer = ({ match }) => {
           <span>{transcript}</span>
         </div>
       </div>
-      {/* <div>
-        audio Test
-        <audio controls autoPlay playsInline></audio>
-      </div> */}
       <VideoWrapper>
         <MainVideo>
           {mainVideo && (
@@ -448,43 +394,6 @@ const VideoContainer = ({ match }) => {
         </MainVideo>
         <VideoThumbnailsList videos={videoThumbnailsArr} />
       </VideoWrapper>
-      <div className="action-buttons">
-        {!mainVideo && (
-          <button className="btn" onClick={() => justOpen()}>
-            JustOpen
-          </button>
-        )}
-        {!mainVideo && (
-          <button className="btn" onClick={() => justJoin()}>
-            JustJoin
-          </button>
-        )}
-        {mainVideo && (
-          <button className="btn" onClick={() => closeSocket()}>
-            Close
-          </button>
-        )}
-        {hostState && (
-          <button className="btn" onClick={StartSpeechRecognition}>
-            기록 시작
-          </button>
-        )}
-        {hostState && (
-          <button className="btn" onClick={StopSpeechRecognition}>
-            기록 종료
-          </button>
-        )}
-        {mainVideo && (
-          <button className="btn" onClick={onToggleMicrophone}>
-            마이크 음소거
-          </button>
-        )}
-        {mainVideo && (
-          <button className="btn" onClick={onToggleVideo}>
-            비디오 중지
-          </button>
-        )}
-      </div>
     </div>
   );
 };

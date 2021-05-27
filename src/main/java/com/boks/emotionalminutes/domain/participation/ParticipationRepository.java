@@ -12,6 +12,6 @@ import java.util.Optional;
 public interface ParticipationRepository extends JpaRepository<Participation, Long> {
     List<Participation> findAllByUserId(Long user_id);
 
-    @Query("select p from Participation p where p.user.id=:userId and p.meeting.code=:meetingCode")
-    Optional<Participation> findByUserIdAndMeetingCode(@Param("userId") Long user_id, @Param("meetingCode") String meeting_code);
+    @Query("select p from Participation p where p.user.id=:user_id and p.meeting.code=:meeting_code")
+    Optional<Participation> findByUserIdAndMeetingCode(@Param("user_id") Long user_id, @Param("meeting_code") String meeting_code);
 }

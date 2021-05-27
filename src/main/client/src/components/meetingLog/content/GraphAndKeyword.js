@@ -107,7 +107,7 @@ function GraphAndKeyword({id}) {
     <Container>
       <h2>감정 그래프</h2>
       <GraphWrapper>
-          <Scatter data={data} options={options} />
+          <Scatter data={data} options={options} type={"scatter"}/>
       </GraphWrapper>
       <h2>구간 별 키워드</h2>
       <KeywordWrapper></KeywordWrapper>

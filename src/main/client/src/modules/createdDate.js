@@ -7,7 +7,7 @@ import produce from 'immer';
 /*
 	Actions
 */
-const SET_CREATED_DATE = 'meeting/SET_CREATED_DATE';
+const SET_CREATED_DATE = 'createdDate/SET_CREATED_DATE';
 
 export const setCreatedDate = (date) => ({
   type: SET_CREATED_DATE,

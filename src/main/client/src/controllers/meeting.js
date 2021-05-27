@@ -38,7 +38,7 @@ export const enterConference = (conferenceCode) => {
       code: conferenceCode,
     }),
   })
-    // .then((res) => res.json())
+    .then((res) => res.json())
     .then((res) => {
       console.log('res is :', res);
       window.location.href = `/meeting/${res}?open=false`;

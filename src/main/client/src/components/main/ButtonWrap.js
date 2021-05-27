@@ -1,11 +1,11 @@
-import React from "react";
-import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
-import palette from "../../lib/styles/palette";
-import { openModal } from "../../modules/modal";
-import EnterConferenceModal from "../modal/EnterConferenceModal";
-import ProduceConferenceModal from "../modal/ProduceConferenceModal";
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import palette from '../../lib/styles/palette';
+import { openModal } from '../../modules/modal';
+import EnterConferenceModal from '../modal/EnterConferenceModal';
+import ProduceConferenceModal from '../modal/ProduceConferenceModal';
 
 const Wrapper = styled.div`
   display: flex;
@@ -61,26 +61,23 @@ const Button = styled.div`
 
 function ButtonWrap() {
   const dispatch = useDispatch();
-  const staticId = "qweasd";
 
   const onClickProduce = () => {
     dispatch(
-      openModal("PRODUCE_CONFERENCE", ProduceConferenceModal, {
-        title: "회의 생성",
-        okBtnText: "회의 시작",
-        okBtnBackgroundColor: "orange",
-        staticId: staticId,
-      })
+      openModal('PRODUCE_CONFERENCE', ProduceConferenceModal, {
+        title: '회의 생성',
+        okBtnText: '회의 시작',
+        okBtnBackgroundColor: 'orange',
+      }),
     );
   };
   const onClickEnter = () => {
     dispatch(
-      openModal("ENTER_CONFERENCE", EnterConferenceModal, {
-        title: "회의 참가",
-        okBtnText: "회의 입장",
-        okBtnBackgroundColor: "orange",
-        staticId: staticId,
-      })
+      openModal('ENTER_CONFERENCE', EnterConferenceModal, {
+        title: '회의 참가',
+        okBtnText: '회의 입장',
+        okBtnBackgroundColor: 'orange',
+      }),
     );
   };
 

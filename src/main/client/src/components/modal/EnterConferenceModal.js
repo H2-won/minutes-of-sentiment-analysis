@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 import palette from '../../lib/styles/palette';
-import { Link } from 'react-router-dom';
-import connection from '../meeting/RtcConnection';
 import { enterConference } from '../../controllers/meeting';
 
 const Container = styled.div`
@@ -84,16 +82,6 @@ function EnterConferenceModal({ ModalOff, args }) {
   const joinMeetingRoom = () => {
     ModalOff();
     enterConference(inputValue);
-    // connection.join(inputValue, function (isJoinedRoom, roomid, error) {
-    //   if (error) {
-    //     if (error === 'Room not available') {
-    //       alert('존재하지 않는 방입니다. 새로운 방을 만들거나 참가하세요!');
-    //       window.location.href = '/main';
-    //       return;
-    //     }
-    //     alert(error + ' error log');
-    //   }
-    // });
   };
 
   return (
@@ -103,14 +91,12 @@ function EnterConferenceModal({ ModalOff, args }) {
         <input type="text" onChange={onChange} />
       </ContentWrapper>
       <BtnWrapper>
-        {/*<Link to={`/meeting/${inputValue}`}>*/}
-          <OkBtn
-            color={args.okBtnBackgroundColor}
-            onClick={() => joinMeetingRoom()}
-          >
-            {args.okBtnText}
-          </OkBtn>
-        {/*</Link>*/}
+        <OkBtn
+          color={args.okBtnBackgroundColor}
+          onClick={() => joinMeetingRoom()}
+        >
+          {args.okBtnText}
+        </OkBtn>
         <CancleBtn onClick={ModalOff}>취소</CancleBtn>
       </BtnWrapper>
     </Container>

@@ -1,6 +1,9 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
+import { startRecording } from '../../controllers/meeting';
+import { firebaseDatabaseRef } from '../../firebase';
 import palette from '../../lib/styles/palette';
+import SpeechRecognition from 'react-speech-recognition';
 
 const Container = styled.div`
   position: relative;
@@ -49,9 +52,29 @@ const CancleBtn = styled.button`
 
 function StartRecordingModal({ ModalOff, args }) {
   const onStartRecording = () => {
+    // style 변경을 위한 setRecordState
     args.setRecordState('recording');
+
+    // 기록 시작
+    const now = new Date();
+    const userId = localStorage.getItem('userId');
+    const userName = localStorage.getItem('userName');
+    const minutesId = localStorage.getItem('minutesId');
+    const code = args.match.params.roomId;
+    startRecording(code);
+    firebaseDatabaseRef.push({
+      flag: 1,
+      minutesId: minutesId,
+      senderId: userId,
+      senderName: userName,
+      message: '',
+      time: now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),
+    });
+
+    // modal 닫기
     ModalOff();
   };
+
   return (
     <Container>
       <BtnWrapper>

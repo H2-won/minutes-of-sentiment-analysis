@@ -31,7 +31,7 @@ const RecordingBtnWrapper = styled.div`
   justify-content: center;
 `;
 
-function BottomLayout() {
+function BottomLayout({ match }) {
   return (
     <Container>
       <MainBtnsWrapper>
@@ -40,7 +40,7 @@ function BottomLayout() {
         <EndMeetingBtn />
       </MainBtnsWrapper>
       <RecordingBtnWrapper>
-        <RecordingBtn />
+        <RecordingBtn match={match} />
       </RecordingBtnWrapper>
     </Container>
   );

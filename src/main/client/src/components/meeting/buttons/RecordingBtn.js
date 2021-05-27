@@ -31,7 +31,7 @@ const Button = styled.button`
   }
 `;
 
-function RecordingBtn() {
+function RecordingBtn({ match }) {
   const [recordState, setRecordState] = useState('default');
   const dispatch = useDispatch();
   const onClickRecording = () => {
@@ -42,6 +42,7 @@ function RecordingBtn() {
           okBtnText: '기록 시작',
           okBtnBackgroundColor: 'orange',
           setRecordState,
+          match: match,
         }),
       );
     } else if (recordState === 'recording') {
@@ -51,6 +52,7 @@ function RecordingBtn() {
           okBtnText: '기록 종료',
           okBtnBackgroundColor: 'red',
           setRecordState,
+          match: match,
         }),
       );
     }

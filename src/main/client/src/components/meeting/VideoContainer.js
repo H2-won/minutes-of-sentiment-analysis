@@ -43,6 +43,7 @@ const VideoContainer = ({ match }) => {
   const [hostState, setHostState] = useState(false);
   const [voiceFileId, setVoiceFileId] = useState(999999);
   const databaseRef = firebaseDatabaseRef;
+  const createdDate = useSelector((state) => state.createdDate.date);
 
   const notifyRemoteUserLeft = (name) => {
     alert(name + ' left.');
@@ -337,7 +338,6 @@ const VideoContainer = ({ match }) => {
   }, [finalTranscript]);
 
   useEffect(() => {
-    const createdDate = useSelector((state) => state.createdDate.date);
     // --- finalTranscript 말 끝날때마다 firebase database에 삽입 ---
     if (finalTranscript !== '') {
       console.log('Got final result:', finalTranscript);

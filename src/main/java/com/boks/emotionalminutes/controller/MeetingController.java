@@ -20,7 +20,7 @@ public class MeetingController {
 
     @PostMapping("/api/meeting/join")
     public String join(@RequestBody MeetingJoinRequestDto requestDto) {
-        return '\"' + meetingService.join(requestDto) + '\"';
+        return meetingService.join(requestDto);
     }
 
     @GetMapping("/api/meeting/{code}")

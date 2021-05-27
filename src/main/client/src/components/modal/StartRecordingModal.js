@@ -5,6 +5,7 @@ import { firebaseDatabaseRef } from '../../firebase';
 import palette from '../../lib/styles/palette';
 import SpeechRecognition from 'react-speech-recognition';
 import { useDispatch } from 'react-redux';
+import { setCreatedDate } from '../../modules/createdDate';
 
 const Container = styled.div`
   position: relative;

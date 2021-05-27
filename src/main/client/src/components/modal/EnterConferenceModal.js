@@ -80,8 +80,8 @@ function EnterConferenceModal({ ModalOff, args }) {
   };
 
   const joinMeetingRoom = () => {
-    ModalOff();
     enterConference(inputValue);
+    ModalOff();
   };
 
   return (

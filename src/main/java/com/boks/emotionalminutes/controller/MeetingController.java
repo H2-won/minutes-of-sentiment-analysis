@@ -1,10 +1,7 @@
 package com.boks.emotionalminutes.controller;
 
 import com.boks.emotionalminutes.service.MeetingService;
-import com.boks.emotionalminutes.web.dto.meeting.MeetingCodeAndHostIDResponseDto;
-import com.boks.emotionalminutes.web.dto.meeting.MeetingJoinRequestDto;
-import com.boks.emotionalminutes.web.dto.meeting.MeetingRequestDto;
-import com.boks.emotionalminutes.web.dto.meeting.MeetingResponseDto;
+import com.boks.emotionalminutes.web.dto.meeting.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,8 +16,8 @@ public class MeetingController {
     }
 
     @PostMapping("/api/meeting/join")
-    public String join(@RequestBody MeetingJoinRequestDto requestDto) {
-        return "\"" + meetingService.join(requestDto) + "\"";
+    public MeetingJoinResponseDto join(@RequestBody MeetingJoinRequestDto requestDto) {
+        return meetingService.join(requestDto);
     }
 
     @GetMapping("/api/meeting/{code}")

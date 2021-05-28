@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 import palette from '../../../lib/styles/palette';
+import { getMeetingLogInfo } from '../../../controllers/meetingLog';
+import { setMeetingInfo } from '../../../modules/meetingLog';
+import { useDispatch } from 'react-redux';
 
 const Container = styled.div`
   position: relative;
@@ -113,6 +116,7 @@ function MeetingLogWrapper({
   // angry,
   meetingLog,
 }) {
+  const dispatch = useDispatch();
   const [maxEmotion, setMaxEmotion] = useState('무감정');
   const emotionless = parseInt(meetingLog.emotionless);
   const emotions = [
@@ -136,9 +140,13 @@ function MeetingLogWrapper({
     }
   }, []);
 
+  const getAndSetMeetingLogInfo = () => {
+    dispatch(setMeetingInfo(getMeetingLogInfo(meetingLog.minutesId)));
+  };
+
   return (
     <Link to={`/meetinglog/${meetingLog.meetingCode}`}>
-      <Container id={meetingLog.minutesId}>
+      <Container id={meetingLog.minutesId} onClick={getAndSetMeetingLogInfo}>
         <Title>{meetingLog.title}</Title>
         <EnterBtnWrapper>
           <i className="fas fa-chevron-right"></i>

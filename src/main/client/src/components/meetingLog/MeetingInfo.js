@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 
@@ -15,10 +16,6 @@ const Container = styled.div`
     width: 46%;
     margin: 1.5rem 2rem;
   }
-
-  span {
-    font-size: 20px;
-  }
 `;
 
 const Title = styled.span`
@@ -26,9 +23,14 @@ const Title = styled.span`
   margin-right: 2rem;
 `;
 
-const Description = styled.span``;
+const Description = styled.span`
+  font-size: 20px;
+`;
 
 function MeetingInfo() {
+  const dispatch = useDispatch();
+  const meetingInfo = useSelector((state) => state.meetingLog.meetingInfo);
+
   const meetingInfomation = {
     id: 1,
     title: '캡스톤 디자인 회의록 1',

@@ -8,6 +8,8 @@ import com.boks.emotionalminutes.domain.participation.Participation;
 import com.boks.emotionalminutes.domain.sentence.Sentence;
 import com.boks.emotionalminutes.domain.totalEmotions.TotalEmotions;
 import com.boks.emotionalminutes.domain.totalEmotions.TotalEmotionsRepository;
+import com.boks.emotionalminutes.domain.totalKeywords.TotalKeywords;
+import com.boks.emotionalminutes.domain.totalKeywords.TotalKeywordsRepository;
 import com.boks.emotionalminutes.domain.user.User;
 import com.boks.emotionalminutes.domain.user.UserRepository;
 import com.boks.emotionalminutes.web.dto.minutes.MinutesListResponseDto;
@@ -51,19 +53,20 @@ public class MinutesService {
 
     @Transactional(readOnly = true)
     public List<MinutesListResponseDto> findAllDesc(Long userId) {
-        List<MinutesListResponseDto> dtos = new ArrayList<MinutesListResponseDto>();
+        List<MinutesListResponseDto> dtos = new ArrayList<>();
         User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("해당 회원 없습니다. id=" + userId));
         user.getParticipation().stream()
                 .map(Participation::getMeeting)
                 .forEach(meeting -> {
                     Minutes minutes = meeting.getMinutes();
                     if (minutes != null) {
-                        dtos.add(MinutesListResponseDto.builder()
-                                .id(minutes.getId())
-                                .title(meeting.getName())
-                                .host(meeting.getUser().getName())
-                                .createdDate(minutes.getCreatedDate())
-                                .build());
+                        List<String> pictures = new ArrayList<>();
+                        meeting.getParticipation().stream()
+                                .map(Participation::getUser)
+                                .forEach(member -> {
+                                    pictures.add(member.getPicture());
+                                });
+                        dtos.add(new MinutesListResponseDto(minutes, meeting, pictures, minutes.getTotalKeywords(), minutes.getTotalEmotions()));
                     }
                 });
         return dtos;

@@ -59,7 +59,7 @@ public class MinutesService {
                 .map(Participation::getMeeting)
                 .forEach(meeting -> {
                     Minutes minutes = meeting.getMinutes();
-                    if (minutes != null) {
+                    if (minutes != null && minutes.getTotalEmotions() != null && minutes.getTotalKeywords() != null) {
                         List<String> pictures = new ArrayList<>();
                         meeting.getParticipation().stream()
                                 .map(Participation::getUser)

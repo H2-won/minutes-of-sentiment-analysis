@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { getMinutesList } from '../../../controllers/meetingLog';
 import MeetingLog from './MeetingLog';
 
 const Container = styled.div`
@@ -14,102 +15,169 @@ const Container = styled.div`
 
 function MinutesListLayout() {
   const [minutesList, setMinutesList] = useState();
-  const getMinutesListAPI = () => {
-    fetch(`/api/user/${localStorage.getItem('userId')}/minutes`, {
-      method: 'GET',
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        setMinutesList(res);
-      })
-      .catch((err) => console.log(err));
-  };
 
+  useEffect(() => {
+    setMinutesList(getMinutesList(localStorage.getItem('userId')));
+  }, []);
   const meetingLogs = [
     {
-      id: 1,
+      minutesId: 1,
       title: '캡스톤 디자인 회의',
-      keywords: ['발표', '설계', '구조', '캡스톤', '디비'],
-      date: '2021-04-22',
-      users: ['profile1.jpg', 'profile2.jpg', 'profile3.jpg', 'profile4.jpg'],
-      code: 'qweasd',
+      keywords: ['발표', '설계', '구조'],
+      createdDate: '2021-04-22',
+      pictures: [
+        'profile1.jpg',
+        'profile2.jpg',
+        'profile3.jpg',
+        'profile4.jpg',
+      ],
+      meetingCode: 'qweasd',
+      happy: '6.25',
+      emotionless: '56.25',
+      sad: '37.5',
+      angry: '0',
     },
     {
-      id: 2,
+      minutesId: 2,
       title: '캡스톤 디자인 회의',
       keywords: ['발표', '설계', '구조', '캡스톤', '디비'],
-      date: '2021-04-21',
-      users: ['profile1.jpg', 'profile2.jpg', 'profile3.jpg', 'profile4.jpg'],
-      code: 'qweasd',
+      createdDate: '2021-04-21',
+      pictures: [
+        'profile1.jpg',
+        'profile2.jpg',
+        'profile3.jpg',
+        'profile4.jpg',
+      ],
+      meetingCode: 'qweasd',
+      happy: '56.25',
+      emotionless: '6.25',
+      sad: '37.5',
+      angry: '0',
     },
     {
-      id: 3,
+      minutesId: 3,
       title: '캡스톤 디자인 회의',
       keywords: ['발표', '설계', '구조', '캡스톤', '디비'],
-      date: '2021-04-19',
-      users: ['profile1.jpg', 'profile2.jpg', 'profile3.jpg', 'profile4.jpg'],
-      code: 'qweasd',
+      createdDate: '2021-04-19',
+      pictures: [
+        'profile1.jpg',
+        'profile2.jpg',
+        'profile3.jpg',
+        'profile4.jpg',
+      ],
+      meetingCode: 'qweasd',
+      happy: '6.25',
+      emotionless: '56.25',
+      sad: '9.5',
+      angry: '0',
     },
     {
-      id: 4,
+      minutesId: 4,
       title: '캡스톤 디자인 회의',
       keywords: ['발표', '설계', '구조', '캡스톤', '디비'],
-      date: '2021-04-17',
-      users: ['profile1.jpg', 'profile2.jpg', 'profile3.jpg', 'profile4.jpg'],
-      code: 'qweasd',
+      createdDate: '2021-04-17',
+      pictures: [
+        'profile1.jpg',
+        'profile2.jpg',
+        'profile3.jpg',
+        'profile4.jpg',
+      ],
+      meetingCode: 'qweasd',
+      happy: '6.25',
+      emotionless: '56.25',
+      sad: '1.5',
+      angry: '16.5',
     },
     {
-      id: 5,
+      minutesId: 5,
       title: '캡스톤 디자인 회의',
       keywords: ['발표', '설계', '구조', '캡스톤', '디비'],
-      date: '2021-03-29',
-      users: ['profile1.jpg', 'profile2.jpg', 'profile3.jpg', 'profile4.jpg'],
-      code: 'qweasd',
+      createdDate: '2021-03-29',
+      pictures: [
+        'profile1.jpg',
+        'profile2.jpg',
+        'profile3.jpg',
+        'profile4.jpg',
+      ],
+      meetingCode: 'qweasd',
+      happy: '6.25',
+      emotionless: '56.25',
+      sad: '37.5',
+      angry: '0',
     },
     {
-      id: 6,
+      minutesId: 6,
       title: '캡스톤 디자인 회의',
       keywords: ['발표', '설계', '구조', '캡스톤', '디비'],
-      date: '2021-03-21',
-      users: ['profile1.jpg', 'profile2.jpg', 'profile3.jpg', 'profile4.jpg'],
-      code: 'qweasd',
+      createdDate: '2021-03-21',
+      pictures: [
+        'profile1.jpg',
+        'profile2.jpg',
+        'profile3.jpg',
+        'profile4.jpg',
+      ],
+      meetingCode: 'qweasd',
+      happy: '6.25',
+      emotionless: '56.25',
+      sad: '37.5',
+      angry: '0',
     },
     {
-      id: 7,
+      minutesId: 7,
       title: '캡스톤 디자인 회의',
       keywords: ['발표', '설계', '구조', '캡스톤', '디비'],
-      date: '2021-03-21',
-      users: ['profile1.jpg', 'profile2.jpg', 'profile3.jpg', 'profile4.jpg'],
-      code: 'qweasd',
+      createdDate: '2021-03-21',
+      pictures: [
+        'profile1.jpg',
+        'profile2.jpg',
+        'profile3.jpg',
+        'profile4.jpg',
+      ],
+      meetingCode: 'qweasd',
+      happy: '6.25',
+      emotionless: '56.25',
+      sad: '37.5',
+      angry: '0',
     },
     {
-      id: 8,
+      minutesId: 8,
       title: '캡스톤 디자인 회의',
       keywords: ['발표', '설계', '구조', '캡스톤', '디비'],
-      date: '2021-03-21',
-      users: ['profile1.jpg', 'profile2.jpg', 'profile3.jpg', 'profile4.jpg'],
-      code: 'qweasd',
+      createdDate: '2021-03-21',
+      pictures: [
+        'profile1.jpg',
+        'profile2.jpg',
+        'profile3.jpg',
+        'profile4.jpg',
+      ],
+      meetingCode: 'qweasd',
+      happy: '56.25',
+      emotionless: '6.25',
+      sad: '37.5',
+      angry: '0',
     },
     {
-      id: 9,
+      minutesId: 9,
       title: '캡스톤 디자인 회의',
       keywords: ['발표', '설계', '구조', '캡스톤', '디비'],
-      date: '2021-03-21',
-      users: ['profile1.jpg', 'profile2.jpg', 'profile3.jpg', 'profile4.jpg'],
-      code: 'qweasd',
+      createdDate: '2021-03-21',
+      pictures: [
+        'profile1.jpg',
+        'profile2.jpg',
+        'profile3.jpg',
+        'profile4.jpg',
+      ],
+      meetingCode: 'qweasd',
+      happy: '6.25',
+      emotionless: '56.25',
+      sad: '37.5',
+      angry: '0',
     },
   ];
   return (
     <Container>
       {meetingLogs.map((meetingLog) => (
-        <MeetingLog
-          key={meetingLog.id}
-          title={meetingLog.title}
-          keywords={meetingLog.keywords}
-          users={meetingLog.users}
-          date={meetingLog.date}
-          code={meetingLog.code}
-        />
+        <MeetingLog key={meetingLog.minutesId} meetingLog={meetingLog} />
       ))}
     </Container>
   );

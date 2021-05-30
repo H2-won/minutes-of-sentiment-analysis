@@ -140,7 +140,21 @@ function MeetingLogWrapper({
   }, []);
 
   const getAndSetMeetingLogInfo = () => {
-    dispatch(setMeetingInfo(getMeetingLogInfo(meetingLog.minutesId)));
+    const token = localStorage.getItem('accessToken');
+    fetch(`/api/minutes/${meetingLog.minutesId}`, {
+      method: 'GET',
+      headers: {
+        Authorization: 'Bearer ' + token,
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log('회의록 정보:', res);
+        return dispatch(setMeetingInfo(res));
+      })
+      .catch((err) => console.log(err));
+    // dispatch(setMeetingInfo(getMeetingLogInfo(meetingLog.minutesId)));
   };
 
   return (

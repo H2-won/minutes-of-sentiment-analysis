@@ -91,8 +91,26 @@ function MinutesInquiryModal({ ModalOff, args }) {
   };
 
   const onClickLookup = () => {
+    const token = localStorage.getItem('accessToken');
+    fetch(`/api/minutes/${codeValue}`, {
+      method: 'POST',
+      headers: {
+        Authorization: 'Bearer ' + token,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        password: passwordValue,
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log('회의록 정보 : ', res);
+        dispatch(setMeetingInfo(res));
+      })
+      .catch((err) => console.log(err));
+    // dispatch(setMeetingInfo(lookupMeetingLogByCode(codeValue, passwordValue)));
+
     window.location.href = `/meetinglog/${codeValue}`;
-    dispatch(setMeetingInfo(lookupMeetingLogByCode(codeValue, passwordValue)));
   };
 
   return (

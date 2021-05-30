@@ -66,9 +66,9 @@ const options = {
     }
 }
 
-var data = {};
-
 function GraphAndKeyword({id}) {
+
+    const [data, setData] = useState({});
 
     const a = fetch(`/api/minutes/${id}/sentences`, {
         method: 'GET',
@@ -102,7 +102,7 @@ function GraphAndKeyword({id}) {
                     pointRadius: 5
                 })
             }
-            data['datasets'] = datasets;
+            setData({'datasets' : datasets});
         });
 
   return (

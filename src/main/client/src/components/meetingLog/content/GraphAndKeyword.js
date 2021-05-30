@@ -49,7 +49,7 @@ const options = {
         xAxes: {
             ticks: {
                 callback: function (value) {
-                    return parseInt(value/3600) + ':' + parseInt((value%3600)/60) + ':' + parseInt(value%60);
+                    return ('0'+parseInt(value/3600))[-2] + ':' + ('0'+parseInt((value%3600)/60))[-2] + ':' + ('0'+parseInt(value%60))[-2];
                 }
             }
         },

@@ -4,21 +4,20 @@ import com.boks.emotionalminutes.domain.totalKeywords.TotalKeywords;
 import lombok.Data;
 import lombok.Getter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @Getter
 public class TotalKeywordsResponseDto {
-    private String mainKeyword1;
-    private String mainKeyword2;
-    private String mainKeyword3;
-    private String mainKeyword4;
-    private String mainKeyword5;
+    private List<String> keywords= new ArrayList<>();
 
     public TotalKeywordsResponseDto (TotalKeywords entity) {
-        this.mainKeyword1 = entity.getMainKeyword1();
-        this.mainKeyword2 = entity.getMainKeyword2();
-        this.mainKeyword3 = entity.getMainKeyword3();
-        this.mainKeyword4 = entity.getMainKeyword4();
-        this.mainKeyword5 = entity.getMainKeyword5();
+        this.keywords.add(entity.getMainKeyword1());
+        this.keywords.add(entity.getMainKeyword2());
+        this.keywords.add(entity.getMainKeyword3());
+        this.keywords.add(entity.getMainKeyword4());
+        this.keywords.add(entity.getMainKeyword5());
     }
 }
 

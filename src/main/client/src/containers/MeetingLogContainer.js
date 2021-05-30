@@ -40,7 +40,9 @@ function MeetingLogContainer() {
       ></Navigation>
       <ContentWrapper>
         <MeetingInfo />
-        {activeMenuState === 0 && <GraphAndKeyword />}
+        {activeMenuState === 0 && (
+          <GraphAndKeyword id={localStorage.getItem('minutesId')} />
+        )}
         {activeMenuState === 1 && <Bookmark />}
         {activeMenuState === 2 && <Summary />}
       </ContentWrapper>

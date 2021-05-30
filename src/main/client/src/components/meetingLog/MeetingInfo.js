@@ -30,15 +30,16 @@ const Description = styled.span`
 
 function MeetingInfo() {
   // const dispatch = useDispatch();
-  const meetingInfo = useSelector((state) => state.meetingLog.meetingInfo);
-
-  // const meetingInfomation = {
-  //   id: 1,
-  //   title: '캡스톤 디자인 회의록 1',
-  //   date: '2021.03.29',
-  //   time: '06:35',
-  //   users: ['방규빈', '조하현', '임희원', '남기복'],
-  // };
+  console.log(meetingInfo);
+  const meetingInfomation = {
+    id: 1,
+    title: '캡스톤 디자인 회의록 1',
+    date: '2021.03.29',
+    time: '06:35',
+    users: ['방규빈', '조하현', '임희원', '남기복'],
+  };
+  const meetingInfo =
+    useSelector((state) => state.meetingLog.meetingInfo) || meetingInfomation;
 
   return (
     <Container>
@@ -48,15 +49,15 @@ function MeetingInfo() {
       </div>
       <div>
         <Title>회의 시간</Title>
-        <Description>{meetingInfo.time}</Description>
+        <Description>{meetingInfo.progressTime}</Description>
       </div>
       <div>
         <Title>회의 일시</Title>
-        <Description>{meetingInfo.date}</Description>
+        <Description>{meetingInfo.createdDate}</Description>
       </div>
       <div>
         <Title>참가자</Title>
-        <Description>{meetingInfo.users}</Description>
+        <Description>{meetingInfo.userNameList}</Description>
       </div>
     </Container>
   );

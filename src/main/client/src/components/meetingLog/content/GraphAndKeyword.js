@@ -27,7 +27,7 @@ const KeywordWrapper = styled.div`
   position: relative;
 `;
 
-const emos = ['화남', '기쁨', '중립', '슬픔'];
+const emos = ['슬픔', '중립', '기쁨', '화남'];
 
 const options = {
     responsive: true,
@@ -49,11 +49,13 @@ const options = {
         xAxes: {
             ticks: {
                 callback: function (value) {
-                    return ('0'+parseInt(value/3600))[-2] + ':' + ('0'+parseInt((value%3600)/60))[-2] + ':' + ('0'+parseInt(value%60))[-2];
+                    return ('0'+parseInt(value/3600)).slice(-2) + ':' + ('0'+parseInt((value%3600)/60)).slice(-2) + ':' + ('0'+parseInt(value%60)).slice(-2);
                 }
             }
         },
         yAxes: {
+            max: 3,
+            min: 0,
             ticks: {
                 callback: function (value) {
                     if (value % 1 === 0)

@@ -27,7 +27,7 @@ const KeywordWrapper = styled.div`
   position: relative;
 `;
 
-const emos = ['화남', '기쁨', '무감정', '슬픔'];
+const emos = ['슬픔', '중립', '기쁨', '화남'];
 
 const options = {
     responsive: true,
@@ -49,11 +49,14 @@ const options = {
         xAxes: {
             ticks: {
                 callback: function (value) {
-                    return parseInt(value/3600) + ':' + parseInt((value%3600)/60) + ':' + parseInt(value%60);
+                    // return parseInt(value/3600) + ':' + parseInt((value%3600)/60) + ':' + parseInt(value%60);
+                    return ('0'+parseInt(value/3600)).slice(-2) + ':' + ('0'+parseInt((value%3600)/60)).slice(-2) + ':' + ('0'+parseInt(value%60)).slice(-2);
                 }
             }
         },
         yAxes: {
+            max: 3,
+            min: 0,
             ticks: {
                 callback: function (value) {
                     if (value % 1 === 0)
@@ -82,8 +85,9 @@ function GraphAndKeyword({id}) {
                 if (!(res[i].userName in info))
                     info[res[i].userName] = [];
 
+                var [h,m,s] = res[i].createdTime.split(':');
                 info[res[i].userName].push({
-                    x: res[i].createdTime,
+                    x: h*1*3600 + m*1*60 + s*1,
                     y: emos.indexOf(res[i].emotion)
                 })
             }
@@ -93,7 +97,6 @@ function GraphAndKeyword({id}) {
                 datasets.push({
                     label: key,
                     data: info[key],
-                    fill: false,
                     borderColor: '#' + randomColor,
                     backgroundColor: '#' + randomColor,
                     pointStyle: 'circle',

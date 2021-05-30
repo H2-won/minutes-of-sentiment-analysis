@@ -27,9 +27,9 @@ public class MinutesResponseDto {
         this.id = entity.getId();
         this.title = entity.getMeeting().getName();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+//        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
         this.createdDate = dateFormat.format(entity.getCreatedDate());
-        this.progressTime = timeFormat.format(entity.getProgressTime());
+        this.progressTime = entity.getProgressTime().toString();
         meeting.getParticipation().stream()
                 .map(Participation::getUser)
                 .forEach(user -> this.userNameList.add(user.getName()));

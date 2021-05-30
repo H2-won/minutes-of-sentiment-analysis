@@ -15,7 +15,7 @@ export const getMinutesList = (userId) => {
       response = res;
     })
     .catch((err) => console.log(err));
-
+  console.log(response);
   return response;
 };
 

@@ -19,9 +19,11 @@ const Container = styled.div`
 
 function MinutesListLayout() {
   const [minutesList, setMinutesList] = useState([]);
-
+  let test;
   useEffect(() => {
-    setMinutesList(getMinutesList(localStorage.getItem('userId')) || []);
+    test = getMinutesList(localStorage.getItem('userId')) || [];
+    console.log(test);
+    setMinutesList(test);
   }, []);
   // const meetingLogs = [
   //   {
@@ -180,8 +182,8 @@ function MinutesListLayout() {
   // ];
   return (
     <Container>
-      {minutesList}
-      {minutesList || minutesList.map((meetingLog) => (
+      <div>참여한 회의가 없습니다.</div>
+      {minutesList && minutesList.map((meetingLog) => (
         <MeetingLog key={meetingLog.minutesId} meetingLog={meetingLog} />
       ))}
     </Container>

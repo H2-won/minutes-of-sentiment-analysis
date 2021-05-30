@@ -21,7 +21,7 @@ function MinutesListLayout() {
   const [minutesList, setMinutesList] = useState([]);
 
   useEffect(() => {
-    setMinutesList(getMinutesList(localStorage.getItem('userId')));
+    setMinutesList(getMinutesList(localStorage.getItem('userId')) || []);
   }, []);
   // const meetingLogs = [
   //   {
@@ -180,7 +180,8 @@ function MinutesListLayout() {
   // ];
   return (
     <Container>
-      {minutesList.map((meetingLog) => (
+      {minutesList}
+      {minutesList || minutesList.map((meetingLog) => (
         <MeetingLog key={meetingLog.minutesId} meetingLog={meetingLog} />
       ))}
     </Container>

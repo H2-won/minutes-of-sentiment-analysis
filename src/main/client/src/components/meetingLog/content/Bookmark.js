@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import palette from '../../../lib/styles/palette';
@@ -128,67 +128,88 @@ const Menu = styled.div`
 
 function Bookmark() {
   const dispatch = useDispatch();
-  const [menuState, setMenuState] = useState({
-    1: false,
-    2: false,
-    3: false,
-    4: false,
-    5: false,
-    6: false,
-    7: false,
-  });
+  const [bookmarkInfo, setBookmarkInfo] = useState([]);
+  const [menuState, setMenuState] = useState([]);
+  // const [menuState, setMenuState] = useState({
+  //   // 1: false,
+  //   // 2: false,
+  //   // 3: false,
+  //   // 4: false,
+  //   // 5: false,
+  //   // 6: false,
+  //   // 7: false,
+  // });
 
-  const [bookmarkInfo, setBookmarkInfo] = useState([
-    {
-      id: 1,
-      title: '다음주 미팅 장소 회의',
-      host: '남기복',
-      time: '01:30',
-      state: false,
-    },
-    {
-      id: 2,
-      title: '아키텍처 설계서 회의 시작',
-      host: '방규빈',
-      time: '03:31',
-      state: false,
-    },
-    {
-      id: 3,
-      title: 'UI 설계서 회의 구간',
-      host: '임희원',
-      time: '05:26',
-      state: false,
-    },
-    {
-      id: 4,
-      title: '내일 디스코드 회의 시간',
-      host: '조하현',
-      time: '06:01',
-      state: false,
-    },
-    {
-      id: 5,
-      title: '마지막 기능 회의',
-      host: '남기복',
-      time: '06:15',
-      state: false,
-    },
-    {
-      id: 6,
-      title: '회의 마지막 멘트',
-      host: '남기복',
-      time: '06:25',
-      state: false,
-    },
-    {
-      id: 7,
-      title: '회의 마지막',
-      host: '남기복',
-      time: '06:34',
-      state: false,
-    },
-  ]);
+  // const [bookmarkInfo, setBookmarkInfo] = useState([
+  //   // {
+  //   //   id: 1,
+  //   //   title: '다음주 미팅 장소 회의',
+  //   //   host: '남기복',
+  //   //   time: '01:30',
+  //   //   state: false,
+  //   // },
+  //   // {
+  //   //   id: 2,
+  //   //   title: '아키텍처 설계서 회의 시작',
+  //   //   host: '방규빈',
+  //   //   time: '03:31',
+  //   //   state: false,
+  //   // },
+  //   // {
+  //   //   id: 3,
+  //   //   title: 'UI 설계서 회의 구간',
+  //   //   host: '임희원',
+  //   //   time: '05:26',
+  //   //   state: false,
+  //   // },
+  //   // {
+  //   //   id: 4,
+  //   //   title: '내일 디스코드 회의 시간',
+  //   //   host: '조하현',
+  //   //   time: '06:01',
+  //   //   state: false,
+  //   // },
+  //   // {
+  //   //   id: 5,
+  //   //   title: '마지막 기능 회의',
+  //   //   host: '남기복',
+  //   //   time: '06:15',
+  //   //   state: false,
+  //   // },
+  //   // {
+  //   //   id: 6,
+  //   //   title: '회의 마지막 멘트',
+  //   //   host: '남기복',
+  //   //   time: '06:25',
+  //   //   state: false,
+  //   // },
+  //   // {
+  //   //   id: 7,
+  //   //   title: '회의 마지막',
+  //   //   host: '남기복',
+  //   //   time: '06:34',
+  //   //   state: false,
+  //   // },
+  // ]);
+
+  useEffect(() => {
+    fetch(`/api/minutes/${localStorage.getItem('minutesId')}/bookmark`, {
+      method: 'GET',
+      Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log('Bookmark Info:', res);
+        setBookmarkInfo(res);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  useEffect(() => {
+    for (let i = 0; i < bookmarkInfo.length; i++) {
+      setMenuState((menuState) => [...menuState, false]);
+    }
+  }, [bookmarkInfo]);
 
   const body = document.querySelector('body');
 
@@ -243,19 +264,19 @@ function Bookmark() {
     <Container>
       <h2>북마크</h2>
       <ContentWrapper>
-        {bookmarkInfo.map(({ id, title, host, time, state }) => (
-          <Content key={id}>
+        {bookmarkInfo.map(({ bookmarkId, memo, userName, createdDate }) => (
+          <Content key={bookmarkId}>
             <img src="/icons/ic_bookmark_24px.png" alt="" />
-            <span>{title}</span>
-            <button onClick={() => onClickMenuBtn(id)}>
+            <span>{memo}</span>
+            <button onClick={() => onClickMenuBtn(bookmarkId)}>
               <img src="/icons/bookmark_option.png" alt="" />
             </button>
             <div className="info">
-              <span>{host}</span>
-              <span>{time}</span>
+              <span>{userName}</span>
+              <span>{createdDate}</span>
             </div>
-            {menuState[id] && (
-              <Menu id={id} className={'bookmarkMenu'}>
+            {menuState[bookmarkId] && (
+              <Menu id={bookmarkId} className={'bookmarkMenu'}>
                 <div onClick={onClickModifyBookmark}>
                   <img src="/icons/ic_bookmark_modify.png" alt="" />
                   <span>메모 수정</span>

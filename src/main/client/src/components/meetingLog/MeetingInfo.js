@@ -30,7 +30,6 @@ const Description = styled.span`
 
 function MeetingInfo() {
   // const dispatch = useDispatch();
-  console.log(meetingInfo);
   const meetingInfomation = {
     id: 1,
     title: '캡스톤 디자인 회의록 1',
@@ -38,9 +37,10 @@ function MeetingInfo() {
     time: '06:35',
     users: ['방규빈', '조하현', '임희원', '남기복'],
   };
+
   const meetingInfo =
     useSelector((state) => state.meetingLog.meetingInfo) || meetingInfomation;
-
+    console.log('meetingInfo:',meetingInfo);
   return (
     <Container>
       <div>

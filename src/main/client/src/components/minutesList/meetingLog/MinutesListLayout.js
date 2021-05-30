@@ -21,10 +21,7 @@ function MinutesListLayout() {
   const [minutesList, setMinutesList] = useState([]);
 
   useEffect(() => {
-    console.log(getMinutesList(localStorage.getItem('userId')));
-    // const minutes =getMinutesList(localStorage.getItem('userId'));
-    // console.log('minutesList :  ', minutes || []);
-    // setMinutesList(minutes);
+    setMinutesList(getMinutesList(localStorage.getItem('userId')));
   }, []);
   // const meetingLogs = [
   //   {

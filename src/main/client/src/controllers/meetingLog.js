@@ -1,5 +1,6 @@
 export const getMinutesList = (userId) => {
   const token = localStorage.getItem('accessToken');
+  let response;
 
   fetch(`/api/user/${userId}/minutes`, {
     method: 'GET',
@@ -11,9 +12,11 @@ export const getMinutesList = (userId) => {
     .then((res) => res.json())
     .then((res) => {
       console.log('회의록 리스트 : ', res);
-      return 'why';
+      response = res;
     })
     .catch((err) => console.log(err));
+
+  return response;
 };
 
 export const lookupMeetingLogByCode = (code, pw) => {

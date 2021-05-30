@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 import palette from '../../../lib/styles/palette';
 import { Pie } from 'react-chartjs-2';
@@ -134,12 +134,52 @@ const Comment = styled.span`
 `;
 
 function Summary() {
-  const emotions = [55, 25, 15, 5];
+  const [emotions, setEmotions] = useState([]);
+  const emotionRatio = [];
+
+  const [keywords, setKeywords] = useState([]);
+  const keywordRatio = [];
+
+  useEffect(() => {
+    // 전체 감정 api
+    fetch(`/api/minutes/${localStorage.getItem('minutesId')}/total-emotions`, {
+      method: 'GET',
+      Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log('emotion Info:', res);
+        setEmotions(res);
+        // 비율 Ratio에 넣어주기
+        emotionRatio.push(res.emotionless);
+        emotionRatio.push(res.happy);
+        emotionRatio.push(res.angry);
+        emotionRatio.push(res.sad);
+      })
+      .catch((err) => console.log(err));
+
+    // 전체 키워드 api
+    fetch(`/api/minutes/${localStorage.getItem('minutesId')}/total-keywords`, {
+      method: 'GET',
+      Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log('Bookmark Info:', res);
+        setKeywords(res);
+        // 뒤에 숫자 비율만 Ratio에 넣어주기
+        res.forEach((keyword) => {
+          keywordRatio.push(keyword.split('_')[1]);
+        });
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
   const emotionData = {
     // labels: ['무감정', '기쁨', '화남', '슬픔'],
     datasets: [
       {
-        data: emotions,
+        data: emotionRatio,
         backgroundColor: [
           `${palette.gray2}`,
           `${palette.yellow}`,
@@ -151,34 +191,10 @@ function Summary() {
     ],
   };
 
-  // const testkeywords = [
-  //   { key: '발표', value: '23' },
-  //   { key: '키워드', value: '23' },
-  //   { key: '면접', value: '17' },
-  //   { key: '설빙', value: '17' },
-  //   { key: '저거', value: '17' },
-  // ];
-
-  // const test1 = [];
-  // const test2 = ['발표_23', '키워드_23', '면접_17', '설빙_17', '저거_17'];
-  // const test4 = {
-  //   main1: '발표_23',
-  //   main2: '키워드_23',
-  //   main3: '면접_17',
-  //   main4: '설빙_17',
-  //   main5: '저거_17',
-  // };
-  // test2.forEach((test) => {
-  //   console.log(test.split('_'));
-  //   test1.push(test.split('_'));
-  // });
-  // test5.push(test4.main1);
-
-  const keywords = [5, 25, 20, 30, 20];
   const keywordData = {
     datasets: [
       {
-        data: keywords,
+        data: keywordRatio,
         backgroundColor: [
           `${palette.gray2}`,
           `${palette.yellow}`,

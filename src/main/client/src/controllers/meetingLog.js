@@ -1,7 +1,7 @@
-export const getMinutesList = async (userId) => {
+export const getMinutesList = (userId) => {
   const token = localStorage.getItem('accessToken');
 
-  const response = await fetch(`/api/user/${userId}/minutes`, {
+  return fetch(`/api/user/${userId}/minutes`, {
     method: 'GET',
     headers: {
       Authorization: 'Bearer ' + token,
@@ -17,9 +17,6 @@ export const getMinutesList = async (userId) => {
       console.log(err);
       return [];
     });
-
-  console.log(response);
-  return response;
 };
 
 export const lookupMeetingLogByCode = (code, pw) => {

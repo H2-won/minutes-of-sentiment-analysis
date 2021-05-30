@@ -154,6 +154,7 @@ function MeetingLogWrapper({
         return dispatch(setMeetingInfo(res));
       })
       .catch((err) => console.log(err));
+    localStorage.setItem('minutesId', meetingLog.minutesId);
     // dispatch(setMeetingInfo(getMeetingLogInfo(meetingLog.minutesId)));
   };
 

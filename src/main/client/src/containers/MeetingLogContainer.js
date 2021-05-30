@@ -6,6 +6,7 @@ import RecordWrapper from '../components/meeting/record/RecordWrapper';
 import Title from '../components/meeting/record/Title';
 import Bookmark from '../components/meetingLog/content/Bookmark';
 import GraphAndKeyword from '../components/meetingLog/content/GraphAndKeyword';
+import Summary from '../components/meetingLog/content/Summary';
 import MeetingInfo from '../components/meetingLog/MeetingInfo';
 import Navigation from '../components/meetingLog/navigation/Navigation';
 import Audio from '../components/meetingLog/record/Audio';
@@ -41,7 +42,7 @@ function MeetingLogContainer() {
         <MeetingInfo />
         {activeMenuState === 0 && <GraphAndKeyword />}
         {activeMenuState === 1 && <Bookmark />}
-        {activeMenuState === 2 && <Bookmark />}
+        {activeMenuState === 2 && <Summary />}
       </ContentWrapper>
       <RecordWrapper>
         <Audio />

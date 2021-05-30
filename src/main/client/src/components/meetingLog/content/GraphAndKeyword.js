@@ -54,6 +54,8 @@ const options = {
             }
         },
         yAxes: {
+            max: 3,
+            min: 0,
             ticks: {
                 callback: function (value) {
                     if (value % 1 === 0)

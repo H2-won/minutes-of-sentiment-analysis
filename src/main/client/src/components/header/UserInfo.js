@@ -38,31 +38,19 @@ function UserInfo() {
   });
 
   let token;
-  // const getLocalToken = localStorage.getItem('accessToken');
-  // if (getLocalToken) {
-  //   setToken(getLocalToken);
-  // }
-  // const token = localStorage.getItem('accessToken')
-  //     ? localStorage.getItem('accessToken')
-  //     : null;
-  //
-  // console.log(token);
 
   useEffect(() => {
-    console.log('test!');
     token = localStorage.getItem('accessToken')
       ? localStorage.getItem('accessToken')
       : null;
-    console.log('just token', token);
     if (token) {
-      console.log('if문 token :', token);
       Auth.getUserInfo(token, setLogged, setUserInfo);
     }
   }, [token]);
 
   const onLogout = () => {
     localStorage.removeItem('accessToken');
-    // console.log('remove token');
+    window.location.href = '/';
   };
   return (
     <Container>

@@ -13,6 +13,7 @@ const Container = styled.div`
   border-left: 0.5px solid ${palette.gray2};
   overflow: scroll;
   overflow-x: hidden;
+  scroll-behavior: smooth;
   &::-webkit-scrollbar {
     width: 1rem;
   }
@@ -30,7 +31,7 @@ const TopWrapper = styled.div`
 
 function RecordWrapper() {
   return (
-    <Container>
+    <Container id={'recordWrapper'}>
       <TopWrapper>
         <Title />
         <ConferenceCode />

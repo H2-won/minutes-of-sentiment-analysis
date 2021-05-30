@@ -33,9 +33,9 @@ function MeetingInfo() {
   const meetingInfomation = {
     id: 1,
     title: '캡스톤 디자인 회의록 1',
-    date: '2021.03.29',
-    time: '06:35',
-    users: ['방규빈', '조하현', '임희원', '남기복'],
+    createdDate: '2021.03.29',
+    progressTime: '00:06:35',
+    userNameList: ['방규빈', '조하현', '임희원', '남기복'],
   };
 
   const meetingInfo =

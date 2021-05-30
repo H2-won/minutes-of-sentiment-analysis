@@ -18,7 +18,7 @@ const Container = styled.div`
 `;
 
 function MinutesListLayout() {
-  const [minutesList, setMinutesList] = useState();
+  const [minutesList, setMinutesList] = useState([]);
 
   useEffect(() => {
     setMinutesList(getMinutesList(localStorage.getItem('userId')));

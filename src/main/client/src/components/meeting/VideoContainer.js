@@ -125,16 +125,16 @@ const VideoContainer = ({ match }) => {
     ];
 
     connection.onstream = function (event) {
-      // 여기에 더미값 넣기
-      const now = new Date();
+      // 시작할 때 더미값 넣기
       const minutesId = localStorage.getItem('minutesId');
+      const createdDate = localStorage.getItem('createdDate');
       databaseRef.push({
         flag: 2,
         minutesId: minutesId,
         senderId: 'testId',
         senderName: '테스트',
         message: 'NULL',
-        time: now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),
+        time: createdDate,
       });
       setConnectionInfo(event.stream);
 
@@ -152,7 +152,6 @@ const VideoContainer = ({ match }) => {
           'ON STREAM - ADD LOCAL STREAM',
         );
         dispatch(setMainVideo(event));
-        // setMainVideo(event);
       } else if (event.type === 'remote') {
         localVideoThumbnailsArr.addVideo(
           <Video
@@ -174,7 +173,6 @@ const VideoContainer = ({ match }) => {
     connection.onstreamended = (event) => {
       console.log('ON STREAM END TEST', event);
       if (event.type === 'local') {
-        // setMainVideo(null);
         dispatch(setMainVideo(null));
         localVideoThumbnailsArr.set([]);
         setVideoThumbnailsArr([]);
@@ -299,8 +297,6 @@ const VideoContainer = ({ match }) => {
           } catch (e) {}
         }
 
-        // const userId = localStorage.getItem('userId');
-        // const userId = Math.floor(Math.random() * 1000000000);
         var fileFullName =
           voiceFileId +
           '_' +
@@ -343,14 +339,10 @@ const VideoContainer = ({ match }) => {
       console.log('Got final result:', finalTranscript);
       resetTranscript();
 
-      var now = new Date();
-      const hours = parseInt((now - createdDate) / 1000 / 3600);
-      const minutes = parseInt(((now - createdDate) / 1000 / 60) % 60);
-      const seconds = parseInt(((now - createdDate) / 1000) % 60);
-
       const userId = localStorage.getItem('userId');
       const userName = localStorage.getItem('userName');
       const minutesId = localStorage.getItem('minutesId');
+      const createdDate = localStorage.getItem('createdDate');
 
       databaseRef.push({
         flag: recordFlag,
@@ -358,9 +350,7 @@ const VideoContainer = ({ match }) => {
         senderId: userId,
         senderName: userName,
         message: finalTranscript + '.',
-        // time: ('0' + hours).slice(-2) + ":" + ('0' + minutes).slice(-2) + ":" +('0' + seconds).slice(-2)
-        time: ('0' + now.getHours()).slice(-2) + ":" + ('0' + now.getMinutes()).slice(-2) + ":" +('0' + now.getSeconds()).slice(-2)
-        // time: now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds(),
+        time: createdDate,
       });
     }
   }, [finalTranscript, resetTranscript]);

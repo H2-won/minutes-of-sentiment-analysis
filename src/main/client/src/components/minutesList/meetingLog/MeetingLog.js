@@ -167,7 +167,7 @@ function MeetingLogWrapper({
         </EnterBtnWrapper>
         <KeywordsWrapper>
           {meetingLog.keywords.map((keyword, index) => (
-            <Keyword key={index}>{keyword}</Keyword>
+            <Keyword key={index}>{keyword.split('_')[0]}</Keyword>
           ))}
         </KeywordsWrapper>
         <Emotion emotion={maxEmotion}>{maxEmotion}</Emotion>

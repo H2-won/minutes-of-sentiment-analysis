@@ -1,6 +1,6 @@
 export const getMinutesList = (userId) => {
   const token = localStorage.getItem('accessToken');
-  let response;
+  var response;
 
   fetch(`/api/user/${userId}/minutes`, {
     method: 'GET',
@@ -15,6 +15,7 @@ export const getMinutesList = (userId) => {
       response = res;
     })
     .catch((err) => console.log(err));
+
   console.log(response);
   return response;
 };

@@ -27,7 +27,7 @@ const KeywordWrapper = styled.div`
   position: relative;
 `;
 
-const emos = ['화남', '기쁨', '중립', '슬픔'];
+const emos = ['화남', '기쁨', '무감정', '슬픔'];
 
 const options = {
     responsive: true,

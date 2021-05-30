@@ -14,7 +14,6 @@ const Container = styled.div`
   border-radius: 4px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
   background: ${palette.white};
-  margin: 2rem 3rem;
   cursor: pointer;
   transition: 0.3s all;
 
@@ -134,7 +133,7 @@ function MeetingLogWrapper({
       }
     });
 
-    // 최대값이 중립의 value값보다 크거나 15보다 크면 해당 감정 유지, 그게 아니면 주요 감정 중립으로 바꿔줌
+    // 무감정을 제외한 3개 중 max값이 무감정의 value값보다 크거나 15보다 크면 해당 감정 유지, 그게 아니면 주요 감정을 무감정으로 바꿔줌
     if (!(max > emotionless || max > 15)) {
       setMaxEmotion('무감정');
     }

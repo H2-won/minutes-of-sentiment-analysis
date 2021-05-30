@@ -1,8 +1,7 @@
-export const getMinutesList = (userId) => {
+export const getMinutesList = async (userId) => {
   const token = localStorage.getItem('accessToken');
-  var response;
 
-  fetch(`/api/user/${userId}/minutes`, {
+  const response = await fetch(`/api/user/${userId}/minutes`, {
     method: 'GET',
     headers: {
       Authorization: 'Bearer ' + token,
@@ -12,9 +11,12 @@ export const getMinutesList = (userId) => {
     .then((res) => res.json())
     .then((res) => {
       console.log('회의록 리스트 : ', res);
-      response = res;
+      return res;
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.log(err);
+      return [];
+    });
 
   console.log(response);
   return response;

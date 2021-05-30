@@ -22,7 +22,7 @@ function MinutesListLayout() {
   let test;
   useEffect(() => {
     test = getMinutesList(localStorage.getItem('userId')) || [];
-    console.log(test);
+    console.log(test.json());
     setMinutesList(test);
   }, []);
   // const meetingLogs = [

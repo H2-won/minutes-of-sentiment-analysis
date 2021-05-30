@@ -199,8 +199,7 @@ function MinutesListLayout() {
   // ];
   return (
     <Container>
-      <div>참여한 회의가 없습니다.</div>
-      {minutesList && minutesList.map((meetingLog) => (
+      {minutesList.map((meetingLog) => (
         <MeetingLog key={meetingLog.minutesId} meetingLog={meetingLog} />
       ))}
     </Container>

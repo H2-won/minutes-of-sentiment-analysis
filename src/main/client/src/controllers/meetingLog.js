@@ -19,7 +19,7 @@ export const getMinutesList = async (userId) => {
     });
 
   console.log(response);
-  return response;
+  return response.json();
 };
 
 export const lookupMeetingLogByCode = (code, pw) => {

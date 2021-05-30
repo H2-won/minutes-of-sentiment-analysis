@@ -11,6 +11,7 @@ const Container = styled.div`
   align-items: space-between;
   justify-content: space-between;
   background: ${palette.white};
+  border-right: 0.5px solid ${palette.gray2};
 `;
 
 const TopMenuWrapper = styled.div`

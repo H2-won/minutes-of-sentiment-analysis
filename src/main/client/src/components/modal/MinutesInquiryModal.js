@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import styled, { css } from 'styled-components';
+import { lookupMeetingLogByCode } from '../../controllers/meetingLog';
 import palette from '../../lib/styles/palette';
+import { setMeetingInfo } from '../../modules/meetingLog';
 
 const Container = styled.div`
   position: relative;
@@ -78,11 +81,35 @@ const CancleBtn = styled.button`
 
 function MinutesInquiryModal({ ModalOff, args }) {
   const [codeValue, setCodeValue] = useState('');
-  const onChange = (e) => {
+  const [passwordValue, setPasswordValue] = useState('');
+  const dispatch = useDispatch();
+  const onChangeCode = (e) => {
     setCodeValue(e.target.value);
+  };
+  const onChangePassword = (e) => {
+    setPasswordValue(e.target.value);
   };
 
   const onClickLookup = () => {
+    const token = localStorage.getItem('accessToken');
+    fetch(`/api/minutes/${codeValue}`, {
+      method: 'POST',
+      headers: {
+        Authorization: 'Bearer ' + token,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        password: passwordValue,
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log('회의록 정보 : ', res);
+        dispatch(setMeetingInfo(res));
+      })
+      .catch((err) => console.log(err));
+    // dispatch(setMeetingInfo(lookupMeetingLogByCode(codeValue, passwordValue)));
+
     window.location.href = `/meetinglog/${codeValue}`;
   };
 
@@ -90,11 +117,11 @@ function MinutesInquiryModal({ ModalOff, args }) {
     <Container>
       <ContentWrapper>
         <span className="subTitle">회의 코드</span>
-        <input type="text" onChange={onChange} />
+        <input type="text" onChange={onChangeCode} />
       </ContentWrapper>
       <ContentWrapper>
         <span className="subTitle">비밀번호</span>
-        <input type="password" />
+        <input type="password" onChange={onChangePassword} />
       </ContentWrapper>
       <BtnWrapper>
         <OkBtn color={args.okBtnBackgroundColor} onClick={onClickLookup}>

@@ -159,12 +159,7 @@ function MeetingLogWrapper({
         <Date>{meetingLog.createdDate}</Date>
         <UsersWrapper>
           {meetingLog.pictures.map((userImg, index) => (
-            <UserImg
-              key={index}
-              src={`/images/${userImg}`}
-              alt=""
-              index={index}
-            />
+            <UserImg key={index} src={userImg} alt="" index={index} />
           ))}
         </UsersWrapper>
       </Container>

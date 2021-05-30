@@ -11,6 +11,10 @@ const Container = styled.div`
   margin-top: 2rem;
   align-items: center;
   justify-content: center;
+
+  a {
+    margin: 2rem 3rem;
+  }
 `;
 
 function MinutesListLayout() {

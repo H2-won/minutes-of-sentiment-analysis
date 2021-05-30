@@ -11,7 +11,7 @@ export const getMinutesList = (userId) => {
     .then((res) => res.json())
     .then((res) => {
       console.log('회의록 리스트 : ', res);
-      return res;
+      return 'why';
     })
     .catch((err) => console.log(err));
 };

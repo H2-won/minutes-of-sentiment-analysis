@@ -72,7 +72,7 @@ const Interval = styled.div`
   }
 `;
 
-const emos = ['슬픔', '중립', '기쁨', '화남'];
+const emos = ['', '슬픔', '중립', '기쁨', '화남', ''];
 
 const options = {
   responsive: true,
@@ -106,7 +106,7 @@ const options = {
       },
     },
     yAxes: {
-      max: 3,
+      max: 5,
       min: 0,
       ticks: {
         callback: function (value) {

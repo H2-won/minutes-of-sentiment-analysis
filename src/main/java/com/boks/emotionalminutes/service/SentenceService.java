@@ -39,11 +39,16 @@ public class SentenceService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 회의가 없습니다. id=" + id));
         List<Sentence> sentences = minutes.getSentences();
         List<SentenceResponseDto> sentenceResponseDtos = new ArrayList<>();
-
+        System.out.println(id + "번 회의록 문장 조회 시작..");
         for (Sentence value : sentences) {
             SentenceResponseDto responseDto = new SentenceResponseDto(value);
             sentenceResponseDtos.add(responseDto);
         }
+
+        for (SentenceResponseDto value: sentenceResponseDtos) {
+            System.out.println(value.getUserName() + value.getContent());
+        }
+
         return sentenceResponseDtos;
     }
 }

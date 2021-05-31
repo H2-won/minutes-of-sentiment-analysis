@@ -50,6 +50,7 @@ public class BookmarkService {
     public Long update(Long id, String memo) {
         Bookmark bookmark = bookmarkRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 북마크가 없습니다. id=" + id));
+        memo = memo.substring(1, memo.length() - 1);
         bookmark.setMemo(memo);
         return id;
     }

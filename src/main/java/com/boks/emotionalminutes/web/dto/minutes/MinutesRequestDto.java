@@ -15,14 +15,4 @@ import java.util.Date;
 public class MinutesRequestDto {
     private String meetingCode;
     private String voiceFileLink;
-
-    public Minutes toEntity(Meeting meeting) {
-        Date now = new Date();
-        return Minutes.builder()
-                .meeting(meeting)
-                .password(meeting.getPassword())
-                .voiceFileLink(voiceFileLink)
-                .createdDate(now)
-                .build();
-    }
 }

@@ -25,7 +25,7 @@ public class MinutesController {
 
     @PostMapping("/api/minutes")
     public Long save(@RequestBody MinutesRequestDto requestDto) {
-        return minutesService.save(requestDto);
+        return minutesService.startRecord(requestDto);
     }
 
     @PutMapping("/api/minutes/{id}")

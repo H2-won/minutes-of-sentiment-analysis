@@ -53,15 +53,18 @@ public class Minutes {
     private LocalTime progressTime;
 
     @Builder
-    public Minutes (Meeting meeting, String password, String voiceFileLink, Date createdDate) {
+    public Minutes (Meeting meeting, String password) {
         this.meeting = meeting;
         this.password = password;
-        this.voiceFileLink = voiceFileLink;
-        this.createdDate = createdDate;
         meeting.setMinutes(this);
     }
 
-    public void update (LocalTime progressTime) {
+    public void startRecord(String voiceFileLink) {
+        this.createdDate = new Date();
+        this.voiceFileLink = voiceFileLink;
+    }
+
+    public void endRecord (LocalTime progressTime) {
         this.progressTime = progressTime;
     }
 

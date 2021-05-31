@@ -46,8 +46,6 @@ public class MinutesService {
     public Long startRecord(MinutesRequestDto requestDto) {
         Meeting meeting = meetingRepository.findById(requestDto.getMeetingCode())
                 .orElseThrow(() -> new IllegalArgumentException("해당 회의가 없습니다. code=" + requestDto.getMeetingCode()));
-        if (meeting.getMinutes() != null)
-            return null;
         meeting.getMinutes().startRecord(requestDto.getVoiceFileLink());
 
         return meeting.getMinutes().getId();

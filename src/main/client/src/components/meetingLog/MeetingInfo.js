@@ -36,37 +36,38 @@ function MeetingInfo() {
     progressTime: '00:06:35',
     userNameList: ['방규빈', '조하현', '임희원', '남기복'],
   };
+    const meetingInfo = useSelector((state) => state.meetingLog.meetingInfo) || meetingInfomation;
+    console.log('meetingInfo:', meetingInfo);
 
-  // const [meetingInfo, setMeetingInfo] = useState({
-  //     id: 1,
-  //     title: '캡스톤 디자인 회의록 1',
-  //     createdDate: '2021.03.29',
-  //     progressTime: '00:06:35',
-  //     userNameList: ['방규빈', '조하현', '임희원', '남기복'],
-  // });
-  //
+  const [meetingInfo2, setMeetingInfo] = useState({
+      id: 1,
+      title: '캡스톤 디자인 회의록 1',
+      createdDate: '2021.03.29',
+      progressTime: '00:06:35',
+      userNameList: ['방규빈', '조하현', '임희원', '남기복'],
+  });
+
   useEffect(() => {
-      const meetingInfo = useSelector((state) => state.meetingLog.meetingInfo) || meetingInfomation;
-      console.log('meetingInfo:', meetingInfo);
+      setMeetingInfo(meetingInfo);
   }, [])
 
   return (
     <Container>
       <div>
         <Title>회의 제목</Title>
-        <Description>{meetingInfo.title}</Description>
+        <Description>{meetingInfo2.title}</Description>
       </div>
       <div>
         <Title>회의 시간</Title>
-        <Description>{meetingInfo.progressTime}</Description>
+        <Description>{meetingInfo2.progressTime}</Description>
       </div>
       <div>
         <Title>회의 일시</Title>
-        <Description>{meetingInfo.createdDate}</Description>
+        <Description>{meetingInfo2.createdDate}</Description>
       </div>
       <div>
         <Title>참가자</Title>
-        <Description>{meetingInfo.userNameList}</Description>
+        <Description>{meetingInfo2.userNameList}</Description>
       </div>
     </Container>
   );

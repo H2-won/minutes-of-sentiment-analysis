@@ -116,10 +116,9 @@ const options = {
     },
   },
 };
-
-var data = {};
-
 function GraphAndKeyword({ id }) {
+  const [data, setData] = useState({});
+
   const a = fetch(`/api/minutes/${id}/sentences`, {
     method: 'GET',
     headers: {
@@ -151,7 +150,7 @@ function GraphAndKeyword({ id }) {
           pointRadius: 5,
         });
       }
-      data['datasets'] = datasets;
+      setData({ datasets: datasets });
     });
 
   // ----------------- 구간별 키워드 ------------------

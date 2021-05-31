@@ -19,7 +19,7 @@ export const registrationBookmark = (userId, sentenceId, memo) => {
     .catch((err) => console.log(err));
 };
 
-export const modifyBookmark = (id, memo) => {
+export const modifyBookmark = (id, memo, bookmarkInfo, setBookmarkInfo) => {
   const token = localStorage.getItem('accessToken');
   fetch(`/api/bookmark/update/${id}`, {
     method: 'PUT',
@@ -28,27 +28,34 @@ export const modifyBookmark = (id, memo) => {
       Accept: 'application/json',
       Authorization: token,
     },
-    body: JSON.stringify({
-      memo: memo,
-    }),
+    body: JSON.stringify(memo),
   })
     .then((res) => res.json())
-    .then((res) => console.log('북마크 수정 완료'))
+    .then((res) => {
+      setBookmarkInfo([
+        { ...bookmarkInfo, [id]: { ...bookmarkInfo[id], ['memo']: memo } },
+      ]);
+      console.log('북마크 수정 완료');
+      console.log(bookmarkInfo);
+    })
     .catch((err) => console.log(err));
 };
 
-export const deleteBookmark = (id) => {
+export const deleteBookmark = (id, bookmarkInfo, setBookmarkInfo) => {
   const token = localStorage.getItem('accessToken');
   fetch(`/api/bookmark/delete/${id}`, {
     method: 'DELETE',
     headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
       Authorization: token,
     },
   })
-    .then((res) => res.json())
-    .then((res) => console.log('북마크 삭제 완료'))
+    .then((res) => {
+      console.log('삭제 전 북마크 인포 :', bookmarkInfo);
+      setBookmarkInfo(
+        bookmarkInfo.filter((info) => info.bookmarkId !== id),
+      );
+      console.log('삭제 된 북마크 인포 :', bookmarkInfo);
+    })
     .catch((err) => console.log(err));
 };
 

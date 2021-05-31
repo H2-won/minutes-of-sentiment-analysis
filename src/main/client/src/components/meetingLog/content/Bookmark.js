@@ -130,67 +130,6 @@ function Bookmark() {
   const dispatch = useDispatch();
   const [bookmarkInfo, setBookmarkInfo] = useState([]);
   const [menuState, setMenuState] = useState([]);
-  // const [menuState, setMenuState] = useState({
-  //   // 1: false,
-  //   // 2: false,
-  //   // 3: false,
-  //   // 4: false,
-  //   // 5: false,
-  //   // 6: false,
-  //   // 7: false,
-  // });
-
-  // const [bookmarkInfo, setBookmarkInfo] = useState([
-  //   // {
-  //   //   id: 1,
-  //   //   title: '다음주 미팅 장소 회의',
-  //   //   host: '남기복',
-  //   //   time: '01:30',
-  //   //   state: false,
-  //   // },
-  //   // {
-  //   //   id: 2,
-  //   //   title: '아키텍처 설계서 회의 시작',
-  //   //   host: '방규빈',
-  //   //   time: '03:31',
-  //   //   state: false,
-  //   // },
-  //   // {
-  //   //   id: 3,
-  //   //   title: 'UI 설계서 회의 구간',
-  //   //   host: '임희원',
-  //   //   time: '05:26',
-  //   //   state: false,
-  //   // },
-  //   // {
-  //   //   id: 4,
-  //   //   title: '내일 디스코드 회의 시간',
-  //   //   host: '조하현',
-  //   //   time: '06:01',
-  //   //   state: false,
-  //   // },
-  //   // {
-  //   //   id: 5,
-  //   //   title: '마지막 기능 회의',
-  //   //   host: '남기복',
-  //   //   time: '06:15',
-  //   //   state: false,
-  //   // },
-  //   // {
-  //   //   id: 6,
-  //   //   title: '회의 마지막 멘트',
-  //   //   host: '남기복',
-  //   //   time: '06:25',
-  //   //   state: false,
-  //   // },
-  //   // {
-  //   //   id: 7,
-  //   //   title: '회의 마지막',
-  //   //   host: '남기복',
-  //   //   time: '06:34',
-  //   //   state: false,
-  //   // },
-  // ]);
 
   useEffect(() => {
     fetch(`/api/minutes/${localStorage.getItem('minutesId')}/bookmark`, {
@@ -206,6 +145,7 @@ function Bookmark() {
   }, []);
 
   useEffect(() => {
+    setMenuState([]);
     for (let i = 0; i < bookmarkInfo.length; i++) {
       setMenuState((menuState) => [...menuState, false]);
     }
@@ -235,11 +175,7 @@ function Bookmark() {
   };
 
   const onClickModifyBookmark = (e) => {
-      console.log(e.target);
-      console.log(e.target.parent);
-      console.log(e.currentTarget)
-    const bookmarkId =e.target.getAttribute('id') || e.target.parent.getAttribute('id') || e.target.parent.parent.getAttribute('id') ;
-    console.log(bookmarkId);
+    const bookmarkId = e.currentTarget.parentNode.getAttribute('id');
     dispatch(
       openModal('MODIFY_BOOKMARK', ModifyBookmarkModal, {
         title: '북마크 수정',
@@ -248,19 +184,22 @@ function Bookmark() {
         id: bookmarkId,
         memo: document.querySelector('.bookmarkMenu').previousSibling
           .previousSibling.previousSibling.textContent,
+        bookmarkInfo: bookmarkInfo,
+        setBookmarkInfo: setBookmarkInfo,
       }),
     );
   };
 
   const onClickDeleteBookmark = (e) => {
-      const bookmarkId =e.target.getAttribute('id') || e.target.parent.getAttribute('id') || e.target.parent.parent.getAttribute('id') ;
-    console.log(bookmarkId);
+    const bookmarkId = e.currentTarget.parentNode.getAttribute('id');
     dispatch(
       openModal('DELETE_BOOKMARK', DeleteBookmarkModal, {
         title: '정말로 삭제하시겠습니까?',
         okBtnText: '삭제하기',
         okBtnBackgroundColor: 'orange',
         id: bookmarkId,
+        bookmarkInfo: bookmarkInfo,
+        setBookmarkInfo: setBookmarkInfo,
       }),
     );
   };
@@ -269,7 +208,7 @@ function Bookmark() {
     <Container>
       <h2>북마크</h2>
       <ContentWrapper>
-        {bookmarkInfo.map(({ bookmarkId, memo, userName, createdDate }) => (
+        {bookmarkInfo.map(({ bookmarkId, memo, userName, createdTime }) => (
           <Content key={bookmarkId}>
             <img src="/icons/ic_bookmark_24px.png" alt="" />
             <span>{memo}</span>
@@ -278,7 +217,7 @@ function Bookmark() {
             </button>
             <div className="info">
               <span>{userName}</span>
-              <span>{createdDate}</span>
+              <span>{createdTime}</span>
             </div>
             {menuState[bookmarkId] && (
               <Menu id={bookmarkId} className={'bookmarkMenu'}>

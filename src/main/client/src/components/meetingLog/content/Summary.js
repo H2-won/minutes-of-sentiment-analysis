@@ -135,10 +135,40 @@ const Comment = styled.span`
 
 function Summary() {
   const [emotions, setEmotions] = useState([]);
-  const emotionRatio = [];
+  const [emotionRatio, setEmotionRatio] = useState([]);
+  const [maxEmotion, setMaxEmotion] = useState('무감정');
+  const [emotionData, setEmotionData] = useState({
+    // labels: ['무감정', '기쁨', '화남', '슬픔'],
+    datasets: [
+      {
+        data: emotionRatio,
+        backgroundColor: [
+          `${palette.gray2}`,
+          `${palette.yellow}`,
+          `${palette.red2}`,
+          `${palette.skyblue}`,
+        ],
+        // hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#ff653f'],
+      },
+    ],
+  });
 
-  const [keywords, setKeywords] = useState([]);
+  const [keywords, setKeywords] = useState(['1','2','3','4','5']);
   const keywordRatio = [];
+  const [keywordData, setKeywordData] = useState({
+    datasets: [
+      {
+        data: keywordRatio,
+        backgroundColor: [
+          `${palette.gray2}`,
+          `${palette.yellow}`,
+          `${palette.red2}`,
+          `${palette.skyblue}`,
+          `${palette.green}`,
+        ],
+      },
+    ],
+  });
 
   useEffect(() => {
     // 전체 감정 api
@@ -155,6 +185,37 @@ function Summary() {
         emotionRatio.push(res.happy);
         emotionRatio.push(res.angry);
         emotionRatio.push(res.sad);
+        setEmotionRatio(emotionRatio);
+        console.log('emotionRatio : ', emotionRatio);
+
+        // 주요 감정, 퍼센트 구하기
+        let max = 0;
+        let maxIndex = 0;
+        emotionRatio.forEach((ratio, index) => {
+          if (max < ratio) {
+            max = ratio;
+            maxIndex = index;
+          }
+        });
+        if (maxIndex === 0) setMaxEmotion('무감정');
+        else if (maxIndex === 1) setMaxEmotion('기쁨');
+        else if (maxIndex === 2) setMaxEmotion('화남');
+        else if (maxIndex === 3) setMaxEmotion('슬픔');
+
+        // emotoinData 설정
+        setEmotionData({
+          datasets: [
+            {
+              data: emotionRatio,
+              backgroundColor: [
+                `${palette.gray2}`,
+                `${palette.yellow}`,
+                `${palette.red2}`,
+                `${palette.skyblue}`,
+              ],
+            },
+          ],
+        });
       })
       .catch((err) => console.log(err));
 
@@ -165,46 +226,61 @@ function Summary() {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log('Bookmark Info:', res);
-        setKeywords(res);
+        console.log('Keywords Info:', res);
+        setKeywords(res.keywords);
         // 뒤에 숫자 비율만 Ratio에 넣어주기
         res.keywords.forEach((keyword) => {
           keywordRatio.push(keyword.split('_')[1]);
+        });
+        console.log('keywordRatio:', keywordRatio);
+        setKeywordData({
+          datasets: [
+            {
+              data: keywordRatio,
+              backgroundColor: [
+                `${palette.gray2}`,
+                `${palette.yellow}`,
+                `${palette.red2}`,
+                `${palette.skyblue}`,
+                `${palette.green}`,
+              ],
+            },
+          ],
         });
       })
       .catch((err) => console.log(err));
   }, []);
 
-  const emotionData = {
-    // labels: ['무감정', '기쁨', '화남', '슬픔'],
-    datasets: [
-      {
-        data: emotionRatio,
-        backgroundColor: [
-          `${palette.gray2}`,
-          `${palette.yellow}`,
-          `${palette.red2}`,
-          `${palette.skyblue}`,
-        ],
-        // hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#ff653f'],
-      },
-    ],
-  };
+  // const emotionData = {
+  //   // labels: ['무감정', '기쁨', '화남', '슬픔'],
+  //   datasets: [
+  //     {
+  //       data: emotionRatio,
+  //       backgroundColor: [
+  //         `${palette.gray2}`,
+  //         `${palette.yellow}`,
+  //         `${palette.red2}`,
+  //         `${palette.skyblue}`,
+  //       ],
+  //       // hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#ff653f'],
+  //     },
+  //   ],
+  // };
 
-  const keywordData = {
-    datasets: [
-      {
-        data: keywordRatio,
-        backgroundColor: [
-          `${palette.gray2}`,
-          `${palette.yellow}`,
-          `${palette.red2}`,
-          `${palette.skyblue}`,
-          `${palette.green}`,
-        ],
-      },
-    ],
-  };
+  // const keywordData = {
+  //   datasets: [
+  //     {
+  //       data: keywordRatio,
+  //       backgroundColor: [
+  //         `${palette.gray2}`,
+  //         `${palette.yellow}`,
+  //         `${palette.red2}`,
+  //         `${palette.skyblue}`,
+  //         `${palette.green}`,
+  //       ],
+  //     },
+  //   ],
+  // };
 
   return (
     <Container>
@@ -229,7 +305,8 @@ function Summary() {
               <p className="color blue" /> <span>슬픔</span>
             </div>
             <span>
-              주요 감정은 <span className="orange">무감정</span>(46%) 입니다.
+              주요 감정은 <span className="orange">{maxEmotion}</span>(
+              {parseInt(Math.max(...emotionRatio))}%) 입니다.
             </span>
           </Description>
         </Content>
@@ -244,18 +321,20 @@ function Summary() {
           <Description>
             <div>
               <p className="color gray" />
-              <span>발표</span>
+              <span>{keywords[0].split('_')[0]}</span>
               <p className="color yellow" />
-              <span>감정</span>
+              <span>{keywords[1].split('_')[0]}</span>
               <p className="color red" />
-              <span>구조</span>
+              <span>{keywords[2].split('_')[0]}</span>
               <p className="color blue" />
-              <span>캡스톤</span>
+              <span>{keywords[3].split('_')[0]}</span>
               <p className="color green" />
-              <span>디비</span>
+              <span>{keywords[4].split('_')[0]}</span>
             </div>
             <span>
-              주요 키워드는 <span className="orange">발표</span>(39%) 입니다.
+              주요 키워드는{' '}
+              <span className="orange">{keywords[0].split('_')[0]}</span>(
+              {keywords[0].split('_')[1]}%) 입니다.
             </span>
           </Description>
         </Content>

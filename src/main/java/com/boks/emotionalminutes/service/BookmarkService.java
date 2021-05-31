@@ -10,7 +10,6 @@ import com.boks.emotionalminutes.domain.user.User;
 import com.boks.emotionalminutes.domain.user.UserRepository;
 import com.boks.emotionalminutes.web.dto.bookmark.BookmarkListResponseDto;
 import com.boks.emotionalminutes.web.dto.bookmark.BookmarkRequestDto;
-import com.boks.emotionalminutes.web.dto.bookmark.BookmarkResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,6 +49,7 @@ public class BookmarkService {
     public List<BookmarkListResponseDto> update(Long id, String memo) {
         Bookmark bookmarkEntity = bookmarkRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 북마크가 없습니다. id=" + id));
+        memo = memo.substring(1, memo.length() - 1);
         bookmarkEntity.setMemo(memo);
         Minutes minutes = bookmarkEntity.getSentence().getMinutes();
         return getBookmarkListResponseDtos(minutes);

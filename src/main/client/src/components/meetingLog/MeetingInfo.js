@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
@@ -40,6 +40,7 @@ function MeetingInfo() {
   const meetingInfo =
     useSelector((state) => state.meetingLog.meetingInfo) || meetingInfomation;
   console.log('meetingInfo:', meetingInfo);
+
   return (
     <Container>
       <div>

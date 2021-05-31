@@ -50,7 +50,12 @@ export const deleteBookmark = (id, bookmarkInfo, setBookmarkInfo) => {
     },
   })
     .then((res) => {
-      setBookmarkInfo(bookmarkInfo.filter((info) => info.bookmarkId !== id));
+      console.log('삭제 전 북마크 인포 :', bookmarkInfo);
+      setBookmarkInfo(
+        ...bookmarkInfo,
+        bookmarkInfo.filter((info) => info.bookmarkId !== id),
+      );
+      console.log('삭제 된 북마크 인포 :', bookmarkInfo);
     })
     .catch((err) => console.log(err));
 };

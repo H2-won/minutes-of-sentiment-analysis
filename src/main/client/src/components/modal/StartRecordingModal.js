@@ -57,12 +57,13 @@ function StartRecordingModal({ ModalOff, args }) {
     // 기록 시작
     // const createdDate = new Date();
     const now = new Date();
+
     const createdDate =
-      now.getYear() +
+      now.getFullYear() +
       '-' +
-      now.getMonth() +
+      (now.getMonth() + 1) +
       '-' +
-      now.getDay() +
+      now.getDate() +
       ' ' +
       now.getHours() +
       ':' +

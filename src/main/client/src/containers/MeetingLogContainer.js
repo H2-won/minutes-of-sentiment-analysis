@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import ConferenceCode from '../components/meeting/record/ConferenceCode';
-import Record from '../components/meeting/record/Record';
-import RecordWrapper from '../components/meeting/record/RecordWrapper';
-import Title from '../components/meeting/record/Title';
+import ConferenceCode from '../components/meetingLog/record/ConferenceCode';
+import Record from '../components/meetingLog/record/Record';
+import RecordWrapper from '../components/meetingLog/record/RecordWrapper';
+import Title from '../components/meetingLog/record/Title';
 import Bookmark from '../components/meetingLog/content/Bookmark';
 import GraphAndKeyword from '../components/meetingLog/content/GraphAndKeyword';
 import Summary from '../components/meetingLog/content/Summary';

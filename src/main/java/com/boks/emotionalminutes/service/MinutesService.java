@@ -44,10 +44,11 @@ public class MinutesService {
 
     @Transactional
     public Long startRecord(MinutesRequestDto requestDto) {
+        System.out.println(requestDto.getMeetingCode());
+        System.out.println(requestDto.getVoiceFileLink());
         Meeting meeting = meetingRepository.findById(requestDto.getMeetingCode())
                 .orElseThrow(() -> new IllegalArgumentException("해당 회의가 없습니다. code=" + requestDto.getMeetingCode()));
-        if (meeting.getMinutes() != null)
-            return null;
+        System.out.println(meeting.getMinutes().getId());
         meeting.getMinutes().startRecord(requestDto.getVoiceFileLink());
 
         return meeting.getMinutes().getId();

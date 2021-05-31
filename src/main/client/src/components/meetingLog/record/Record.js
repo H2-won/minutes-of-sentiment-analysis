@@ -37,24 +37,26 @@ function Record() {
   }, []);
 
   useEffect(() => {
-    fetch(`/api/minutes/${localStorage.getItem('minutesId')}/bookmark`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
-      },
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        if (res)
-          res.forEach((bookmark) => {
-            setBookmarkState({
-              ...bookmarkState,
-              [bookmark.sentenceId]: !bookmarkState[bookmark.sentenceId],
-            });
-          });
+    setTimeout(() => {
+      fetch(`/api/minutes/${localStorage.getItem('minutesId')}/bookmark`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
+        },
       })
-      .catch((err) => console.log(err));
+        .then((res) => res.json())
+        .then((res) => {
+          if (res)
+            res.forEach((bookmark) => {
+              setBookmarkState({
+                ...bookmarkState,
+                [bookmark.sentenceId]: !bookmarkState[bookmark.sentenceId],
+              });
+            });
+        })
+        .catch((err) => console.log(err));
+    }, 1000);
   }, []);
 
   const onClickAddBookmark = (e) => {

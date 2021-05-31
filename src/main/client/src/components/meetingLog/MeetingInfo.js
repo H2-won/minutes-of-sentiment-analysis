@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
@@ -36,20 +36,10 @@ function MeetingInfo() {
     progressTime: '00:06:35',
     userNameList: ['방규빈', '조하현', '임희원', '남기복'],
   };
-    const meetingInfo = useSelector((state) => state.meetingLog.meetingInfo) || meetingInfomation;
-    console.log('meetingInfo:', meetingInfo);
 
-  const [meetingInfo2, setMeetingInfo] = useState({
-      id: 1,
-      title: '캡스톤 디자인 회의록 1',
-      createdDate: '2021.03.29',
-      progressTime: '00:06:35',
-      userNameList: ['방규빈', '조하현', '임희원', '남기복'],
-  });
-
-  useEffect(() => {
-      setMeetingInfo(meetingInfo);
-  }, [])
+  const meetingInfo =
+    useSelector((state) => state.meetingLog.meetingInfo) || meetingInfomation;
+  console.log('meetingInfo:', meetingInfo);
 
   return (
     <Container>

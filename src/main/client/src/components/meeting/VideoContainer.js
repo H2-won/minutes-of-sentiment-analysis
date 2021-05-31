@@ -342,8 +342,10 @@ const VideoContainer = ({ match }) => {
       const userId = localStorage.getItem('userId');
       const userName = localStorage.getItem('userName');
       const minutesId = localStorage.getItem('minutesId');
-      const createdDate = localStorage.getItem('createdDate');
-
+      let createdDate = localStorage.getItem('createdDate');
+      if (createdDate === null || createdDate === undefined) {
+        createdDate = "NULL";
+      }
       databaseRef.push({
         flag: recordFlag,
         minutesId: minutesId,

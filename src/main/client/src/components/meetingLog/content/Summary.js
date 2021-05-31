@@ -135,7 +135,7 @@ const Comment = styled.span`
 
 function Summary() {
   const [emotions, setEmotions] = useState([]);
-  const emotionRatio = [];
+  const [emotionRatio, setEmotionRatio] = useState([]);
   const [maxEmotion, setMaxEmotion] = useState('무감정');
   const [emotionData, setEmotionData] = useState({
     // labels: ['무감정', '기쁨', '화남', '슬픔'],
@@ -181,10 +181,10 @@ function Summary() {
         console.log('emotion Info:', res);
         setEmotions(res);
         // 비율 Ratio에 넣어주기
-        emotionRatio.push(res.emotionless);
-        emotionRatio.push(res.happy);
-        emotionRatio.push(res.angry);
-        emotionRatio.push(res.sad);
+        setEmotionRatio(...emotionRatio, res.emotionless);
+        setEmotionRatio(...emotionRatio, res.happy);
+        setEmotionRatio(...emotionRatio, res.angry);
+        setEmotionRatio(...emotionRatio, res.sad);
         console.log('emotionRatio : ', emotionRatio);
 
         // 주요 감정, 퍼센트 구하기

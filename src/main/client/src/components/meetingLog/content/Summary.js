@@ -135,7 +135,8 @@ const Comment = styled.span`
 
 function Summary() {
   const [emotions, setEmotions] = useState([]);
-  const emotionRatio = [];
+  const emotionRatio = ['70'];
+  const [maxEmotion, setMaxEmotion] = useState('무감정');
   const [emotionData, setEmotionData] = useState({
     // labels: ['무감정', '기쁨', '화남', '슬픔'],
     datasets: [
@@ -185,6 +186,22 @@ function Summary() {
         emotionRatio.push(res.angry);
         emotionRatio.push(res.sad);
         console.log('emotionRatio : ', emotionRatio);
+
+        // 주요 감정, 퍼센트 구하기
+        const max = 0;
+        const maxIndex = 0;
+        emotionRatio.forEach((ratio, index) => {
+          if (max < ratio) {
+            max = ratio;
+            maxIndex = index;
+          }
+        });
+        if (maxIndex === 0) setMaxEmotion('무감정');
+        else if (maxIndex === 1) setMaxEmotion('기쁨');
+        else if (maxIndex === 2) setMaxEmotion('화남');
+        else if (maxIndex === 3) setMaxEmotion('슬픔');
+
+        // emotoinData 설정
         setEmotionData({
           datasets: [
             {
@@ -287,7 +304,8 @@ function Summary() {
               <p className="color blue" /> <span>슬픔</span>
             </div>
             <span>
-              주요 감정은 <span className="orange">무감정</span>(46%) 입니다.
+              주요 감정은 <span className="orange">{maxEmotion}</span>(
+              {parseInt(Math.max(...emotionRatio))}%) 입니다.
             </span>
           </Description>
         </Content>

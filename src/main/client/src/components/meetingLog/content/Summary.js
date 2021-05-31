@@ -181,10 +181,11 @@ function Summary() {
         console.log('emotion Info:', res);
         setEmotions(res);
         // 비율 Ratio에 넣어주기
-        setEmotionRatio([...emotionRatio, res.emotionless]);
-        setEmotionRatio([...emotionRatio, res.happy]);
-        setEmotionRatio([...emotionRatio, res.angry]);
-        setEmotionRatio([...emotionRatio, res.sad]);
+        emotionRatio.push(res.emotionless);
+        emotionRatio.push(res.happy);
+        emotionRatio.push(res.angry);
+        emotionRatio.push(res.sad);
+        setEmotionRatio(emotionRatio);
         console.log('emotionRatio : ', emotionRatio);
 
         // 주요 감정, 퍼센트 구하기

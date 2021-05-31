@@ -235,9 +235,7 @@ function Bookmark() {
   };
 
   const onClickModifyBookmark = (e) => {
-
-    const bookmarkId =e.currentTarget.parentNode.getAttribute('id');
-    console.log(bookmarkId);
+    const bookmarkId = e.currentTarget.parentNode.getAttribute('id');
     dispatch(
       openModal('MODIFY_BOOKMARK', ModifyBookmarkModal, {
         title: '북마크 수정',
@@ -251,8 +249,7 @@ function Bookmark() {
   };
 
   const onClickDeleteBookmark = (e) => {
-      const bookmarkId =e.currentTarget.parentNode.getAttribute('id');
-    console.log(bookmarkId);
+    const bookmarkId = e.currentTarget.parentNode.getAttribute('id');
     dispatch(
       openModal('DELETE_BOOKMARK', DeleteBookmarkModal, {
         title: '정말로 삭제하시겠습니까?',

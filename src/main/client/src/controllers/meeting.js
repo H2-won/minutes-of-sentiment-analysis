@@ -38,10 +38,10 @@ export const enterConference = (conferenceCode) => {
       code: conferenceCode,
     }),
   })
-    .then((res) => res.json())
+    // .then((res) => res.json())
     .then((res) => {
       console.log('res is :', res);
-      localStorage.setItem('minutesId', res.minutesId);
+      // localStorage.setItem('minutesId', res.minutesId);
       // window.location.href = `/meeting/${conferenceCode}?open=false`;
     })
     .catch((err) => {

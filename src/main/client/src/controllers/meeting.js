@@ -31,7 +31,7 @@ export const enterConference = (conferenceCode) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Accept: 'application/json',
+      // Accept: 'application/json',
       Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
     },
     body: JSON.stringify({
@@ -43,7 +43,7 @@ export const enterConference = (conferenceCode) => {
     .then((res) => {
       console.log('res is :', res);
       localStorage.setItem('minutesId', res.minutesId);
-      // window.location.href = `/meeting/${res.meetingCode}?open=false`;
+      window.location.href = `/meeting/${res.meetingCode}?open=false`;
     })
     .catch((err) => {
       console.log(err);

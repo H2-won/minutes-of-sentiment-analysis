@@ -49,7 +49,6 @@ const options = {
         xAxes: {
             ticks: {
                 callback: function (value) {
-                    // return parseInt(value/3600) + ':' + parseInt((value%3600)/60) + ':' + parseInt(value%60);
                     return ('0'+parseInt(value/3600)).slice(-2) + ':' + ('0'+parseInt((value%3600)/60)).slice(-2) + ':' + ('0'+parseInt(value%60)).slice(-2);
                 }
             }
@@ -67,9 +66,9 @@ const options = {
     }
 }
 
-var data = {};
-
 function GraphAndKeyword({id}) {
+
+    const [data, setData] = useState({});
 
     const a = fetch(`/api/minutes/${id}/sentences`, {
         method: 'GET',
@@ -103,7 +102,7 @@ function GraphAndKeyword({id}) {
                     pointRadius: 5
                 })
             }
-            data['datasets'] = datasets;
+            setData({'datasets' : datasets});
         });
 
   return (

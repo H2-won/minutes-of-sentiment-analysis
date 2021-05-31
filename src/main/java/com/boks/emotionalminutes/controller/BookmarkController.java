@@ -14,7 +14,7 @@ import java.util.List;
 public class BookmarkController {
     private final BookmarkService bookmarkService;
 
-    @GetMapping("/api/minutes/{id}/bookmark")
+    @GetMapping("/api/minutes/{minutesId}/bookmark")
     public List<BookmarkListResponseDto> findAll(@PathVariable Long minutesId) {
         return bookmarkService.findAll(minutesId);
     }

@@ -17,9 +17,7 @@ public class MeetingController {
 
     @PostMapping("/api/meeting/join")
     public MeetingJoinResponseDto join(@RequestBody MeetingJoinRequestDto requestDto) {
-        MeetingJoinResponseDto responseDto = meetingService.join(requestDto);
-        System.out.println(responseDto);
-        return responseDto;
+        return meetingService.join(requestDto);
     }
 
     @GetMapping("/api/meeting/{code}")

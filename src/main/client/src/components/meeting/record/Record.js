@@ -30,30 +30,30 @@ function Record() {
   useEffect(() => {
     if (recordData[0]) {
       setAddBtnState((addBtnState) => [...addBtnState, false]);
-      setBookmarkState((bookmarkState) => [...bookmarkState, false]);
+      // setBookmarkState((bookmarkState) => [...bookmarkState, false]);
     }
   }, [recordData]);
 
-  useEffect(() => {
-    fetch(`/api/minutes/${localStorage.getItem('minutesId')}/bookmark`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
-      },
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        if (res)
-          res.forEach((bookmark) => {
-            setBookmarkState({
-              ...bookmarkState,
-              [bookmark.sentenceId]: !bookmarkState[bookmark.sentenceId],
-            });
-          });
-      })
-      .catch((err) => console.log(err));
-  }, []);
+  // useEffect(() => {
+  //   fetch(`/api/minutes/${localStorage.getItem('minutesId')}/bookmark`, {
+  //     method: 'GET',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
+  //     },
+  //   })
+  //     .then((res) => res.json())
+  //     .then((res) => {
+  //       if (res)
+  //         res.forEach((bookmark) => {
+  //           setBookmarkState({
+  //             ...bookmarkState,
+  //             [bookmark.sentenceId]: !bookmarkState[bookmark.sentenceId],
+  //           });
+  //         });
+  //     })
+  //     .catch((err) => console.log(err));
+  // }, []);
 
   const onClickAddBookmark = (e) => {
     const sentenceId = e.target.parentNode.getAttribute('id');

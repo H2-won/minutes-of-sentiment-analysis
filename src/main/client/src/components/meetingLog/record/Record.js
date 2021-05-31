@@ -34,9 +34,7 @@ function Record() {
         }
       })
       .catch((err) => console.log(err));
-  }, []);
 
-  useEffect(() => {
     setTimeout(() => {
       fetch(`/api/minutes/${localStorage.getItem('minutesId')}/bookmark`, {
         method: 'GET',

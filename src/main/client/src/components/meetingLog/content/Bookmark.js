@@ -145,6 +145,7 @@ function Bookmark() {
   }, []);
 
   useEffect(() => {
+    setMenuState([]);
     for (let i = 0; i < bookmarkInfo.length; i++) {
       setMenuState((menuState) => [...menuState, false]);
     }

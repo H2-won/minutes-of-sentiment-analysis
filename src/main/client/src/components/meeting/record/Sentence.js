@@ -119,13 +119,7 @@ function Sentence({
         </AddBookmarkBtn>
       )}
       {bookmarkState[index] && (
-        <BookmarkIcon
-          id={index + 1}
-          src="/icons/ic_bookmark_24px.png"
-          onClick={onClickAddBookmark}
-          className={'addMenu'}
-          alt=""
-        />
+        <BookmarkIcon id={index + 1} src="/icons/ic_bookmark_24px.png" alt="" />
       )}
     </Container>
   );

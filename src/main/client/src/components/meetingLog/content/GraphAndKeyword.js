@@ -116,42 +116,9 @@ const options = {
     },
   },
 };
+
 function GraphAndKeyword({ id }) {
   const [data, setData] = useState({});
-
-  const a = fetch(`/api/minutes/${id}/sentences`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
-    },
-  })
-    .then((res) => res.json())
-    .then((res) => {
-      var info = {};
-      for (var i = 0; i < res.length; i++) {
-        if (!(res[i].userName in info)) info[res[i].userName] = [];
-
-        var [h, m, s] = res[i].createdTime.split(':');
-        info[res[i].userName].push({
-          x: h * 1 * 3600 + m * 1 * 60 + s * 1,
-          y: emos.indexOf(res[i].emotion),
-        });
-      }
-      var datasets = [];
-      for (let key in info) {
-        var randomColor = Math.floor(Math.random() * 16777215).toString(16);
-        datasets.push({
-          label: key,
-          data: info[key],
-          borderColor: '#' + randomColor,
-          backgroundColor: '#' + randomColor,
-          pointStyle: 'circle',
-          pointRadius: 5,
-        });
-      }
-      setData({ datasets: datasets });
-    });
 
   // ----------------- 구간별 키워드 ------------------
   const [intervalKeyword, setIntervalKeyword] = useState({
@@ -160,7 +127,44 @@ function GraphAndKeyword({ id }) {
     interval2Keywords: '키워드 분석 용량',
     interval3Keywords: '감정 학습 데이터',
   });
+
   useEffect(() => {
+    // graph 그리기 위한 get API
+    fetch(`/api/minutes/${id}/sentences`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        var info = {};
+        for (var i = 0; i < res.length; i++) {
+          if (!(res[i].userName in info)) info[res[i].userName] = [];
+
+          var [h, m, s] = res[i].createdTime.split(':');
+          info[res[i].userName].push({
+            x: h * 1 * 3600 + m * 1 * 60 + s * 1,
+            y: emos.indexOf(res[i].emotion),
+          });
+        }
+        var datasets = [];
+        for (let key in info) {
+          var randomColor = Math.floor(Math.random() * 16777215).toString(16);
+          datasets.push({
+            label: key,
+            data: info[key],
+            borderColor: '#' + randomColor,
+            backgroundColor: '#' + randomColor,
+            pointStyle: 'circle',
+            pointRadius: 5,
+          });
+        }
+        setData({ datasets: datasets });
+      });
+
+    // 구간별 키워드를 위한 get API
     fetch(
       `/api/minutes/${localStorage.getItem('minutesId')}/interval-keywords`,
       {

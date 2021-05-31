@@ -182,4 +182,4 @@ function MeetingLogWrapper({
   );
 }
 
-export default MeetingLogWrapper;
+export default React.memo(MeetingLogWrapper);

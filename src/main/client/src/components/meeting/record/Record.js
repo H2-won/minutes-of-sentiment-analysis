@@ -14,6 +14,7 @@ const Layout = styled.div`
 function Record() {
   const [recordData, setRecordData] = useState([]);
   const [addBtnState, setAddBtnState] = useState([]);
+  const [bookmarkState, setBookmarkState] = useState([]);
   const dispatch = useDispatch();
   const body = document.querySelector('body');
 
@@ -30,8 +31,30 @@ function Record() {
     if (recordData[0]) {
       // recordData.current.scrollIntoView({ behavior: 'smooth' });
       setAddBtnState((addBtnState) => [...addBtnState, false]);
+      setBookmarkState((bookmarkState) => [...bookmarkState, false]);
     }
   }, [recordData]);
+
+  useEffect(() => {
+    fetch(`/api/minutes/${localStorage.getItem('minutesId')}/bookmark`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        if (res)
+          res.forEach((bookmark) => {
+            setBookmarkState({
+              ...bookmarkState,
+              [bookmark.sentenceId]: !bookmarkState[bookmark.sentenceId],
+            });
+          });
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   const onClickAddBookmark = (e) => {
     const sentenceId = e.target.parentNode.getAttribute('id');
@@ -75,6 +98,7 @@ function Record() {
           onClickAddBookmark={onClickAddBookmark}
           onContextMenu={onContextMenu}
           addBtnState={addBtnState}
+          bookmarkState={bookmarkState}
         />
       ))}
     </Layout>

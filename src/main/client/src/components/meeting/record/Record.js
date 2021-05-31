@@ -29,7 +29,6 @@ function Record() {
 
   useEffect(() => {
     if (recordData[0]) {
-      // recordData.current.scrollIntoView({ behavior: 'smooth' });
       setAddBtnState((addBtnState) => [...addBtnState, false]);
       setBookmarkState((bookmarkState) => [...bookmarkState, false]);
     }

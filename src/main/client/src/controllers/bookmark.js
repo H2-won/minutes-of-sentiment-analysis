@@ -19,7 +19,7 @@ export const registrationBookmark = (userId, sentenceId, memo) => {
     .catch((err) => console.log(err));
 };
 
-export const modifyBookmark = (id, memo) => {
+export const modifyBookmark = (id, memo, bookmarkInfo, setBookmarkInfo) => {
   const token = localStorage.getItem('accessToken');
   fetch(`/api/bookmark/update/${id}`, {
     method: 'PUT',
@@ -31,11 +31,16 @@ export const modifyBookmark = (id, memo) => {
     body: JSON.stringify(memo),
   })
     .then((res) => res.json())
-    .then((res) => console.log('북마크 수정 완료'))
+    .then((res) => {
+      setBookmarkInfo([
+        { ...bookmarkInfo, [id]: { ...bookmarkInfo[id], ['memo']: memo } },
+      ]);
+      console.log('북마크 수정 완료');
+    })
     .catch((err) => console.log(err));
 };
 
-export const deleteBookmark = (id) => {
+export const deleteBookmark = (id, bookmarkInfo, setBookmarkInfo) => {
   const token = localStorage.getItem('accessToken');
   fetch(`/api/bookmark/delete/${id}`, {
     method: 'DELETE',
@@ -43,7 +48,10 @@ export const deleteBookmark = (id) => {
       Authorization: token,
     },
   })
-    .then((res) => console.log('북마크 삭제 완료'))
+    .then((res) => {
+      bookmarkInfo.filter((info) => info.bookmarkId !== id);
+      setBookmarkInfo(bookmarkInfo);
+    })
     .catch((err) => console.log(err));
 };
 

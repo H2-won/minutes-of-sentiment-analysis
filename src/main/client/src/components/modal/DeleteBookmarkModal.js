@@ -51,7 +51,7 @@ const CancleBtn = styled.button`
 function DeleteBookmarkModal({ ModalOff, args }) {
   const AddBookmark = () => {
     ModalOff();
-    deleteBookmark(args.id);
+    deleteBookmark(args.id, args.bookmarkInfo, args.setBookmarkInfo);
   };
 
   return (

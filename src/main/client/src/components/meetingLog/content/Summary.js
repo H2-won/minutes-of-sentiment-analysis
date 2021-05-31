@@ -135,7 +135,7 @@ const Comment = styled.span`
 
 function Summary() {
   const [emotions, setEmotions] = useState([]);
-  const emotionRatio = ['70'];
+  const emotionRatio = [];
   const [maxEmotion, setMaxEmotion] = useState('무감정');
   const [emotionData, setEmotionData] = useState({
     // labels: ['무감정', '기쁨', '화남', '슬픔'],
@@ -188,8 +188,8 @@ function Summary() {
         console.log('emotionRatio : ', emotionRatio);
 
         // 주요 감정, 퍼센트 구하기
-        const max = 0;
-        const maxIndex = 0;
+        let max = 0;
+        let maxIndex = 0;
         emotionRatio.forEach((ratio, index) => {
           if (max < ratio) {
             max = ratio;

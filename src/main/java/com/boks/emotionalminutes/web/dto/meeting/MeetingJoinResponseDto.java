@@ -1,7 +1,9 @@
 package com.boks.emotionalminutes.web.dto.meeting;
 
 import com.boks.emotionalminutes.domain.meeting.Meeting;
+import lombok.Getter;
 
+@Getter
 public class MeetingJoinResponseDto {
     private final String meetingCode;
     private final Long minutesId;

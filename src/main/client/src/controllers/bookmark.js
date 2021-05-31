@@ -28,9 +28,7 @@ export const modifyBookmark = (id, memo) => {
       Accept: 'application/json',
       Authorization: token,
     },
-    body: JSON.stringify({
-      memo: memo,
-    }),
+    body: JSON.stringify(memo),
   })
     .then((res) => res.json())
     .then((res) => console.log('북마크 수정 완료'))
@@ -42,12 +40,9 @@ export const deleteBookmark = (id) => {
   fetch(`/api/bookmark/delete/${id}`, {
     method: 'DELETE',
     headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
       Authorization: token,
     },
   })
-    .then((res) => res.json())
     .then((res) => console.log('북마크 삭제 완료'))
     .catch((err) => console.log(err));
 };

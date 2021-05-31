@@ -98,16 +98,16 @@ function Sentence({
 
   return (
     <Container
-      id={record.sentence_id}
+      id={record.id}
       key={index}
       onContextMenu={(e) => {
         e.preventDefault();
         onContextMenu(index);
       }}
     >
-      <Name>{record.sender_name}</Name>
-      <Time>{record.time}</Time>
-      <Text emotion={record.emotion}>{record.text}</Text>
+      <Name>{record.userName}</Name>
+      <Time>{record.createdTime}</Time>
+      <Text emotion={record.emotion}>{record.content}</Text>
       {addBtnState[index] && (
         <AddBookmarkBtn
           id={index + 1}

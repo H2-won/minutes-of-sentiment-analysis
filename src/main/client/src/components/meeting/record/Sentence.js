@@ -71,12 +71,20 @@ const AddBookmarkBtn = styled.div`
   cursor: pointer;
 `;
 
+const BookmarkIcon = styled.img`
+  position: absolute;
+  width: 15px;
+  left: -2rem;
+  top: 3rem;
+`;
+
 function Sentence({
   record,
   index,
   onClickAddBookmark,
   onContextMenu,
   addBtnState,
+  bookmarkState,
 }) {
   const scrollToBottom = () => {
     const recordWrapper = document.querySelector('#recordWrapper');
@@ -110,8 +118,17 @@ function Sentence({
           북마크 등록
         </AddBookmarkBtn>
       )}
+      {bookmarkState[index] && (
+        <BookmarkIcon
+          id={index + 1}
+          src="/icons/ic_bookmark_24px.png"
+          onClick={onClickAddBookmark}
+          className={'addMenu'}
+          alt=""
+        />
+      )}
     </Container>
   );
 }
 
-export default Sentence;
+export default React.memo(Sentence);

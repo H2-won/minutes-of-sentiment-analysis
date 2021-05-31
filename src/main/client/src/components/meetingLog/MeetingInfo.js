@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
@@ -29,7 +29,6 @@ const Description = styled.span`
 `;
 
 function MeetingInfo() {
-  // const dispatch = useDispatch();
   const meetingInfomation = {
     id: 1,
     title: '캡스톤 디자인 회의록 1',
@@ -40,7 +39,7 @@ function MeetingInfo() {
 
   const meetingInfo =
     useSelector((state) => state.meetingLog.meetingInfo) || meetingInfomation;
-    console.log('meetingInfo:',meetingInfo);
+  console.log('meetingInfo:', meetingInfo);
   return (
     <Container>
       <div>
@@ -63,4 +62,4 @@ function MeetingInfo() {
   );
 }
 
-export default MeetingInfo;
+export default React.memo(MeetingInfo);

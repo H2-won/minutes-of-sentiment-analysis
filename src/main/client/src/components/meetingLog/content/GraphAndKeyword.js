@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import palette from '../../../lib/styles/palette';
 import { Scatter } from 'react-chartjs-2';

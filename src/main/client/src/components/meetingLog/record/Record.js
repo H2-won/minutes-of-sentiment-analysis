@@ -17,7 +17,7 @@ function Record() {
   const body = document.querySelector('body');
 
   useEffect(() => {
-    fetch(`/api/minutes/${localStorage.getItem('minutesId')}/sentence}`, {
+    fetch(`/api/minutes/${localStorage.getItem('minutesId')}/sentence`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

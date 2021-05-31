@@ -43,12 +43,14 @@ public class MinutesService {
     private final TotalEmotionsRepository totalEmotionsRepository;
 
     @Transactional
-    public Long save(MinutesRequestDto requestDto) {
+    public Long startRecord(MinutesRequestDto requestDto) {
         Meeting meeting = meetingRepository.findById(requestDto.getMeetingCode())
                 .orElseThrow(() -> new IllegalArgumentException("해당 회의가 없습니다. code=" + requestDto.getMeetingCode()));
         if (meeting.getMinutes() != null)
             return null;
-        return minutesRepository.save(requestDto.toEntity(meeting)).getId();
+        meeting.getMinutes().startRecord(requestDto.getVoiceFileLink());
+
+        return meeting.getMinutes().getId();
     }
 
     @Transactional(readOnly = true)
@@ -108,7 +110,7 @@ public class MinutesService {
         int min = totalSec % (60 * 60) / 60;
         int sec = totalSec % 60;
         LocalTime progressTime = LocalTime.of(hour, min, sec);
-        minutes.update(progressTime);
+        minutes.endRecord(progressTime);
 
         List<Sentence> sentences = minutes.getSentences();
         System.out.println("회의록(id = " + id + ") 의 문장 리스트를 가져왔습니다.");

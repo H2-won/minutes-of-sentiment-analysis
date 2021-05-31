@@ -2,6 +2,8 @@ package com.boks.emotionalminutes.service;
 
 import com.boks.emotionalminutes.domain.meeting.Meeting;
 import com.boks.emotionalminutes.domain.meeting.MeetingRepository;
+import com.boks.emotionalminutes.domain.minutes.Minutes;
+import com.boks.emotionalminutes.domain.minutes.MinutesRepository;
 import com.boks.emotionalminutes.domain.participation.Participation;
 import com.boks.emotionalminutes.domain.participation.ParticipationRepository;
 import com.boks.emotionalminutes.domain.user.User;
@@ -11,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.Optional;
 
 @Service
@@ -20,6 +23,7 @@ public class MeetingService {
     private final UserRepository userRepository;
     private final MeetingRepository meetingRepository;
     private final ParticipationRepository participationRepository;
+    private final MinutesRepository minutesRepository;
 
     @Transactional
     public MeetingCodeAndHostIDResponseDto save(MeetingRequestDto requestDto) {
@@ -33,6 +37,11 @@ public class MeetingService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 개최자가 없습니다. id=" + requestDto.getUserId()));
 
         Meeting meeting = meetingRepository.save(requestDto.toEntity(user));
+
+        Minutes minutes = minutesRepository.save(Minutes.builder()
+                .meeting(meeting)
+                .password(requestDto.getPassword())
+                .build());
 
         Participation participation = Participation.builder()
                 .user(user)

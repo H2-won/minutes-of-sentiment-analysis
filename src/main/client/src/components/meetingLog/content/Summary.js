@@ -168,7 +168,7 @@ function Summary() {
         console.log('Bookmark Info:', res);
         setKeywords(res);
         // 뒤에 숫자 비율만 Ratio에 넣어주기
-        res.forEach((keyword) => {
+        res.keywords.forEach((keyword) => {
           keywordRatio.push(keyword.split('_')[1]);
         });
       })

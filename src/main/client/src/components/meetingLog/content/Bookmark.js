@@ -235,6 +235,9 @@ function Bookmark() {
   };
 
   const onClickModifyBookmark = (e) => {
+      console.log(e.target);
+      console.log(e.currentTarget())
+      console.log(e.target.parent);
     const bookmarkId =e.target.getAttribute('id') || e.target.parent.getAttribute('id') || e.target.parent.parent.getAttribute('id') ;
     console.log(bookmarkId);
     dispatch(

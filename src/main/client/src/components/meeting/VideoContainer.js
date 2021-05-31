@@ -134,7 +134,7 @@ const VideoContainer = ({ match }) => {
         senderId: 'testId',
         senderName: '테스트',
         message: 'NULL',
-        time: createdDate,
+        time: "NULL",
       });
       setConnectionInfo(event.stream);
 

@@ -45,19 +45,19 @@ function MeetingInfo() {
     <Container>
       <div>
         <Title>회의 제목</Title>
-        <Description>{meetingInfo2.title}</Description>
+        <Description>{meetingInfo.title}</Description>
       </div>
       <div>
         <Title>회의 시간</Title>
-        <Description>{meetingInfo2.progressTime}</Description>
+        <Description>{meetingInfo.progressTime}</Description>
       </div>
       <div>
         <Title>회의 일시</Title>
-        <Description>{meetingInfo2.createdDate}</Description>
+        <Description>{meetingInfo.createdDate}</Description>
       </div>
       <div>
         <Title>참가자</Title>
-        <Description>{meetingInfo2.userNameList}</Description>
+        <Description>{meetingInfo.userNameList}</Description>
       </div>
     </Container>
   );

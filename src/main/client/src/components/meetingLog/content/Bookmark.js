@@ -235,13 +235,13 @@ function Bookmark() {
   };
 
   const onClickModifyBookmark = (e) => {
-    const sentenceId = e.target.getAttribute('id');
+    const bookmarkId = e.target.getAttribute('id');
     dispatch(
       openModal('MODIFY_BOOKMARK', ModifyBookmarkModal, {
         title: '북마크 수정',
         okBtnText: '수정하기',
         okBtnBackgroundColor: 'orange',
-        id: sentenceId,
+        id: bookmarkId,
         memo: document.querySelector('.bookmarkMenu').previousSibling
           .previousSibling.previousSibling.textContent,
       }),
@@ -249,13 +249,13 @@ function Bookmark() {
   };
 
   const onClickDeleteBookmark = (e) => {
-    const sentenceId = e.target.getAttribute('id');
+    const bookmarkId = e.target.getAttribute('id');
     dispatch(
       openModal('DELETE_BOOKMARK', DeleteBookmarkModal, {
         title: '정말로 삭제하시겠습니까?',
         okBtnText: '삭제하기',
         okBtnBackgroundColor: 'orange',
-        id: sentenceId,
+        id: bookmarkId,
       }),
     );
   };

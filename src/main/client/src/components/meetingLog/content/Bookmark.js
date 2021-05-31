@@ -235,10 +235,8 @@ function Bookmark() {
   };
 
   const onClickModifyBookmark = (e) => {
-      console.log(e.target);
-      console.log(e.target.parent);
-      console.log(e.currentTarget)
-    const bookmarkId =e.target.getAttribute('id') || e.target.parent.getAttribute('id') || e.target.parent.parent.getAttribute('id') ;
+
+    const bookmarkId =e.currentTarget.parentNode.getAttribute('id') ;
     console.log(bookmarkId);
     dispatch(
       openModal('MODIFY_BOOKMARK', ModifyBookmarkModal, {
@@ -253,7 +251,7 @@ function Bookmark() {
   };
 
   const onClickDeleteBookmark = (e) => {
-      const bookmarkId =e.target.getAttribute('id') || e.target.parent.getAttribute('id') || e.target.parent.parent.getAttribute('id') ;
+      const bookmarkId =e.currentTarget.parentNode.getAttribute('id') ;
     console.log(bookmarkId);
     dispatch(
       openModal('DELETE_BOOKMARK', DeleteBookmarkModal, {

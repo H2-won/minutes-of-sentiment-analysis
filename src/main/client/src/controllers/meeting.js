@@ -17,8 +17,9 @@ export const produceConference = (title, pw) => {
     .then((res) => res.json())
     .then((res) => {
       console.log('res is :', res);
-      window.location.href = `/meeting/${res.code}?open=true`;
+      localStorage.setItem('minutesId', res.minutesId);
       localStorage.setItem('hostId', res.hostId);
+      window.location.href = `/meeting/${res.code}?open=true`;
     })
     .catch((err) => {
       console.log(err);

@@ -236,7 +236,7 @@ function Bookmark() {
 
   const onClickModifyBookmark = (e) => {
 
-    const bookmarkId =e.currentTarget.parentNode.getAttribute('id') ;
+    const bookmarkId =e.currentTarget.parentNode.getAttribute('id');
     console.log(bookmarkId);
     dispatch(
       openModal('MODIFY_BOOKMARK', ModifyBookmarkModal, {
@@ -251,7 +251,7 @@ function Bookmark() {
   };
 
   const onClickDeleteBookmark = (e) => {
-      const bookmarkId =e.currentTarget.parentNode.getAttribute('id') ;
+      const bookmarkId =e.currentTarget.parentNode.getAttribute('id');
     console.log(bookmarkId);
     dispatch(
       openModal('DELETE_BOOKMARK', DeleteBookmarkModal, {

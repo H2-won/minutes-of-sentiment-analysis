@@ -184,7 +184,6 @@ function Bookmark() {
         id: bookmarkId,
         memo: document.querySelector('.bookmarkMenu').previousSibling
           .previousSibling.previousSibling.textContent,
-        bookmarkInfo: bookmarkInfo,
         setBookmarkInfo: setBookmarkInfo,
       }),
     );
@@ -198,7 +197,6 @@ function Bookmark() {
         okBtnText: '삭제하기',
         okBtnBackgroundColor: 'orange',
         id: bookmarkId,
-        bookmarkInfo: bookmarkInfo,
         setBookmarkInfo: setBookmarkInfo,
       }),
     );

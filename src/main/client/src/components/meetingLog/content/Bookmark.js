@@ -208,7 +208,7 @@ function Bookmark() {
     <Container>
       <h2>북마크</h2>
       <ContentWrapper>
-        {bookmarkInfo.map(({ bookmarkId, memo, userName, createdDate }) => (
+        {bookmarkInfo.map(({ bookmarkId, memo, userName, createdTime }) => (
           <Content key={bookmarkId}>
             <img src="/icons/ic_bookmark_24px.png" alt="" />
             <span>{memo}</span>
@@ -217,7 +217,7 @@ function Bookmark() {
             </button>
             <div className="info">
               <span>{userName}</span>
-              <span>{createdDate}</span>
+              <span>{createdTime}</span>
             </div>
             {menuState[bookmarkId] && (
               <Menu id={bookmarkId} className={'bookmarkMenu'}>

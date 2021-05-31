@@ -36,6 +36,7 @@ export const modifyBookmark = (id, memo, bookmarkInfo, setBookmarkInfo) => {
         { ...bookmarkInfo, [id]: { ...bookmarkInfo[id], ['memo']: memo } },
       ]);
       console.log('북마크 수정 완료');
+      console.log(bookmarkInfo);
     })
     .catch((err) => console.log(err));
 };
@@ -49,8 +50,7 @@ export const deleteBookmark = (id, bookmarkInfo, setBookmarkInfo) => {
     },
   })
     .then((res) => {
-      bookmarkInfo.filter((info) => info.bookmarkId !== id);
-      setBookmarkInfo(bookmarkInfo);
+      setBookmarkInfo(bookmarkInfo.filter((info) => info.bookmarkId !== id));
     })
     .catch((err) => console.log(err));
 };

@@ -7,6 +7,8 @@ public class MeetingJoinResponseDto {
     private final Long minutesId;
 
     public MeetingJoinResponseDto (Meeting entity) {
+        System.out.println(entity.getCode());
+        System.out.println(entity.getMinutes().getId());
         this.meetingCode = entity.getCode();
         this.minutesId = entity.getMinutes().getId();
     }

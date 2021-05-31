@@ -152,7 +152,7 @@ function Summary() {
     ],
   });
 
-  const [keywords, setKeywords] = useState([]);
+  const [keywords, setKeywords] = useState(['1','2','3','4','5']);
   const keywordRatio = [];
   const [keywordData, setKeywordData] = useState({
     datasets: [

@@ -100,4 +100,4 @@ function ModifyBookmarkModal({ ModalOff, args }) {
   );
 }
 
-export default ModifyBookmarkModal;
+export default React.memo(ModifyBookmarkModal);

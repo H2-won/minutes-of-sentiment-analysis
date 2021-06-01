@@ -39,6 +39,7 @@ function Record({ bookmarkInfo, setBookmarkInfo }) {
   }, []);
 
   const onClickAddBookmark = (e) => {
+    console.log('record에서 setBookmarkInfo : ', setBookmarkInfo);
     const sentenceId = e.currentTarget.parent.getAttribute('id');
     dispatch(
       openModal('ADD_BOOKMARK', AddBookmarkModal, {

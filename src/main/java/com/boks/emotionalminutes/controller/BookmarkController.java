@@ -24,13 +24,19 @@ public class BookmarkController {
         return bookmarkService.save(requestDto);
     }
 
-    @PutMapping("/api/bookmark/update/{id}")
-    public Long update(@PathVariable Long id, @RequestBody String memo) {
-        return bookmarkService.update(id, memo);
+    @PostMapping("/api/bookmark/save")
+    public List<BookmarkListResponseDto> saveInMinutes(@RequestBody BookmarkRequestDto requestDto) {
+        return bookmarkService.saveInMinutes(requestDto);
     }
 
-    @DeleteMapping("/api/bookmark/delete/{id}")
-    public void delete(@PathVariable Long id) {
-        bookmarkService.delete(id);
+    @PutMapping("/api/bookmark/update/{bookmarkId}")
+    public List<BookmarkListResponseDto> update(@PathVariable Long bookmarkId,
+                                                @RequestBody String memo) {
+        return bookmarkService.update(bookmarkId, memo);
+    }
+
+    @DeleteMapping("/api/bookmark/delete/{bookmarkId}")
+    public List<BookmarkListResponseDto> delete(@PathVariable Long bookmarkId) {
+        return bookmarkService.delete(bookmarkId);
     }
 }

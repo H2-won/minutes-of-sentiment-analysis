@@ -39,7 +39,7 @@ function Record({ bookmarkInfo, setBookmarkInfo }) {
   }, []);
 
   const onClickAddBookmark = (e) => {
-    const sentenceId = e.target.parentNode.getAttribute('id');
+    const sentenceId = e.currentTarget.getAttribute('id');
     dispatch(
       openModal('ADD_BOOKMARK', AddBookmarkModal, {
         title: '북마크 등록',

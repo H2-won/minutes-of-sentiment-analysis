@@ -10,7 +10,6 @@ import com.boks.emotionalminutes.domain.user.User;
 import com.boks.emotionalminutes.domain.user.UserRepository;
 import com.boks.emotionalminutes.web.dto.bookmark.BookmarkListResponseDto;
 import com.boks.emotionalminutes.web.dto.bookmark.BookmarkRequestDto;
-import com.boks.emotionalminutes.web.dto.bookmark.BookmarkResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,28 +46,35 @@ public class BookmarkService {
     }
 
     @Transactional
-    public Long update(Long id, String memo) {
-        Bookmark bookmark = bookmarkRepository.findById(id)
+    public List<BookmarkListResponseDto> update(Long id, String memo) {
+        Bookmark bookmarkEntity = bookmarkRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 북마크가 없습니다. id=" + id));
         memo = memo.substring(1, memo.length() - 1);
-        bookmark.setMemo(memo);
-        return id;
+        bookmarkEntity.setMemo(memo);
+        Minutes minutes = bookmarkEntity.getSentence().getMinutes();
+        return getBookmarkListResponseDtos(minutes);
     }
 
     @Transactional
-    public void delete(Long id) {
-        Bookmark bookmark = bookmarkRepository.findById(id)
+    public List<BookmarkListResponseDto> delete(Long id) {
+        Bookmark bookmarkEntity = bookmarkRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 북마크가 없습니다. id=" + id));
-        bookmark.getUser().getBookmarks().remove(bookmark);
-        bookmark.getSentence().setBookmark(null);
+        Minutes minutes = bookmarkEntity.getSentence().getMinutes();
+        bookmarkEntity.getUser().getBookmarks().remove(bookmarkEntity);
+        bookmarkEntity.getSentence().setBookmark(null);
         bookmarkRepository.deleteById(id);
+        return getBookmarkListResponseDtos(minutes);
     }
 
     @Transactional
     public List<BookmarkListResponseDto> findAll(Long minutesId) {
         Minutes minutes = minutesRepository.findById(minutesId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 회의록이 없습니다. minutesId=" + minutesId));
-        List<BookmarkListResponseDto> dtos = new ArrayList<BookmarkListResponseDto>();
+        return getBookmarkListResponseDtos(minutes);
+    }
+
+    private List<BookmarkListResponseDto> getBookmarkListResponseDtos(Minutes minutes) {
+        List<BookmarkListResponseDto> dtos = new ArrayList<>();
         minutes.getSentences().stream()
                 .map(Sentence::getBookmark)
                 .forEach(bookmark -> {

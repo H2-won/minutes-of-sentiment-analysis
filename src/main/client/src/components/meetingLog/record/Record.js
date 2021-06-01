@@ -10,7 +10,7 @@ const Layout = styled.div`
   margin-top: 32px;
 `;
 
-function Record(props) {
+function Record({setBookmarkInfo}) {
   const [recordData, setRecordData] = useState([]);
   const [addBtnState, setAddBtnState] = useState([]);
   const [bookmarkState, setBookmarkState] = useState([]);
@@ -39,7 +39,7 @@ function Record(props) {
   }, []);
 
   const onClickAddBookmark = (e) => {
-    console.log('setBookmarkInfo ', props.setBookmarkInfo);
+    console.log('setBookmarkInfo ', setBookmarkInfo);
     const sentenceId = e.currentTarget.parentNode.getAttribute('id');
     dispatch(
       openModal('ADD_BOOKMARK', AddBookmarkModal, {
@@ -48,7 +48,7 @@ function Record(props) {
         okBtnBackgroundColor: 'orange',
         id: sentenceId,
         page: 'meetingLog',
-        setBookmarkInfo: props.setBookmarkInfo,
+        setBookmarkInfo: setBookmarkInfo,
       }),
     );
   };

@@ -46,6 +46,19 @@ public class BookmarkService {
     }
 
     @Transactional
+    public List<BookmarkListResponseDto> saveInMinutes(BookmarkRequestDto requestDto) {
+        User user = userRepository.findById(requestDto.getUserId())
+                .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다. id=" + requestDto.getUserId()));
+        Sentence sentence = sentenceRepository.findById(requestDto.getSentenceId())
+                .orElseThrow(() -> new IllegalArgumentException("해당 문장이 없습니다. id=" + requestDto.getSentenceId()));
+        if (sentence.getBookmark() != null)
+            return null;
+        bookmarkRepository.save(requestDto.toEntity(user, sentence));
+        Minutes minutes = sentence.getMinutes();
+        return getBookmarkListResponseDtos(minutes);
+    }
+
+    @Transactional
     public List<BookmarkListResponseDto> update(Long id, String memo) {
         Bookmark bookmarkEntity = bookmarkRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 북마크가 없습니다. id=" + id));

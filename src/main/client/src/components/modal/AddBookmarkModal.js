@@ -114,4 +114,4 @@ function AddBookmarkModal({ ModalOff, args }) {
   );
 }
 
-export default AddBookmarkModal;
+export default React.memo(AddBookmarkModal);

@@ -24,8 +24,14 @@ public class BookmarkController {
         return bookmarkService.save(requestDto);
     }
 
+    @PostMapping("/api/bookmark/save")
+    public List<BookmarkListResponseDto> saveInMinutes(@RequestBody BookmarkRequestDto requestDto) {
+        return bookmarkService.saveInMinutes(requestDto);
+    }
+
     @PutMapping("/api/bookmark/update/{bookmarkId}")
-    public List<BookmarkListResponseDto> update(@PathVariable Long bookmarkId, @RequestBody String memo) {
+    public List<BookmarkListResponseDto> update(@PathVariable Long bookmarkId,
+                                                @RequestBody String memo) {
         return bookmarkService.update(bookmarkId, memo);
     }
 

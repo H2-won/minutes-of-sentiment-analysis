@@ -78,11 +78,11 @@ function AddBookmarkModal({ ModalOff, args }) {
   const onChange = (e) => {
     setInputValue(e.target.value);
   };
+  console.log('addBookmarkModal args :', args);
 
   const AddBookmark = () => {
     const userId = localStorage.getItem('userId');
 
-    console.log(args.setBookmarkInfo);
     // 화상 회의 할때 북마크 등록 API
     if (args.page === 'meeting')
       registrationBookmark(userId, args.id, inputValue);

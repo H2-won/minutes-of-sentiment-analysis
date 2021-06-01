@@ -19,7 +19,7 @@ export const registrationBookmark = (userId, sentenceId, memo) => {
     .catch((err) => console.log(err));
 };
 
-export const modifyBookmark = (id, memo, bookmarkInfo, setBookmarkInfo) => {
+export const modifyBookmark = (id, memo, setBookmarkInfo) => {
   const token = localStorage.getItem('accessToken');
   fetch(`/api/bookmark/update/${id}`, {
     method: 'PUT',
@@ -32,16 +32,13 @@ export const modifyBookmark = (id, memo, bookmarkInfo, setBookmarkInfo) => {
   })
     .then((res) => res.json())
     .then((res) => {
-      setBookmarkInfo([
-        { ...bookmarkInfo, [id]: { ...bookmarkInfo[id], ['memo']: memo } },
-      ]);
-      console.log('북마크 수정 완료');
-      console.log(bookmarkInfo);
+      console.log('북마크 수정 res :', res);
+      setBookmarkInfo(res);
     })
     .catch((err) => console.log(err));
 };
 
-export const deleteBookmark = (id, bookmarkInfo, setBookmarkInfo) => {
+export const deleteBookmark = (id, setBookmarkInfo) => {
   const token = localStorage.getItem('accessToken');
   fetch(`/api/bookmark/delete/${id}`, {
     method: 'DELETE',
@@ -50,23 +47,39 @@ export const deleteBookmark = (id, bookmarkInfo, setBookmarkInfo) => {
     },
   })
     .then((res) => {
-      console.log('삭제 전 북마크 인포 :', bookmarkInfo);
-      setBookmarkInfo(
-        bookmarkInfo.filter((info) => info.bookmarkId !== id),
-      );
-      console.log('삭제 된 북마크 인포 :', bookmarkInfo);
+      // setBookmarkInfo(bookmarkInfo.filter((info) => info.bookmarkId !== id));
+      console.log('북마크 삭제 res :', res);
+      setBookmarkInfo(res);
     })
     .catch((err) => console.log(err));
 };
 
-export const getBookmarkList = (id) => {
-  fetch(`/api/minutes/${id}/bookmark`, {
+export const getBookmarkAndSetBookmarkState = (
+  bookmarkState,
+  setBookmarkState,
+) => {
+  const token = localStorage.getItem('accessToken');
+  const minutesId = localStorage.getItem('minutesId');
+
+  fetch(`/api/minutes/${minutesId}/bookmark`, {
     method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token,
+    },
   })
     .then((res) => res.json())
     .then((res) => {
-      console.log(res);
-      return res;
+      if (res) {
+        console.log('북마크 res : ', res);
+        res.forEach((bookmark) => {
+          setBookmarkState({
+            ...bookmarkState,
+            [bookmark.sentenceId]: !bookmarkState[bookmark.sentenceId],
+          });
+          console.log(bookmarkState);
+        });
+      }
     })
     .catch((err) => console.log(err));
 };

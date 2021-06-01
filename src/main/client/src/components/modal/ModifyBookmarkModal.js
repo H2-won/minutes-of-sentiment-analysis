@@ -81,12 +81,7 @@ function ModifyBookmarkModal({ ModalOff, args }) {
 
   const ModifyBookmark = () => {
     ModalOff();
-    modifyBookmark(
-      args.id,
-      inputValue,
-      args.bookmarkInfo,
-      args.setBookmarkInfo,
-    );
+    modifyBookmark(args.id, inputValue, args.setBookmarkInfo);
   };
 
   return (

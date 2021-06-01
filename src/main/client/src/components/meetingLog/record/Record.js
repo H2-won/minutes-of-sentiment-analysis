@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import AddBookmarkModal from '../../modal/AddBookmarkModal';
 import { openModal } from '../../../modules/modal';
 import Sentence from './Sentence';
+import { getBookmarkAndSetBookmarkState } from '../../../controllers/bookmark';
 
 const Layout = styled.div`
   margin-top: 32px;
@@ -32,29 +33,9 @@ function Record() {
           setAddBtnState((addBtnState) => [...addBtnState, false]);
           setBookmarkState((bookmarkState) => [...bookmarkState, false]);
         }
+        getBookmarkAndSetBookmarkState(bookmarkState, setBookmarkState);
       })
       .catch((err) => console.log(err));
-
-    setTimeout(() => {
-      fetch(`/api/minutes/${localStorage.getItem('minutesId')}/bookmark`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
-        },
-      })
-        .then((res) => res.json())
-        .then((res) => {
-          if (res)
-            res.forEach((bookmark) => {
-              setBookmarkState({
-                ...bookmarkState,
-                [bookmark.sentenceId]: !bookmarkState[bookmark.sentenceId],
-              });
-            });
-        })
-        .catch((err) => console.log(err));
-    }, 1000);
   }, []);
 
   const onClickAddBookmark = (e) => {

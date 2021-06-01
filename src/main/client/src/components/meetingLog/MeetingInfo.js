@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, shallowEqual } from 'react-redux';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 
@@ -38,7 +38,8 @@ function MeetingInfo() {
   };
 
   const meetingInfo =
-    useSelector((state) => state.meetingLog.meetingInfo) || meetingInfomation;
+    useSelector((state) => state.meetingLog.meetingInfo, shallowEqual) ||
+    meetingInfomation;
   console.log('meetingInfo:', meetingInfo);
 
   return (

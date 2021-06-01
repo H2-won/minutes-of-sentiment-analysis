@@ -1,5 +1,5 @@
+// 화상 회의 중 북마크 등록 API
 export const registrationBookmark = (userId, sentenceId, memo) => {
-  console.log(userId, sentenceId, memo);
   const token = localStorage.getItem('accessToken');
   fetch('/api/bookmark', {
     method: 'POST',
@@ -16,6 +16,35 @@ export const registrationBookmark = (userId, sentenceId, memo) => {
   })
     .then((res) => res.json())
     .then((res) => console.log('북마크 등록 완료'))
+    .catch((err) => console.log(err));
+};
+
+// 회의록에서 북마크 등록 API
+export const registrationAndUpdateBookmark = (
+  userId,
+  sentenceId,
+  memo,
+  setBookmarkInfo,
+) => {
+  const token = localStorage.getItem('accessToken');
+  fetch('/api/bookmark/save', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      Authorization: token,
+    },
+    body: JSON.stringify({
+      userId: userId,
+      sentenceId: sentenceId,
+      memo: memo,
+    }),
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      console.log('북마크 등록 res :', res);
+      setBookmarkInfo(res);
+    })
     .catch((err) => console.log(err));
 };
 

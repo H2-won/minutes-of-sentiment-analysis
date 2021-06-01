@@ -34,27 +34,6 @@ function Record() {
     }
   }, [recordData]);
 
-  // useEffect(() => {
-  //   fetch(`/api/minutes/${localStorage.getItem('minutesId')}/bookmark`, {
-  //     method: 'GET',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
-  //     },
-  //   })
-  //     .then((res) => res.json())
-  //     .then((res) => {
-  //       if (res)
-  //         res.forEach((bookmark) => {
-  //           setBookmarkState({
-  //             ...bookmarkState,
-  //             [bookmark.sentenceId]: !bookmarkState[bookmark.sentenceId],
-  //           });
-  //         });
-  //     })
-  //     .catch((err) => console.log(err));
-  // }, []);
-
   const onClickAddBookmark = (e) => {
     const sentenceId = e.target.parentNode.getAttribute('id');
     dispatch(
@@ -63,6 +42,7 @@ function Record() {
         okBtnText: '등록',
         okBtnBackgroundColor: 'orange',
         id: sentenceId,
+        page: 'meeting',
       }),
     );
   };

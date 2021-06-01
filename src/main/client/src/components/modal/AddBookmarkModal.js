@@ -80,8 +80,21 @@ function AddBookmarkModal({ ModalOff, args }) {
   };
 
   const AddBookmark = () => {
+    const userId = localStorage.getItem('userId');
+
+    // 화상 회의 할때 북마크 등록 API
+    if (args.page === 'meeting')
+      registrationBookmark(userId, args.id, inputValue);
+    // 회의록에서 북마크 등록 API
+    else
+      registrationAndUpdateBookmark(
+        userId,
+        args.id,
+        inputValue,
+        args.setBookmarkInfo,
+      );
+
     ModalOff();
-    registrationBookmark(localStorage.getItem('userId'), args.id, inputValue);
   };
 
   return (

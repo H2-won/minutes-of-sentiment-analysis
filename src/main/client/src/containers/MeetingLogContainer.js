@@ -31,6 +31,7 @@ const ContentWrapper = styled.div`
 
 function MeetingLogContainer() {
   const [activeMenuState, setActiveMenuState] = useState(0);
+  const [bookmarkInfo, setBookmarkInfo] = useState([]);
 
   return (
     <Container>
@@ -43,14 +44,19 @@ function MeetingLogContainer() {
         {activeMenuState === 0 && (
           <GraphAndKeyword id={localStorage.getItem('minutesId')} />
         )}
-        {activeMenuState === 1 && <Bookmark />}
+        {activeMenuState === 1 && (
+          <Bookmark
+            bookmarkInfo={bookmarkInfo}
+            setBookmarkInfo={setBookmarkInfo}
+          />
+        )}
         {activeMenuState === 2 && <Summary />}
       </ContentWrapper>
       <RecordWrapper>
         <Audio />
         <Title />
         <ConferenceCode />
-        <Record />
+        <Record bookmarkInfo={bookmarkInfo} setBookmarkInfo={setBookmarkInfo} />
       </RecordWrapper>
     </Container>
   );

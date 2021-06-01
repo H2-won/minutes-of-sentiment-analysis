@@ -10,7 +10,7 @@ const Layout = styled.div`
   margin-top: 32px;
 `;
 
-function Record() {
+function Record({ bookmarkInfo, setBookmarkInfo }) {
   const [recordData, setRecordData] = useState([]);
   const [addBtnState, setAddBtnState] = useState([]);
   const [bookmarkState, setBookmarkState] = useState([]);
@@ -46,6 +46,8 @@ function Record() {
         okBtnText: '등록',
         okBtnBackgroundColor: 'orange',
         id: sentenceId,
+        page: 'meetingLog',
+        setBookmarkInfo: setBookmarkInfo,
       }),
     );
   };

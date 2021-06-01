@@ -56,7 +56,7 @@ function MeetingLogContainer() {
         <Audio />
         <Title />
         <ConferenceCode />
-        <Record setBookmarkInfo={setBookmarkInfo} />
+        <Record test={'test props'} setBookmarkInfo={setBookmarkInfo} />
       </RecordWrapper>
     </Container>
   );

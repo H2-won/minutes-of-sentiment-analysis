@@ -10,7 +10,7 @@ const Layout = styled.div`
   margin-top: 32px;
 `;
 
-function Record({ setBookmarkInfo }) {
+function Record({ test, setBookmarkInfo }) {
   const [recordData, setRecordData] = useState([]);
   const [addBtnState, setAddBtnState] = useState([]);
   const [bookmarkState, setBookmarkState] = useState([]);
@@ -40,6 +40,7 @@ function Record({ setBookmarkInfo }) {
 
   const onClickAddBookmark = (e) => {
       console.log('setBookmarkInfo ',setBookmarkInfo);
+      console.log('test : ', test);
     const sentenceId = e.currentTarget.parentNode.getAttribute('id');
     dispatch(
       openModal('ADD_BOOKMARK', AddBookmarkModal, {

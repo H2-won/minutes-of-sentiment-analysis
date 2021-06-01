@@ -43,6 +43,7 @@ function Record() {
         okBtnBackgroundColor: 'orange',
         id: sentenceId,
         page: 'meeting',
+        setBookmarkInfo: 'null',
       }),
     );
   };

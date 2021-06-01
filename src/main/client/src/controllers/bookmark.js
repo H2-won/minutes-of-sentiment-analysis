@@ -26,6 +26,7 @@ export const registrationAndUpdateBookmark = (
   memo,
   setBookmarkInfo,
 ) => {
+  console.log('북마크 등록 api ', setBookmarkInfo);
   const token = localStorage.getItem('accessToken');
   fetch('/api/bookmark/save', {
     method: 'POST',

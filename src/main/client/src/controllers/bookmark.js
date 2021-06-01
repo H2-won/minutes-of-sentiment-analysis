@@ -46,6 +46,7 @@ export const deleteBookmark = (id, setBookmarkInfo) => {
       Authorization: token,
     },
   })
+    .then((res) => res.json())
     .then((res) => {
       // setBookmarkInfo(bookmarkInfo.filter((info) => info.bookmarkId !== id));
       console.log('북마크 삭제 res :', res);
@@ -71,14 +72,14 @@ export const getBookmarkAndSetBookmarkState = (
     .then((res) => res.json())
     .then((res) => {
       if (res) {
-        console.log('북마크 res : ', res);
+        console.log('북마크 목록 res : ', res);
         res.forEach((bookmark) => {
           setBookmarkState({
             ...bookmarkState,
             [bookmark.sentenceId]: !bookmarkState[bookmark.sentenceId],
           });
-          console.log(bookmarkState);
         });
+        console.log('변경 북마크 state : ', bookmarkState);
       }
     })
     .catch((err) => console.log(err));

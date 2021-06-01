@@ -126,9 +126,8 @@ const Menu = styled.div`
   }
 `;
 
-function Bookmark() {
+function Bookmark({ bookmarkInfo, setBookmarkInfo }) {
   const dispatch = useDispatch();
-  const [bookmarkInfo, setBookmarkInfo] = useState([]);
   const [menuState, setMenuState] = useState([]);
 
   useEffect(() => {

@@ -1,9 +1,10 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 const RemoteVideo = styled.div`
   position: relative;
-  width: 40%;
+  margin: 2.5%;
+  width: 45%;
 `;
 
 const RemoteUserId = styled.span`
@@ -13,7 +14,7 @@ const RemoteUserId = styled.span`
 `;
 
 const VideoThumbnailsList = (props) => {
-  console.log(props, "test props");
+  console.log(props, 'test props');
 
   return (
     <>

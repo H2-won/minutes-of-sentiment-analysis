@@ -23,6 +23,8 @@ const VideoWrapper = styled.div`
 `;
 
 const MainVideo = styled.div`
+  margin: 2.5%;
+  width: 45%;
   position: relative;
   width: 40%;
 `;
@@ -134,7 +136,7 @@ const VideoContainer = ({ match }) => {
         senderId: 'testId',
         senderName: '테스트',
         message: 'NULL',
-        time: "NULL",
+        time: 'NULL',
       });
       setConnectionInfo(event.stream);
 
@@ -344,7 +346,7 @@ const VideoContainer = ({ match }) => {
       const minutesId = localStorage.getItem('minutesId');
       let createdDate = localStorage.getItem('createdDate');
       if (createdDate === null || createdDate === undefined) {
-        createdDate = "NULL";
+        createdDate = 'NULL';
       }
       databaseRef.push({
         flag: recordFlag,
@@ -365,14 +367,14 @@ const VideoContainer = ({ match }) => {
 
   return (
     <div>
-      <div>
+      {/* <div>
         <div>
           <span>listening: {listening ? 'on' : 'off'}</span>
         </div>
         <div>
           <span>{transcript}</span>
         </div>
-      </div>
+      </div> */}
       <VideoWrapper>
         <MainVideo>
           {mainVideo && (

@@ -13,7 +13,7 @@ const Container = styled.div`
   border: 0.5px solid ${palette.gray2};
 
   div {
-    width: 46%;
+    width: 44.5%;
     margin: 1.25rem 2rem;
   }
 `;

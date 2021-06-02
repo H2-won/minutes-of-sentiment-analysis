@@ -26,7 +26,6 @@ const MainVideo = styled.div`
   margin: 2.5%;
   width: 45%;
   position: relative;
-  width: 40%;
 `;
 
 const MainUserId = styled.span`

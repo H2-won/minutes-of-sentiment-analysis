@@ -44,6 +44,7 @@ function MuteToggleBtn() {
     console.log('main getAudioTracks = ', mainVideo.stream.getAudioTracks());
     // 마이크 음소거 해제 -> STT와 녹음(recorder) 시작, 아니면 종료
     if (!mainVideo.stream.getAudioTracks()[0].enabled) {
+      console.log('음소거 해제!!!');
       // 음성 파일 녹음 시작
       console.log('connectionInfo : ', connectionInfo);
       var recorder = connection.recorder;
@@ -67,6 +68,7 @@ function MuteToggleBtn() {
         language: 'ko-KR',
       });
     } else {
+      console.log('음소거 하기!!!');
       SpeechRecognition.stopListening();
     }
     mainVideo.stream.getAudioTracks()[0].enabled =
@@ -75,6 +77,7 @@ function MuteToggleBtn() {
     // audiotrack 상태 변경되었으니 다시 메인 비디오 set
     // 없어도 될수도 있으니 테스트 해보기
     dispatch(setMainVideo(mainVideo));
+    dispatch(setConnectionInfo(connectionInfo));
   };
 
   return (

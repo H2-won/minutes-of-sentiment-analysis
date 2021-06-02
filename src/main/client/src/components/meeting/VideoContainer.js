@@ -275,7 +275,8 @@ const VideoContainer = ({ match }) => {
         //   Math.floor(Math.random() * 1000000000) +
         //   '.' +
         //   'wav';
-        var fileFullName = "test.wav";
+        var now = new Date()
+        var fileFullName = now + ".wav";
 
         setVoiceFileId(voiceFileId - 1);
         if (typeof navigator.msSaveOrOpenBlob !== 'undefined') {

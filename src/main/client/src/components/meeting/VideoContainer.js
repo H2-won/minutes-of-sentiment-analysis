@@ -255,7 +255,7 @@ const VideoContainer = ({ match }) => {
     // --- 말 끝날때마다 record 파일 firebase storage에 삽입 ---
     if (finalTranscript !== '') {
       var recorder = connection.recorder;
-      if (!recorder) return alert('No recorder found.');
+      if (!recorder) return console.log('^^');
       recorder.stopRecording(function () {
         var file = recorder.getBlob();
 
@@ -275,10 +275,10 @@ const VideoContainer = ({ match }) => {
         //   Math.floor(Math.random() * 1000000000) +
         //   '.' +
         //   'wav';
-        var now = new Date()
-        var pivot = new Date(2050, 12, 31, 14, 23, 23)
+        var now = new Date();
+        var pivot = new Date(2050, 12, 31, 14, 23, 23);
         var please = pivot - now;
-        var fileFullName = please + ".wav";
+        var fileFullName = please + '.wav';
 
         setVoiceFileId(voiceFileId - 1);
         if (typeof navigator.msSaveOrOpenBlob !== 'undefined') {

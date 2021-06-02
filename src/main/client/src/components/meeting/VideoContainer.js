@@ -356,7 +356,7 @@ const VideoContainer = ({ match }) => {
               username={mainVideo.extra.username}
             />
           )}
-          <MainUserId>{mainVideo && mainVideo.extra.username}</MainUserId>
+          {/*<MainUserId>{mainVideo && mainVideo.extra.username}</MainUserId>*/}
         </MainVideo>
         <VideoThumbnailsList videos={videoThumbnailsArr} />
       </VideoWrapper>

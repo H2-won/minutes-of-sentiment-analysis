@@ -14,10 +14,11 @@ const Content = styled.span`
 `;
 
 function ConferenceCode() {
+  const code = location.href.split('/')[4];
   return (
     <Container>
       <Content>회의 코드 : </Content>
-      <Content>ABC2f1d5k7G</Content>
+      <Content>{code}</Content>
     </Container>
   );
 }

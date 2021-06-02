@@ -13,6 +13,7 @@ import RecordRTC from 'recordrtc';
 import { startRecording, stopRecording } from '../../controllers/meeting';
 import { useDispatch, useSelector } from 'react-redux';
 import { setMainVideo } from '../../modules/meeting';
+import { setConnectionInfo } from '../../modules/connectionInfo';
 
 const VideoWrapper = styled.div`
   display: flex;
@@ -37,9 +38,12 @@ const MainUserId = styled.span`
 const VideoContainer = ({ match }) => {
   const dispatch = useDispatch();
   const mainVideo = useSelector((state) => state.meeting.mainVideo);
+  const connectionInfo = useSelector(
+    (state) => state.connectionInfo.connectionInfo,
+  );
   // const [mainVideo, setMainVideo] = useState(null);
   const [videoThumbnailsArr, setVideoThumbnailsArr] = useState([]);
-  const [connectionInfo, setConnectionInfo] = useState('');
+  // const [connectionInfo, setConnectionInfo] = useState('');
   const [recordFlag, setRecordFlag] = useState(0);
   const [hostState, setHostState] = useState(false);
   const [voiceFileId, setVoiceFileId] = useState(999999);
@@ -108,7 +112,7 @@ const VideoContainer = ({ match }) => {
         message: 'NULL',
         time: 'NULL',
       });
-      setConnectionInfo(event.stream);
+      dispatch(setConnectionInfo(event.stream));
 
       // onstream 되자마자 stt 실행
       SpeechRecognition.startListening({
@@ -230,26 +234,26 @@ const VideoContainer = ({ match }) => {
     }
   }, []);
 
-  useEffect(() => {
-    // 말 시작 시 record 시작
-    if (interimTranscript !== '') {
-      var recorder = connection.recorder;
-      if (!recorder) {
-        recorder = RecordRTC([connectionInfo], {
-          type: 'audio',
-        });
-        recorder.startRecording();
-        connection.recorder = recorder;
-      } else {
-        recorder.getInternalRecorder().addStreams([connectionInfo]);
-      }
+  // useEffect(() => {
+  //   // 말 시작 시 record 시작
+  //   if (interimTranscript !== '') {
+  //     var recorder = connection.recorder;
+  //     if (!recorder) {
+  //       recorder = RecordRTC([connectionInfo], {
+  //         type: 'audio',
+  //       });
+  //       recorder.startRecording();
+  //       connection.recorder = recorder;
+  //     } else {
+  //       recorder.getInternalRecorder().addStreams([connectionInfo]);
+  //     }
 
-      if (!connection.recorder.streams) {
-        connection.recorder.streams = [];
-      }
-      // connection.recorder.streams.push(event.stream);
-    }
-  }, [interimTranscript]);
+  //     if (!connection.recorder.streams) {
+  //       connection.recorder.streams = [];
+  //     }
+  //     // connection.recorder.streams.push(event.stream);
+  //   }
+  // }, [interimTranscript]);
 
   useEffect(() => {
     // --- 말 끝날때마다 record 파일 firebase storage에 삽입 ---

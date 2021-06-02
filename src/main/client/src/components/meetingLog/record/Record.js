@@ -10,7 +10,7 @@ const Layout = styled.div`
   margin-top: 32px;
 `;
 
-function Record({setBookmarkInfo}) {
+function Record({ setBookmarkInfo }) {
   const [recordData, setRecordData] = useState([]);
   const [addBtnState, setAddBtnState] = useState([]);
   const [bookmarkState, setBookmarkState] = useState([]);

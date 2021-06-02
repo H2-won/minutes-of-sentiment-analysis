@@ -23,6 +23,7 @@ const Container = styled.div`
 `;
 
 const ContentWrapper = styled.div`
+  position: relative;
   width: 100%;
   height: 100%;
   display: flex;
@@ -52,12 +53,7 @@ function MeetingLogContainer() {
         )}
         {activeMenuState === 2 && <Summary />}
       </ContentWrapper>
-      <RecordWrapper>
-        <Audio />
-        <Title />
-        <ConferenceCode />
-        <Record setBookmarkInfo={setBookmarkInfo} />
-      </RecordWrapper>
+      <RecordWrapper setBookmarkInfo={setBookmarkInfo} />
     </Container>
   );
 }

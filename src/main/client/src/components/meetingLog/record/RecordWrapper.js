@@ -8,7 +8,7 @@ import Title from './Title';
 const Container = styled.div`
   position: relative;
   background: ${palette.white};
-  width: 27.5%;
+  width: 32.5%;
   height: 100%;
   border-left: 0.5px solid ${palette.gray2};
   overflow: scroll;
@@ -30,14 +30,14 @@ const TopWrapper = styled.div`
   width: 100%;
 `;
 
-function RecordWrapper() {
+function RecordWrapper({ setBookmarkInfo }) {
   return (
     <Container id={'recordWrapper'}>
       <TopWrapper>
         <Title />
         <ConferenceCode />
       </TopWrapper>
-      <Record />
+      <Record setBookmarkInfo={setBookmarkInfo} />
     </Container>
   );
 }

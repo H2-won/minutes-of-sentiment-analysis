@@ -35,13 +35,18 @@ public class SentenceService {
 
     @Transactional
     public List<SentenceResponseDto> findById(Long id) {
+        boolean flag = false;
         Minutes minutes = minutesRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 회의가 없습니다. id=" + id));
         List<Sentence> sentences = minutes.getSentences();
         List<SentenceResponseDto> sentenceResponseDtos = new ArrayList<>();
         System.out.println(id + "번 회의록 문장 조회 시작..");
         for (Sentence value : sentences) {
-            SentenceResponseDto responseDto = new SentenceResponseDto(value);
+            if (value.getBookmark() == null)
+                flag = false;
+            else
+                flag = true;
+            SentenceResponseDto responseDto = new SentenceResponseDto(value, flag);
             sentenceResponseDtos.add(responseDto);
         }
 

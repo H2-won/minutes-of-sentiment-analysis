@@ -14,12 +14,14 @@ public class SentenceResponseDto {
     private String content;
     private String emotion;
     private Time createdTime;
+    private boolean bookmarkState;
 
-    public SentenceResponseDto (Sentence entity) {
+    public SentenceResponseDto (Sentence entity, boolean flag) {
         this.id = entity.getId();
         this.userName = entity.getUser().getName();
         this.content = entity.getContent();
         this.emotion = entity.getEmotion();
         this.createdTime = entity.getCreatedTime();
+        this.bookmarkState = flag;
     }
 }

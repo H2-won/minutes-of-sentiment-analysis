@@ -255,7 +255,7 @@ const VideoContainer = ({ match }) => {
     // --- 말 끝날때마다 record 파일 firebase storage에 삽입 ---
     if (finalTranscript !== '') {
       var recorder = connection.recorder;
-      if (!recorder) return alert('No recorder found.');
+      if (!recorder) return console.log("^^");
       recorder.stopRecording(function () {
         var file = recorder.getBlob();
 
@@ -341,6 +341,7 @@ const VideoContainer = ({ match }) => {
   }
 
   const onClickStartRecording = () => {
+    console.log('startRecording');
     var recorder = connection.recorder;
     if (!recorder) {
       recorder = RecordRTC([connectionInfo], {

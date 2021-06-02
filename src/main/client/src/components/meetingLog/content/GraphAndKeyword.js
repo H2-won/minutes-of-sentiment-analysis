@@ -192,7 +192,7 @@ function GraphAndKeyword({ id }) {
       <h2>구간 별 키워드</h2>
       <KeywordWrapper>
         <Interval>
-          <span className="interval">구간 1</span>
+          <span className="interval">초반</span>
           <div>
             <span className="orange">
               {intervalKeyword.interval1Keywords.split(' ')[0]}
@@ -202,7 +202,7 @@ function GraphAndKeyword({ id }) {
           </div>
         </Interval>
         <Interval>
-          <span className="interval">구간 2</span>
+          <span className="interval">중반</span>
           <div>
             <span className="orange">
               {intervalKeyword.interval2Keywords.split(' ')[0]}
@@ -212,7 +212,7 @@ function GraphAndKeyword({ id }) {
           </div>
         </Interval>
         <Interval>
-          <span className="interval">구간 3</span>
+          <span className="interval">후반</span>
           <div>
             <span className="orange">
               {intervalKeyword.interval3Keywords.split(' ')[0]}

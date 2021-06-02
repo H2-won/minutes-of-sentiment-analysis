@@ -30,14 +30,26 @@ const TopWrapper = styled.div`
   width: 100%;
 `;
 
-function RecordWrapper({ setBookmarkInfo }) {
+function RecordWrapper({
+  setBookmarkInfo,
+  recordData,
+  setRecordData,
+  addBtnState,
+  setAddBtnState,
+}) {
   return (
     <Container id={'recordWrapper'}>
       <TopWrapper>
         <Title />
         <ConferenceCode />
       </TopWrapper>
-      <Record setBookmarkInfo={setBookmarkInfo} />
+      <Record
+        setBookmarkInfo={setBookmarkInfo}
+        recordData={recordData}
+        setRecordData={setRecordData}
+        addBtnState={addBtnState}
+        setAddBtnState={setAddBtnState}
+      />
     </Container>
   );
 }

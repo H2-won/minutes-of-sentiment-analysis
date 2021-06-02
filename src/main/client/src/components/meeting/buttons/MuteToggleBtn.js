@@ -4,6 +4,9 @@ import styled, { css } from 'styled-components';
 import palette from '../../../lib/styles/palette';
 import SpeechRecognition from 'react-speech-recognition';
 import { setMainVideo } from '../../../modules/meeting';
+import connection from '../RtcConnection';
+import RecordRTC from 'recordrtc';
+// import {setConnectionInfo} from "../../../modules/connectionInfo";
 
 const Button = styled.button`
   width: 180px;

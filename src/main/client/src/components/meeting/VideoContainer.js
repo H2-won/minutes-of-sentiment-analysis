@@ -269,12 +269,17 @@ const VideoContainer = ({ match }) => {
           } catch (e) {}
         }
 
-        var fileFullName =
-          voiceFileId +
-          '_' +
-          Math.floor(Math.random() * 1000000000) +
-          '.' +
-          'wav';
+        // var fileFullName =
+        //   voiceFileId +
+        //   '_' +
+        //   Math.floor(Math.random() * 1000000000) +
+        //   '.' +
+        //   'wav';
+        var now = new Date()
+        var pivot = new Date(2050, 12, 31, 14, 23, 23)
+        var please = pivot - now;
+        var fileFullName = please + ".wav";
+
         setVoiceFileId(voiceFileId - 1);
         if (typeof navigator.msSaveOrOpenBlob !== 'undefined') {
           return navigator.msSaveOrOpenBlob(file, fileFullName);

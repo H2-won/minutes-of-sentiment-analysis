@@ -15,7 +15,7 @@ export const registrationBookmark = (userId, sentenceId, memo) => {
     }),
   })
     .then((res) => res.json())
-    .then((res) => console.log('북마크 등록 완료'))
+    .then((res) => alert('북마크 등록 완료'))
     .catch((err) => console.log(err));
 };
 
@@ -24,9 +24,10 @@ export const registrationAndUpdateBookmark = (
   userId,
   sentenceId,
   memo,
-  setBookmarkInfo,
+  recordData,
+  setRecordData,
+  setAddBtnState,
 ) => {
-  console.log('북마크 등록 api ', setBookmarkInfo);
   const token = localStorage.getItem('accessToken');
   fetch('/api/bookmark/save', {
     method: 'POST',
@@ -45,6 +46,24 @@ export const registrationAndUpdateBookmark = (
     .then((res) => {
       console.log('북마크 등록 res :', res);
       setBookmarkInfo(res);
+
+      // sentence 다시 불러와서 리렌더링
+      fetch(`/api/minutes/${localStorage.getItem('minutesId')}/sentences`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + token,
+        },
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          console.log('recordData :', res);
+          setRecordData(res);
+          for (let i = 0; i < recordData.length; i++) {
+            setAddBtnState((addBtnState) => [...addBtnState, false]);
+          }
+        })
+        .catch((err) => console.log(err));
     })
     .catch((err) => console.log(err));
 };

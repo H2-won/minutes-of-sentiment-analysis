@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import styled, { css } from 'styled-components';
-import palette from '../../../lib/styles/palette';
+import styled from 'styled-components';
 import { HwfirebaseDatabaseRef } from '../../../firebase';
 import { useDispatch } from 'react-redux';
 import AddBookmarkModal from '../../modal/AddBookmarkModal';
@@ -30,7 +29,6 @@ function Record() {
   useEffect(() => {
     if (recordData[0]) {
       setAddBtnState((addBtnState) => [...addBtnState, false]);
-      // setBookmarkState((bookmarkState) => [...bookmarkState, false]);
     }
   }, [recordData]);
 

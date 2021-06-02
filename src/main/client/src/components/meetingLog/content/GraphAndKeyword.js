@@ -176,7 +176,10 @@ function GraphAndKeyword({ id }) {
       },
     )
       .then((res) => res.json())
-      .then((res) => setIntervalKeyword(res))
+      .then((res) => {
+        console.log('interval keywords : ', res);
+        setIntervalKeyword(res);
+      })
       .catch((err) => console.log(err));
   }, []);
 

@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
-import { registrationBookmark, registrationAndUpdateBookmark } from '../../controllers/bookmark';
+import {
+  registrationBookmark,
+  registrationAndUpdateBookmark,
+} from '../../controllers/bookmark';
 import palette from '../../lib/styles/palette';
 
 const Container = styled.div`
@@ -93,6 +96,9 @@ function AddBookmarkModal({ ModalOff, args }) {
         args.id,
         inputValue,
         args.setBookmarkInfo,
+        args.recordData,
+        args.setRecordData,
+        args.setAddBtnState,
       );
 
     ModalOff();

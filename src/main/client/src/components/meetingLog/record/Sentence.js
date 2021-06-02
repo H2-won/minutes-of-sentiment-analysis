@@ -118,7 +118,7 @@ function Sentence({
           북마크 등록
         </AddBookmarkBtn>
       )}
-      {bookmarkState[index] && (
+      {record.bookmarkState && (
         <BookmarkIcon id={index + 1} src="/icons/ic_bookmark_24px.png" alt="" />
       )}
     </Container>

@@ -31,15 +31,14 @@ function Record({ setBookmarkInfo }) {
         setRecordData(res);
         for (let i = 0; i < recordData.length; i++) {
           setAddBtnState((addBtnState) => [...addBtnState, false]);
-          setBookmarkState((bookmarkState) => [...bookmarkState, false]);
+          // setBookmarkState((bookmarkState) => [...bookmarkState, false]);
         }
-        getBookmarkAndSetBookmarkState(bookmarkState, setBookmarkState);
+        // getBookmarkAndSetBookmarkState(bookmarkState, setBookmarkState);
       })
       .catch((err) => console.log(err));
   }, []);
 
   const onClickAddBookmark = (e) => {
-    console.log('setBookmarkInfo ', setBookmarkInfo);
     const sentenceId = e.currentTarget.parentNode.getAttribute('id');
     dispatch(
       openModal('ADD_BOOKMARK', AddBookmarkModal, {
@@ -49,6 +48,9 @@ function Record({ setBookmarkInfo }) {
         id: sentenceId,
         page: 'meetingLog',
         setBookmarkInfo: setBookmarkInfo,
+        recordData: recordData,
+        setRecordData: setRecordData,
+        setAddBtnState: setAddBtnState,
       }),
     );
   };

@@ -128,7 +128,13 @@ const Menu = styled.div`
   }
 `;
 
-function Bookmark({ bookmarkInfo, setBookmarkInfo }) {
+function Bookmark({
+  bookmarkInfo,
+  setBookmarkInfo,
+  recordData,
+  setRecordData,
+  setAddBtnState,
+}) {
   const dispatch = useDispatch();
   const [menuState, setMenuState] = useState([]);
 
@@ -199,6 +205,9 @@ function Bookmark({ bookmarkInfo, setBookmarkInfo }) {
         okBtnBackgroundColor: 'orange',
         id: bookmarkId,
         setBookmarkInfo: setBookmarkInfo,
+        recordData: recordData,
+        setRecordData: setRecordData,
+        setAddBtnState: setAddBtnState,
       }),
     );
   };

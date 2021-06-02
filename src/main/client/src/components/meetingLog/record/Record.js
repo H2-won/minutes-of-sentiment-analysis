@@ -10,10 +10,15 @@ const Layout = styled.div`
   margin-top: 32px;
 `;
 
-function Record({ setBookmarkInfo }) {
-  const [recordData, setRecordData] = useState([]);
-  const [addBtnState, setAddBtnState] = useState([]);
-  const [bookmarkState, setBookmarkState] = useState([]);
+function Record({
+  setBookmarkInfo,
+  recordData,
+  setRecordData,
+  addBtnState,
+  setAddBtnState,
+}) {
+  // const [recordData, setRecordData] = useState([]);
+  // const [addBtnState, setAddBtnState] = useState([]);
   const dispatch = useDispatch();
   const body = document.querySelector('body');
 
@@ -31,9 +36,7 @@ function Record({ setBookmarkInfo }) {
         setRecordData(res);
         for (let i = 0; i < recordData.length; i++) {
           setAddBtnState((addBtnState) => [...addBtnState, false]);
-          // setBookmarkState((bookmarkState) => [...bookmarkState, false]);
         }
-        // getBookmarkAndSetBookmarkState(bookmarkState, setBookmarkState);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -50,7 +53,7 @@ function Record({ setBookmarkInfo }) {
         setBookmarkInfo: setBookmarkInfo,
         recordData: recordData,
         setRecordData: setRecordData,
-          addBtnState : addBtnState,
+        addBtnState: addBtnState,
         setAddBtnState: setAddBtnState,
       }),
     );
@@ -86,7 +89,6 @@ function Record({ setBookmarkInfo }) {
           onClickAddBookmark={onClickAddBookmark}
           onContextMenu={onContextMenu}
           addBtnState={addBtnState}
-          bookmarkState={bookmarkState}
         />
       ))}
     </Layout>

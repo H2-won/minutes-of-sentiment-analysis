@@ -33,6 +33,8 @@ const ContentWrapper = styled.div`
 function MeetingLogContainer() {
   const [activeMenuState, setActiveMenuState] = useState(0);
   const [bookmarkInfo, setBookmarkInfo] = useState([]);
+  const [recordData, setRecordData] = useState([]);
+  const [addBtnState, setAddBtnState] = useState([]);
 
   return (
     <Container>
@@ -49,11 +51,20 @@ function MeetingLogContainer() {
           <Bookmark
             bookmarkInfo={bookmarkInfo}
             setBookmarkInfo={setBookmarkInfo}
+            recordData={recordData}
+            setRecordData={setRecordData}
+            setAddBtnState={setAddBtnState}
           />
         )}
         {activeMenuState === 2 && <Summary />}
       </ContentWrapper>
-      <RecordWrapper setBookmarkInfo={setBookmarkInfo} />
+      <RecordWrapper
+        setBookmarkInfo={setBookmarkInfo}
+        recordData={recordData}
+        setRecordData={setRecordData}
+        addBtnState={addBtnState}
+        setAddBtnState={setAddBtnState}
+      />
     </Container>
   );
 }

@@ -84,7 +84,6 @@ function Sentence({
   onClickAddBookmark,
   onContextMenu,
   addBtnState,
-  bookmarkState,
 }) {
   const scrollToBottom = () => {
     const recordWrapper = document.querySelector('#recordWrapper');

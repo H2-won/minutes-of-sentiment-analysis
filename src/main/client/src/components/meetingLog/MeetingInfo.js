@@ -58,7 +58,9 @@ function MeetingInfo() {
       </div>
       <div>
         <Title>참가자</Title>
-        <Description>{meetingInfo.userNameList}</Description>
+        {meetingInfo.userNameList.map((userName, index) => (
+          <Description key={index}>{userName} </Description>
+        ))}
       </div>
     </Container>
   );

@@ -275,10 +275,10 @@ const VideoContainer = ({ match }) => {
         //   Math.floor(Math.random() * 1000000000) +
         //   '.' +
         //   'wav';
-        var now = new Date()
-        var pivot = new Date(2050, 12, 31, 14, 23, 23)
+        var now = new Date();
+        var pivot = new Date(2050, 12, 31, 14, 23, 23);
         var please = pivot - now;
-        var fileFullName = please + ".wav";
+        var fileFullName = please + '.wav';
 
         setVoiceFileId(voiceFileId - 1);
         if (typeof navigator.msSaveOrOpenBlob !== 'undefined') {
@@ -340,6 +340,23 @@ const VideoContainer = ({ match }) => {
     );
   }
 
+  const onClickStartRecording = () => {
+    var recorder = connection.recorder;
+    if (!recorder) {
+      recorder = RecordRTC([connectionInfo], {
+        type: 'audio',
+      });
+      recorder.startRecording();
+      connection.recorder = recorder;
+    } else {
+      recorder.getInternalRecorder().addStreams([connectionInfo]);
+    }
+
+    if (!connection.recorder.streams) {
+      connection.recorder.streams = [];
+    }
+  };
+
   return (
     <div>
       {/* <div>
@@ -351,7 +368,7 @@ const VideoContainer = ({ match }) => {
         </div>
       </div> */}
       <VideoWrapper>
-        <MainVideo>
+        <MainVideo onClick={onClickStartRecording}>
           {mainVideo && (
             <Video
               srcObject={mainVideo.stream}

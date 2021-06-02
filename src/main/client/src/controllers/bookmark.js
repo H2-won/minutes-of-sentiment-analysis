@@ -24,6 +24,7 @@ export const registrationAndUpdateBookmark = (
   userId,
   sentenceId,
   memo,
+  setBookmarkInfo,
   recordData,
   setRecordData,
   setAddBtnState,

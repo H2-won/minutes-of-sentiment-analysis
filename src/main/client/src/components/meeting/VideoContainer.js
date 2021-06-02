@@ -276,7 +276,9 @@ const VideoContainer = ({ match }) => {
         //   '.' +
         //   'wav';
         var now = new Date()
-        var fileFullName = now + ".wav";
+        var pivot = new Date(2050, 12, 31, 14, 23, 23)
+        var please = pivot - now;
+        var fileFullName = please + ".wav";
 
         setVoiceFileId(voiceFileId - 1);
         if (typeof navigator.msSaveOrOpenBlob !== 'undefined') {

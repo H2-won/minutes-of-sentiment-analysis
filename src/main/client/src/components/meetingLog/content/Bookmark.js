@@ -44,6 +44,8 @@ const Content = styled.div`
   background: ${palette.white};
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
 
+  cursor: pointer;
+
   img {
     margin: 2rem;
   }
@@ -201,35 +203,45 @@ function Bookmark({ bookmarkInfo, setBookmarkInfo }) {
     );
   };
 
+  const moveToSentence = (sentenceId) => {
+    const sentence = document.getElementById(sentenceId);
+    sentence.offsetParent.scrollTo(0, sentence.offsetTop - 20);
+  };
+
   return (
     <Container>
       <h2>북마크</h2>
       <ContentWrapper>
-        {bookmarkInfo.map(({ bookmarkId, memo, userName, createdTime }) => (
-          <Content key={bookmarkId}>
-            <img src="/icons/ic_bookmark_24px.png" alt="" />
-            <span>{memo}</span>
-            <button onClick={() => onClickMenuBtn(bookmarkId)}>
-              <img src="/icons/bookmark_option.png" alt="" />
-            </button>
-            <div className="info">
-              <span>{userName}</span>
-              <span>{createdTime}</span>
-            </div>
-            {menuState[bookmarkId] && (
-              <Menu id={bookmarkId} className={'bookmarkMenu'}>
-                <div onClick={onClickModifyBookmark}>
-                  <img src="/icons/ic_bookmark_modify.png" alt="" />
-                  <span>메모 수정</span>
-                </div>
-                <div onClick={onClickDeleteBookmark}>
-                  <img src="/icons/ic_bookmark_delete.png" alt="" />
-                  <span>삭제</span>
-                </div>
-              </Menu>
-            )}
-          </Content>
-        ))}
+        {bookmarkInfo.map(
+          ({ bookmarkId, memo, userName, createdTime, sentenceId }) => (
+            <Content
+              key={bookmarkId}
+              onClick={() => moveToSentence(sentenceId)}
+            >
+              <img src="/icons/ic_bookmark_24px.png" alt="" />
+              <span>{memo}</span>
+              <button onClick={() => onClickMenuBtn(bookmarkId)}>
+                <img src="/icons/bookmark_option.png" alt="" />
+              </button>
+              <div className="info">
+                <span>{userName}</span>
+                <span>{createdTime}</span>
+              </div>
+              {menuState[bookmarkId] && (
+                <Menu id={bookmarkId} className={'bookmarkMenu'}>
+                  <div onClick={onClickModifyBookmark}>
+                    <img src="/icons/ic_bookmark_modify.png" alt="" />
+                    <span>메모 수정</span>
+                  </div>
+                  <div onClick={onClickDeleteBookmark}>
+                    <img src="/icons/ic_bookmark_delete.png" alt="" />
+                    <span>삭제</span>
+                  </div>
+                </Menu>
+              )}
+            </Content>
+          ),
+        )}
       </ContentWrapper>
     </Container>
   );

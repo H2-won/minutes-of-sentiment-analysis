@@ -5,6 +5,7 @@ import palette from '../../../lib/styles/palette';
 const Container = styled.h2`
   margin-top: 3rem;
   margin-right: 3rem;
+  text-align: right;
 `;
 
 const Content = styled.span`

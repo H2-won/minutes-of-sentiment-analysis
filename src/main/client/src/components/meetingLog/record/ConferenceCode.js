@@ -14,7 +14,7 @@ const Content = styled.span`
 `;
 
 function ConferenceCode() {
-  const code = location.href.split('/')[4];
+  const code = window.location.href.split('/')[4];
 
   return (
     <Container>

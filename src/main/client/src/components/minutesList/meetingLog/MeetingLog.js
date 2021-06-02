@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 
 const Container = styled.div`
   position: relative;
-  min-width: 520px;
+  min-width: 470px;
   min-height: 180px;
   padding: 20px;
   border-radius: 4px;

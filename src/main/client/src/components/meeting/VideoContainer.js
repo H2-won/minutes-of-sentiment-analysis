@@ -230,32 +230,32 @@ const VideoContainer = ({ match }) => {
     }
   }, []);
 
-  // useEffect(() => {
-  //   // 말 시작 시 record 시작
-  //   if (interimTranscript !== '') {
-  //     var recorder = connection.recorder;
-  //     if (!recorder) {
-  //       recorder = RecordRTC([connectionInfo], {
-  //         type: 'audio',
-  //       });
-  //       recorder.startRecording();
-  //       connection.recorder = recorder;
-  //     } else {
-  //       recorder.getInternalRecorder().addStreams([connectionInfo]);
-  //     }
+  useEffect(() => {
+    // 말 시작 시 record 시작
+    if (interimTranscript !== '') {
+      var recorder = connection.recorder;
+      if (!recorder) {
+        recorder = RecordRTC([connectionInfo], {
+          type: 'audio',
+        });
+        recorder.startRecording();
+        connection.recorder = recorder;
+      } else {
+        recorder.getInternalRecorder().addStreams([connectionInfo]);
+      }
 
-  //     if (!connection.recorder.streams) {
-  //       connection.recorder.streams = [];
-  //     }
-  //     // connection.recorder.streams.push(event.stream);
-  //   }
-  // }, [interimTranscript]);
+      if (!connection.recorder.streams) {
+        connection.recorder.streams = [];
+      }
+      // connection.recorder.streams.push(event.stream);
+    }
+  }, [interimTranscript]);
 
   useEffect(() => {
     // --- 말 끝날때마다 record 파일 firebase storage에 삽입 ---
     if (finalTranscript !== '') {
       var recorder = connection.recorder;
-      if (!recorder) return console.log("^^");
+      if (!recorder) return console.log('^^');
       recorder.stopRecording(function () {
         var file = recorder.getBlob();
 
@@ -340,24 +340,6 @@ const VideoContainer = ({ match }) => {
     );
   }
 
-  const onClickStartRecording = () => {
-    console.log('startRecording');
-    var recorder = connection.recorder;
-    if (!recorder) {
-      recorder = RecordRTC([connectionInfo], {
-        type: 'audio',
-      });
-      recorder.startRecording();
-      connection.recorder = recorder;
-    } else {
-      recorder.getInternalRecorder().addStreams([connectionInfo]);
-    }
-
-    if (!connection.recorder.streams) {
-      connection.recorder.streams = [];
-    }
-  };
-
   return (
     <div>
       {/* <div>
@@ -369,7 +351,7 @@ const VideoContainer = ({ match }) => {
         </div>
       </div> */}
       <VideoWrapper>
-        <MainVideo onClick={onClickStartRecording}>
+        <MainVideo>
           {mainVideo && (
             <Video
               srcObject={mainVideo.stream}

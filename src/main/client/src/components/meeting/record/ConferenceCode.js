@@ -14,7 +14,7 @@ const Content = styled.span`
 `;
 
 function ConferenceCode() {
-  const code = window.location.href.split('/')[4];
+  const code = window.location.href.split('/')[4].split('?')[0];
   return (
     <Container>
       <Content>회의 코드 : </Content>

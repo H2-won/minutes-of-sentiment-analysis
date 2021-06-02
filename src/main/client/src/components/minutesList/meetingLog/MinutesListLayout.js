@@ -13,7 +13,7 @@ const Container = styled.div`
   justify-content: center;
 
   a {
-    margin: 2rem 3rem;
+    margin: 2rem;
   }
 `;
 

@@ -61,6 +61,7 @@ export const registrationAndUpdateBookmark = (
         .then((res) => {
           console.log('recordData :', res);
           setRecordData(res);
+          setAddBtnState([]);
           for (let i = 0; i < recordData.length; i++) {
             setAddBtnState((addBtnState) => [...addBtnState, false]);
           }

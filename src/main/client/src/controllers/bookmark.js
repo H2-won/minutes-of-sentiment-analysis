@@ -27,6 +27,7 @@ export const registrationAndUpdateBookmark = (
   setBookmarkInfo,
   recordData,
   setRecordData,
+  addBtnState,
   setAddBtnState,
 ) => {
   const token = localStorage.getItem('accessToken');

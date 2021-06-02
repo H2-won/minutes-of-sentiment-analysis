@@ -50,6 +50,7 @@ function Record({ setBookmarkInfo }) {
         setBookmarkInfo: setBookmarkInfo,
         recordData: recordData,
         setRecordData: setRecordData,
+          addBtnState : addBtnState,
         setAddBtnState: setAddBtnState,
       }),
     );

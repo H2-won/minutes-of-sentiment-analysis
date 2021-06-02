@@ -98,6 +98,7 @@ function AddBookmarkModal({ ModalOff, args }) {
         args.setBookmarkInfo,
         args.recordData,
         args.setRecordData,
+        args.addBtnState,
         args.setAddBtnState,
       );
 

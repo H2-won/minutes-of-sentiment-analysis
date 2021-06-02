@@ -13,7 +13,6 @@ import RecordRTC from 'recordrtc';
 import { startRecording, stopRecording } from '../../controllers/meeting';
 import { useDispatch, useSelector } from 'react-redux';
 import { setMainVideo } from '../../modules/meeting';
-import { setConnectionInfo } from '../../modules/connectionInfo';
 
 const VideoWrapper = styled.div`
   display: flex;
@@ -38,12 +37,9 @@ const MainUserId = styled.span`
 const VideoContainer = ({ match }) => {
   const dispatch = useDispatch();
   const mainVideo = useSelector((state) => state.meeting.mainVideo);
-  const connectionInfo = useSelector(
-    (state) => state.connectionInfo.connectionInfo,
-  );
   // const [mainVideo, setMainVideo] = useState(null);
   const [videoThumbnailsArr, setVideoThumbnailsArr] = useState([]);
-  // const [connectionInfo, setConnectionInfo] = useState('');
+  const [connectionInfo, setConnectionInfo] = useState('');
   const [recordFlag, setRecordFlag] = useState(0);
   const [hostState, setHostState] = useState(false);
   const [voiceFileId, setVoiceFileId] = useState(999999);
@@ -112,7 +108,7 @@ const VideoContainer = ({ match }) => {
         message: 'NULL',
         time: 'NULL',
       });
-      dispatch(setConnectionInfo(event.stream));
+      setConnectionInfo(event.stream);
 
       // onstream 되자마자 stt 실행
       SpeechRecognition.startListening({
@@ -154,35 +150,35 @@ const VideoContainer = ({ match }) => {
         setVideoThumbnailsArr([]);
         console.log('LOCAL STREAM CLOSING. CLOSING ALL VIDEOS - TEST');
 
-        // --------------- 전체 음성 녹음 코드 recorder -----------------
-        // var recorder = connection.recorder;
-        // if (!recorder) return console.log('No recorder found.');
-        // recorder.stopRecording(function () {
-        //   var blob = recorder.getBlob();
-        //   RecordRTC.invokeSaveAsDialog(blob);
-        //   replaceAudio(URL.createObjectURL(blob));
-        //   console.log(blob);
+        // --------------- recorder -----------------
+        var recorder = connection.recorder;
+        if (!recorder) return console.log('No recorder found.');
+        recorder.stopRecording(function () {
+          var blob = recorder.getBlob();
+          RecordRTC.invokeSaveAsDialog(blob);
+          replaceAudio(URL.createObjectURL(blob));
+          console.log(blob);
 
-        //   connection.recorder = null;
-        // });
+          connection.recorder = null;
+        });
 
-        // // ------------ audio -------------
-        // var audio = document.querySelector('audio');
-        // function replaceAudio(src) {
-        //   var newAudio = document.createElement('audio');
-        //   newAudio.controls = true;
-        //   newAudio.autoplay = true;
+        // ------------ audio -------------
+        var audio = document.querySelector('audio');
+        function replaceAudio(src) {
+          var newAudio = document.createElement('audio');
+          newAudio.controls = true;
+          newAudio.autoplay = true;
 
-        //   if (src) {
-        //     newAudio.src = src;
-        //   }
+          if (src) {
+            newAudio.src = src;
+          }
 
-        //   var parentNode = audio.parentNode;
-        //   parentNode.innerHTML = '';
-        //   parentNode.appendChild(newAudio);
+          var parentNode = audio.parentNode;
+          parentNode.innerHTML = '';
+          parentNode.appendChild(newAudio);
 
-        //   audio = newAudio;
-        // }
+          audio = newAudio;
+        }
       }
 
       if (event.type === 'remote') {
@@ -234,32 +230,32 @@ const VideoContainer = ({ match }) => {
     }
   }, []);
 
-  // useEffect(() => {
-  //   // 말 시작 시 record 시작
-  //   if (interimTranscript !== '') {
-  //     var recorder = connection.recorder;
-  //     if (!recorder) {
-  //       recorder = RecordRTC([connectionInfo], {
-  //         type: 'audio',
-  //       });
-  //       recorder.startRecording();
-  //       connection.recorder = recorder;
-  //     } else {
-  //       recorder.getInternalRecorder().addStreams([connectionInfo]);
-  //     }
+  useEffect(() => {
+    // 말 시작 시 record 시작
+    if (interimTranscript !== '') {
+      var recorder = connection.recorder;
+      if (!recorder) {
+        recorder = RecordRTC([connectionInfo], {
+          type: 'audio',
+        });
+        recorder.startRecording();
+        connection.recorder = recorder;
+      } else {
+        recorder.getInternalRecorder().addStreams([connectionInfo]);
+      }
 
-  //     if (!connection.recorder.streams) {
-  //       connection.recorder.streams = [];
-  //     }
-  //     // connection.recorder.streams.push(event.stream);
-  //   }
-  // }, [interimTranscript]);
+      if (!connection.recorder.streams) {
+        connection.recorder.streams = [];
+      }
+      // connection.recorder.streams.push(event.stream);
+    }
+  }, [interimTranscript]);
 
   useEffect(() => {
     // --- 말 끝날때마다 record 파일 firebase storage에 삽입 ---
     if (finalTranscript !== '') {
       var recorder = connection.recorder;
-      if (!recorder) return console.log('finalTranscript쪽 No recorder found.');
+      if (!recorder) return alert('No recorder found.');
       recorder.stopRecording(function () {
         var file = recorder.getBlob();
 
@@ -311,9 +307,6 @@ const VideoContainer = ({ match }) => {
 
         connection.recorder = null;
       });
-
-      // recorder 중지하고 stt도 중지해주기
-      SpeechRecognition.stopListening();
     }
   }, [finalTranscript]);
 

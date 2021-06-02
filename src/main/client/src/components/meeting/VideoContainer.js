@@ -47,7 +47,8 @@ const VideoContainer = ({ match }) => {
   const createdDate = useSelector((state) => state.createdDate.date);
 
   const notifyRemoteUserLeft = (name) => {
-    alert(name + ' left.');
+    // alert(name + ' left.');
+    console.log(name + ' left.');
   };
 
   const closeSocket = () => {
@@ -72,36 +73,6 @@ const VideoContainer = ({ match }) => {
 
     SpeechRecognition.stopListening();
     window.location.href = '/main';
-  };
-
-  // room ID.
-  const staticId = 'qweasd';
-
-  const justOpen = () => {
-    connection.open(staticId, function (isRoomOpened, roomid, error) {
-      if (isRoomOpened === true) {
-      } else {
-        if (error === 'Room not available') {
-          alert('이미 존재하는 방입니다. 새로운 방을 만들거나 참가하세요!');
-          closeSocket();
-          return;
-        }
-        alert(error + 'error log');
-      }
-    });
-  };
-
-  const justJoin = () => {
-    connection.join(staticId, function (isJoinedRoom, roomid, error) {
-      if (error) {
-        if (error === 'Room not available') {
-          alert('존재하지 않는 방입니다. 새로운 방을 만들거나 참가하세요!');
-          closeSocket();
-          return;
-        }
-        alert(error + 'error log');
-      }
-    });
   };
 
   // ---------------------------------------------------speech recognition --------------------------------------------------------
@@ -181,7 +152,7 @@ const VideoContainer = ({ match }) => {
 
         // --------------- recorder -----------------
         var recorder = connection.recorder;
-        if (!recorder) return alert('No recorder found.');
+        if (!recorder) return console.log('No recorder found.');
         recorder.stopRecording(function () {
           var blob = recorder.getBlob();
           RecordRTC.invokeSaveAsDialog(blob);

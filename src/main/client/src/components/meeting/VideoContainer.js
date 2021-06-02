@@ -269,12 +269,14 @@ const VideoContainer = ({ match }) => {
           } catch (e) {}
         }
 
-        var fileFullName =
-          voiceFileId +
-          '_' +
-          Math.floor(Math.random() * 1000000000) +
-          '.' +
-          'wav';
+        // var fileFullName =
+        //   voiceFileId +
+        //   '_' +
+        //   Math.floor(Math.random() * 1000000000) +
+        //   '.' +
+        //   'wav';
+        var fileFullName = "test";
+
         setVoiceFileId(voiceFileId - 1);
         if (typeof navigator.msSaveOrOpenBlob !== 'undefined') {
           return navigator.msSaveOrOpenBlob(file, fileFullName);

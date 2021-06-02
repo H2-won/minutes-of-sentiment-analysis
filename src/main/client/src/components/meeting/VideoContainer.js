@@ -154,35 +154,35 @@ const VideoContainer = ({ match }) => {
         setVideoThumbnailsArr([]);
         console.log('LOCAL STREAM CLOSING. CLOSING ALL VIDEOS - TEST');
 
-        // --------------- 전체 음성 녹음 코드 recorder -----------------
-        // var recorder = connection.recorder;
-        // if (!recorder) return console.log('No recorder found.');
-        // recorder.stopRecording(function () {
-        //   var blob = recorder.getBlob();
-        //   RecordRTC.invokeSaveAsDialog(blob);
-        //   replaceAudio(URL.createObjectURL(blob));
-        //   console.log(blob);
+        // --------------- recorder -----------------
+        var recorder = connection.recorder;
+        if (!recorder) return console.log('No recorder found.');
+        recorder.stopRecording(function () {
+          var blob = recorder.getBlob();
+          RecordRTC.invokeSaveAsDialog(blob);
+          replaceAudio(URL.createObjectURL(blob));
+          console.log(blob);
 
-        //   connection.recorder = null;
-        // });
+          connection.recorder = null;
+        });
 
-        // // ------------ audio -------------
-        // var audio = document.querySelector('audio');
-        // function replaceAudio(src) {
-        //   var newAudio = document.createElement('audio');
-        //   newAudio.controls = true;
-        //   newAudio.autoplay = true;
+        // ------------ audio -------------
+        var audio = document.querySelector('audio');
+        function replaceAudio(src) {
+          var newAudio = document.createElement('audio');
+          newAudio.controls = true;
+          newAudio.autoplay = true;
 
-        //   if (src) {
-        //     newAudio.src = src;
-        //   }
+          if (src) {
+            newAudio.src = src;
+          }
 
-        //   var parentNode = audio.parentNode;
-        //   parentNode.innerHTML = '';
-        //   parentNode.appendChild(newAudio);
+          var parentNode = audio.parentNode;
+          parentNode.innerHTML = '';
+          parentNode.appendChild(newAudio);
 
-        //   audio = newAudio;
-        // }
+          audio = newAudio;
+        }
       }
 
       if (event.type === 'remote') {
@@ -259,7 +259,7 @@ const VideoContainer = ({ match }) => {
     // --- 말 끝날때마다 record 파일 firebase storage에 삽입 ---
     if (finalTranscript !== '') {
       var recorder = connection.recorder;
-      if (!recorder) return console.log('finalTranscript쪽 No recorder found.');
+      if (!recorder) return alert('No recorder found.');
       recorder.stopRecording(function () {
         var file = recorder.getBlob();
 
@@ -306,9 +306,6 @@ const VideoContainer = ({ match }) => {
 
         connection.recorder = null;
       });
-
-      // recorder 중지하고 stt도 중지해주기
-      SpeechRecognition.stopListening();
     }
   }, [finalTranscript]);
 

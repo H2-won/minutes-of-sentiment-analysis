@@ -42,7 +42,6 @@ function VideoToggleBtn() {
       !mainVideo.stream.getVideoTracks()[0].enabled;
 
     // videotrack 상태 변경되었으니 다시 메인 비디오 set
-    // 없어도 될수도 있으니 테스트 해보기
     dispatch(setMainVideo(mainVideo));
   };
 

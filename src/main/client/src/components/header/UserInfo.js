@@ -32,7 +32,7 @@ function UserInfo() {
   // const [token, setToken] = useState(null);
   const [logged, setLogged] = useState(false);
   const [userInfo, setUserInfo] = useState({
-    id: 1,
+    id: 0,
     name: '방조임남',
     email: '',
   });

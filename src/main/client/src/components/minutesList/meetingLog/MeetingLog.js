@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 import palette from '../../../lib/styles/palette';
-import { getMeetingLogInfo } from '../../../controllers/meetingLog';
 import { setMeetingInfo } from '../../../modules/meetingLog';
 import { useDispatch } from 'react-redux';
 
@@ -155,7 +154,6 @@ function MeetingLogWrapper({
       })
       .catch((err) => console.log(err));
     localStorage.setItem('minutesId', meetingLog.minutesId);
-    // dispatch(setMeetingInfo(getMeetingLogInfo(meetingLog.minutesId)));
   };
 
   return (

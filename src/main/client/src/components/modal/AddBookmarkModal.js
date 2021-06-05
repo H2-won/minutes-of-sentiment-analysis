@@ -81,7 +81,6 @@ function AddBookmarkModal({ ModalOff, args }) {
   const onChange = (e) => {
     setInputValue(e.target.value);
   };
-  console.log('addBookmarkModal args :', args);
 
   const AddBookmark = () => {
     const userId = localStorage.getItem('userId');

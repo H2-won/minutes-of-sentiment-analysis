@@ -10,7 +10,6 @@ import SpeechRecognition, {
 
 import { firebaseDatabaseRef, firebaseStorage } from '../../firebase';
 import RecordRTC from 'recordrtc';
-import { startRecording, stopRecording } from '../../controllers/meeting';
 import { useDispatch, useSelector } from 'react-redux';
 import { setMainVideo } from '../../modules/meeting';
 
@@ -37,14 +36,12 @@ const MainUserId = styled.span`
 const VideoContainer = ({ match }) => {
   const dispatch = useDispatch();
   const mainVideo = useSelector((state) => state.meeting.mainVideo);
-  // const [mainVideo, setMainVideo] = useState(null);
   const [videoThumbnailsArr, setVideoThumbnailsArr] = useState([]);
   const [connectionInfo, setConnectionInfo] = useState('');
   const [recordFlag, setRecordFlag] = useState(0);
   const [hostState, setHostState] = useState(false);
   const [voiceFileId, setVoiceFileId] = useState(999999);
   const databaseRef = firebaseDatabaseRef;
-  const createdDate = useSelector((state) => state.createdDate.date);
 
   const notifyRemoteUserLeft = (name) => {
     // alert(name + ' left.');
@@ -99,7 +96,6 @@ const VideoContainer = ({ match }) => {
     connection.onstream = function (event) {
       // 시작할 때 더미값 넣기
       const minutesId = localStorage.getItem('minutesId');
-      const createdDate = localStorage.getItem('createdDate');
       databaseRef.push({
         flag: 2,
         minutesId: minutesId,
@@ -269,12 +265,6 @@ const VideoContainer = ({ match }) => {
           } catch (e) {}
         }
 
-        // var fileFullName =
-        //   voiceFileId +
-        //   '_' +
-        //   Math.floor(Math.random() * 1000000000) +
-        //   '.' +
-        //   'wav';
         var now = new Date();
         var pivot = new Date(2050, 12, 31, 14, 23, 23);
         var please = pivot - now;

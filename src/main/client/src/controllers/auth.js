@@ -13,7 +13,6 @@ export const getUserInfo = (token, setLogged, setUserInfo) => {
   )
     .then((res) => res.json())
     .then((res) => {
-      console.log(res);
       setLogged(true);
       setUserInfo(res);
       //  로컬에 로그인 유저 이름, 아이디 저장

@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import AddBookmarkModal from '../../modal/AddBookmarkModal';
 import { openModal } from '../../../modules/modal';
 import Sentence from './Sentence';
-import { getBookmarkAndSetBookmarkState } from '../../../controllers/bookmark';
 
 const Layout = styled.div`
   margin-top: 32px;
@@ -17,8 +16,6 @@ function Record({
   addBtnState,
   setAddBtnState,
 }) {
-  // const [recordData, setRecordData] = useState([]);
-  // const [addBtnState, setAddBtnState] = useState([]);
   const dispatch = useDispatch();
   const body = document.querySelector('body');
 

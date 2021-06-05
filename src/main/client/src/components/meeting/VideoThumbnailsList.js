@@ -21,7 +21,6 @@ const VideoThumbnailsList = (props) => {
       {props.videos.map((video) => (
         <RemoteVideo key={video.props.id} className="video-thumbnail">
           {video}
-          {/* <RemoteUserId>{localStorage.getItem('userName')}</RemoteUserId> */}
         </RemoteVideo>
       ))}
     </>

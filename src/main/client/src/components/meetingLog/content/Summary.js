@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 import palette from '../../../lib/styles/palette';
 import { Pie } from 'react-chartjs-2';
+import {
+  getAllEmotionData,
+  getAllKeywordData,
+} from '../../../controllers/meetingLog';
 
 const Container = styled.div`
   position: relative;
@@ -134,11 +138,9 @@ const Comment = styled.span`
 `;
 
 function Summary() {
-  const [emotions, setEmotions] = useState([]);
   const [emotionRatio, setEmotionRatio] = useState([]);
   const [maxEmotion, setMaxEmotion] = useState('무감정');
   const [emotionData, setEmotionData] = useState({
-    // labels: ['무감정', '기쁨', '화남', '슬픔'],
     datasets: [
       {
         data: emotionRatio,
@@ -148,12 +150,11 @@ function Summary() {
           `${palette.red2}`,
           `${palette.skyblue}`,
         ],
-        // hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#ff653f'],
       },
     ],
   });
 
-  const [keywords, setKeywords] = useState(['1','2','3','4','5']);
+  const [keywords, setKeywords] = useState(['1', '2', '3', '4', '5']);
   const keywordRatio = [];
   const [keywordData, setKeywordData] = useState({
     datasets: [
@@ -171,116 +172,27 @@ function Summary() {
   });
 
   useEffect(() => {
+    const minutesId = localStorage.getItem('minutesId');
+    const token = localStorage.getItem('accessToken');
     // 전체 감정 api
-    fetch(`/api/minutes/${localStorage.getItem('minutesId')}/total-emotions`, {
-      method: 'GET',
-      Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log('emotion Info:', res);
-        setEmotions(res);
-        // 비율 Ratio에 넣어주기
-        emotionRatio.push(res.emotionless);
-        emotionRatio.push(res.happy);
-        emotionRatio.push(res.angry);
-        emotionRatio.push(res.sad);
-        setEmotionRatio(emotionRatio);
-        console.log('emotionRatio : ', emotionRatio);
-
-        // 주요 감정, 퍼센트 구하기
-        let max = 0;
-        let maxIndex = 0;
-        emotionRatio.forEach((ratio, index) => {
-          if (max < ratio) {
-            max = ratio;
-            maxIndex = index;
-          }
-        });
-        if (maxIndex === 0) setMaxEmotion('무감정');
-        else if (maxIndex === 1) setMaxEmotion('기쁨');
-        else if (maxIndex === 2) setMaxEmotion('화남');
-        else if (maxIndex === 3) setMaxEmotion('슬픔');
-
-        // emotoinData 설정
-        setEmotionData({
-          datasets: [
-            {
-              data: emotionRatio,
-              backgroundColor: [
-                `${palette.gray2}`,
-                `${palette.yellow}`,
-                `${palette.red2}`,
-                `${palette.skyblue}`,
-              ],
-            },
-          ],
-        });
-      })
-      .catch((err) => console.log(err));
+    getAllEmotionData(
+      minutesId,
+      token,
+      emotionRatio,
+      setEmotionRatio,
+      setMaxEmotion,
+      setEmotionData,
+    );
 
     // 전체 키워드 api
-    fetch(`/api/minutes/${localStorage.getItem('minutesId')}/total-keywords`, {
-      method: 'GET',
-      Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log('Keywords Info:', res);
-        setKeywords(res.keywords);
-        // 뒤에 숫자 비율만 Ratio에 넣어주기
-        res.keywords.forEach((keyword) => {
-          keywordRatio.push(keyword.split('_')[1]);
-        });
-        console.log('keywordRatio:', keywordRatio);
-        setKeywordData({
-          datasets: [
-            {
-              data: keywordRatio,
-              backgroundColor: [
-                `${palette.gray2}`,
-                `${palette.yellow}`,
-                `${palette.red2}`,
-                `${palette.skyblue}`,
-                `${palette.green}`,
-              ],
-            },
-          ],
-        });
-      })
-      .catch((err) => console.log(err));
+    getAllKeywordData(
+      minutesId,
+      token,
+      setKeywords,
+      keywordRatio,
+      setKeywordData,
+    );
   }, []);
-
-  // const emotionData = {
-  //   // labels: ['무감정', '기쁨', '화남', '슬픔'],
-  //   datasets: [
-  //     {
-  //       data: emotionRatio,
-  //       backgroundColor: [
-  //         `${palette.gray2}`,
-  //         `${palette.yellow}`,
-  //         `${palette.red2}`,
-  //         `${palette.skyblue}`,
-  //       ],
-  //       // hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#ff653f'],
-  //     },
-  //   ],
-  // };
-
-  // const keywordData = {
-  //   datasets: [
-  //     {
-  //       data: keywordRatio,
-  //       backgroundColor: [
-  //         `${palette.gray2}`,
-  //         `${palette.yellow}`,
-  //         `${palette.red2}`,
-  //         `${palette.skyblue}`,
-  //         `${palette.green}`,
-  //       ],
-  //     },
-  //   ],
-  // };
 
   return (
     <Container>

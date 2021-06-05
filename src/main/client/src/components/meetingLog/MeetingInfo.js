@@ -40,7 +40,7 @@ function MeetingInfo() {
   const meetingInfo =
     useSelector((state) => state.meetingLog.meetingInfo, shallowEqual) ||
     meetingInfomation;
-  console.log('meetingInfo:', meetingInfo);
+  // console.log('meetingInfo:', meetingInfo);
 
   return (
     <Container>

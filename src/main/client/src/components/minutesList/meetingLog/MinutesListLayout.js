@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { getMinutesList } from '../../../controllers/meetingLog';
+import { getMinutesList } from '../../../controllers/minutesList';
+// import { getMinutesList } from '../../../controllers/';
 import MeetingLog from './MeetingLog';
 
 const Container = styled.div`
@@ -21,21 +22,7 @@ function MinutesListLayout() {
   const [minutesList, setMinutesList] = useState([]);
 
   useEffect(() => {
-    const userId = localStorage.getItem('userId');
-    const token = localStorage.getItem('accessToken');
-    fetch(`/api/user/${userId}/minutes`, {
-      method: 'GET',
-      headers: {
-        Authorization: 'Bearer ' + token,
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log('회의록 리스트 : ', res);
-        setMinutesList(res);
-      })
-      .catch((err) => console.log(err));
+    getMinutesList(setMinutesList);
   }, []);
 
   return (

@@ -20,22 +20,7 @@ function Record({
   const body = document.querySelector('body');
 
   useEffect(() => {
-    fetch(`/api/minutes/${localStorage.getItem('minutesId')}/sentences`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
-      },
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log('recordData :', res);
-        setRecordData(res);
-        for (let i = 0; i < recordData.length; i++) {
-          setAddBtnState((addBtnState) => [...addBtnState, false]);
-        }
-      })
-      .catch((err) => console.log(err));
+    getRecordData(recordData, setRecordData, addBtnState, setAddBtnState);
   }, []);
 
   const onClickAddBookmark = (e) => {

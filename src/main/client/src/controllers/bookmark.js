@@ -1,3 +1,18 @@
+export const getAndSetBookmarkInfo = (setBookmarkInfo) => {
+  const minutesId = localStorage.getItem('minutesId');
+  const token = localStorage.getItem('accessToken');
+  fetch(`/api/minutes/${minutesId}/bookmark`, {
+    method: 'GET',
+    Authorization: 'Bearer ' + token,
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      console.log('Bookmark Info:', res);
+      setBookmarkInfo(res);
+    })
+    .catch((err) => console.log(err));
+};
+
 // 화상 회의 중 북마크 등록 API
 export const registrationBookmark = (userId, sentenceId, memo) => {
   const token = localStorage.getItem('accessToken');

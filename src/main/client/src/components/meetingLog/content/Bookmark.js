@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import { getAndSetBookmarkInfo } from '../../../controllers/bookmark';
 import palette from '../../../lib/styles/palette';
 import { openModal } from '../../../modules/modal';
 import DeleteBookmarkModal from '../../modal/DeleteBookmarkModal';
@@ -139,16 +140,7 @@ function Bookmark({
   const [menuState, setMenuState] = useState([]);
 
   useEffect(() => {
-    fetch(`/api/minutes/${localStorage.getItem('minutesId')}/bookmark`, {
-      method: 'GET',
-      Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log('Bookmark Info:', res);
-        setBookmarkInfo(res);
-      })
-      .catch((err) => console.log(err));
+    getAndSetBookmarkInfo(setBookmarkInfo);
   }, []);
 
   useEffect(() => {

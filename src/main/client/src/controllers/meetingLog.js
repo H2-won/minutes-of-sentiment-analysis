@@ -182,3 +182,29 @@ export const getAllKeywordData = (
     })
     .catch((err) => console.log(err));
 };
+
+export const getRecordData = (
+  recordData,
+  setRecordData,
+  addBtnState,
+  setAddBtnState,
+) => {
+  const minutesId = localStorage.getItem('minutesId');
+  const token = localStorage.getItem('accessToken');
+  fetch(`/api/minutes/${minutesId}/sentences`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token,
+    },
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      console.log('recordData :', res);
+      setRecordData(res);
+      for (let i = 0; i < recordData.length; i++) {
+        setAddBtnState((addBtnState) => [...addBtnState, false]);
+      }
+    })
+    .catch((err) => console.log(err));
+};

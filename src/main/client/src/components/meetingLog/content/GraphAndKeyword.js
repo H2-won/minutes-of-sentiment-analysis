@@ -88,7 +88,7 @@ function GraphAndKeyword({ id }) {
 
   const emos = ['', '슬픔', '중립', '기쁨', '화남', ''];
 
-  const options = {
+  const emotionalGraphOptions = {
     responsive: true,
     plugins: {
       title: {
@@ -141,7 +141,7 @@ function GraphAndKeyword({ id }) {
     <Container>
       <h2>감정 그래프</h2>
       <GraphWrapper>
-        <Scatter data={data} options={options} type={'scatter'} />
+        <Scatter data={data} options={emotionalGraphOptions} type={'scatter'} />
       </GraphWrapper>
       <h2>구간 별 키워드</h2>
       <KeywordWrapper>

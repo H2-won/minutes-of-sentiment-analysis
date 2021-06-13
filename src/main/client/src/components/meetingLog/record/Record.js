@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import AddBookmarkModal from '../../modal/AddBookmarkModal';
 import { openModal } from '../../../modules/modal';
 import Sentence from './Sentence';
+import { getRecordData } from '../../../controllers/meetingLog';
 
 const Layout = styled.div`
   margin-top: 32px;

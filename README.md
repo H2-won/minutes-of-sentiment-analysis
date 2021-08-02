@@ -1,7 +1,11 @@
-# minutes-of-sentiment-analysis
-4-1 캡스톤 감정분석 회의록
+# 🙄 감:회
+#### **감정 분석이 결합된 화상회의/회의록 서비스**
+
+🏅 최우수상 수상
 
 ---
+
+
 
 <img width="1398" alt="스크린샷 2021-05-26 오후 2 47 10" src="https://user-images.githubusercontent.com/54533309/119608649-424dc500-be31-11eb-8bef-a3cdf65bf9a5.png">
 

@@ -33,16 +33,11 @@
     <td align="center"><b>🤖A.I</b></td>
   </tr>
 </table>
-
-
 <br>
 
 ## 🌈 감:회 소개
 
-
-
-
-![감:회](https://user-images.githubusercontent.com/54533309/129846651-3e169517-9288-4773-bcb4-a9d8cfd5888f.png)
+<img width="600" alt="스크린샷 2021-08-18 오후 4 42 28" src="https://user-images.githubusercontent.com/54533309/129846651-3e169517-9288-4773-bcb4-a9d8cfd5888f.png">
 
 감:회는 감정 분석이 결합된 화상회의 / 회의록 서비스입니다.
 

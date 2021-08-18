@@ -105,25 +105,25 @@
 
 ## 🛠 전체 구성도 및 개념도
 
-<img width="1000" alt="스크린샷 2021-08-18 오후 4 41 39" src="https://user-images.githubusercontent.com/54533309/129858144-ddbe6378-04a1-45ef-853a-e78e4c6e584c.png">
+<img width="600" alt="스크린샷 2021-08-18 오후 4 41 39" src="https://user-images.githubusercontent.com/54533309/129858144-ddbe6378-04a1-45ef-853a-e78e4c6e584c.png">
 
 ---
 
-<img width="1000" alt="스크린샷 2021-08-18 오후 4 42 28" src="https://user-images.githubusercontent.com/54533309/129858285-c56030f5-5cfd-4001-b7da-dfcf7d212f66.png">
+<img width="600" alt="스크린샷 2021-08-18 오후 4 42 28" src="https://user-images.githubusercontent.com/54533309/129858285-c56030f5-5cfd-4001-b7da-dfcf7d212f66.png">
 
 <br>
 
 ## 🤖 감정 분석 과정
 
-<img width="1000" alt="스크린샷 2021-08-18 오후 4 43 30" src="https://user-images.githubusercontent.com/54533309/129858429-4393f02a-eb5c-482d-9b50-9b556b12a94d.png">
+<img width="600" alt="스크린샷 2021-08-18 오후 4 43 30" src="https://user-images.githubusercontent.com/54533309/129858429-4393f02a-eb5c-482d-9b50-9b556b12a94d.png">
 
 <br>
 
 ## 📈 모델 학습 및 성능
 
-<img width="1000" alt="스크린샷 2021-08-18 오후 4 44 48" src="https://user-images.githubusercontent.com/54533309/129858612-2a22f48c-e14a-4482-b3b6-50e39a2c07c0.png">
+<img width="600" alt="스크린샷 2021-08-18 오후 4 44 48" src="https://user-images.githubusercontent.com/54533309/129858612-2a22f48c-e14a-4482-b3b6-50e39a2c07c0.png">
 
 ## ⚙️ 기술 스택
 
-<img width="1000" alt="스크린샷 2021-08-18 오후 4 46 14" src="https://user-images.githubusercontent.com/54533309/129858830-d45e5173-4928-4634-8e3b-6ee6cec3b090.png">
+<img width="600" alt="스크린샷 2021-08-18 오후 4 46 14" src="https://user-images.githubusercontent.com/54533309/129858830-d45e5173-4928-4634-8e3b-6ee6cec3b090.png">
 

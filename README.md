@@ -6,7 +6,7 @@
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FNam-Ki-Bok%2Fminutes-of-sentiment-analysis&count_bg=%23E9B285&title_bg=%23F89647&icon=icloud.svg&icon_color=%23E7E7E7&title=%EA%B0%90%3A%ED%9A%8C&edge_flat=false)](https://hits.seeyoufarm.com)
 
 ## 프로젝트 관련 링크
-> 감:회 사이트 링크 : https://namkibok.shop   
+> 감:회 사이트 링크 : https://namkibok.shop (비용 문제로 배포 중단)
 > 시연 영상 : https://youtu.be/A7udbtksEUs
 
 <br>

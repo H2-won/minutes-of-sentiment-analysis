@@ -65,7 +65,7 @@
 
 <br>
 
-| ![oDbwVDMI4W](https://springboot-webservice-build-zip.s3.ap-northeast-2.amazonaws.com/%E1%84%89%E1%85%B5%E1%86%AF%E1%84%89%E1%85%B5%E1%84%80%E1%85%A1%E1%86%AB_%E1%84%80%E1%85%A1%E1%86%B7%E1%84%8C%E1%85%A5%E1%86%BC_%E1%84%87%E1%85%AE%E1%86%AB%E1%84%89%E1%85%A5%E1%86%A8.gif) |
+| ![oDbwVDMI4W](https://user-images.githubusercontent.com/54533309/129859890-b2264a87-ce55-43f1-a550-ada14cc8c724.gif) |
 | :----------------------------------------------------------: |
 |                   **실시간 회의 감정분석**                   |
 
@@ -105,25 +105,25 @@
 
 ## 🛠 전체 구성도 및 개념도
 
-<img width="1386" alt="스크린샷 2021-08-18 오후 4 41 39" src="https://user-images.githubusercontent.com/54533309/129858144-ddbe6378-04a1-45ef-853a-e78e4c6e584c.png">
+<img width="1000" alt="스크린샷 2021-08-18 오후 4 41 39" src="https://user-images.githubusercontent.com/54533309/129858144-ddbe6378-04a1-45ef-853a-e78e4c6e584c.png">
 
 ---
 
-<img width="1386" alt="스크린샷 2021-08-18 오후 4 42 28" src="https://user-images.githubusercontent.com/54533309/129858285-c56030f5-5cfd-4001-b7da-dfcf7d212f66.png">
+<img width="1000" alt="스크린샷 2021-08-18 오후 4 42 28" src="https://user-images.githubusercontent.com/54533309/129858285-c56030f5-5cfd-4001-b7da-dfcf7d212f66.png">
 
 <br>
 
 ## 🤖 감정 분석 과정
 
-<img width="1386" alt="스크린샷 2021-08-18 오후 4 43 30" src="https://user-images.githubusercontent.com/54533309/129858429-4393f02a-eb5c-482d-9b50-9b556b12a94d.png">
+<img width="1000" alt="스크린샷 2021-08-18 오후 4 43 30" src="https://user-images.githubusercontent.com/54533309/129858429-4393f02a-eb5c-482d-9b50-9b556b12a94d.png">
 
 <br>
 
 ## 📈 모델 학습 및 성능
 
-<img width="1386" alt="스크린샷 2021-08-18 오후 4 44 48" src="https://user-images.githubusercontent.com/54533309/129858612-2a22f48c-e14a-4482-b3b6-50e39a2c07c0.png">
+<img width="1000" alt="스크린샷 2021-08-18 오후 4 44 48" src="https://user-images.githubusercontent.com/54533309/129858612-2a22f48c-e14a-4482-b3b6-50e39a2c07c0.png">
 
 ## ⚙️ 기술 스택
 
-<img width="1386" alt="스크린샷 2021-08-18 오후 4 46 14" src="https://user-images.githubusercontent.com/54533309/129858830-d45e5173-4928-4634-8e3b-6ee6cec3b090.png">
+<img width="1000" alt="스크린샷 2021-08-18 오후 4 46 14" src="https://user-images.githubusercontent.com/54533309/129858830-d45e5173-4928-4634-8e3b-6ee6cec3b090.png">
 

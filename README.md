@@ -7,6 +7,7 @@
 
 ## 프로젝트 관련 링크
 > 감:회 사이트 링크 : https://namkibok.shop (비용 문제로 배포 중단)
+>
 > 시연 영상 : https://youtu.be/A7udbtksEUs
 
 <br>

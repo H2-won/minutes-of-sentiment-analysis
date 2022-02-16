@@ -1,70 +1,125 @@
-# Getting Started with Create React App
+# 🙄 감:회
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### 실시간 감정 분석이 결합된 화상회의/회의록 서비스
+> 🏅 최우수상 수상
 
-## Available Scripts
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FNam-Ki-Bok%2Fminutes-of-sentiment-analysis&count_bg=%23E9B285&title_bg=%23F89647&icon=icloud.svg&icon_color=%23E7E7E7&title=%EA%B0%90%3A%ED%9A%8C&edge_flat=false)](https://hits.seeyoufarm.com)
 
-In the project directory, you can run:
+## 프로젝트 관련 링크
+> 감:회 사이트 링크 : https://namkibok.shop (비용 문제로 배포 중단)
+>
+> 시연 영상 : https://youtu.be/A7udbtksEUs
 
-### `yarn start`
+<br>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## 팀원
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/H2-won"><img src="https://avatars.githubusercontent.com/u/59960678?v=4" width="100px" /></a></td>
+    <td align="center"><a href="https://github.com/Nam-Ki-Bok"><img src="https://avatars.githubusercontent.com/u/54533309?v=4" width="100px" /></a></td>
+    <td align="center"><a href="https://github.com/9b2n"><img src="https://avatars.githubusercontent.com/u/58130501?v=4" width="100px" /></a></td>
+    <td align="center"><a href="https://github.com/HaHyunCh0"><img src="https://avatars.githubusercontent.com/u/59433526?v=4" width="100px" /></a></td>
+  </tr>
+  <tr>
+    <td align="center"><b>임희원</b></td>
+    <td align="center"><b>남기복</b></td>
+    <td align="center"><b>방규빈</b></td>
+    <td align="center"><b>조하현</b></td>
+  </tr>
+  <tr>
+    <td align="center"><b>💻Frontend</b></td>
+    <td align="center"><b>⛏Backend</b></td>
+    <td align="center"><b>🔨Backend</b></td>
+    <td align="center"><b>🤖A.I</b></td>
+  </tr>
+</table>
+<br>
 
-### `yarn test`
+## 🌈 감:회 소개
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<img width="1380" alt="스크린샷 2021-08-18 오후 4 42 28" src="https://user-images.githubusercontent.com/54533309/129846651-3e169517-9288-4773-bcb4-a9d8cfd5888f.png">
 
-### `yarn build`
+감:회는 감정 분석이 결합된 화상회의 / 회의록 서비스입니다.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+실시간으로 화자의 발언을 텍스트로 변환하여 감정과 함께 표시해 주고 자동으로 회의록을 작성해 줍니다.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+회의 중 실시간으로 발언에 대한 북마크 기능을 제공하며
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+회의를 마친 뒤 회의록을 통해 회의 구간 별 주요 키워드와 회의 참여자들의 감정을 시각화하여 볼 수 있습니다.
 
-### `yarn eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## 💡 주요 기능
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+| ![](https://user-images.githubusercontent.com/54533309/129851447-ccbf81b8-4c3a-4b63-8067-8ebf80e79526.gif) |
+| :----------------------------------------------------------: |
+|                 **구글 로그인 및 회의 생성**                 |
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+1. 구글 계정을 통해 로그인할 수 있습니다.
+2. 회의 생성 버튼을 통해 회의를 생성합니다.
+3. 다른 이용자는 회의 코드를 통해 참여할 수 있습니다.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+<br>
 
-## Learn More
+| ![oDbwVDMI4W](https://user-images.githubusercontent.com/54533309/129859890-b2264a87-ce55-43f1-a550-ada14cc8c724.gif) |
+| :----------------------------------------------------------: |
+|                   **실시간 회의 감정분석**                   |
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1. 실시간으로 화자의 발언을 텍스트로 변환하여 감정과 함께 표시합니다.
+2. 회색 : 무감정
+3. 빨간색 : 화남
+4. 파란색 : 슬픔
+5. 노란색 : 기쁨
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+<br>
 
-### Code Splitting
+| ![EUcsu5cCGJ](https://user-images.githubusercontent.com/54533309/129853681-2a841e83-0de6-4bee-ae10-f2cf8052c049.gif) |
+| :----------------------------------------------------------: |
+|             **회의 기록 종료 및 실시간 북마크**              |
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+1. 기록 종료 버튼을 통해 회의록 작성을 종료합니다.
+2. 회의 도중의 발언을 실시간으로 북마크 할 수 있습니다.
 
-### Analyzing the Bundle Size
+<br>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+| ![EUcsu5cCGJ](https://user-images.githubusercontent.com/54533309/129855808-c8f8db02-ef9b-4f8a-a654-806d9881407c.gif) |
+| :----------------------------------------------------------: |
+|              **감정 그래프 및 구간 별 키워드**               |
 
-### Making a Progressive Web App
+1. 회의의 분위기를 감정 그래프를 통해 시각적으로 파악 가능합니다.
+2. 회의를 세 구간으로 나누어 어느 구간에서 어떤 주제를 다뤘는지 알 수 있습니다.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+<br>
 
-### Advanced Configuration
+| ![EUcsu5cCGJ](https://user-images.githubusercontent.com/54533309/129856600-1fdae250-f67b-4cfb-9421-061560491af2.gif) |
+| :----------------------------------------------------------: |
+|                    **북마크 및 총 정리**                     |
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+1. 회의 중 등록한 북마크를 확인할 수 있으며 북마크를 클릭하면 해당 발언으로 이동합니다.
+2. 오른쪽의 회의록을 통해 추가적으로 북마크를 등록할 수 있으며 수정, 삭제가 가능합니다.
+3. 총정리 페이지에서는 회의의 주요 감정과 주요 키워드를  확인할 수 있습니다.
 
-### Deployment
+## 🛠 전체 구성도 및 개념도
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+<img width="1380" alt="스크린샷 2021-08-18 오후 4 41 39" src="https://user-images.githubusercontent.com/54533309/129858144-ddbe6378-04a1-45ef-853a-e78e4c6e584c.png">
 
-### `yarn build` fails to minify
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<img width="1380" alt="스크린샷 2021-08-18 오후 4 42 28" src="https://user-images.githubusercontent.com/54533309/129858285-c56030f5-5cfd-4001-b7da-dfcf7d212f66.png">
+
+<br>
+
+## 🤖 감정 분석 과정
+
+<img width="1380" alt="스크린샷 2021-08-18 오후 4 43 30" src="https://user-images.githubusercontent.com/54533309/129858429-4393f02a-eb5c-482d-9b50-9b556b12a94d.png">
+
+<br>
+
+## 📈 모델 학습 및 성능
+
+<img width="1380" alt="스크린샷 2021-08-18 오후 4 44 48" src="https://user-images.githubusercontent.com/54533309/129858612-2a22f48c-e14a-4482-b3b6-50e39a2c07c0.png">
+
+## ⚙️ 기술 스택
+
+<img width="1380" alt="스크린샷 2021-08-18 오후 4 46 14" src="https://user-images.githubusercontent.com/54533309/129858830-d45e5173-4928-4634-8e3b-6ee6cec3b090.png">
+
